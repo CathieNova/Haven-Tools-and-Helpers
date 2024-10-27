@@ -150,6 +150,16 @@ a:hover {
     width: 100%;
 }
 
+.dark-section {
+    margin-top: 40px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    position: relative;
+}
+
 .dropdown-menu {
     display: none;
     position: absolute;
