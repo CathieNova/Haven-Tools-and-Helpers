@@ -85,10 +85,18 @@ button:hover {
 .dropdown-menu {
     background-color: #1e1e1e;
     border: 1px solid #444;
+    border-radius: 5px;
+    width: fit-content; /* Sets width based on content size */
+    min-width: 200px; /* Keeps a minimum width */
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 100;
 }
 
 .dropdown-item {
     color: #e0e0e0;
+    padding: 8px;
+    cursor: pointer;
 }
 
 .dropdown-item:hover {
@@ -134,20 +142,25 @@ a:hover {
 }
 
 #language-output {
-    background-color: #1e1e1e; /* Dark background */
-    color: #e0e0e0; /* Light text color */
+    background-color: #1e1e1e;
+    color: #e0e0e0;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #444;
-    white-space: pre-wrap; /* Keeps the text formatting */
+    white-space: pre-wrap;
 }
 
-.custom-dropdown .dropdown-search {
-    background-color: #2b2b2b; /* Darker input background */
+/* Custom styling for AssortmentUnlock fields */
+.assortment-id,
+.loyalty-level,
+.dropdown-search {
+    background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
-    position: relative;
+    padding: 8px;
+    margin-top: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .dark-section {
@@ -164,26 +177,12 @@ a:hover {
     display: none;
     position: absolute;
     background-color: #2b2b2b;
-    border: 1px solid #444;
-    border-radius: 5px;
-    width: fit-content; /* Sets width based on content size */
-    min-width: 200px; /* Keeps a minimum width */
-    max-height: 350px;
-    overflow-y: auto;
-    z-index: 100;
 }
-
 
 .dropdown-menu.show {
-    display: block; /* Show when active */
-}
-
-.dropdown-item {
-    padding: 8px;
-    color: #e0e0e0;
-    cursor: pointer;
+    display: block;
 }
 
 .dropdown-item:hover {
-    background: #3c3c3c; /* Highlight on hover */
+    background: #3c3c3c;
 }
