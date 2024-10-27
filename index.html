@@ -397,6 +397,8 @@
             rewardDetails.innerHTML = '';
 
             if (selectElement.value === 'AssortmentUnlock') {
+                console.log("AssortmentUnlock selected"); // Debugging
+
                 rewardDetails.innerHTML = `
                     <label>Reward ID:
                         <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
@@ -441,9 +443,7 @@
                 `;
             } else {
                 rewardDetails.innerHTML = `
-                    <label>Reward Value:
-                        <input type="number" placeholder="Value" required>
-                    </label>
+                    <label>Select something...</label>
                 `;
             }
         }
