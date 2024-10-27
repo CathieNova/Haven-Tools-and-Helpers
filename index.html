@@ -53,6 +53,7 @@
             <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_ZONES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Zones IDs</a></li>
             <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_PLACES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Places IDs</a></li>
         </ul>
+        <h4>Version 0.0.1</h4>
     </section>
     
     <section id="how-to-use" style="display: none; position: relative;">
@@ -147,36 +148,31 @@
         let items = [];
         let languageData = {};
 
-        // Load default language on page load
         document.addEventListener('DOMContentLoaded', () => {
             loadLanguage('en.json');
             loadItems();
         });
 
         function reloadPage() {
-            const currentUrl = window.location.href.split('?')[0]; // Get the base URL without any query parameters
-            window.location.href = `${currentUrl}?t=${new Date().getTime()}`; // Append a timestamp as a query parameter
+            const currentUrl = window.location.href.split('?')[0];
+            window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
         }
 
-        // Load language JSON and map items based on selected language
         async function loadLanguage(languageFile) {
             try {
                 const response = await fetch(`lang/${languageFile}`);
                 if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
                 
-                // Load new language data
                 languageData = await response.json();
                 
-                // Update display names based on the new language
                 mapLanguageToItems();
                 
-                // Update any currently displayed target items
                 const targetItemDivs = document.querySelectorAll('.target-item .dropdown-item');
                 targetItemDivs.forEach(itemDiv => {
                     const itemId = itemDiv.getAttribute('data-value');
                     const item = items.find(i => i._id === itemId);
                     if (item) {
-                        itemDiv.textContent = item.displayName; // Update the text to match the new language
+                        itemDiv.textContent = item.displayName;
                     }
                 });
             } catch (error) {
@@ -184,7 +180,6 @@
             }
         }
 
-        // Load items JSON
         async function loadItems() {
             if (!window.itemsLoaded) {
                 try {
@@ -192,10 +187,8 @@
                     if (!response.ok) throw new Error(`Error loading items: ${response.status}`);
                     const allItems = await response.json();
 
-                    // Only select items with a defined _id and _props
                     items = Object.values(allItems).filter(item => item._id && item._props);
 
-                    // Map language data to items and sort them by Name after setting display names
                     mapLanguageToItems();
                     items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
 
@@ -207,7 +200,6 @@
             }
         }
 
-        // Map language data to items based on ShortName or fallback to Name
         function mapLanguageToItems() {
             if (!languageData || !items) return;
 
@@ -216,11 +208,9 @@
                 const shortNameKey = `${itemId} ShortName`;
                 const nameKey = `${itemId} Name`;
 
-                // Set the display name based on the language data or fallback to item name
                 item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props.Name;
             });
 
-            // Sort items by display name (after names are mapped)
             items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
         }
 
@@ -330,8 +320,8 @@
         }
 
         function addTargetItem() {
-            const conditionDiv = event.target.closest('.condition'); // Get the closest condition div
-            const container = conditionDiv.querySelector('.target-items-container'); // Find the specific target-items-container for this condition
+            const conditionDiv = event.target.closest('.condition');
+            const container = conditionDiv.querySelector('.target-items-container');
             const targetDiv = document.createElement('div');
             targetDiv.classList.add('target-item');
 
@@ -358,28 +348,26 @@
 
         function filterDropdown(input) {
             const searchTerm = input.value.toLowerCase();
-            const dropdownMenu = input.nextElementSibling; // Get the dropdown menu
+            const dropdownMenu = input.nextElementSibling;
 
-            // Show or hide dropdown based on search input
             if (searchTerm) {
-                dropdownMenu.classList.add('show'); // Show dropdown if there's input
+                dropdownMenu.classList.add('show');
             } else {
-                dropdownMenu.classList.remove('show'); // Hide dropdown if input is empty
+                dropdownMenu.classList.remove('show');
             }
 
-            // Filter items based on search term
             Array.from(dropdownMenu.children).forEach(item => {
                 const itemName = item.textContent.toLowerCase();
-                item.style.display = itemName.includes(searchTerm) ? 'block' : 'none'; // Show or hide based on match
+                item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
             });
         }
 
         function selectDropdownItem(item) {
-            const dropdown = item.closest('.custom-dropdown'); // Get the closest dropdown
-            const selectedItem = dropdown.querySelector('.dropdown-search'); // Get the input field
-            selectedItem.value = item.textContent.trim(); // Set the input value
-            selectedItem.dataset.selectedValue = item.dataset.value; // Store the selected value
-            dropdown.querySelector('.dropdown-menu').classList.remove('show'); // Hide dropdown after selection
+            const dropdown = item.closest('.custom-dropdown');
+            const selectedItem = dropdown.querySelector('.dropdown-search');
+            selectedItem.value = item.textContent.trim();
+            selectedItem.dataset.selectedValue = item.dataset.value;
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
         }
 
         function addReward() {
@@ -401,7 +389,7 @@
             `;
             
             container.appendChild(rewardDiv);
-            updateRewardFields(rewardDiv.querySelector('select')); // Update fields based on the selected reward type
+            updateRewardFields(rewardDiv.querySelector('select'));
         }
 
         function updateRewardFields(selectElement) {
@@ -435,11 +423,11 @@
         }
 
         function selectRewardItem(item) {
-            const dropdown = item.closest('.custom-dropdown'); // Get the closest dropdown
-            const selectedItem = dropdown.querySelector('.dropdown-search'); // Get the input field
-            selectedItem.value = item.textContent.trim(); // Set the input value
-            selectedItem.dataset.selectedValue = item.dataset.value; // Store the selected value
-            dropdown.querySelector('.dropdown-menu').classList.remove('show'); // Hide dropdown after selection
+            const dropdown = item.closest('.custom-dropdown');
+            const selectedItem = dropdown.querySelector('.dropdown-search');
+            selectedItem.value = item.textContent.trim();
+            selectedItem.dataset.selectedValue = item.dataset.value;
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
         }
 
         function removeReward(button) {
@@ -450,14 +438,13 @@
             const outputText = document.getElementById('output').textContent;
             navigator.clipboard.writeText(outputText).then(() => {
                 const button = document.getElementById('copyQuestButton');
-                button.innerText = "Copied to Clipboard"; // Change button text
-                setTimeout(() => button.innerText = "Copy Quest to Clipboard", 3000); // Revert after 3 seconds
+                button.innerText = "Copied to Clipboard";
+                setTimeout(() => button.innerText = "Copy Quest to Clipboard", 3000);
             }).catch(err => {
                 console.error("Failed to copy quest:", err);
             });
         }
 
-        // Function to copy the generated language entries to clipboard
         function copyLanguageEntries() {
             const languageOutputText = document.getElementById('language-output').textContent; 
             if (!languageOutputText) {
@@ -466,41 +453,41 @@
             }
             navigator.clipboard.writeText(languageOutputText).then(() => {
                 const button = document.getElementById('copyLangButton');
-                button.innerText = "Copied to Clipboard"; // Change button text
-                setTimeout(() => button.innerText = "Copy Language Variables to Clipboard", 3000); // Revert after 3 seconds
+                button.innerText = "Copied to Clipboard";
+                setTimeout(() => button.innerText = "Copy Language Variables to Clipboard", 3000);
             }).catch(err => {
                 console.error("Failed to copy language variables:", err);
             });
         }
 
 
-        let usefulInfoVisible = false; // Track visibility for useful info section
+        let usefulInfoVisible = false;
 
         function toggleUsefulInfo() {
-            const usefulInfoSection = document.getElementById('useful-info'); // Select the Useful info section
-            usefulInfoVisible = !usefulInfoVisible; // Toggle visibility
+            const usefulInfoSection = document.getElementById('useful-info');
+            usefulInfoVisible = !usefulInfoVisible;
 
             if (usefulInfoVisible) {
-                usefulInfoSection.style.display = 'block'; // Show the section
-                document.getElementById('toggleUsefulInfoBtn').innerText = 'Hide Useful Info'; // Update button text
+                usefulInfoSection.style.display = 'block';
+                document.getElementById('toggleUsefulInfoBtn').innerText = 'Hide Useful Info';
             } else {
-                usefulInfoSection.style.display = 'none'; // Hide the section
-                document.getElementById('toggleUsefulInfoBtn').innerText = 'Show Useful Info'; // Update button text
+                usefulInfoSection.style.display = 'none';
+                document.getElementById('toggleUsefulInfoBtn').innerText = 'Show Useful Info';
             }
         }
 
-        let howToUseVisible = false; // Track visibility for how to use section
+        let howToUseVisible = false;
 
         function toggleHowToUse() {
-            const howToUseSection = document.getElementById('how-to-use'); // Select the How to use section
-            howToUseVisible = !howToUseVisible; // Toggle visibility
+            const howToUseSection = document.getElementById('how-to-use');
+            howToUseVisible = !howToUseVisible;
 
             if (howToUseVisible) {
-                howToUseSection.style.display = 'block'; // Show the section
-                document.getElementById('toggleHowToUseBtn').innerText = 'Hide How to Use'; // Update button text
+                howToUseSection.style.display = 'block';
+                document.getElementById('toggleHowToUseBtn').innerText = 'Hide How to Use';
             } else {
-                howToUseSection.style.display = 'none'; // Hide the section
-                document.getElementById('toggleHowToUseBtn').innerText = 'Show How to Use'; // Update button text
+                howToUseSection.style.display = 'none';
+                document.getElementById('toggleHowToUseBtn').innerText = 'Show How to Use';
             }
         }
 
@@ -510,19 +497,13 @@
             const trader = document.getElementById('trader-name').value;
             const questType = document.getElementById('quest-type').value;
 
-            // Validate inputs
-            if (!questName || !trader) {
-                alert('Please fill in both Quest Name and Trader Name');
-                return; // Exit the function if inputs are invalid
-            }
-
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
 
                 if (conditionType === 'Kills') {
-                    const locationId = div.querySelector('.location-dropdown').value; // Get location ID for Kills condition
-                    const timeFrom = div.querySelector('input[type=number]:nth-of-type(1)').value; // Get time from
-                    const timeTo = div.querySelector('input[type=number]:nth-of-type(2)').value; // Get time to
+                    const locationId = div.querySelector('.location-dropdown').value;
+                    const timeFrom = div.querySelector('input[type=number]:nth-of-type(1)').value;
+                    const timeTo = div.querySelector('input[type=number]:nth-of-type(2)').value;
                     return [
                         {
                             conditionType: "InZone",
@@ -631,27 +612,22 @@
             languageEntries[`${trader}_0 changeQuestMessageText`] = ""; // Message when quest text is changed
 
 
-            // Loop through conditions to add language entries
             conditions.forEach((condition) => {
                 if (typeof condition === "object" && condition.id) {
-                    languageEntries[condition.id] = ""; // Add language entry for each condition
+                    languageEntries[condition.id] = "";
                 }
             });
 
-            // Loop through rewards to add language entries
             rewards.forEach(reward => {
-                languageEntries[reward.id] = ""; // Add language entry for each reward
+                languageEntries[reward.id] = "";
             });
 
-            // Display the quest
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             
-            // Display the language variables
             const languageEntriesOutput = document.getElementById('language-output');
             languageEntriesOutput.textContent = JSON.stringify(languageEntries, null, 2);
 
-            // Show the quest output section
-            document.getElementById('quest-output-section').style.display = 'block'; // Make sure to show it
+            document.getElementById('quest-output-section').style.display = 'block';
         }
     </script>
 </body>
