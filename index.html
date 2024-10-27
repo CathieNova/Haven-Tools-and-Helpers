@@ -381,6 +381,7 @@
                         <option value="Experience">Experience</option>
                         <option value="TraderStanding">Trader Standing</option>
                         <option value="Item">Item</option>
+                        <option value="Skill">AssortmentUnlock</option>
                     </select>
                 </label>
                 <div class="reward-details"></div>
@@ -395,7 +396,33 @@
             const rewardDetails = selectElement.closest('.reward').querySelector('.reward-details');
             rewardDetails.innerHTML = '';
 
-            if (selectElement.value === 'Item') {
+            if (selectElement.value === 'AssortmentUnlock') {
+                rewardDetails.innerHTML = `
+                    <label>Reward ID:
+                        <input type="text" placeholder="Enter reward _id" required>
+                    </label>
+                    <label>Loyalty Level:
+                        <select required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                    <label>Item:
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
+                            <div class="dropdown-menu">
+                                ${items.map(item =>
+                                    `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                        ${item.displayName}
+                                    </div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </label>
+                `;
+            } else if (selectElement.value === 'Item') {
                 rewardDetails.innerHTML = `
                     <label>Reward Item:</label>
                     <div class="custom-dropdown">
@@ -554,12 +581,37 @@
                 }
             }).flat();
 
-            const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => ({
-                id: `${trader}_0 reward_${index}`,
-                index: index,
-                type: div.querySelector('select').value,
-                value: div.querySelector('input[type=number]').value
-            }));
+            const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
+                const rewardType = div.querySelector('select').value;
+
+                if (rewardType === 'AssortmentUnlock') {
+                    const rewardId = div.querySelector('input[type="text"]').value;
+                    const loyaltyLevel = parseInt(div.querySelector('select').value);
+                    const itemId = div.querySelector('.dropdown-search').dataset.selectedValue;
+
+                    return {
+                        id: `${trader}_0 reward_${index}`,
+                        index: index,
+                        items: [
+                            {
+                                _id: rewardId,
+                                _tpl: itemId,
+                            }
+                        ],
+                        loyaltyLevel: loyaltyLevel,
+                        target: rewardId,
+                        traderId: trader,
+                        type: 'AssortmentUnlock'
+                    };
+                } else {
+                    return {
+                        id: `${trader}_0 reward_${index}`,
+                        index: index,
+                        type: rewardType,
+                        value: div.querySelector('input[type=number]').value
+                    };
+                }
+            });
 
             const quest = {
                 [questNameID]: {
@@ -600,34 +652,39 @@
 
             // Prepare language entries
             let languageEntries = {};
-            languageEntries[`${trader}_0 name`] = ""; // Quest Name
-            languageEntries[`${trader}_0 description`] = ""; // Quest Description
-            languageEntries[`${trader}_0 startedMessageText`] = ""; // Message when quest is started
-            languageEntries[`${trader}_0 successMessageText`] = ""; // Message when quest is successfully completed
-            languageEntries[`${trader}_0 failMessageText`] = ""; // Message when quest fails
-            languageEntries[`${trader}_0 acceptPlayerMessage`] = ""; // Message when quest is accepted
-            languageEntries[`${trader}_0 declinePlayerMessage`] = ""; // Message when quest is declined
-            languageEntries[`${trader}_0 completePlayerMessage`] = ""; // Message when quest is completed
-            languageEntries[`${trader}_0 changeQuestMessageText`] = ""; // Message when quest text is changed
+            languageEntries[`${trader}_0 name`] = ""; 
+            languageEntries[`${trader}_0 description`] = ""; 
+            languageEntries[`${trader}_0 startedMessageText`] = ""; 
+            languageEntries[`${trader}_0 successMessageText`] = ""; 
+            languageEntries[`${trader}_0 failMessageText`] = ""; 
+            languageEntries[`${trader}_0 acceptPlayerMessage`] = ""; 
+            languageEntries[`${trader}_0 declinePlayerMessage`] = ""; 
+            languageEntries[`${trader}_0 completePlayerMessage`] = ""; 
+            languageEntries[`${trader}_0 changeQuestMessageText`] = ""; 
 
-
+            // Loop through conditions to add language entries
             conditions.forEach((condition) => {
                 if (typeof condition === "object" && condition.id) {
-                    languageEntries[condition.id] = "";
+                    languageEntries[condition.id] = ""; 
                 }
             });
 
+            // Loop through rewards to add language entries
             rewards.forEach(reward => {
-                languageEntries[reward.id] = "";
+                languageEntries[reward.id] = ""; 
             });
 
+            // Display the quest
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             
+            // Display the language variables
             const languageEntriesOutput = document.getElementById('language-output');
             languageEntriesOutput.textContent = JSON.stringify(languageEntries, null, 2);
 
+            // Show the quest output section
             document.getElementById('quest-output-section').style.display = 'block';
         }
+
     </script>
 </body>
 </html>
