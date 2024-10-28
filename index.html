@@ -191,6 +191,8 @@
             populateLanguageFields();
         });
 
+        document.getElementById('weapon-caliber-select').addEventListener('change', handleWeaponCaliberSelection);
+
         function reloadPage() {
             const currentUrl = window.location.href.split('?')[0];
             window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
@@ -432,7 +434,7 @@
                         </select>
                     </div>
                     <label>Target Body Part:</label>
-                    <select id="body-part-select">
+                    <select id="body-part-select" multiple>
                         <option value="">Any</option>
                         <option value="Head">Head</option>
                         <option value="Chest">Chest</option>
@@ -489,17 +491,21 @@
                     </div>
                 `;
                 
-                document.getElementById('target-select').addEventListener('change', function() {
-                    const savageRoleLabel = document.getElementById('savage-role-label');
-                    const savageRoleSelect = document.getElementById('savage-role-select');
-                    if (this.value === 'Savage') {
-                        savageRoleLabel.style.display = 'block';
-                        savageRoleSelect.style.display = 'block';
-                    } else {
-                        savageRoleLabel.style.display = 'none';
-                        savageRoleSelect.style.display = 'none';
+                const targetSelect = document.getElementById('target-select');
+                    if (targetSelect) {
+                        targetSelect.addEventListener('change', function() {
+                            const savageRoleLabel = document.getElementById('savage-role-label');
+                            const savageRoleSelect = document.getElementById('savage-role-select');
+                            if (this.value === 'Savage') {
+                                savageRoleLabel.style.display = 'block';
+                                savageRoleSelect.style.display = 'block';
+                            } else {
+                                savageRoleLabel.style.display = 'none';
+                                savageRoleSelect.style.display = 'none';
+                            }
+                        });
                     }
-                });
+
             } else if (selectElement.value === 'VisitPlace') {
                 conditionDetails.innerHTML = `
                     <label>Target Zone ID (e.g., huntsman_029):
@@ -672,14 +678,21 @@
             button.closest('.inclusive-item, .exclusive-item').remove();
         }
 
+        let selectedWeaponCalibers = [];
+
         function handleWeaponCaliberSelection() {
             const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
             const isAllSelected = Array.from(weaponCaliberSelect.selectedOptions).some(option => option.value === 'all');
 
             if (isAllSelected) {
-                // If "All" is selected, clear other selections
-                weaponCaliberSelect.selectedIndex = -1; // Deselect all options
-                weaponCaliberSelect.querySelector('[value="all"]').selected = true; // Only keep "All" selected
+                // Deselect all other options except "All"
+                Array.from(weaponCaliberSelect.options).forEach(option => {
+                    option.selected = option.value === 'all';
+                });
+                selectedWeaponCalibers = ["all"]; // Set selectedWeaponCalibers to "all" when "All" is selected
+            } else {
+                // Update selectedWeaponCalibers with selected options' values
+                selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions).map(option => option.value);
             }
         }
 
@@ -1156,6 +1169,8 @@
                     const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
                     
                     const bodyPartSelect = div.querySelector('#body-part-select');
+                    const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
+
                     const savageRoleSelect = div.querySelector('#savage-role-select');
                     const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                     const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
