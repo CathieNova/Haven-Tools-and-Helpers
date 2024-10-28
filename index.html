@@ -159,7 +159,7 @@
     <!-- Quest Input Section -->
     <section>
         <h2 style="color: #ff7920;">Quest Creation</h2>
-        <label for="quest-name">Quest Name:</label>
+        <label style="color: #06b600;" for="quest-name">Quest Name:</label>
         <input type="text" id="quest-name" placeholder="Enter quest name" required>
 
         <label for="trader-name" style="color: #06b600;">Quest Trader Name:</label>
@@ -343,7 +343,7 @@
                 </label>
                 <div class="condition-details"></div>
                 <div class="visibility-conditions">
-                    <h4>Visibility Condition</h4>
+                    <h4 style="color: #06b600;">Visibility Condition</h4>
                     <label>Visibility Target Objective ID: ("${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}" <-- for the last quest objective)
                         <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
@@ -423,7 +423,7 @@
                     <label style="color: #06b600;">Target Items:</label>
                     <div class="target-items-container"></div>
                     <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
-                    <label>Value:
+                    <label style="color: #06b600;">Value:
                         <input type="number" placeholder="Enter level" required value="1">
                     </label>
                     <div style="display: flex; align-items: center; text-align: left;">
@@ -930,7 +930,7 @@
                             ).join('')}
                         </div>
                     </div>
-                    <label>Value:
+                    <label style="color: #06b600;">Value:
                         <input type="number" placeholder="Quantity" required  value="1">
                     </label>
                 `;
@@ -1127,7 +1127,7 @@
                             <option value="<="><=</option>
                         </select>
                     </label>
-                    <label>Value:
+                    <label style="color: #06b600;">Value:
                         <input type="number" placeholder="Enter level" required>
                     </label>
                 `;
@@ -1142,7 +1142,7 @@
                             <option value="5">Quest Failed - 5</option>
                         </select>
                     </label>
-                    <label>Target Quest ID:
+                    <label style="color: #06b600;">Target Quest ID:
                         <input type="text" placeholder="Enter quest ID" required>
                     </label>
                 `;
@@ -1151,7 +1151,7 @@
                     <label style="color: #06b600;">Trader ID:
                         <input type="text" placeholder="Enter trader ID" required>
                     </label>
-                    <label>Loyalty Level:
+                    <label style="color: #06b600;">Loyalty Level:
                         <select>
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
