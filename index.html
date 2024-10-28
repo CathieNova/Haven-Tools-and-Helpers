@@ -1007,6 +1007,9 @@
                                 </div>
                             </div>
                         </label>
+                        <label style="color: #06b600;">
+                            <input type="checkbox" class="unknown-checkbox"> Hidden Reward
+                        </label>
                     `;
                 } else if (selectElement.value === 'Item') {
                     rewardDetails.innerHTML = `
@@ -1023,6 +1026,9 @@
                         </div>
                         <label style="color: #06b600;">Value:
                             <input type="number" placeholder="Quantity" required  value="1">
+                        </label>
+                        <label style="color: #06b600;">
+                            <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
                     `;
                 } else if (selectElement.value === 'TraderStanding') {
@@ -1520,21 +1526,29 @@
                     const rewardType = div.querySelector('select').value;
                     const rewardId = `${trader}_${questNumber} reward_${index}`;
 
-                    if (rewardType === 'AssortmentUnlock' || rewardType === 'Item') {
+                    if (rewardType === 'AssortmentUnlock') {
+                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         const inputElement = div.querySelector('.dropdown-search');
                         const itemId = getTplId(inputElement);
 
-                        return rewardType === 'Item' ? {
-                            type: rewardType,
-                            id: rewardId,
-                            _tpl: itemId,
-                            value: parseInt(div.querySelector('input[type=number]').value, 10)
-                        } : {
+                        return {
                             type: 'AssortmentUnlock',
                             id: rewardId,
                             items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
                             loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10),
-                            target: div.querySelector('.assortment-id').value
+                            target: div.querySelector('.assortment-id').value,
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false
+                        };
+                    } else if (rewardType === 'Item') {
+                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
+                        const inputElement = div.querySelector('.dropdown-search');
+                        const itemId = getTplId(inputElement);
+                        return {
+                            type: rewardType,
+                            id: rewardId,
+                            _tpl: itemId,
+                            value: parseInt(div.querySelector('input[type=number]').value, 10),
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false
                         };
                     } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
                         // Correctly select the input field for the value
