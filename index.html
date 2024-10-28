@@ -272,7 +272,7 @@
                 <div class="visibility-conditions">
                     <h4>Visibility Condition</h4>
                     <label>Visibility Target Objective ID:
-                        <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed.">
+                        <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
                 </div>
             `;
@@ -795,6 +795,18 @@
             });
         }
 
+        // Helper function to generate visibility conditions if a target ID is specified
+        function generateVisibilityConditions(div, conditionId) {
+            const visibilityTargetId = div.querySelector('.visibility-target')?.value;
+            if (visibilityTargetId) {
+                return [{
+                    conditionType: "CompleteCondition",
+                    id: generateUniqueId(),  // Generates a unique MongoDB-style ID for each visibility condition
+                    target: visibilityTargetId
+                }];
+            }
+            return [];
+        }
 
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
@@ -906,20 +918,6 @@
                 }
                 return {};
             });
-
-            // Helper function to generate visibility conditions if a target ID is specified
-            function generateVisibilityConditions(div, conditionId) {
-                const visibilityTargetId = div.querySelector('.visibility-target')?.value;
-                if (visibilityTargetId) {
-                    return [{
-                        conditionType: "CompleteCondition",
-                        id: generateUniqueId(),  // Generates a unique MongoDB-style ID for each visibility condition
-                        target: visibilityTargetId
-                    }];
-                }
-                return [];
-            }
-
 
             // Rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
