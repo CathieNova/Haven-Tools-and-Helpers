@@ -767,25 +767,36 @@
                 const conditionType = div.querySelector('select').value;
 
                 if (conditionType === 'Level') {
+                    const compareSelect = div.querySelector('select:nth-of-type(2)');
+                    const compareMethod = compareSelect ? compareSelect.value : null; // Default to null if not found
+
                     return {
-                        compareMethod: div.querySelector('select:nth-of-type(2)').value,
+                        compareMethod: compareMethod,
                         conditionType: 'Level',
                         id: `level_condition_${index}`,
                         value: parseInt(div.querySelector('input[type=number]').value, 10)
                     };
                 } else if (conditionType === 'Quest') {
+                    const statusOptions = div.querySelectorAll('select[multiple] option:checked');
+                    const targetInput = div.querySelector('input[type=text]');
+
                     return {
                         conditionType: 'Quest',
                         id: `quest_condition_${index}`,
-                        status: Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => parseInt(opt.value, 10)),
-                        target: div.querySelector('input[type=text]').value
+                        status: statusOptions.length > 0 
+                            ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) 
+                            : [], // Empty array if no options are selected
+                        target: targetInput ? targetInput.value : '' // Default to empty string if input is missing
                     };
                 } else if (conditionType === 'TraderLoyalty') {
+                    const targetInput = div.querySelector('input[type=text]');
+                    const valueInput = div.querySelector('input[type=number]');
+
                     return {
                         conditionType: 'TraderLoyalty',
                         id: `trader_loyalty_condition_${index}`,
-                        target: div.querySelector('input[type=text]').value,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10)
+                        target: targetInput ? targetInput.value : '', // Default to empty string if input is missing
+                        value: valueInput ? parseInt(valueInput.value, 10) : 0 // Default to 0 if input is missing
                     };
                 }
                 return {};
