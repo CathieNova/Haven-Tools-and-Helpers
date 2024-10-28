@@ -55,6 +55,7 @@ select, input, button {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
+    align-items: center;
     padding: 8px;
     margin: 5px 0;
     margin-left: 10px;
@@ -125,8 +126,7 @@ pre {
 }
 
 /* Ensure dropdowns and buttons resize */
-.custom-dropdown .dropdown-search,
-button {
+.custom-dropdown .dropdown-search {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -145,15 +145,6 @@ label, .available-for-start-condition label {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-}
-
-button {
-    background-color: #700067;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
 }
 
 button:hover {
