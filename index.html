@@ -190,7 +190,11 @@
             loadItems();
             populateLanguageFields();
             weaponCaliberSelection();
-            savageSelection();
+
+            const targetSelect = document.getElementById('target-select');
+            if (targetSelect) {
+                targetSelect.addEventListener('change', savageSelection);
+            }
         });
 
         function reloadPage() {
@@ -1088,11 +1092,12 @@
             return [];
         }
 
-        function savageSelection()
-        {
+        function savageSelection(event) {
             const savageRoleLabel = document.getElementById('savage-role-label');
             const savageRoleSelect = document.getElementById('savage-role-select');
-            if (this.value === 'Savage') {
+            
+            // Check if the selected value is "Savage"
+            if (event.target.value === 'Savage') {
                 savageRoleLabel.style.display = 'block';
                 savageRoleSelect.style.display = 'block';
             } else {
@@ -1101,8 +1106,7 @@
             }
         }
 
-        function weaponCaliberSelection()
-        {
+        function weaponCaliberSelection() {
             const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
             if (weaponCaliberSelect) {
                 weaponCaliberSelect.addEventListener('change', handleWeaponCaliberSelection);
