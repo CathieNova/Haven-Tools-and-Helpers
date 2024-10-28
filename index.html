@@ -1122,10 +1122,12 @@
                     // Ensure weaponCaliber selections are properly captured
                     const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
                     const selectedWeaponCalibers = weaponCaliberSelect 
-                        ? Array.from(weaponCaliberSelect.selectedOptions)
+                        ? Array.from(weaponCaliberSelect.options)
+                            .filter(option => option.selected && option.value !== 'all')
                             .map(option => option.value)
-                            .filter(value => value !== 'all')
                         : [];
+
+                    console.log("Selected weapon calibers:", selectedWeaponCalibers);
 
                     return {
                         includeNotEquippedItems: false,
@@ -1133,7 +1135,7 @@
                         dynamicLocale: false,
                         equipmentExclusive: exclusiveItems,
                         equipmentInclusive: inclusiveItems,
-                        weaponCaliber: selectedWeaponCalibers.length === 0 ? [] : selectedWeaponCalibers,
+                        weaponCaliber: selectedWeaponCalibers.length > 0 ? selectedWeaponCalibers : [],
                         id: conditionId
                     };
                 }
