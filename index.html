@@ -987,11 +987,7 @@
         }
 
         function copyLanguageEntries() {
-            const languageOutputText = document.getElementById('language-output').textContent; 
-            if (!languageOutputText) {
-                console.error("No language variables to copy.");
-                return; 
-            }
+            const languageOutputText = document.getElementById('language-output').textContent;
             navigator.clipboard.writeText(languageOutputText).then(() => {
                 const button = document.getElementById('copyLangButton');
                 button.innerText = "Copied to Clipboard";
@@ -1000,7 +996,6 @@
                 console.error("Failed to copy language variables:", err);
             });
         }
-
 
         let usefulInfoVisible = false;
 
@@ -1511,6 +1506,8 @@
             document.getElementById('assortments-output').textContent = assortmentsContent;
 
             document.getElementById('quest-output-section').style.display = 'block';
+            document.getElementById('language-output-section').style.display = 'block';
+            document.getElementById('assortments-output-section').style.display = 'block';
         }
 
     </script>
