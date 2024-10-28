@@ -267,9 +267,10 @@
                     <select onchange="updateConditionFields(this)">
                         <option value="FindItem">Find Item</option>
                         <option value="HandoverItem">Handover Item</option>
-                        <option value="Kills">Kills</option>
                         <option value="VisitPlace">Visit Place</option>
                         <option value="Skill">Skill</option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Kills">Kills</option>
                     </select>
                 </label>
                 <div class="condition-details"></div>
@@ -401,7 +402,7 @@
                     <label>Kills Required:
                         <input type="number" placeholder="Number of kills" required value="1">
                     </label>
-                    <label>Distance Comparison:
+                    <label>Distance Comparison: (0 = any distance, >= 50 = greater than or equal to 50 meters)
                         <select>
                             <option value=">=">&ge;</option>
                             <option value="<=">&le;</option>
@@ -456,7 +457,43 @@
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
                 `;
+            } else if (selectElement.value === 'Equipment') {
+                conditionDetails.innerHTML = `
+                    <label>Items Required to be Equipped:</label>
+                    <div class="equipment-inclusive-container"></div>
+                    <button type="button" onclick="addEquipmentItem()" style="margin-top: 10px;">Add Item</button>
+                    <div style="margin-top: 10px; display: inline-block;">
+                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                    </div>
+                `;
             }
+        }
+
+        function addEquipmentItem() {
+            const container = document.querySelector('.equipment-inclusive-container');
+            const equipmentDiv = document.createElement('div');
+            equipmentDiv.classList.add('equipment-item');
+
+            equipmentDiv.innerHTML = `
+                <div class="custom-dropdown">
+                    <label>Search or Enter ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
+            `;
+
+            container.appendChild(equipmentDiv);
+        }
+
+        function removeEquipmentItem(button) {
+            button.closest('.equipment-item').remove();
         }
 
         function addTargetItem() {
@@ -591,13 +628,13 @@
                         </div>
                     </div>
                     <label>Value:
-                        <input type="number" placeholder="Quantity" required>
+                        <input type="number" placeholder="Quantity" required  value="1">
                     </label>
                 `;
             } else if (selectElement.value === 'TraderStanding') {
                 rewardDetails.innerHTML = `
                     <label>Value:
-                        <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc..">
+                        <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc.."  value="0.1">
                     </label>
                 `;
             }
@@ -605,7 +642,7 @@
             else if (selectElement.value === 'Experience') {
                 rewardDetails.innerHTML = `
                     <label>Value:
-                        <input type="text" class="reward-value" placeholder="Enter amount of Experience">
+                        <input type="text" class="reward-value" placeholder="Enter amount of Experience" value="5000">
                     </label>
                 `;
             } else if (selectElement.value === 'Skill') {
@@ -616,7 +653,7 @@
                         </select>
                     </label>
                     <label>Value: (Psycho Sniper gives value 300 which is 3 levels)
-                        <input type="number" class="skill-value" placeholder="Enter value" required>
+                        <input type="number" class="skill-value" placeholder="Enter value" required  value="1">
                     </label>
                 `;
             }
@@ -968,8 +1005,9 @@
                 }
                 // Skill Condition
                 else if (conditionType === 'Skill') {
+                    const compareSelect = div.querySelector('select:nth-of-type(1)'); // First select element for comparison method
                     return {
-                        compareMethod: div.querySelector('select').value,
+                        compareMethod: compareSelect ? compareSelect.value : '', // Apply the compareMethod
                         conditionType: "Skill",
                         dynamicLocale: false,
                         globalQuestCounterId: "",
@@ -979,6 +1017,21 @@
                         target: div.querySelector('.skill-target').value,
                         value: parseInt(div.querySelector('.skill-value').value, 10),
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
+                    };
+                }
+                // Equipment Condition
+                else if (conditionType === 'Equipment') {
+                    const equipmentInclusiveItems = Array.from(div.querySelectorAll('.equipment-item')).map(itemDiv => {
+                        const inputElement = itemDiv.querySelector('.dropdown-search');
+                        return [getTplId(inputElement)];
+                    });
+                    return {
+                        includeNotEquippedItems: false,
+                        conditionType: "Equipment",
+                        dynamicLocale: false,
+                        equipmentExclusive: [],
+                        equipmentInclusive: equipmentInclusiveItems,
+                        id: conditionId
                     };
                 }
                 return {};
