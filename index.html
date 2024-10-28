@@ -191,8 +191,6 @@
             populateLanguageFields();
         });
 
-        document.getElementById('weapon-caliber-select').addEventListener('change', handleWeaponCaliberSelection);
-
         function reloadPage() {
             const currentUrl = window.location.href.split('?')[0];
             window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
@@ -695,6 +693,8 @@
                 selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions).map(option => option.value);
             }
         }
+
+        document.getElementById('weapon-caliber-select').addEventListener('change', handleWeaponCaliberSelection);
 
         function addTargetItem() {
             const conditionDiv = event.target.closest('.condition');
