@@ -1055,6 +1055,14 @@
                     const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
                     const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
 
+                    // Capture selected weapon calibers
+                    const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
+                    const selectedWeaponCalibers = weaponCaliberSelect 
+                        ? Array.from(weaponCaliberSelect.options)
+                            .filter(option => option.selected && option.value !== 'all') // Exclude 'all' and unselected options
+                            .map(option => option.value)
+                        : [];
+
                     return {
                         conditionType: "Kills",
                         id: conditionId,
@@ -1066,9 +1074,11 @@
                             from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
                             to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
+                        weaponCaliber: selectedWeaponCalibers, // Only includes calibers if selected
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
+
                 // VisitPlace Condition
                 else if (conditionType === 'VisitPlace') {
                     return {
@@ -1119,23 +1129,12 @@
                     const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
                         .map(input => getTplId(input));
 
-                    // Ensure weaponCaliber selections are properly captured
-                    const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
-                    const selectedWeaponCalibers = weaponCaliberSelect 
-                        ? Array.from(weaponCaliberSelect.options)
-                            .filter(option => option.selected && option.value !== 'all')
-                            .map(option => option.value)
-                        : [];
-
-                    console.log("Selected weapon calibers:", selectedWeaponCalibers);
-
                     return {
                         includeNotEquippedItems: false,
                         conditionType: "Equipment",
                         dynamicLocale: false,
                         equipmentExclusive: exclusiveItems,
                         equipmentInclusive: inclusiveItems,
-                        weaponCaliber: selectedWeaponCalibers.length > 0 ? selectedWeaponCalibers : [],
                         id: conditionId
                     };
                 }
