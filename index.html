@@ -394,9 +394,11 @@
 
         function updateRewardFields(selectElement) {
             const rewardDetails = selectElement.closest('.reward').querySelector('.reward-details');
-            rewardDetails.innerHTML = ''; // Clear previous content
+            rewardDetails.innerHTML = '';
 
             if (selectElement.value === 'AssortmentUnlock') {
+                console.log("AssortmentUnlock selected"); // Debugging
+
                 rewardDetails.innerHTML = `
                     <label>Reward ID:
                         <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
@@ -409,9 +411,9 @@
                             <option value="4">4</option>
                         </select>
                     </label>
-                    <label>Main Item:
+                    <label>Item:
                         <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search main-item" placeholder="Search items..." oninput="filterDropdown(this)">
+                            <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item =>
                                     `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
@@ -421,46 +423,30 @@
                             </div>
                         </div>
                     </label>
-                    <div id="attachment-container"></div>
-                    <button type="button" onclick="addAttachment()" style="margin-top: 10px;">Add Attachment</button>
+                `;
+            } else if (selectElement.value === 'Item') {
+                rewardDetails.innerHTML = `
+                    <label>Reward Item:</label>
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item =>
+                                `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                    ${item.displayName}
+                                </div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <label>Value:
+                        <input type="number" placeholder="Quantity" required>
+                    </label>
                 `;
             } else {
                 rewardDetails.innerHTML = `
-                    <label>Reward Value:
-                        <input type="number" placeholder="Value" required>
-                    </label>
+                    <label>Select something...</label>
                 `;
             }
         }
-
-        function addAttachment() {
-            const attachmentContainer = document.getElementById('attachment-container');
-            const attachmentDiv = document.createElement('div');
-            attachmentDiv.classList.add('attachment');
-
-            attachmentDiv.innerHTML = `
-                <label>Attachment ID:
-                    <input type="text" class="attachment-id" placeholder="Enter attachment _id" required>
-                </label>
-                <label>Template ID (_tpl):
-                    <input type="text" class="attachment-tpl" placeholder="Enter _tpl ID" required>
-                </label>
-                <label>Parent ID:
-                    <input type="text" class="attachment-parent" placeholder="Enter parent ID (if applicable)">
-                </label>
-                <label>Slot ID:
-                    <input type="text" class="attachment-slot" placeholder="Enter slot ID (if applicable)">
-                </label>
-                <button type="button" onclick="removeAttachment(this)" style="margin-top: 10px;">Remove Attachment</button>
-            `;
-
-            attachmentContainer.appendChild(attachmentDiv);
-        }
-
-        function removeAttachment(button) {
-            button.closest('.attachment').remove();
-        }
-
 
         function selectRewardItem(item) {
             const dropdown = item.closest('.custom-dropdown');
@@ -601,29 +587,17 @@
                 if (rewardType === 'AssortmentUnlock') {
                     const rewardId = div.querySelector('.assortment-id').value;
                     const loyaltyLevel = parseInt(div.querySelector('.loyalty-level').value);
-                    const mainItemId = div.querySelector('.main-item').dataset.selectedValue;
-
-                    // Collect attachments
-                    const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => ({
-                        _id: attachmentDiv.querySelector('.attachment-id').value,
-                        _tpl: attachmentDiv.querySelector('.attachment-tpl').value,
-                        parentId: attachmentDiv.querySelector('.attachment-parent').value || null,
-                        slotId: attachmentDiv.querySelector('.attachment-slot').value || null,
-                    }));
-
-                    // Main item structure
-                    const items = [
-                        {
-                            _id: rewardId,
-                            _tpl: mainItemId,
-                        },
-                        ...attachments
-                    ];
+                    const itemId = div.querySelector('.dropdown-search').dataset.selectedValue;
 
                     return {
                         id: `${trader}_0 reward_${index}`,
                         index: index,
-                        items: items,
+                        items: [
+                            {
+                                _id: rewardId,
+                                _tpl: itemId,
+                            }
+                        ],
                         loyaltyLevel: loyaltyLevel,
                         target: rewardId,
                         traderId: trader,
@@ -638,6 +612,7 @@
                     };
                 }
             });
+
 
             const quest = {
                 [questNameID]: {
