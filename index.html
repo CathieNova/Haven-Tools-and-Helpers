@@ -1081,7 +1081,7 @@
             if (visibilityTargetId) {
                 return [{
                     conditionType: "CompleteCondition",
-                    id: generateUniqueId(),  // Generates a unique MongoDB-style ID for each visibility condition
+                    id: generateUniqueId(),
                     target: visibilityTargetId
                 }];
             }
@@ -1092,7 +1092,7 @@
         {
             const savageRoleLabel = document.getElementById('savage-role-label');
             const savageRoleSelect = document.getElementById('savage-role-select');
-            if (this.value === 'Savage') {
+            if (this.value === 'Scavs') {
                 savageRoleLabel.style.display = 'block';
                 savageRoleSelect.style.display = 'block';
             } else {
@@ -1208,7 +1208,7 @@
                             to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
                         bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
-                        savageRole: targetSelect && targetSelect.nameKey === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
+                        savageRole: targetSelect && targetSelect.value === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
                         weaponCaliber: selectedWeaponCalibers,
                         weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
                         weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
