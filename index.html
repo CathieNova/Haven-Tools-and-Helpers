@@ -671,10 +671,26 @@
                     </select>
                 </label>
                 <div class="available-for-start-details"></div>
+                <button type="button" onclick="removeAvailableForStartCondition(this)" style="margin-top: 10px;">Remove</button>
             `;
             container.appendChild(conditionDiv);
+
+            // Show the container if it has child elements
+            container.style.display = 'block';
             updateAvailableForStartFields(conditionDiv.querySelector('select'));
         }
+
+        function removeAvailableForStartCondition(button) {
+            const container = document.getElementById('available-for-start-container');
+            const conditionDiv = button.closest('.condition');
+            conditionDiv.remove();
+
+            // Hide the container if no child elements are present
+            if (container.children.length === 0) {
+                container.style.display = 'none';
+            }
+        }
+
 
         // Function to update fields based on selected condition type for AvailableForStart
         function updateAvailableForStartFields(selectElement) {
@@ -695,10 +711,13 @@
                 `;
             } else if (selectElement.value === 'Quest') {
                 conditionDetails.innerHTML = `
-                    <label>Status:
-                        <select multiple>
-                            <option value="4">Completed</option>
-                            <option value="5">Failed</option>
+                    <label>Quest Status:
+                        <select>
+                            <option value="1">Quest Available - 1</option>
+                            <option value="2">Quest Accepted And In Progress - 2</option>
+                            <option value="3">Quest Finished, Awaiting Confirmation - 3</option>
+                            <option value="4" selected>Quest Finished And Confirmed - 4</option>
+                            <option value="5">Quest Failed - 5</option>
                         </select>
                     </label>
                     <label>Target Quest ID:
@@ -711,7 +730,12 @@
                         <input type="text" placeholder="Enter trader ID" required>
                     </label>
                     <label>Loyalty Level:
-                        <input type="number" placeholder="Enter level" required>
+                        <select>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </label>
                 `;
             }
