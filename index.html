@@ -1052,6 +1052,8 @@
                     const locationDropdown = div.querySelector('.location-dropdown');
                     const targetSelect = div.querySelector('select:nth-of-type(2)');
                     const killsRequiredInput = div.querySelector('input[type=number]');
+                    const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
+                    const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
 
                     return {
                         conditionType: "Kills",
@@ -1061,8 +1063,8 @@
                         target: targetSelect ? targetSelect.value : 'Any',
                         killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
                         timeOfDay: {
-                            from: parseInt(div.querySelector('input[type=number]:nth-of-type(1)').value, 10) || 0,
-                            to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10) || 0
+                            from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
+                            to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };

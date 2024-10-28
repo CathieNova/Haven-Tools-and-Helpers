@@ -82,7 +82,7 @@ button:hover {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .dropdown-menu {
@@ -94,14 +94,14 @@ button:hover {
     max-height: 350px;
     overflow-y: auto;
     z-index: 100;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .dropdown-item {
     color: #e0e0e0;
     padding: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .dropdown-item:hover {
@@ -181,13 +181,13 @@ a:hover {
     display: none;
     position: absolute;
     background-color: #2b2b2b;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .dropdown-menu.show {
     display: block;
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
 }
 
 
@@ -416,5 +416,5 @@ select:focus, input:focus {
     display: none;
     position: absolute;
     background-color: #2b2b2b;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
