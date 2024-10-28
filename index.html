@@ -269,6 +269,7 @@
                         <option value="HandoverItem">Handover Item</option>
                         <option value="Kills">Kills</option>
                         <option value="VisitPlace">Visit Place</option>
+                        <option value="Skill">Skill</option>
                     </select>
                 </label>
                 <div class="condition-details"></div>
@@ -356,8 +357,10 @@
                     <label>Value:
                         <input type="number" placeholder="Enter level" required value="1">
                     </label>
-                    <label>Only Found In Raid:
+                    <div style="text-align: left;">
+                        <label>Only Found In Raid:
                         <input type="checkbox">
+                    </div>
                     </label>
                     <div style="margin-top: 10px; display: inline-block;">
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
