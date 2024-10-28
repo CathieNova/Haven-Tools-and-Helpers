@@ -201,29 +201,3 @@ a:hover {
     border-radius: 5px;
     margin-top: 10px;
 }
-
-.assortment-id, .loyalty-level, .dropdown-search, .attachment-id, .attachment-tpl, .attachment-slot, .weapon-durability, .weapon-max-durability, .weapon-firemode, .stack-objects-count {
-    background-color: #333;
-    color: #e0e0e0;
-    border: 1px solid #555;
-    padding: 8px;
-    margin-top: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.attachment {
-    border: 1px solid #444;
-    background: #1e1e1e;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.weapon-attributes {
-    padding: 10px;
-    border: 1px solid #555;
-    background-color: #2b2b2b;
-    border-radius: 5px;
-    margin-top: 10px;
-}
