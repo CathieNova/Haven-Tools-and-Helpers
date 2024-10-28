@@ -858,10 +858,11 @@
                         target: div.querySelector('.assortment-id').value
                     };
                 } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
+                    const valueInput = div.querySelector('input[type=number]');
                     return {
                         type: rewardType,
                         id: rewardId,
-                        value: parseFloat(div.querySelector('input[type=number]').value.replace(',', '.'))
+                        value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0
                     };
                 }
                 return {};
