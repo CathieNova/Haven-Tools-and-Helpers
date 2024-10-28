@@ -332,12 +332,13 @@
                     <select onchange="updateConditionFields(this)">
                         <option value="FindItem">Find Item</option>
                         <option value="HandoverItem">Handover Item</option>
-                        <option value="VisitPlace">Visit Place</option>
                         <option value="Skill">Skill</option>
                         <option value="Equipment">Equipment</option>
-                        <option value="Kills">Kills</option>
+                        <option value="VisitPlace">Visit Place</option>
                         <option value="Location">Location</option>
                         <option value="ExitStatus">Exit Status</option>
+                        <option value="InZone">In Zone</option>
+                        <option value="Kills">Kills</option>
                     </select>
                 </label>
                 <div class="visibility-conditions">
@@ -658,6 +659,17 @@
                     </select>
                     <div style="margin-top: 10px;">
                         <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
+                    </div>
+                `;
+            }
+            // Condition for InZone
+            else if (selectElement.value === 'InZone') {
+                conditionDetails.innerHTML = `
+                    <label style="color: #06b600;">Zone IDs (e.g., Woods_Sawmill, Woods_Old_Sawmill):
+                        <input type="text" placeholder="Enter zone IDs, separated by commas" required>
+                    </label>
+                    <div style="margin-top: 10px; display: inline-block;">
+                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
                 `;
             }
@@ -1279,7 +1291,6 @@
                     };
                 }
                 else if (conditionType === 'Kills') {
-                    const zoneIdInput = div.querySelector('input[type=text]');
                     const locationDropdown = div.querySelector('.location-dropdown');
                     const targetSelect = div.querySelector('#target-select');
                     const killsRequiredInput = div.querySelector('input[type=number]');
@@ -1299,7 +1310,6 @@
                     return {
                         conditionType: "Kills",
                         id: conditionId,
-                        zoneId: zoneIdInput ? zoneIdInput.value : '',
                         location: locationDropdown ? locationDropdown.value : 'any',
                         target: targetSelect ? targetSelect.value : 'Any',
                         killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
@@ -1391,6 +1401,17 @@
                         dynamicLocale: false,
                         id: conditionId,
                         status: selectedStatuses
+                    };
+                }
+                // New InZone Condition
+                else if (conditionType === 'InZone') {
+                    const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
+                    return {
+                        conditionType: "InZone",
+                        dynamicLocale: false,
+                        id: conditionId,
+                        zoneIds: zoneIds,
+                        visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
 
