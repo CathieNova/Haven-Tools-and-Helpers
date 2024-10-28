@@ -483,3 +483,35 @@ select:focus, input:focus {
 .weapon-mods-container .dropdown-item:hover {
     background-color: #3c3c3c;
 }
+
+#location-exit-status label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#location-exit-status select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+#location-exit-status select[multiple] {
+    height: auto;
+    min-height: 100px;
+}
+
+#location-exit-status button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}

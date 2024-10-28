@@ -275,6 +275,8 @@
                         <option value="Skill">Skill</option>
                         <option value="Equipment">Equipment</option>
                         <option value="Kills">Kills</option>
+                        <option value="Location">Location</option>
+                        <option value="ExitStatus">Exit Status</option>
                     </select>
                 </label>
                 <div class="condition-details"></div>
@@ -558,6 +560,44 @@
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
                     
+                `;
+            } else if (selectElement.value === 'Location') {
+                conditionDetails.innerHTML = `
+                    <label>Location (select multiple):</label>
+                    <select multiple class="location-dropdown">
+                        <option value="Interchange">Interchange</option>
+                        <option value="factory4_day">Factory Day</option>
+                        <option value="factory4_night">Factory Night</option>
+                        <option value="bigmap">Customs</option>
+                        <option value="Woods">Woods</option>
+                        <option value="Lighthouse">Lighthouse</option>
+                        <option value="Shoreline">Shoreline</option>
+                        <option value="RezervBase">Reserve</option>
+                        <option value="laboratory">The Lab</option>
+                        <option value="TarkovStreets">Streets</option>
+                        <option value="Sandbox">Ground Zero (PMC < 20)</option>
+                        <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
+                    </select>
+                    <div style="margin-top: 10px;">
+                        <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
+                    </div>
+                `;
+            }
+
+            // Condition for Exit Status
+            else if (selectElement.value === 'ExitStatus') {
+                conditionDetails.innerHTML = `
+                    <label>Exit Status (select multiple):</label>
+                    <select multiple class="exit-status-dropdown">
+                        <option value="Survived">Survived</option>
+                        <option value="Runner">Runner</option>
+                        <option value="Killed">Killed</option>
+                        <option value="Left">Left</option>
+                        <option value="MissingInAction">Missing In Action</option>
+                    </select>
+                    <div style="margin-top: 10px;">
+                        <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
+                    </div>
                 `;
             }
         }
@@ -1168,7 +1208,6 @@
                 const conditionType = div.querySelector('select').value;
                 const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
-                // FindItem or HandoverItem Condition
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
                         const inputElement = targetDiv.querySelector('.dropdown-search');
@@ -1183,7 +1222,6 @@
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
-                // Kills Condition
                 else if (conditionType === 'Kills') {
                     const zoneIdInput = div.querySelector('input[type=text]');
                     const locationDropdown = div.querySelector('.location-dropdown');
@@ -1191,10 +1229,8 @@
                     const killsRequiredInput = div.querySelector('input[type=number]');
                     const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
                     const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
-                    
                     const bodyPartSelect = div.querySelector('#body-part-select');
                     const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
-
                     const savageRoleSelect = document.getElementById('savage-role-select');
                     const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                     const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
@@ -1223,7 +1259,6 @@
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
-                // VisitPlace Condition
                 else if (conditionType === 'VisitPlace') {
                     return {
                         completeInSeconds: 0,
@@ -1250,11 +1285,10 @@
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
-                // Skill Condition
                 else if (conditionType === 'Skill') {
-                    const compareSelect = div.querySelector('select:nth-of-type(1)'); // First select element for comparison method
+                    const compareSelect = div.querySelector('select:nth-of-type(1)');
                     return {
-                        compareMethod: compareSelect ? compareSelect.value : '', // Apply the compareMethod
+                        compareMethod: compareSelect ? compareSelect.value : '',
                         conditionType: "Skill",
                         dynamicLocale: false,
                         globalQuestCounterId: "",
@@ -1266,7 +1300,6 @@
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
-                // Equipment Condition
                 else if (conditionType === 'Equipment') {
                     const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
                         .map(input => getTplId(input));
@@ -1282,6 +1315,29 @@
                         id: conditionId
                     };
                 }
+
+                // New Location Condition
+                else if (conditionType === 'Location') {
+                    const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                    return {
+                        conditionType: "Location",
+                        dynamicLocale: false,
+                        id: conditionId,
+                        target: selectedLocations
+                    };
+                }
+
+                // New ExitStatus Condition
+                else if (conditionType === 'ExitStatus') {
+                    const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
+                    return {
+                        conditionType: "ExitStatus",
+                        dynamicLocale: false,
+                        id: conditionId,
+                        status: selectedStatuses
+                    };
+                }
+
                 return {};
             });
 
