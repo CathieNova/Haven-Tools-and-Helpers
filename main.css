@@ -1,17 +1,17 @@
 body {
     background-color: #121212;
     background-image: url('https://i.redd.it/g7z8a1hc71f51.png');
-    background-repeat: no-repeat;
+    background-repeat:no-repeat;
     background-attachment: fixed;
     color: #e0e0e0;
     font-family: Arial, sans-serif;
     padding: 20px;
-    max-width: 1000px;
+    max-width: 800px;
     margin: auto;
 }
 
 h1, h2, h3 {
-    color: #ffffff;
+    color: #c2c2c2;
 }
 
 section {
@@ -24,7 +24,7 @@ section {
 }
 
 section h2, section h3, section h4 {
-    color: #ffffff;
+    color: #c2c2c2;
     margin-bottom: 10px;
 }
 
@@ -137,7 +137,7 @@ a:hover {
 }
 
 #top-right-box h3 {
-    color: #ffffff;
+    color: #c2c2c2;
 }
 
 #top-right-box select, #top-right-box button {
@@ -248,7 +248,7 @@ a:hover {
 }
 
 .dynamic-lang-section h3 {
-    color: #ffffff;
+    color: #c2c2c2;
     margin-bottom: 15px;
 }
 
@@ -294,7 +294,7 @@ button:hover {
 }
 
 .dynamic-lang-section h3 {
-    color: #ffffff;
+    color: #c2c2c2;
     margin-bottom: 15px;
 }
 

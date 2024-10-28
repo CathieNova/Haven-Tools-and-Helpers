@@ -9,14 +9,14 @@
 </head>
 <body>
     <section id="main-content">
-        <h1 style="color: #ff7920;">Haven VCQL Helper - Version 0.0.1</h1>
+        <h1 style="color: #ff7920;">Haven VCQL Helper - <small style="color: #06b600;"> Version 0.0.1</small></h1>
         <h4>Made for <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">Virtual's Custom Quest Loader</a> - SPT Mod</h4>
         <h4>This website will update often since it's work in progress so make sure to refresh it to see changes.</h6>
         <h4>For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h4>
     </section>
     
     <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
-        <h3 style="color: #009b27;"><strong">Website Settings</strong></h3>
+        <h3 style="color: #ff7920;"><strong">Website Settings</strong></h3>
         <div id="language-container" style="text-align: left;">
             <label for="language-select">Item Names Language: </label>
             <select id="language-select" onchange="loadLanguage(this.value)">
@@ -211,10 +211,9 @@
     
     <section id="quest-output-section" style="display: none; position: relative;">
         <h2 style="color: #06b600;">Quest JSON Output</h2>
-        <h4>Copy this to your trader json inside <strong>'SPT\user\mods\Virtual's Custom Quest Loader\database\quests'</strong>, e.g., <strong>'Chloe.json'</strong></h4>
-        
+        <h4>Copy this to your trader json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\quests</strong>, e.g., <strong style="color: #9b008e;">Chloe.json</strong></h4>
         <div style="position: relative;">
-            <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 30px; padding: 5px 10px; width: auto;">
+            <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 40px; padding: 5px 10px; width: auto;">
                 Copy Quest to Clipboard
             </button>
         </div>
@@ -223,7 +222,7 @@
     
     <section id="language-output-section" style="display: none; position: relative;">
         <h3 style="color: #06b600;">Quest Language Variables</h3>
-        <h4>Copy this to your language json inside <strong>'SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en'</strong>, e.g., <strong>'ChloeLocale.json'</strong></h4>
+        <h4>Copy this to your language json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\locales\en</strong>, e.g., <strong style="color: #9b008e;">ChloeLocale.json</strong></h4>
         <div style="position: relative;">
             <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Language Variables to Clipboard
@@ -234,7 +233,7 @@
     
     <section id="assortments-output-section" style="display: none; position: relative;">
         <h3 style="color: #06b600;">Quest Assortments</h3>
-        <h4>Copy this to your trader json inside either <strong>'base.json'</strong> or <strong>'questassort.json'</strong> at <strong>'SPT\user\mods\TRADERNAME\db'</strong>, e.g., <strong>'questassort.json'</strong></h4>
+        <h4>Copy this to your trader json inside either <strong style="color: #9b008e;">base.json</strong> or <strong style="color: #9b008e;">questassort.json</strong> at <strong style="color: #9b008e;">SPT\user\mods\TRADERNAME\db</strong>, e.g., <strong style="color: #9b008e;">questassort.json</strong></h4>
         <div style="position: relative;">
             <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Assortments to Clipboard
