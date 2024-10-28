@@ -63,44 +63,106 @@
     <section id="how-to-use" style="display: none; position: relative;">
         <strong>How to use:</strong>
         <ul>
-            <li>Quest Name is the name of the quest (it converts it into an id for you too)</li>
-            <li>Trader Name is the name of the trader that gives the quest</li>
-            <li>Objective Conditions are the requirements for the quest like finding items, killing scavs, etc.</li>
+            <li>Quest Name: Enter the name of the quest. It will automatically be converted into an ID.</li>
+            <li>Trader Name: Specify the trader who assigns the quest.</li>
+            <li>Objective Conditions: Set requirements such as finding items, killing targets, or visiting locations.</li>
+            <ul>
+                <li>Find Item: Locate specified items within the raid.
+                    <ul>
+                        <li>You can add or remove multiple target items.</li>
+                        <li>Target Items: Specify item(s) to locate.</li>
+                        <li>Value: Set the quantity required.</li>
+                        <li>Only Found In Raid: Check if the item(s) need to be raid-found.</li>
+                    </ul>
+                </li>
+                <li>Handover Item: Deliver specified items to the trader.
+                    <ul>
+                        <li>Similar to "Find Item" but involves handing over items to the trader.</li>
+                    </ul>
+                </li>
+                <li>Kills: Eliminate a specified type and amount of targets.
+                    <ul>
+                        <li>Zone ID: Specify the zone ID where kills are required (refer to the Zone ID list).</li>
+                        <li>Location: Choose the location for kills (e.g., Factory, Customs).</li>
+                        <li>Target: Select the target type (Scavs, PMCs, Usec, Bear).</li>
+                        <li>Kills Required: Specify the kill count.</li>
+                        <ul>
+                            <li>If Scavs is selected as the target, you can choose bosses (e.g., Killa, Reshala).</li>
+                        </ul>
+                        <li>Distance Comparison: Set distance parameters (e.g., ≥ 50 meters).
+                            <ul>
+                                <li>">=" means greater than or equal to.</li>
+                                <li>"<=" means less than or equal to.</li>
+                            </ul>
+                        </li>
+                        <li>Time of Day From/To: Enter time range (0-24, e.g., 6 = 6 AM, 18 = 6 PM).</li>
+                        <li>Target Body Part: Choose specific body parts to target (e.g., head, legs).</li>
+                        <li>Reset on Session End: Resets kill count when the raid ends.</li>
+                    </ul>
+                </li>
+                <li>Visit Place: Visit a specified location.
+                    <ul>
+                        <li>Target Zone ID: Specify the zone ID for the location.</li>
+                        <li>One Session Only: Check if the visit needs to be completed in a single raid.</li>
+                    </ul>
+                </li>
+                <li>Skill: Achieve a certain level in a specified skill.
+                    <ul>
+                        <li>Compare Method: Choose “>=” or “<=” for level comparison.</li>
+                        <li>Skill Type: Select the skill (e.g., Endurance, Health).</li>
+                        <li>Required Skill Level: Enter the required level.</li>
+                    </ul>
+                </li>
+                <li>Equipment: Equip specific or avoid specific items.
+                    <ul>
+                        <li>Items Required to be Equipped: Add items to be equipped for the quest.</li>
+                        <li>Items to Exclude: Add items that should not be equipped.</li>
+                    </ul>
+                </li>
+                <li>Location: Specify locations where certain conditions apply.
+                    <ul>
+                        <li>Select multiple locations if needed, such as Interchange, Woods, or Customs.</li>
+                    </ul>
+                </li>
+                <li>Exit Status: Define exit conditions.
+                    <ul>
+                        <li>Select one or multiple statuses, such as Survived, Runner, or Killed.</li>
+                    </ul>
+                </li>
+            </ul>
+            <li>Rewards: Specify rewards given upon quest completion.</li>
+        <ul>
+            <li>Experience: Award experience points to the player.
                 <ul>
-                    <li>Find Item: Find an item in raid
-                        <ul>
-                            <li>You can add or remove multiple items to find.</li>
-                            <li>Target Items: The item(s) that need to be found</li>
-                            <li>Value: The quantity of the item(s) that need to be found</li>
-                            <li>Only Found In Raid: Whether the item(s) need to be found in raid</li>
-                        </ul>
-                    </li>
-                    <li>Handover Item: Handover an item
-                        <ul>
-                            <li>This is the same as Find Item but instead it's handing them over to the trader.</li>
-                        </ul>
-                    </li>
-                    <li>Kills: Kill a certain amount of scavs or PMCs
-                        <ul>
-                            <li>Zone ID: The zone ID where the kills need to be done</li>
-                            <li>Location: The location where the kills need to be done</li>
-                            <li>Target: The type of target to kill (Scavs, PMCs, etc.)</li>
-                            <li>Kills Required: The number of kills required</li>
-                            <li>Distance Comparison: The distance for the kills for example less than 50 meters.
-                                <ul>
-                                    <li>Right > means greater than or equal to</li>
-                                    <li>Left < means less than or equal to</li>
-                                </ul>
-                            </li>
-                            <li>Time of Day From: for example 6am would be 6</li>
-                            <li>Time of Day To: for example 6pm would be 18</li>
-                            <li>Reset on Session End: Whether the kills reset on session end</li>
-                        </ul>
-                    </li>
+                    <li>Value: Enter the amount of experience to be rewarded.</li>
+                </ul>
+            </li>
+            <li>Trader Standing: Adjust the player's standing with a trader.
+                <ul>
+                    <li>Value: Enter the amount to increase/decrease the trader's reputation (e.g., 0.1, 1, -0.2).</li>
+                </ul>
+            </li>
+            <li>Item: Reward the player with specified items.
+                <ul>
+                    <li>Item: Select the item(s) from the dropdown or enter the item ID manually.</li>
+                    <li>Value: Set the quantity of the item(s) to reward.</li>
+                </ul>
+            </li>
+            <li>Assortment Unlock: Unlock items in the trader’s inventory.
+                <ul>
+                    <li>Item ID: Enter the ID of the item to unlock in the trader's inventory.</li>
+                    <li>Loyalty Level: Specify the loyalty level required to access the unlocked item.</li>
+                </ul>
+            </li>
+            <li>Skill: Increase a specified skill level.
+                <ul>
+                    <li>Skill Type: Choose the skill to enhance (e.g., Endurance, Sniping).</li>
+                    <li>Value: Enter the value to increase (300 represents three levels).</li>
                 </ul>
             </li>
         </ul>
-    </section>
+        </ul>
+    </section>    
     
     <!-- Quest Input Section -->
     <section>
