@@ -405,7 +405,7 @@
                             <option value="Any" selected>Any</option>
                         </select>
                     </label>
-                    <label id="savage-role-label" style="display:none;">Savage Role:</label>
+                    <label id="savage-role-label" style="display:none;">Savage Role (select multiple with ctrl + click):</label>
                     <select id="savage-role-select" style="display:none;" multiple>
                         <option value="">Any</option>
                         <option value="bossKilla">Killa</option>
@@ -446,7 +446,7 @@
                     <label>Time of Day To (0-24):
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
-                    <label>Select Weapon Caliber(s):</label>
+                    <label>Select Weapon Caliber (select multiple with ctrl + click):</label>
                     <div class="weapon-caliber-container">
                         <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
                             <option value="all">All</option>
@@ -462,7 +462,7 @@
                             <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
                         </select>
                     </div>
-                    <label>Target Body Part:</label>
+                    <label>Target Body Part (select multiple with ctrl + click):</label>
                     <select id="body-part-select" multiple>
                         <option value="">Any</option>
                         <option value="Head">Head</option>
@@ -563,7 +563,7 @@
                 `;
             } else if (selectElement.value === 'Location') {
                 conditionDetails.innerHTML = `
-                    <label>Location (select multiple):</label>
+                    <label>Location (select multiple with ctrl + click):</label>
                     <select multiple class="location-dropdown">
                         <option value="Interchange">Interchange</option>
                         <option value="factory4_day">Factory Day</option>
@@ -587,7 +587,7 @@
             // Condition for Exit Status
             else if (selectElement.value === 'ExitStatus') {
                 conditionDetails.innerHTML = `
-                    <label>Exit Status (select multiple):</label>
+                    <label>Exit Status (select multiple with ctrl + click):</label>
                     <select multiple class="exit-status-dropdown">
                         <option value="Survived">Survived</option>
                         <option value="Runner">Runner</option>
