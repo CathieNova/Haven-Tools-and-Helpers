@@ -184,7 +184,6 @@ a:hover {
     background: #3c3c3c;
 }
 
-/* Base styles for dynamic language entry fields */
 .dynamic-lang-section {
     margin-bottom: 20px;
     padding: 15px;
@@ -216,19 +215,16 @@ a:hover {
     width: 100%;
 }
 
-/* Add focus style for better visibility */
 .dynamic-lang-entry input[type="text"]:focus {
     border-color: #700067;
     outline: none;
 }
 
-/* Styling for section heading */
 .dynamic-lang-section h3 {
     color: #ffffff;
     margin-bottom: 15px;
 }
 
-/* Button styles */
 button {
     background-color: #700067;
     color: white;
@@ -264,19 +260,16 @@ button:hover {
     width: 100%;
 }
 
-/* Add focus style for better visibility */
 .dynamic-lang-entry input[type="text"]:focus {
     border-color: #700067;
     outline: none;
 }
 
-/* Styling for section heading */
 .dynamic-lang-section h3 {
     color: #ffffff;
     margin-bottom: 15px;
 }
 
-/* Language Entries Section Styling */
 #language-entries-section {
     margin-top: 20px;
     padding: 15px;
@@ -286,4 +279,55 @@ button:hover {
     color: #e0e0e0;
     max-height: 400px;
     overflow-y: auto;
+}
+
+#available-for-start-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.available-for-start-condition {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #555;
+    background: #2a2a2a;
+    border-radius: 5px;
+}
+
+.available-for-start-condition label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+    display: block;
+}
+
+.available-for-start-condition select,
+.available-for-start-condition input {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.available-for-start-condition button {
+    background-color: #700067;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.available-for-start-condition button:hover {
+    background-color: #b300a4;
 }

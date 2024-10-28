@@ -109,10 +109,22 @@
 
         <label for="quest-type">Quest Type:</label>
         <select id="quest-type">
-            <option value="Completion">Completion</option>
             <option value="PickUp">Pick Up</option>
+            <option value="Completion">Completion</option>
+            <option value="Discover">Discover</option>
+            <option value="Exploration">Exploration</option>
+            <option value="Loyalty">Loyalty</option>
+            <option value="WeaponAssembly">Weapon Assembly</option>
+            <option value="Standing">Standing</option>
+            <option value="Skill">Skill</option>
+            <option value="Merchant">Merchant</option>
             <option value="Elimination">Elimination</option>
+            <option value="Multi">Multi</option>
         </select>
+
+        <h3>Available For Start Conditions</h3>
+        <button onclick="addAvailableForStartCondition()">Add Condition</button>
+        <div id="available-for-start-container" class="dynamic-fields"></div>
 
         <h3>Conditions</h3>
         <button onclick="addCondition()" style="margin-bottom: 10px;">Add Condition</button>
@@ -124,9 +136,6 @@
 
         <h3>Quest Language Variables</h3>
         <div id="language-variables-container" style="margin-bottom: 20px;">
-            <label for="quest-name-lang">Quest Name:</label>
-            <input type="text" id="quest-name-lang" placeholder="Quest Name text">
-
             <label for="quest-desc-lang">Quest Description:</label>
             <input type="text" id="quest-desc-lang" placeholder="Quest Description text">
 
@@ -606,7 +615,6 @@
 
             // Quest name and basic language fields
             const baseFields = [
-                { id: 'quest-name-lang', label: 'Quest Name' },
                 { id: 'quest-desc-lang', label: 'Description' },
                 { id: 'quest-start-msg-lang', label: 'Started Message' },
                 { id: 'quest-success-msg-lang', label: 'Success Message' },
@@ -649,11 +657,99 @@
             });
         }
 
+        function addAvailableForStartCondition() {
+            const container = document.getElementById('available-for-start-container');
+            const conditionDiv = document.createElement('div');
+            conditionDiv.classList.add("condition");
+
+            conditionDiv.innerHTML = `
+                <label>Condition Type:
+                    <select onchange="updateAvailableForStartFields(this)">
+                        <option value="Level">Level</option>
+                        <option value="Quest">Quest</option>
+                        <option value="TraderLoyalty">Trader Loyalty</option>
+                    </select>
+                </label>
+                <div class="available-for-start-details"></div>
+            `;
+            container.appendChild(conditionDiv);
+            updateAvailableForStartFields(conditionDiv.querySelector('select'));
+        }
+
+        // Function to update fields based on selected condition type for AvailableForStart
+        function updateAvailableForStartFields(selectElement) {
+            const conditionDetails = selectElement.closest('.condition').querySelector('.available-for-start-details');
+            conditionDetails.innerHTML = '';
+
+            if (selectElement.value === 'Level') {
+                conditionDetails.innerHTML = `
+                    <label>Compare Method:
+                        <select>
+                            <option value=">=">>=</option>
+                            <option value="<="><=</option>
+                        </select>
+                    </label>
+                    <label>Value:
+                        <input type="number" placeholder="Enter level" required>
+                    </label>
+                `;
+            } else if (selectElement.value === 'Quest') {
+                conditionDetails.innerHTML = `
+                    <label>Status:
+                        <select multiple>
+                            <option value="4">Completed</option>
+                            <option value="5">Failed</option>
+                        </select>
+                    </label>
+                    <label>Target Quest ID:
+                        <input type="text" placeholder="Enter quest ID" required>
+                    </label>
+                `;
+            } else if (selectElement.value === 'TraderLoyalty') {
+                conditionDetails.innerHTML = `
+                    <label>Trader ID:
+                        <input type="text" placeholder="Enter trader ID" required>
+                    </label>
+                    <label>Loyalty Level:
+                        <input type="number" placeholder="Enter level" required>
+                    </label>
+                `;
+            }
+        }
+
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
             const trader = document.getElementById('trader-name').value || 'TRADERNAME';
             const questType = document.getElementById('quest-type').value;
+
+            const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
+                const conditionType = div.querySelector('select').value;
+
+                if (conditionType === 'Level') {
+                    return {
+                        compareMethod: div.querySelector('select:nth-of-type(2)').value,
+                        conditionType: 'Level',
+                        id: `level_condition_${index}`,
+                        value: parseInt(div.querySelector('input[type=number]').value, 10)
+                    };
+                } else if (conditionType === 'Quest') {
+                    return {
+                        conditionType: 'Quest',
+                        id: `quest_condition_${index}`,
+                        status: Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => parseInt(opt.value, 10)),
+                        target: div.querySelector('input[type=text]').value
+                    };
+                } else if (conditionType === 'TraderLoyalty') {
+                    return {
+                        conditionType: 'TraderLoyalty',
+                        id: `trader_loyalty_condition_${index}`,
+                        target: div.querySelector('input[type=text]').value,
+                        value: parseInt(div.querySelector('input[type=number]').value, 10)
+                    };
+                }
+                return {};
+            });
 
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
@@ -741,8 +837,8 @@
                     completePlayerMessage: `${trader}_0 completePlayerMessage`,
                     changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
                     conditions: {
+                        AvailableForStart: availableForStartConditions,
                         AvailableForFinish: conditions,
-                        AvailableForStart: [],
                         Fail: []
                     },
                     rewards: {
