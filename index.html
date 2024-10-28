@@ -1496,21 +1496,15 @@
             };
 
             // Output Display
-            const questContent = JSON.stringify(quest[questNameID], null, 2);
-            const languageEntriesContent = JSON.stringify(languageEntries, null, 2);
-            const assortmentsContent = JSON.stringify(assortments, null, 2);
+            const questObject = { [questNameID]: quest[questNameID] };
+            const questContent = JSON.stringify(questObject, null, 2);
 
-            document.getElementById('output').textContent = questContent.startsWith('{') && questContent.endsWith('}')
-                ? questContent.slice(1, -1)
-                : questContent;
+            const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
+            const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
 
-            document.getElementById('language-output').textContent = languageEntriesContent.startsWith('{') && languageEntriesContent.endsWith('}')
-                ? languageEntriesContent.slice(1, -1)
-                : languageEntriesContent;
-
-            document.getElementById('assortments-output').textContent = assortmentsContent.startsWith('{') && assortmentsContent.endsWith('}')
-                ? assortmentsContent.slice(1, -1)
-                : assortmentsContent;
+            document.getElementById('output').textContent = questContent;
+            document.getElementById('language-output').textContent = languageEntriesContent;
+            document.getElementById('assortments-output').textContent = assortmentsContent;
 
             document.getElementById('quest-output-section').style.display = 'block';
 
