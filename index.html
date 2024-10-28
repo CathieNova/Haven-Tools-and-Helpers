@@ -1233,7 +1233,7 @@
                     return {
                         compareMethod: compareSelect ? compareSelect.value : '',
                         conditionType: 'Level',
-                        id: `level_condition_${index}`,
+                        id: `${trader}_condition_${index}`,
                         value: levelInput ? parseInt(levelInput.value, 10) : 0
                     };
                 } else if (conditionType === 'Quest') {
@@ -1242,7 +1242,7 @@
                     
                     return {
                         conditionType: 'Quest',
-                        id: `quest_condition_${index}`,
+                        id: `${trader}_condition_${index}`,
                         status: statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [],
                         target: targetInput ? targetInput.value : ''
                     };
@@ -1252,7 +1252,7 @@
                     
                     return {
                         conditionType: 'TraderLoyalty',
-                        id: `trader_loyalty_condition_${index}`,
+                        id: `${trader}_condition_${index}`,
                         target: targetInput ? targetInput.value : '',
                         value: valueInput ? parseInt(valueInput.value, 10) : 0
                     };
