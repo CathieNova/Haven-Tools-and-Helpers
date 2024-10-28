@@ -397,7 +397,7 @@
                         </select>
                     </label>
                     <label>Target:
-                        <select required>
+                        <select id="target-select" required>
                             <option value="Savage">Scavs</option>
                             <option value="AnyPmc">PMCs</option>
                             <option value="Usec">Usec</option>
@@ -1096,7 +1096,7 @@
             const savageRoleLabel = document.getElementById('savage-role-label');
             const savageRoleSelect = document.getElementById('savage-role-select');
             
-            // Check if the selected value is "Savage"
+            // Check if "Scavs" (value: "Savage") is selected
             if (event.target.value === 'Savage') {
                 savageRoleLabel.style.display = 'block';
                 savageRoleSelect.style.display = 'block';
