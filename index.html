@@ -109,7 +109,8 @@
         <input type="text" id="trader-name" placeholder="Enter Trader name" required>
 
         <label for="quest-number">Quest Number</label>
-        <input type="number" id="quest-number" placeholder="Enter Quest Number" required>
+        <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
+
 
         <label for="quest-type">Quest Type:</label>
         <select id="quest-type">
@@ -352,7 +353,7 @@
                     <div class="target-items-container"></div>
                     <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
                     <label>Value:
-                        <input type="number" placeholder="Quantity" required value="1">
+                        <input type="number" placeholder="Enter level" required value="1">
                     </label>
                     <label>Only Found In Raid:
                         <input type="checkbox">
@@ -506,7 +507,7 @@
                     </label>
                     <label>Loyalty Level:
                         <select class="loyalty-level" required>
-                            <option value="1">1</option>
+                            <option value="1" selected>1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -524,9 +525,6 @@
                             </div>
                         </div>
                     </label>
-                    <label>Manual Item ID (optional):
-                        <input type="text" class="manual-id" placeholder="Enter MongoDB ID (optional)">
-                    </label>
                 `;
             } else if (selectElement.value === 'Item') {
                 rewardDetails.innerHTML = `
@@ -541,13 +539,13 @@
                             ).join('')}
                         </div>
                     </div>
-                    <label>Manual Item ID (optional):
-                        <input type="text" class="manual-id" placeholder="Enter MongoDB ID (optional)">
-                    </label>
                     <label>Value:
                         <input type="number" placeholder="Quantity" required>
                     </label>
                 `;
+            } else if (selectElement.value === 'Experience' || selectElement.value === 'TraderStanding') {
+                // These reward types do not need additional options
+                rewardDetails.innerHTML = `<label>No additional fields required for ${selectElement.value}</label>`;
             }
         }
 
@@ -622,6 +620,10 @@
 
         function populateLanguageFields() {
             const languageSection = document.getElementById('language-entries-section');
+            if (!languageSection) {
+                console.error("languageSection element is null.");
+                return;
+            }
             languageSection.innerHTML = ''; // Clear any previous entries
 
             // Quest name and basic language fields
