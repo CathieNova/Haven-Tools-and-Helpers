@@ -652,7 +652,7 @@
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
-            const trader = document.getElementById('trader-name').value || 'trader';
+            const trader = document.getElementById('trader-name').value || 'TRADERNAME';
             const questType = document.getElementById('quest-type').value;
 
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
@@ -707,7 +707,7 @@
             });
 
             let languageEntries = {
-                [`${trader}_0 name`]: document.getElementById('quest-name-lang').value,
+                [`${trader}_0 name`]: document.getElementById('quest-name').value,
                 [`${trader}_0 description`]: document.getElementById('quest-desc-lang').value,
                 [`${trader}_0 startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
                 [`${trader}_0 successMessageText`]: document.getElementById('quest-success-msg-lang').value,
