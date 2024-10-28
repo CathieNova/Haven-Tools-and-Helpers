@@ -271,7 +271,7 @@
                 <div class="condition-details"></div>
                 <div class="visibility-conditions">
                     <h4>Visibility Condition</h4>
-                    <label>Visibility Target Objective ID: (${document.getElementById('trader-name').value || 'trader'}_${conditionIndex} obj_${(a, b) => (conditionIndex - 1 || 0)} <-- for the last quest objective)
+                    <label>Visibility Target Objective ID: (${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1} <-- for the last quest objective)
                         <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
                 </div>
