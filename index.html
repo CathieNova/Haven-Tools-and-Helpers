@@ -81,7 +81,6 @@
                 </li>
                 <li style="margin-top: 10px;"><strong>Kills:</strong> Set targets for elimination.
                     <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Zone ID: Zone for the required kills (refer to Zone ID list).</li>
                         <li>Location: Location for kills (e.g., Factory, Customs).</li>
                         <li>Target: Target type (Scavs, PMCs, etc.).</li>
                         <li>Kills Required: Number of kills needed.</li>
@@ -91,10 +90,25 @@
                         <li>Reset on Session End: Resets kills upon raid end.</li>
                     </ul>
                 </li>
+                <li style="margin-top: 10px;"><strong>InZone</strong> Set a specific zone requirement for kills, LeaveItemAtLocation, or VisitPlace.
+                    <ul style="padding-left: 25px; margin-top: 5px;">
+                        <li>Zone ID: Enter the zone ID for the location. (see Zones IDs link)</li>
+                    </ul>
+                </li>
+                <li style="margin-top: 10px;"><strong>LeaveItemAtLocation</strong> Set a specific location requirement for item drop.
+                    <ul style="padding-left: 25px; margin-top: 5px;">
+                        <li>Target Zone ID: Enter the zone ID for the location.</li>
+                        <li>Plant Time: Time in seconds to plant the item.</li>
+                        <li>Value: Quantity of the item to plant.</li>
+                        <li>MinDurability: Minimum item durability.</li>
+                        <li>MaxDurability: Maximum item durability.</li>
+                        <li>OnlyFoundInRaid: Check if the item must be raid-found.</li>
+                        <li>DogtagLevel: Required dogtag level.</li>
+                        <li>Items: Add items to plant.</li>
+                    </ul>
                 <li style="margin-top: 10px;"><strong>Visit Place:</strong> Set a specific location visit requirement.
                     <ul style="padding-left: 25px; margin-top: 5px;">
                         <li>Target Zone ID: Enter the zone ID for the location.</li>
-                        <li>One Session Only: Check if it must be completed in one raid.</li>
                     </ul>
                 </li>
                 <li style="margin-top: 10px;"><strong>Skill:</strong> Require a certain level in a specified skill.
@@ -348,6 +362,7 @@
                         <option value="ExitStatus">Exit Status</option>
                         <option value="InZone">In Zone</option>
                         <option value="Kills">Kills</option>
+                        <option value="LeaveItemAtLocation">Leave Item At Location</option>
                     </select>
                 </label>
                 <div class="condition-details"></div>
@@ -650,7 +665,6 @@
                     </div>
                 `;
             }
-
             // Condition for Exit Status
             else if (selectElement.value === 'ExitStatus') {
                 conditionDetails.innerHTML = `
@@ -678,6 +692,66 @@
                     </div>
                 `;
             }
+            // Condition for LeaveItemAtLocation
+            else if (selectElement.value === 'LeaveItemAtLocation') {
+                conditionDetails.innerHTML = `
+                    <div class="condition">
+                        <label style="color: #06b600;">Target Zone ID:
+                            <input type="text" placeholder="Enter zone ID (e.g., Saving_The_Mole)" required>
+                        </label>
+                        <label style="color: #06b600;">Plant Time:
+                            <input type="number" placeholder="Enter plant time in seconds" value="10"  required>
+                        </label>
+                        <label style="color: #06b600;">Value:
+                            <input type="number" placeholder="Enter quantity of item to plant" value="1" required>
+                        </label>
+                        <label style="color: #06b600;">Min Durability:
+                            <input type="number" placeholder="Enter minimum item durability" value="0" required>
+                        </label>
+                        <label style="color: #06b600;">Max Durability:
+                            <input type="number" placeholder="Enter maximum item durability" value="100" required>
+                        </label>
+                        <label style="color: #06b600;">Dogtag Level: (leave 0 if not required)
+                            <input type="number" placeholder="Enter required dogtag level" value="0" required>
+                        </label>
+                        <label style="color: #06b600;">Only Found In Raid:
+                            <input type="checkbox">
+                        </label>
+                        <label style="color: #06b600;">Item IDs to Plant:</label>
+                        <button type="button" onclick="addTargetItem()" style="margin-top: 10px;">Add Item</button>
+                        <div class="target-items-container"></div>
+                    </div>
+
+                `;
+            }
+        }
+
+        function addTargetItem() {
+            const container = document.querySelector('.target-items-container');
+            const targetDiv = document.createElement('div');
+            targetDiv.classList.add('target-item');
+
+            targetDiv.innerHTML = `
+                <label style="color: #06b600;">Item ID:</label>
+                <div class="custom-dropdown">
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
+            `;
+
+            container.appendChild(targetDiv);
+        }
+
+
+        function removeItem(button) {
+            button.closest('.item-to-plant').remove();
         }
 
         function addWeaponModInclusive() {
@@ -1419,6 +1493,23 @@
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
+                // New LeaveItemAtLocation Condition
+                else if (conditionType === 'LeaveItemAtLocation') {
+                    const items = Array.from(div.querySelectorAll('.target-item .dropdown-search')).map(input => getTplId(input));
+
+                    return {
+                        conditionType: "LeaveItemAtLocation",
+                        id: conditionId,
+                        zoneId: div.querySelector('input[placeholder="Enter zone ID (e.g., Saving_The_Mole)"]').value.trim(),
+                        plantTime: parseInt(div.querySelector('input[placeholder="Enter plant time in seconds"]').value, 10),
+                        value: parseInt(div.querySelector('input[placeholder="Enter quantity of item to plant"]').value, 10),
+                        minDurability: parseInt(div.querySelector('input[placeholder="Enter minimum item durability"]').value, 10),
+                        maxDurability: parseInt(div.querySelector('input[placeholder="Enter maximum item durability"]').value, 10),
+                        onlyFoundInRaid: div.querySelector('input[type="checkbox"]').checked,
+                        dogtagLevel: parseInt(div.querySelector('input[placeholder="Enter required dogtag level"]').value, 10),
+                        target: items
+                    };
+                }
 
                 return {};
             });
@@ -1533,7 +1624,6 @@
             document.getElementById('language-output-section').style.display = 'block';
             document.getElementById('assortments-output-section').style.display = 'block';
         }
-
     </script>
 </body>
 </html>
