@@ -211,7 +211,7 @@
     
     <section id="quest-output-section" style="display: none; position: relative;">
         <h2>Quest JSON Output</h2>
-        <h4>Copy this to your trader json inside <strong>SPT\user\mods\Virtual's Custom Quest Loader\database\quests</strong> for example <strong>Chloe.json</strong></h4>
+        <h4>Copy this to your trader json inside <strong>*SPT\user\mods\Virtual's Custom Quest Loader\database\quests*</strong> for example <strong>*Chloe.json*</strong></h4>
         
         <div style="position: relative;">
             <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 30px; padding: 5px 10px; width: auto;">
@@ -222,7 +222,7 @@
     
         <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
             <h3>Quest Language Variables</h3>
-            <h4>Copy this to your language json inside <strong>C:\SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en</strong> for example <strong>ChloeLocale.json</strong></h4>
+            <h4>Copy this to your language json inside <strong>*C:\SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en*</strong> for example <strong>ChloeLocale.json</strong></h4>
             <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Language Variables to Clipboard
             </button>
@@ -230,7 +230,7 @@
         </div>
         <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
             <h3>Quest Assortments</h3>
-            <h4>Copy this to your trader json inside either <strong>base.json</strong> or <strong>questassort.json</strong> <strong>SPT\user\mods\TRADERNAME\db</strong> for example <strong>questassort.json</strong></h4>
+            <h4>Copy this to your trader json inside either <strong>*base.json*</strong> or <strong>*questassort.json*</strong> <strong>*SPT\user\mods\TRADERNAME\db*</strong> for example <strong>*questassort.json*</strong></h4>
             <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Assortments to Clipboard
             </button>
@@ -1496,16 +1496,23 @@
             };
 
             // Output Display
-            const questContent = `{ ${JSON.stringify(quest[questNameID], null, 2).slice(1, -1)} }`;
-            const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
-            const assortmentsContent = `{ ${JSON.stringify(assortments, null, 2).slice(1, -1)} }`;
+            const questContent = JSON.stringify(quest[questNameID], null, 2);
+            const languageEntriesContent = JSON.stringify(languageEntries, null, 2);
+            const assortmentsContent = JSON.stringify(assortments, null, 2);
 
-            document.getElementById('output').textContent = questContent;
-            document.getElementById('language-output').textContent = languageEntriesContent;
-            document.getElementById('assortments-output').textContent = assortmentsContent;
+            document.getElementById('output').textContent = questContent.startsWith('{') && questContent.endsWith('}')
+                ? questContent.slice(1, -1)
+                : questContent;
+
+            document.getElementById('language-output').textContent = languageEntriesContent.startsWith('{') && languageEntriesContent.endsWith('}')
+                ? languageEntriesContent.slice(1, -1)
+                : languageEntriesContent;
+
+            document.getElementById('assortments-output').textContent = assortmentsContent.startsWith('{') && assortmentsContent.endsWith('}')
+                ? assortmentsContent.slice(1, -1)
+                : assortmentsContent;
 
             document.getElementById('quest-output-section').style.display = 'block';
-
 
         }
 
