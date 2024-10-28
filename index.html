@@ -8,995 +8,1011 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-    <section id="main-content">
-        <h1 style="color: #ff7920;">Haven VCQL Helper - <small style="color: #06b600;"> Version 0.0.1</small></h1>
-        <h4>Made for <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">Virtual's Custom Quest Loader</a> - SPT Mod</h4>
-        <h4>This website will update often since it's work in progress so make sure to refresh it to see changes.</h6>
-        <h4>For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h4>
-    </section>
-    
-    <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
-        <h3 style="color: #ff7920;"><strong">Website Settings</strong></h3>
-        <div id="language-container" style="text-align: left;">
-            <label for="language-select">Item Names Language: </label>
-            <select id="language-select" onchange="loadLanguage(this.value)">
-                <option value="en.json" selected>English</option>
-                <option value="cz.json">Czech</option>
-                <option value="fr.json">French</option>
-                <option value="ge.json">German</option>
-                <option value="hu.json">Hungarian</option>
-                <option value="it.json">Italian</option>
-                <option value="jp.json">Japanese</option>
-                <option value="kr.json">Korean</option>
-                <option value="pl.json">Polish</option>
-                <option value="po.json">Portuguese</option>
-                <option value="ro.json">Romanian</option>
-                <option value="ru.json">Russian</option>
-                <option value="sk.json">Slovak</option>
-                <option value="ch.json">Chinese</option>
-                <option value="es.json">Spanish</option>
-                <option value="es-mx.json">Mexican Spanish</option>
-                <option value="tu.json">Turkish</option>
+    <div class="content-container">
+        <section id="main-content">
+            <h1 style="color: #ff7920;">Haven VCQL Helper - <small style="color: #06b600;"> Version 0.0.1</small></h1>
+            <h4>Made for <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">Virtual's Custom Quest Loader</a> - SPT Mod</h4>
+            <h4>This website will update often since it's work in progress so make sure to refresh it to see changes.</h6>
+            <h4>For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h4>
+        </section>
+        
+        <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
+            <h3 style="color: #ff7920;"><strong">Website Settings</strong></h3>
+            <div id="language-container" style="text-align: left;">
+                <label for="language-select">Item Names Language: </label>
+                <select id="language-select" onchange="loadLanguage(this.value)">
+                    <option value="en.json" selected>English</option>
+                    <option value="cz.json">Czech</option>
+                    <option value="fr.json">French</option>
+                    <option value="ge.json">German</option>
+                    <option value="hu.json">Hungarian</option>
+                    <option value="it.json">Italian</option>
+                    <option value="jp.json">Japanese</option>
+                    <option value="kr.json">Korean</option>
+                    <option value="pl.json">Polish</option>
+                    <option value="po.json">Portuguese</option>
+                    <option value="ro.json">Romanian</option>
+                    <option value="ru.json">Russian</option>
+                    <option value="sk.json">Slovak</option>
+                    <option value="ch.json">Chinese</option>
+                    <option value="es.json">Spanish</option>
+                    <option value="es-mx.json">Mexican Spanish</option>
+                    <option value="tu.json">Turkish</option>
+                </select>
+            </div>
+            
+            <button id="toggleUsefulInfoBtn" onclick="toggleUsefulInfo()" style="margin-top: 10px; width: 100%;">Show Useful Info</button>
+            <button id="toggleHowToUseBtn" onclick="toggleHowToUse()" style="margin-top: 10px; width: 100%;">Show How to Use</button>
+            <button id="reloadButton" onclick="reloadPage()" style="margin-top: 10px;">Reset Quest Info</button>
+        </div>
+
+        <section id="useful-info" style="display: none; position: relative;">
+            <strong>Useful info:</strong>
+            <ul>
+                <li><a href="https://hub.sp-tarkov.com/doc/entry/7-resources-item-properties-list/" target="_blank" style="color: #4646ff; text-decoration: underline;">Item Resource List</a></li>
+                <li><a href="https://hub.sp-tarkov.com/doc/entry/57-resources-quest-values-reference-tool/" target="_blank" style="color: #4646ff; text-decoration: underline;">Quest Values Reference Tool</a></li>
+                <li><a href="https://raw.githubusercontent.com/RuKira/SPT-AllInOne/refs/heads/main/SPT-AllInOne/Data/quests.json" target="_blank" style="color: #4646ff; text-decoration: underline;">EFT Default Quest References</a></li>
+            </ul>
+            <strong>Zone ID List for Kills condition</strong>
+            <ul>
+                <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_ZONES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Zones IDs</a></li>
+                <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_PLACES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Places IDs</a></li>
+            </ul>
+            <h4>Version 0.0.1</h4>
+        </section>
+        
+        <section id="how-to-use" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
+            <strong style="color: #ffffff; font-size: 1.6em; margin-bottom: 15px; display: block;">✨ How to Use</strong>
+            <ul style="list-style: none; padding-left: 0; color: #cfcfcf; font-size: 1.2em; line-height: 1.6;">
+                <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Quest Name:</strong> Enter the quest name; it will be converted into an ID automatically.</li>
+                <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Trader Name:</strong> Specify the trader who assigns the quest.</li>
+                <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Objective Conditions:</strong> Define requirements like finding items, kills, or visits.</li>
+                <ul style="padding-left: 30px; color: #b0b0b0;">
+                    <li style="margin-top: 10px;"><strong>Find Item:</strong> Locate specific items within a raid.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Target Items: Specify item(s) to locate.</li>
+                            <li>Value: Set the quantity needed.</li>
+                            <li>Only Found In Raid: Check if items must be raid-found.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Handover Item:</strong> Deliver specified items to the trader.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Similar to "Find Item" but involves giving items to the trader.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Kills:</strong> Set targets for elimination.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Location: Location for kills (e.g., Factory, Customs).</li>
+                            <li>Target: Target type (Scavs, PMCs, etc.).</li>
+                            <li>Kills Required: Number of kills needed.</li>
+                            <li>Distance Comparison: Set distance parameters (e.g., ≥ 50 meters).</li>
+                            <li>Time of Day From/To: Enter time range (0-24; e.g., 6 = 6 AM).</li>
+                            <li>Target Body Part: Specify body part, if applicable.</li>
+                            <li>Reset on Session End: Resets kills upon raid end.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>InZone</strong> Set a specific zone requirement for kills, LeaveItemAtLocation, or VisitPlace.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Zone ID: Enter the zone ID for the location. (see Zones IDs link)</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>LeaveItemAtLocation</strong> Set a specific location requirement for item drop.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Target Zone ID: Enter the zone ID for the location.</li>
+                            <li>Plant Time: Time in seconds to plant the item.</li>
+                            <li>Value: Quantity of the item to plant.</li>
+                            <li>MinDurability: Minimum item durability.</li>
+                            <li>MaxDurability: Maximum item durability.</li>
+                            <li>OnlyFoundInRaid: Check if the item must be raid-found.</li>
+                            <li>DogtagLevel: Required dogtag level.</li>
+                            <li>Items: Add items to plant.</li>
+                        </ul>
+                    <li style="margin-top: 10px;"><strong>Visit Place:</strong> Set a specific location visit requirement.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Target Zone ID: Enter the zone ID for the location.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Skill:</strong> Require a certain level in a specified skill.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Compare Method: Choose ≥ or ≤ for level comparison.</li>
+                            <li>Skill Type: Select the skill (e.g., Endurance).</li>
+                            <li>Required Skill Level: Enter the target level.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Equipment:</strong> Set requirements for equipped or excluded items.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Items to Equip: Add items the player must equip.</li>
+                            <li>Items to Exclude: Specify items to avoid equipping.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Location:</strong> Specify locations where conditions apply.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Select multiple locations if required (e.g., Interchange, Woods).</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Exit Status:</strong> Define conditions for exit.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Choose one or multiple statuses (e.g., Survived, Killed).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <li style="margin-top: 15px; font-weight: bold; color: #ffffff;">🎁 Rewards:</li>
+                <ul style="padding-left: 30px; color: #b0b0b0;">
+                    <li><strong>Experience:</strong> Award player experience points.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Value: Amount of experience awarded.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Trader Standing:</strong> Adjust standing with a trader.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Value: Amount to increase/decrease reputation.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Item:</strong> Reward the player with specific items.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Item: Select from the dropdown or enter ID.</li>
+                            <li>Value: Quantity of the item rewarded.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Assortment Unlock:</strong> Unlock items in the trader’s inventory.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Item ID: Enter the item’s ID to unlock.</li>
+                            <li>Loyalty Level: Required loyalty level to access.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong>Skill:</strong> Increase a specific skill.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li>Skill Type: Choose the skill to enhance.</li>
+                            <li>Value: Increase level by specified amount.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+        </section>
+        
+        
+        <!-- Quest Input Section -->
+        <section>
+            <h2 style="color: #ff7920;">Quest Creation</h2>
+            <label style="color: #06b600;" for="quest-name">Quest Name:</label>
+            <input type="text" id="quest-name" placeholder="Enter quest name" required>
+
+            <label for="trader-name" style="color: #06b600;">Quest Trader Name:</label>
+            <input type="text" id="trader-name" placeholder="Enter Trader name" required>
+
+            <label for="quest-number" style="color: #06b600;">Quest Number</label>
+            <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
+
+
+            <label for="quest-type" style="color: #06b600;">Quest Type:</label>
+            <select id="quest-type">
+                <option value="PickUp">Pick Up</option>
+                <option value="Completion">Completion</option>
+                <option value="Discover">Discover</option>
+                <option value="Exploration">Exploration</option>
+                <option value="Loyalty">Loyalty</option>
+                <option value="WeaponAssembly">Weapon Assembly</option>
+                <option value="Standing">Standing</option>
+                <option value="Skill">Skill</option>
+                <option value="Merchant">Merchant</option>
+                <option value="Elimination">Elimination</option>
+                <option value="Multi">Multi</option>
             </select>
-        </div>
-        
-        <button id="toggleUsefulInfoBtn" onclick="toggleUsefulInfo()" style="margin-top: 10px; width: 100%;">Show Useful Info</button>
-        <button id="toggleHowToUseBtn" onclick="toggleHowToUse()" style="margin-top: 10px; width: 100%;">Show How to Use</button>
-        <button id="reloadButton" onclick="reloadPage()" style="margin-top: 10px;">Reset Quest Info</button>
-    </div>
 
-    <section id="useful-info" style="display: none; position: relative;">
-        <strong>Useful info:</strong>
-        <ul>
-            <li><a href="https://hub.sp-tarkov.com/doc/entry/7-resources-item-properties-list/" target="_blank" style="color: #4646ff; text-decoration: underline;">Item Resource List</a></li>
-            <li><a href="https://hub.sp-tarkov.com/doc/entry/57-resources-quest-values-reference-tool/" target="_blank" style="color: #4646ff; text-decoration: underline;">Quest Values Reference Tool</a></li>
-            <li><a href="https://raw.githubusercontent.com/RuKira/SPT-AllInOne/refs/heads/main/SPT-AllInOne/Data/quests.json" target="_blank" style="color: #4646ff; text-decoration: underline;">EFT Default Quest References</a></li>
-        </ul>
-        <strong>Zone ID List for Kills condition</strong>
-        <ul>
-            <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_ZONES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Zones IDs</a></li>
-            <li><a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_PLACES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Places IDs</a></li>
-        </ul>
-        <h4>Version 0.0.1</h4>
-    </section>
-    
-    <section id="how-to-use" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
-        <strong style="color: #ffffff; font-size: 1.6em; margin-bottom: 15px; display: block;">✨ How to Use</strong>
-        <ul style="list-style: none; padding-left: 0; color: #cfcfcf; font-size: 1.2em; line-height: 1.6;">
-            <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Quest Name:</strong> Enter the quest name; it will be converted into an ID automatically.</li>
-            <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Trader Name:</strong> Specify the trader who assigns the quest.</li>
-            <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong>Objective Conditions:</strong> Define requirements like finding items, kills, or visits.</li>
-            <ul style="padding-left: 30px; color: #b0b0b0;">
-                <li style="margin-top: 10px;"><strong>Find Item:</strong> Locate specific items within a raid.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Target Items: Specify item(s) to locate.</li>
-                        <li>Value: Set the quantity needed.</li>
-                        <li>Only Found In Raid: Check if items must be raid-found.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Handover Item:</strong> Deliver specified items to the trader.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Similar to "Find Item" but involves giving items to the trader.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Kills:</strong> Set targets for elimination.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Location: Location for kills (e.g., Factory, Customs).</li>
-                        <li>Target: Target type (Scavs, PMCs, etc.).</li>
-                        <li>Kills Required: Number of kills needed.</li>
-                        <li>Distance Comparison: Set distance parameters (e.g., ≥ 50 meters).</li>
-                        <li>Time of Day From/To: Enter time range (0-24; e.g., 6 = 6 AM).</li>
-                        <li>Target Body Part: Specify body part, if applicable.</li>
-                        <li>Reset on Session End: Resets kills upon raid end.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>InZone</strong> Set a specific zone requirement for kills, LeaveItemAtLocation, or VisitPlace.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Zone ID: Enter the zone ID for the location. (see Zones IDs link)</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>LeaveItemAtLocation</strong> Set a specific location requirement for item drop.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Target Zone ID: Enter the zone ID for the location.</li>
-                        <li>Plant Time: Time in seconds to plant the item.</li>
-                        <li>Value: Quantity of the item to plant.</li>
-                        <li>MinDurability: Minimum item durability.</li>
-                        <li>MaxDurability: Maximum item durability.</li>
-                        <li>OnlyFoundInRaid: Check if the item must be raid-found.</li>
-                        <li>DogtagLevel: Required dogtag level.</li>
-                        <li>Items: Add items to plant.</li>
-                    </ul>
-                <li style="margin-top: 10px;"><strong>Visit Place:</strong> Set a specific location visit requirement.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Target Zone ID: Enter the zone ID for the location.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Skill:</strong> Require a certain level in a specified skill.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Compare Method: Choose ≥ or ≤ for level comparison.</li>
-                        <li>Skill Type: Select the skill (e.g., Endurance).</li>
-                        <li>Required Skill Level: Enter the target level.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Equipment:</strong> Set requirements for equipped or excluded items.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Items to Equip: Add items the player must equip.</li>
-                        <li>Items to Exclude: Specify items to avoid equipping.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Location:</strong> Specify locations where conditions apply.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Select multiple locations if required (e.g., Interchange, Woods).</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Exit Status:</strong> Define conditions for exit.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Choose one or multiple statuses (e.g., Survived, Killed).</li>
-                    </ul>
-                </li>
-            </ul>
-            <li style="margin-top: 15px; font-weight: bold; color: #ffffff;">🎁 Rewards:</li>
-            <ul style="padding-left: 30px; color: #b0b0b0;">
-                <li><strong>Experience:</strong> Award player experience points.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Value: Amount of experience awarded.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Trader Standing:</strong> Adjust standing with a trader.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Value: Amount to increase/decrease reputation.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Item:</strong> Reward the player with specific items.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Item: Select from the dropdown or enter ID.</li>
-                        <li>Value: Quantity of the item rewarded.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Assortment Unlock:</strong> Unlock items in the trader’s inventory.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Item ID: Enter the item’s ID to unlock.</li>
-                        <li>Loyalty Level: Required loyalty level to access.</li>
-                    </ul>
-                </li>
-                <li style="margin-top: 10px;"><strong>Skill:</strong> Increase a specific skill.
-                    <ul style="padding-left: 25px; margin-top: 5px;">
-                        <li>Skill Type: Choose the skill to enhance.</li>
-                        <li>Value: Increase level by specified amount.</li>
-                    </ul>
-                </li>
-            </ul>
-        </ul>
-    </section>
-    
-    
-    <!-- Quest Input Section -->
-    <section>
-        <h2 style="color: #ff7920;">Quest Creation</h2>
-        <label style="color: #06b600;" for="quest-name">Quest Name:</label>
-        <input type="text" id="quest-name" placeholder="Enter quest name" required>
+            <h3 style="color: #06b600;">Available For Start Conditions (if applicable)</h3>
+            <button onclick="addAvailableForStartCondition()">Add Start Condition Requirement</button>
+            <div id="available-for-start-container" class="dynamic-fields"></div>
 
-        <label for="trader-name" style="color: #06b600;">Quest Trader Name:</label>
-        <input type="text" id="trader-name" placeholder="Enter Trader name" required>
+            <h3 style="color: #06b600;">Objective Conditions</h3>
+            <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
+            <div id="conditions-container" class="dynamic-fields"></div>
 
-        <label for="quest-number" style="color: #06b600;">Quest Number</label>
-        <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
+            <h3 style="color: #06b600;">Rewards</h3>
+            <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
+            <div id="rewards-container" class="dynamic-fields"></div>
 
+            <h3 style="color: #06b600;">Quest Language Variables</h3>
+            <div id="language-variables-container" style="margin-bottom: 20px;">
+                <div id="language-entries-section"></div>
+                <div id="dynamic-lang-variables-container"></div>
+            </div>
 
-        <label for="quest-type" style="color: #06b600;">Quest Type:</label>
-        <select id="quest-type">
-            <option value="PickUp">Pick Up</option>
-            <option value="Completion">Completion</option>
-            <option value="Discover">Discover</option>
-            <option value="Exploration">Exploration</option>
-            <option value="Loyalty">Loyalty</option>
-            <option value="WeaponAssembly">Weapon Assembly</option>
-            <option value="Standing">Standing</option>
-            <option value="Skill">Skill</option>
-            <option value="Merchant">Merchant</option>
-            <option value="Elimination">Elimination</option>
-            <option value="Multi">Multi</option>
-        </select>
-
-        <h3 style="color: #06b600;">Available For Start Conditions (if applicable)</h3>
-        <button onclick="addAvailableForStartCondition()">Add Start Condition Requirement</button>
-        <div id="available-for-start-container" class="dynamic-fields"></div>
-
-        <h3 style="color: #06b600;">Objective Conditions</h3>
-        <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
-        <div id="conditions-container" class="dynamic-fields"></div>
-
-        <h3 style="color: #06b600;">Rewards</h3>
-        <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
-        <div id="rewards-container" class="dynamic-fields"></div>
-
-        <h3 style="color: #06b600;">Quest Language Variables</h3>
-        <div id="language-variables-container" style="margin-bottom: 20px;">
-            <div id="language-entries-section"></div>
+            <!-- Language Variables for Conditions and Rewards -->
+            <h3 style="color: #06b600;">Condition & Reward Language Variables</h3>
             <div id="dynamic-lang-variables-container"></div>
-        </div>
 
-        <!-- Language Variables for Conditions and Rewards -->
-        <h3 style="color: #06b600;">Condition & Reward Language Variables</h3>
-        <div id="dynamic-lang-variables-container"></div>
-
-        <button onclick="generateQuest()" style="margin-top: 10px;">Generate Quest JSON</button>
-    </section>
-    
-    <section id="quest-output-section" style="display: none; position: relative;">
-        <h2 style="color: #06b600;">Quest JSON Output</h2>
-        <h4>Copy this to your trader json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\quests</strong>, e.g., <strong style="color: #9b008e;">Chloe.json</strong></h4>
-        <div style="position: relative;">
-            <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 40px; padding: 5px 10px; width: auto;">
-                Copy Quest to Clipboard
-            </button>
-        </div>
-        <pre id="output" style="margin-top: 40px; padding: 10px;">Generated quest JSON will appear here...</pre>
-    </section>
-    
-    <section id="language-output-section" style="display: none; position: relative;">
-        <h3 style="color: #06b600;">Quest Language Variables</h3>
-        <h4>Copy this to your language json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\locales\en</strong>, e.g., <strong style="color: #9b008e;">ChloeLocale.json</strong></h4>
-        <div style="position: relative;">
-            <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
-                Copy Language Variables to Clipboard
-            </button>
-            <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
-        </div>
-    </section>
-    
-    <section id="assortments-output-section" style="display: none; position: relative;">
-        <h3 style="color: #06b600;">Quest Assortments</h3>
-        <h4>Copy this to your trader json inside either <strong style="color: #9b008e;">base.json</strong> or <strong style="color: #9b008e;">questassort.json</strong> at <strong style="color: #9b008e;">SPT\user\mods\TRADERNAME\db</strong>, e.g., <strong style="color: #9b008e;">questassort.json</strong></h4>
-        <div style="position: relative;">
-            <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
-                Copy Assortments to Clipboard
-            </button>
-            <pre id="assortments-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
-        </div>
-    </section>
-
-    <script>
-        let items = [];
-        let languageData = {};
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadLanguage('en.json');
-            loadItems();
-            populateLanguageFields();
-            weaponCaliberSelection();
-
-            initializeTargetSelectListener();
-        });
-
-        function initializeTargetSelectListener() {
-            const targetSelect = document.querySelector('select[required]');
-            if (targetSelect) {
-                targetSelect.addEventListener('change', savageSelection);
-            } else {
-                console.warn("targetSelect element not found. Retrying...");
-                setTimeout(initializeTargetSelectListener, 500); // Retry after 500ms
-            }
-        }
-
-        function reloadPage() {
-            const currentUrl = window.location.href.split('?')[0];
-            window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
-        }
-
-        async function loadLanguage(languageFile) {
-            try {
-                const response = await fetch(`https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/lang/${languageFile}`);
-                if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
-                
-                languageData = await response.json();
-                
-                mapLanguageToItems();
-                
-                const targetItemDivs = document.querySelectorAll('.target-item .dropdown-item');
-                targetItemDivs.forEach(itemDiv => {
-                    const itemId = itemDiv.getAttribute('data-value');
-                    const item = items.find(i => i._id === itemId);
-                    if (item) {
-                        itemDiv.textContent = item.displayName;
-                    }
-                });
-            } catch (error) {
-                console.error("Failed to load language:", error);
-            }
-        }
-
-        async function loadItems() {
-            if (!window.itemsLoaded) {
-                try {
-                    const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');
-                    if (!response.ok) throw new Error(`Error loading items: ${response.status}`);
-                    const allItems = await response.json();
-
-                    items = Object.values(allItems).filter(item => item._id && item._props);
-
-                    mapLanguageToItems();
-                    items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
-
-                    window.itemsLoaded = true;
-                } catch (error) {
-                    console.error("Failed to load items:", error);
-                    window.itemsLoaded = false;
-                }
-            }
-        }
-
-        function mapLanguageToItems() {
-            if (!languageData || !items) return;
-
-            items.forEach(item => {
-                const itemId = item._id;
-                const shortNameKey = `${itemId} ShortName`;
-                const nameKey = `${itemId} Name`;
-
-                item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props.Name;
-            });
-
-            items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
-        }
-
-        function addCondition() {
-            const container = document.getElementById('conditions-container');
-            const conditionDiv = document.createElement('div');
-            conditionDiv.classList.add("condition");
-
-            const conditionIndex = container.childElementCount + 1;
-            const traderId = document.getElementById('trader-name').value || 'trader';
-            const questNumber = document.getElementById('quest-number').value || '0';
-            const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
-
-            conditionDiv.innerHTML = `
-                <label style="color: #06b600;">Condition Type:
-                    <select onchange="updateConditionFields(this)">
-                        <option value="FindItem">Find Item</option>
-                        <option value="HandoverItem">Handover Item</option>
-                        <option value="Skill">Skill</option>
-                        <option value="Equipment">Equipment</option>
-                        <option value="VisitPlace">Visit Place</option>
-                        <option value="Location">Location</option>
-                        <option value="ExitStatus">Exit Status</option>
-                        <option value="InZone">In Zone</option>
-                        <option value="Kills">Kills</option>
-                        <option value="LeaveItemAtLocation">Leave Item At Location</option>
-                    </select>
-                </label>
-                <div class="condition-details"></div>
-                <div class="visibility-conditions">
-                    <h4 style="color: #06b600;">Visibility Condition</h4>
-                    <label>Visibility Target Objective ID: ("${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}" <-- for the last quest objective)
-                        <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
-                    </label>
-                </div>
-            `;
-            container.appendChild(conditionDiv);
-            updateConditionFields(conditionDiv.querySelector('select'));
-            addLanguageField(objLabel, `Objective ${conditionIndex}`);
-        }
-
-        function addLanguageField(fieldId, label) {
-            const languageSection = document.getElementById('dynamic-lang-variables-container');
-            
-            const div = document.createElement('div');
-            div.className = 'dynamic-lang-entry';
-            div.innerHTML = `<label  style="color: #06b600;" for="${fieldId}">${label}:</label><input type="text" id="${fieldId}" placeholder="Enter text for ${label}">`;
-            languageSection.appendChild(div);
-        }
-
-        function removeCondition(button) {
-            const conditionDiv = button.closest('.condition');
-            const conditionIndex = Array.from(conditionDiv.parentNode.children).indexOf(conditionDiv) + 1;
-            const traderId = document.getElementById('trader-name').value || 'trader';
-            const questNumber = document.getElementById('quest-number').value || '0';
-            const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
-
-            // Remove the associated language entry
-            document.getElementById(objLabel)?.parentElement.remove();
-
-            // Remove the condition
-            conditionDiv.remove();
-
-            // Adjust language fields if needed
-            adjustLanguageFields();
-        }
+            <button onclick="generateQuest()" style="margin-top: 10px;">Generate Quest JSON</button>
+        </section>
         
-        function adjustLanguageFields() {
-            const traderId = document.getElementById('trader-name').value || 'trader';
-            const questNumber = document.getElementById('quest-number').value || '0';
-            const conditions = document.querySelectorAll('#conditions-container > .condition');
-            const languageSection = document.getElementById('dynamic-lang-variables-container');
-            let index = 1;
+        <section id="quest-output-section" style="display: none; position: relative;">
+            <h2 style="color: #06b600;">Quest JSON Output</h2>
+            <h4>Copy this to your trader json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\quests</strong>, e.g., <strong style="color: #9b008e;">Chloe.json</strong></h4>
+            <div style="position: relative;">
+                <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 40px; padding: 5px 10px; width: auto;">
+                    Copy Quest to Clipboard
+                </button>
+            </div>
+            <pre id="output" style="margin-top: 40px; padding: 10px;">Generated quest JSON will appear here...</pre>
+        </section>
+        
+        <section id="language-output-section" style="display: none; position: relative;">
+            <h3 style="color: #06b600;">Quest Language Variables</h3>
+            <h4>Copy this to your language json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\locales\en</strong>, e.g., <strong style="color: #9b008e;">ChloeLocale.json</strong></h4>
+            <div style="position: relative;">
+                <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
+                    Copy Language Variables to Clipboard
+                </button>
+                <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
+            </div>
+        </section>
+        
+        <section id="assortments-output-section" style="display: none; position: relative;">
+            <h3 style="color: #06b600;">Quest Assortments</h3>
+            <h4>Copy this to your trader json inside either <strong style="color: #9b008e;">base.json</strong> or <strong style="color: #9b008e;">questassort.json</strong> at <strong style="color: #9b008e;">SPT\user\mods\TRADERNAME\db</strong>, e.g., <strong style="color: #9b008e;">questassort.json</strong></h4>
+            <div style="position: relative;">
+                <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
+                    Copy Assortments to Clipboard
+                </button>
+                <pre id="assortments-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
+            </div>
+        </section>
 
-            conditions.forEach(condition => {
-                const fieldId = `${traderId}_${questNumber} obj_${index}`;
-                const existingInput = document.getElementById(fieldId);
+        <script>
+            let items = [];
+            let languageData = {};
 
-                if (!existingInput) {
-                    addLanguageField(fieldId, `Objective ${index}`);
-                }
+            document.addEventListener('DOMContentLoaded', () => {
+                loadLanguage('en.json');
+                loadItems();
+                populateLanguageFields();
+                weaponCaliberSelection();
 
-                index++;
+                initializeTargetSelectListener();
             });
-        }
 
-        async function updateConditionFields(selectElement) {
-            if (!window.itemsLoaded) {
-                await loadItems();
-                if (!window.itemsLoaded) return;
+            function initializeTargetSelectListener() {
+                const targetSelect = document.querySelector('select[required]');
+                if (targetSelect) {
+                    targetSelect.addEventListener('change', savageSelection);
+                } else {
+                    console.warn("targetSelect element not found. Retrying...");
+                    setTimeout(initializeTargetSelectListener, 500); // Retry after 500ms
+                }
             }
 
-            const conditionDetails = selectElement.closest('.condition').querySelector('.condition-details');
-            if (!conditionDetails) return; // Check if conditionDetails is found
+            function reloadPage() {
+                const currentUrl = window.location.href.split('?')[0];
+                window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
+            }
 
-            const skillOptions = [
-                "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
-                "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "Troubleshooting",
-                "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
-                "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
-                "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
-                "Surgery", "HideoutManagement", "MagDrills", "Crafting"
-            ];
+            async function loadLanguage(languageFile) {
+                try {
+                    const response = await fetch(`https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/lang/${languageFile}`);
+                    if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
+                    
+                    languageData = await response.json();
+                    
+                    mapLanguageToItems();
+                    
+                    const targetItemDivs = document.querySelectorAll('.target-item .dropdown-item');
+                    targetItemDivs.forEach(itemDiv => {
+                        const itemId = itemDiv.getAttribute('data-value');
+                        const item = items.find(i => i._id === itemId);
+                        if (item) {
+                            itemDiv.textContent = item.displayName;
+                        }
+                    });
+                } catch (error) {
+                    console.error("Failed to load language:", error);
+                }
+            }
 
-            // Populate conditionDetails based on selection value
-            if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Target Items:</label>
-                    <div class="target-items-container"></div>
-                    <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
-                    <label style="color: #06b600;">Value:
-                        <input type="number" placeholder="Enter level" required value="1">
+            async function loadItems() {
+                if (!window.itemsLoaded) {
+                    try {
+                        const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');
+                        if (!response.ok) throw new Error(`Error loading items: ${response.status}`);
+                        const allItems = await response.json();
+
+                        items = Object.values(allItems).filter(item => item._id && item._props);
+
+                        mapLanguageToItems();
+                        items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+
+                        window.itemsLoaded = true;
+                    } catch (error) {
+                        console.error("Failed to load items:", error);
+                        window.itemsLoaded = false;
+                    }
+                }
+            }
+
+            function mapLanguageToItems() {
+                if (!languageData || !items) return;
+
+                items.forEach(item => {
+                    const itemId = item._id;
+                    const shortNameKey = `${itemId} ShortName`;
+                    const nameKey = `${itemId} Name`;
+
+                    item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props.Name;
+                });
+
+                items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+            }
+
+            function addCondition() {
+                const container = document.getElementById('conditions-container');
+                const conditionDiv = document.createElement('div');
+                conditionDiv.classList.add("condition");
+
+                const conditionIndex = container.childElementCount + 1;
+                const traderId = document.getElementById('trader-name').value || 'trader';
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
+
+                conditionDiv.innerHTML = `
+                    <label style="color: #06b600;">Condition Type:
+                        <select onchange="updateConditionFields(this)">
+                            <option value="FindItem">Find Item</option>
+                            <option value="HandoverItem">Handover Item</option>
+                            <option value="Skill">Skill</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="VisitPlace">Visit Place</option>
+                            <option value="Location">Location</option>
+                            <option value="ExitStatus">Exit Status</option>
+                            <option value="InZone">In Zone</option>
+                            <option value="Kills">Kills</option>
+                            <option value="LeaveItemAtLocation">Leave Item At Location</option>
+                        </select>
                     </label>
-                    <div style="display: flex; align-items: center; text-align: left;">
-                        <label style="display: flex; align-items: center;">
-                            <input type="checkbox" style="margin-right: 5px;"> Only Found In Raid
+                    <div class="condition-details"></div>
+                    <div class="visibility-conditions">
+                        <h4 style="color: #06b600;">Visibility Condition</h4>
+                        <label>Visibility Target Objective ID: ("${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}" <-- for the last quest objective)
+                            <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                         </label>
                     </div>
-                    </label>
-                    <div style="margin-top: 10px; display: inline-block;">
-                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                    </div>
                 `;
-            } else if (selectElement.value === 'Kills') {
-                conditionDetails.innerHTML = `
-                    <label>Location:
-                        <select class="location-dropdown" required>
-                            <option value="any" selected>Any</option>
-                            <option value="55f2d3fd4bdc2d5f408b4567">Factory Day</option>
-                            <option value="59fc81d786f774390775787e">Factory Night</option>
-                            <option value="56f40101d2720b2a4d8b45d6">Customs</option>
-                            <option value="5704e3c2d2720bac5b8b4567">Woods</option>
-                            <option value="5704e4dad2720bb55b8b4567">Lighthouse</option>
-                            <option value="5704e554d2720bac5b8b456e">Shoreline</option>
-                            <option value="5704e5fad2720bc05b8b4567">Reserve</option>
-                            <option value="5714dbc024597771384a510d">Interchange</option>
-                            <option value="5b0fc42d86f7744a585f9105">The Lab</option>
-                            <option value="5714dc692459777137212e12">Streets</option>
-                            <option value="653e6760052c01c1c805532f">Ground Zero</option>
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Target:
-                        <select id="target-select" required>
-                            <option value="Savage">Scavs</option>
-                            <option value="AnyPmc">PMCs</option>
-                            <option value="Usec">Usec</option>
-                            <option value="Bear">Bear</option>
-                            <option value="Any" selected>Any</option>
-                        </select>
-                    </label>
-                    <label id="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
-                    <select id="savage-role-select" style="display:none;" multiple>
-                        <option value="">Any</option>
-                        <option value="bossKilla">Killa</option>
-                        <option value="bossTagilla">Tagilla</option>
-                        <option value="bossBully">Reshala</option>
-                        <option value="followerBully">Reshala's Bodyguards</option>
-                        <option value="bossKojaniy">Schturman</option>
-                        <option value="bossGluhar">Gluhar</option>
-                        <option value="followerGluharAssault">Gluhar Guard Assault</option>
-                        <option value="followerGluharScout">Gluhar Guard Scout</option>
-                        <option value="followerGluharSecurity">Gluhar Guard Security</option>
-                        <option value="followerGluharSnipe">Gluhar Guard Sniper</option>
-                        <option value="pmcBot">Raider</option>
-                        <option value="bossSanitar">Sanitar</option>
-                        <option value="followerSanitar">Sanitar Bodyguards</option>
-                        <option value="bossKnight">Knight</option>
-                        <option value="followerBigPipe">BigPipe</option>
-                        <option value="followerBirdEye">BirdEye</option>
-                        <option value="exUsec">Rogue</option>
-                        <option value="marksman">Sniper Scavs</option>
-                        <option value="sectantPriest">Cultist Priest</option>
-                        <option value="sectantWarrior">Cultist Warrior</option>
-                        <option value="arenaFighterEvent">Bloodhound</option>
-                    </select>
-                    <label style="color: #06b600;">Kills Required:
-                        <input type="number" placeholder="Number of kills" required value="1">
-                    </label>
-                    <label style="color: #06b600;">Distance Comparison: (0 = any distance, >= 50 = greater than or equal to 50 meters)
-                        <select>
-                            <option value=">=">&ge;</option>
-                            <option value="<=">&le;</option>
-                        </select>
-                        <input type="number" placeholder="Distance in meters" required value="0">
-                    </label>
-                    <label style="color: #06b600;">Time of Day From (0-24):
-                        <input type="number" min="0" max="24" value="0" required>
-                    </label>
-                    <label style="color: #06b600;">Time of Day To (0-24):
-                        <input type="number" min="0" max="24" value="0" required>
-                    </label>
-                    <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
-                    <div class="weapon-caliber-container">
-                        <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
-                            <option value="all">All</option>
-                            <option value="543be6564bdc2df4348b4568">Throwable</option>
-                            <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
-                            <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
-                            <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
-                            <option value="5447b5e04bdc2d62278b4567">SMGs</option>
-                            <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
-                            <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
-                            <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
-                            <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
-                            <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
-                        </select>
-                    </div>
-                    <label style="color: #06b600;">Target Body Part (select multiple with ctrl + click):</label>
-                    <select id="body-part-select" multiple>
-                        <option value="">Any</option>
-                        <option value="Head">Head</option>
-                        <option value="Chest">Chest</option>
-                        <option value="Stomach">Stomach</option>
-                        <option value="LeftArm">Left Arm</option>
-                        <option value="RightArm">Right Arm</option>
-                        <option value="LeftLeg">Left Leg</option>
-                        <option value="RightLeg">Right Leg</option>
-                    </select>
-                    <label style="color: #06b600;">Weapons Mods to Include:</label>
-                    <div id="weapon-mods-inclusive-container">
-                        <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
-                        <div class="weapon-mods-inclusive"></div>
-                    </div>
+                container.appendChild(conditionDiv);
+                updateConditionFields(conditionDiv.querySelector('select'));
+                addLanguageField(objLabel, `Objective ${conditionIndex}`);
+            }
 
-                    <label style="color: #06b600;">Weapons Mods to Exclude:</label>
-                    <div id="weapon-mods-exclusive-container">
-                        <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
-                        <div class="weapon-mods-exclusive"></div>
-                    </div>
-                    <div style="display: flex; align-items: center; text-align: left;">
-                        <label style="display: flex; align-items: center;">
-                            <input type="checkbox" style="margin-right: 5px;">
-                            Reset on Session End
-                        </label>
-                    </div>
-                    <div style="margin-top: 10px; display: inline-block;">
-                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                    </div>
-                `;
+            function addLanguageField(fieldId, label) {
+                const languageSection = document.getElementById('dynamic-lang-variables-container');
                 
-                const targetSelect = document.getElementById('target-select');
-                    if (targetSelect) {
-                        targetSelect.addEventListener('change', function() {
-                            const savageRoleLabel = document.getElementById('savage-role-label');
-                            const savageRoleSelect = document.getElementById('savage-role-select');
-                            if (this.value === 'Savage') {
-                                savageRoleLabel.style.display = 'block';
-                                savageRoleSelect.style.display = 'block';
-                            } else {
-                                savageRoleLabel.style.display = 'none';
-                                savageRoleSelect.style.display = 'none';
-                            }
-                        });
+                const div = document.createElement('div');
+                div.className = 'dynamic-lang-entry';
+                div.innerHTML = `<label  style="color: #06b600;" for="${fieldId}">${label}:</label><input type="text" id="${fieldId}" placeholder="Enter text for ${label}">`;
+                languageSection.appendChild(div);
+            }
+
+            function removeCondition(button) {
+                const conditionDiv = button.closest('.condition');
+                const conditionIndex = Array.from(conditionDiv.parentNode.children).indexOf(conditionDiv) + 1;
+                const traderId = document.getElementById('trader-name').value || 'trader';
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
+
+                // Remove the associated language entry
+                document.getElementById(objLabel)?.parentElement.remove();
+
+                // Remove the condition
+                conditionDiv.remove();
+
+                // Adjust language fields if needed
+                adjustLanguageFields();
+            }
+            
+            function adjustLanguageFields() {
+                const traderId = document.getElementById('trader-name').value || 'trader';
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const conditions = document.querySelectorAll('#conditions-container > .condition');
+                const languageSection = document.getElementById('dynamic-lang-variables-container');
+                let index = 1;
+
+                conditions.forEach(condition => {
+                    const fieldId = `${traderId}_${questNumber} obj_${index}`;
+                    const existingInput = document.getElementById(fieldId);
+
+                    if (!existingInput) {
+                        addLanguageField(fieldId, `Objective ${index}`);
                     }
 
-            } else if (selectElement.value === 'VisitPlace') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Target Zone ID (e.g., huntsman_029):
-                        <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
-                    </label>
-                    <div style="display: flex; align-items: center; text-align: left;">
-                        <label style="display: flex; align-items: center;">
-                            <input type="checkbox" class="visit-place-one-session-only" style="margin-right: 5px;">
-                            One Session Only
-                        </label>
-                    </div>
-                `;
-            } else if (selectElement.value === 'Skill') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Compare Method:
-                        <select>
-                            <option value=">=" selected>&ge;</option>
-                            <option value="<=">&le;</option>
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Skill Type:
-                        <select class="skill-target">
-                            ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Required Skill Level: (1 = 1 level, 2 = 2 levels, etc.)
-                        <input type="number" class="skill-value" placeholder="Enter skill level" required>
-                    </label>
-                    <div style="margin-top: 10px; display: inline-block;">
-                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                    </div>
-                `;
-            } else if (selectElement.value === 'Equipment') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Items Required to be Equipped:</label>
-                    <div id="equipment-inclusive-container">
-                        <button type="button" onclick="addInclusiveItem()">Add Item to Include</button>
-                        <div class="inclusive-items-container"></div>
-                    </div>
-                    
-                    <label style="color: #06b600;">Items Required to NOT be Equipped</label>
-                    <div id="equipment-exclusive-container">
-                        <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
-                        <div class="exclusive-items-container"></div>
-                    </div>
-                    
-                    <div style="margin-top: 10px; display: inline-block;">
-                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                    </div>
-                    
-                `;
-            } else if (selectElement.value === 'Location') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
-                    <select multiple class="location-dropdown">
-                        <option value="Interchange">Interchange</option>
-                        <option value="factory4_day">Factory Day</option>
-                        <option value="factory4_night">Factory Night</option>
-                        <option value="bigmap">Customs</option>
-                        <option value="Woods">Woods</option>
-                        <option value="Lighthouse">Lighthouse</option>
-                        <option value="Shoreline">Shoreline</option>
-                        <option value="RezervBase">Reserve</option>
-                        <option value="laboratory">The Lab</option>
-                        <option value="TarkovStreets">Streets</option>
-                        <option value="Sandbox">Ground Zero (PMC < 20)</option>
-                        <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
-                    </select>
-                    <div style="margin-top: 10px;">
-                        <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
-                    </div>
-                `;
-            }
-            // Condition for Exit Status
-            else if (selectElement.value === 'ExitStatus') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Exit Status (select multiple with ctrl + click):</label>
-                    <select multiple class="exit-status-dropdown">
-                        <option value="Survived">Survived</option>
-                        <option value="Runner">Runner</option>
-                        <option value="Killed">Killed</option>
-                        <option value="Left">Left</option>
-                        <option value="MissingInAction">Missing In Action</option>
-                    </select>
-                    <div style="margin-top: 10px;">
-                        <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
-                    </div>
-                `;
-            }
-            // Condition for InZone
-            else if (selectElement.value === 'InZone') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Zone IDs (e.g., Woods_Sawmill, Woods_Old_Sawmill):
-                        <input type="text" placeholder="Enter zone IDs, separated by commas" required>
-                    </label>
-                    <div style="margin-top: 10px; display: inline-block;">
-                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                    </div>
-                `;
-            }
-            // Condition for LeaveItemAtLocation
-            else if (selectElement.value === 'LeaveItemAtLocation') {
-                conditionDetails.innerHTML = `
-                    <div class="condition">
-                        <label style="color: #06b600;">Target Zone ID:
-                            <input type="text" placeholder="Enter zone ID (e.g., Saving_The_Mole)" required>
-                        </label>
-                        <label style="color: #06b600;">Plant Time:
-                            <input type="number" placeholder="Enter plant time in seconds" value="10"  required>
-                        </label>
-                        <label style="color: #06b600;">Value:
-                            <input type="number" placeholder="Enter quantity of item to plant" value="1" required>
-                        </label>
-                        <label style="color: #06b600;">Min Durability:
-                            <input type="number" placeholder="Enter minimum item durability" value="0" required>
-                        </label>
-                        <label style="color: #06b600;">Max Durability:
-                            <input type="number" placeholder="Enter maximum item durability" value="100" required>
-                        </label>
-                        <label style="color: #06b600;">Dogtag Level: (leave 0 if not required)
-                            <input type="number" placeholder="Enter required dogtag level" value="0" required>
-                        </label>
-                        <label style="color: #06b600;">Only Found In Raid:
-                            <input type="checkbox">
-                        </label>
-                        <label style="color: #06b600;">Item IDs to Plant:</label>
-                        <button type="button" onclick="addTargetItem()" style="margin-top: 10px;">Add Item</button>
-                        <div class="target-items-container"></div>
-                    </div>
-
-                `;
-            }
-        }
-
-        function addTargetItem() {
-            const container = document.querySelector('.target-items-container');
-            const targetDiv = document.createElement('div');
-            targetDiv.classList.add('target-item');
-
-            targetDiv.innerHTML = `
-                <label style="color: #06b600;">Item ID:</label>
-                <div class="custom-dropdown">
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
-            `;
-
-            container.appendChild(targetDiv);
-        }
-
-
-        function removeItem(button) {
-            button.closest('.item-to-plant').remove();
-        }
-
-        function addWeaponModInclusive() {
-            const container = document.querySelector('.weapon-mods-inclusive');
-            const modDiv = document.createElement('div');
-            modDiv.classList.add('weapon-mod-item');
-
-            modDiv.innerHTML = `
-                <div class="custom-dropdown">
-                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeWeaponMod(this)">Remove</button>
-            `;
-            container.appendChild(modDiv);
-        }
-
-        function addWeaponModExclusive() {
-            const container = document.querySelector('.weapon-mods-exclusive');
-            const modDiv = document.createElement('div');
-            modDiv.classList.add('weapon-mod-item');
-
-            modDiv.innerHTML = `
-                <div class="custom-dropdown">
-                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeWeaponMod(this)">Remove</button>
-            `;
-            container.appendChild(modDiv);
-        }
-
-        function removeWeaponMod(button) {
-            button.closest('.weapon-mod-item').remove();
-        }
-
-
-        function addEquipmentItem() {
-            const container = document.querySelector('.equipment-inclusive-container');
-            const equipmentDiv = document.createElement('div');
-            equipmentDiv.classList.add('equipment-item');
-
-            equipmentDiv.innerHTML = `
-                <div class="custom-dropdown">
-                    <label style="color: #06b600;">Search or Enter ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
-            `;
-
-            container.appendChild(equipmentDiv);
-        }
-
-        function removeEquipmentItem(button) {
-            button.closest('.equipment-item').remove();
-        }
-
-        function addInclusiveItem() {
-            const container = document.querySelector('.inclusive-items-container');
-            const itemDiv = document.createElement('div');
-            itemDiv.classList.add('inclusive-item');
-
-            itemDiv.innerHTML = `
-                <label style="color: #06b600;">Inclusive Item ID:</label>
-                <div class="custom-dropdown">
-                    <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
-            `;
-
-            container.appendChild(itemDiv);
-            }
-
-        function addExclusiveItem() {
-            const container = document.querySelector('.exclusive-items-container');
-            const itemDiv = document.createElement('div');
-            itemDiv.classList.add('exclusive-item');
-            
-            itemDiv.innerHTML = `
-                <label style="color: #06b600;">Exclusive Item ID:</label>
-                <div class="custom-dropdown">
-                    <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
-            `;
-
-            container.appendChild(itemDiv);
-        }
-
-        function removeItem(button) {
-            button.closest('.inclusive-item, .exclusive-item').remove();
-        }
-
-        let selectedWeaponCalibers = [];
-
-        function handleWeaponCaliberSelection() {
-            const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
-            const isAllSelected = Array.from(weaponCaliberSelect.selectedOptions).some(option => option.value === 'all');
-
-            if (isAllSelected) {
-                // Deselect all other options except "All"
-                Array.from(weaponCaliberSelect.options).forEach(option => {
-                    option.selected = option.value === 'all';
+                    index++;
                 });
-                selectedWeaponCalibers = ["all"]; // Set selectedWeaponCalibers to "all" when "All" is selected
-            } else {
-                // Update selectedWeaponCalibers with selected options' values
-                selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions).map(option => option.value);
             }
-        }
 
-        function addTargetItem() {
-            const conditionDiv = event.target.closest('.condition');
-            const container = conditionDiv.querySelector('.target-items-container');
-            const targetDiv = document.createElement('div');
-            targetDiv.classList.add('target-item');
+            async function updateConditionFields(selectElement) {
+                if (!window.itemsLoaded) {
+                    await loadItems();
+                    if (!window.itemsLoaded) return;
+                }
 
-            targetDiv.innerHTML = `
-                <label style="color: #06b600;">Search or Enter ID:</label>
-                <div class="custom-dropdown">
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
+                const conditionDetails = selectElement.closest('.condition').querySelector('.condition-details');
+                if (!conditionDetails) return; // Check if conditionDetails is found
+
+                const skillOptions = [
+                    "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
+                    "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "Troubleshooting",
+                    "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
+                    "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
+                    "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
+                    "Surgery", "HideoutManagement", "MagDrills", "Crafting"
+                ];
+
+                // Populate conditionDetails based on selection value
+                if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Target Items:</label>
+                        <div class="target-items-container"></div>
+                        <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
+                        <label style="color: #06b600;">Value:
+                            <input type="number" placeholder="Enter level" required value="1">
+                        </label>
+                        <div style="display: flex; align-items: center; text-align: left;">
+                            <label style="display: flex; align-items: center;">
+                                <input type="checkbox" style="margin-right: 5px;"> Only Found In Raid
+                            </label>
+                        </div>
+                        </label>
+                        <div style="margin-top: 10px; display: inline-block;">
+                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                        </div>
+                    `;
+                } else if (selectElement.value === 'Kills') {
+                    conditionDetails.innerHTML = `
+                        <label>Location:
+                            <select class="location-dropdown" required>
+                                <option value="any" selected>Any</option>
+                                <option value="55f2d3fd4bdc2d5f408b4567">Factory Day</option>
+                                <option value="59fc81d786f774390775787e">Factory Night</option>
+                                <option value="56f40101d2720b2a4d8b45d6">Customs</option>
+                                <option value="5704e3c2d2720bac5b8b4567">Woods</option>
+                                <option value="5704e4dad2720bb55b8b4567">Lighthouse</option>
+                                <option value="5704e554d2720bac5b8b456e">Shoreline</option>
+                                <option value="5704e5fad2720bc05b8b4567">Reserve</option>
+                                <option value="5714dbc024597771384a510d">Interchange</option>
+                                <option value="5b0fc42d86f7744a585f9105">The Lab</option>
+                                <option value="5714dc692459777137212e12">Streets</option>
+                                <option value="653e6760052c01c1c805532f">Ground Zero</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Target:
+                            <select id="target-select" required>
+                                <option value="Savage">Scavs</option>
+                                <option value="AnyPmc">PMCs</option>
+                                <option value="Usec">Usec</option>
+                                <option value="Bear">Bear</option>
+                                <option value="Any" selected>Any</option>
+                            </select>
+                        </label>
+                        <label id="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
+                        <select id="savage-role-select" style="display:none;" multiple>
+                            <option value="">Any</option>
+                            <option value="bossKilla">Killa</option>
+                            <option value="bossTagilla">Tagilla</option>
+                            <option value="bossBully">Reshala</option>
+                            <option value="followerBully">Reshala's Bodyguards</option>
+                            <option value="bossKojaniy">Schturman</option>
+                            <option value="bossGluhar">Gluhar</option>
+                            <option value="followerGluharAssault">Gluhar Guard Assault</option>
+                            <option value="followerGluharScout">Gluhar Guard Scout</option>
+                            <option value="followerGluharSecurity">Gluhar Guard Security</option>
+                            <option value="followerGluharSnipe">Gluhar Guard Sniper</option>
+                            <option value="pmcBot">Raider</option>
+                            <option value="bossSanitar">Sanitar</option>
+                            <option value="followerSanitar">Sanitar Bodyguards</option>
+                            <option value="bossKnight">Knight</option>
+                            <option value="followerBigPipe">BigPipe</option>
+                            <option value="followerBirdEye">BirdEye</option>
+                            <option value="exUsec">Rogue</option>
+                            <option value="marksman">Sniper Scavs</option>
+                            <option value="sectantPriest">Cultist Priest</option>
+                            <option value="sectantWarrior">Cultist Warrior</option>
+                            <option value="arenaFighterEvent">Bloodhound</option>
+                        </select>
+                        <label style="color: #06b600;">Kills Required:
+                            <input type="number" placeholder="Number of kills" required value="1">
+                        </label>
+                        <label style="color: #06b600;">Distance Comparison: (0 = any distance, >= 50 = greater than or equal to 50 meters)
+                            <select>
+                                <option value=">=">&ge;</option>
+                                <option value="<=">&le;</option>
+                            </select>
+                            <input type="number" placeholder="Distance in meters" required value="0">
+                        </label>
+                        <label style="color: #06b600;">Time of Day From (0-24):
+                            <input type="number" min="0" max="24" value="0" required>
+                        </label>
+                        <label style="color: #06b600;">Time of Day To (0-24):
+                            <input type="number" min="0" max="24" value="0" required>
+                        </label>
+                        <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
+                        <div class="weapon-caliber-container">
+                            <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
+                                <option value="all">All</option>
+                                <option value="543be6564bdc2df4348b4568">Throwable</option>
+                                <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
+                                <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
+                                <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
+                                <option value="5447b5e04bdc2d62278b4567">SMGs</option>
+                                <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
+                                <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
+                                <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
+                                <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
+                                <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
+                            </select>
+                        </div>
+                        <label style="color: #06b600;">Target Body Part (select multiple with ctrl + click):</label>
+                        <select id="body-part-select" multiple>
+                            <option value="">Any</option>
+                            <option value="Head">Head</option>
+                            <option value="Chest">Chest</option>
+                            <option value="Stomach">Stomach</option>
+                            <option value="LeftArm">Left Arm</option>
+                            <option value="RightArm">Right Arm</option>
+                            <option value="LeftLeg">Left Leg</option>
+                            <option value="RightLeg">Right Leg</option>
+                        </select>
+                        <label style="color: #06b600;">Weapons Mods to Include:</label>
+                        <div id="weapon-mods-inclusive-container">
+                            <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
+                            <div class="weapon-mods-inclusive"></div>
+                        </div>
+
+                        <label style="color: #06b600;">Weapons Mods to Exclude:</label>
+                        <div id="weapon-mods-exclusive-container">
+                            <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
+                            <div class="weapon-mods-exclusive"></div>
+                        </div>
+                        <div style="display: flex; align-items: center; text-align: left;">
+                            <label style="display: flex; align-items: center;">
+                                <input type="checkbox" style="margin-right: 5px;">
+                                Reset on Session End
+                            </label>
+                        </div>
+                        <div style="margin-top: 10px; display: inline-block;">
+                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                        </div>
+                    `;
+                    
+                    const targetSelect = document.getElementById('target-select');
+                        if (targetSelect) {
+                            targetSelect.addEventListener('change', function() {
+                                const savageRoleLabel = document.getElementById('savage-role-label');
+                                const savageRoleSelect = document.getElementById('savage-role-select');
+                                if (this.value === 'Savage') {
+                                    savageRoleLabel.style.display = 'block';
+                                    savageRoleSelect.style.display = 'block';
+                                } else {
+                                    savageRoleLabel.style.display = 'none';
+                                    savageRoleSelect.style.display = 'none';
+                                }
+                            });
+                        }
+
+                } else if (selectElement.value === 'VisitPlace') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Target Zone ID (e.g., huntsman_029):
+                            <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
+                        </label>
+                        <div style="display: flex; align-items: center; text-align: left;">
+                            <label style="display: flex; align-items: center;">
+                                <input type="checkbox" class="visit-place-one-session-only" style="margin-right: 5px;">
+                                One Session Only
+                            </label>
+                        </div>
+                    `;
+                } else if (selectElement.value === 'Skill') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Compare Method:
+                            <select>
+                                <option value=">=" selected>&ge;</option>
+                                <option value="<=">&le;</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Skill Type:
+                            <select class="skill-target">
+                                ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Required Skill Level: (1 = 1 level, 2 = 2 levels, etc.)
+                            <input type="number" class="skill-value" placeholder="Enter skill level" required>
+                        </label>
+                        <div style="margin-top: 10px; display: inline-block;">
+                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                        </div>
+                    `;
+                } else if (selectElement.value === 'Equipment') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Items Required to be Equipped:</label>
+                        <div id="equipment-inclusive-container">
+                            <button type="button" onclick="addInclusiveItem()">Add Item to Include</button>
+                            <div class="inclusive-items-container"></div>
+                        </div>
+                        
+                        <label style="color: #06b600;">Items Required to NOT be Equipped</label>
+                        <div id="equipment-exclusive-container">
+                            <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
+                            <div class="exclusive-items-container"></div>
+                        </div>
+                        
+                        <div style="margin-top: 10px; display: inline-block;">
+                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                        </div>
+                        
+                    `;
+                } else if (selectElement.value === 'Location') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
+                        <select multiple class="location-dropdown">
+                            <option value="Interchange">Interchange</option>
+                            <option value="factory4_day">Factory Day</option>
+                            <option value="factory4_night">Factory Night</option>
+                            <option value="bigmap">Customs</option>
+                            <option value="Woods">Woods</option>
+                            <option value="Lighthouse">Lighthouse</option>
+                            <option value="Shoreline">Shoreline</option>
+                            <option value="RezervBase">Reserve</option>
+                            <option value="laboratory">The Lab</option>
+                            <option value="TarkovStreets">Streets</option>
+                            <option value="Sandbox">Ground Zero (PMC < 20)</option>
+                            <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
+                        </select>
+                        <div style="margin-top: 10px;">
+                            <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
+                        </div>
+                    `;
+                }
+                // Condition for Exit Status
+                else if (selectElement.value === 'ExitStatus') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Exit Status (select multiple with ctrl + click):</label>
+                        <select multiple class="exit-status-dropdown">
+                            <option value="Survived">Survived</option>
+                            <option value="Runner">Runner</option>
+                            <option value="Killed">Killed</option>
+                            <option value="Left">Left</option>
+                            <option value="MissingInAction">Missing In Action</option>
+                        </select>
+                        <div style="margin-top: 10px;">
+                            <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
+                        </div>
+                    `;
+                }
+                // Condition for InZone
+                else if (selectElement.value === 'InZone') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Zone IDs (e.g., Woods_Sawmill, Woods_Old_Sawmill):
+                            <input type="text" placeholder="Enter zone IDs, separated by commas" required>
+                        </label>
+                        <div style="margin-top: 10px; display: inline-block;">
+                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                        </div>
+                    `;
+                }
+                // Condition for LeaveItemAtLocation
+                else if (selectElement.value === 'LeaveItemAtLocation') {
+                    conditionDetails.innerHTML = `
+                        <div class="condition">
+                            <label style="color: #06b600;">Target Zone ID:
+                                <input type="text" placeholder="Enter zone ID (e.g., Saving_The_Mole)" required>
+                            </label>
+                            <label style="color: #06b600;">Plant Time:
+                                <input type="number" placeholder="Enter plant time in seconds" value="10"  required>
+                            </label>
+                            <label style="color: #06b600;">Value:
+                                <input type="number" placeholder="Enter quantity of item to plant" value="1" required>
+                            </label>
+                            <label style="color: #06b600;">Min Durability:
+                                <input type="number" placeholder="Enter minimum item durability" value="0" required>
+                            </label>
+                            <label style="color: #06b600;">Max Durability:
+                                <input type="number" placeholder="Enter maximum item durability" value="100" required>
+                            </label>
+                            <label style="color: #06b600;">Dogtag Level: (leave 0 if not required)
+                                <input type="number" placeholder="Enter required dogtag level" value="0" required>
+                            </label>
+                            <label style="color: #06b600;">Only Found In Raid:
+                                <input type="checkbox">
+                            </label>
+                            <label style="color: #06b600;">Item IDs to Plant:</label>
+                            <button type="button" onclick="addTargetItem()" style="margin-top: 10px;">Add Item</button>
+                            <div class="target-items-container"></div>
+                        </div>
+
+                    `;
+                }
+            }
+
+            function addTargetItem() {
+                const container = document.querySelector('.target-items-container');
+                const targetDiv = document.createElement('div');
+                targetDiv.classList.add('target-item');
+
+                targetDiv.innerHTML = `
+                    <label style="color: #06b600;">Item ID:</label>
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
-                </div>
-                <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
-            `;
+                    <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
 
-            container.appendChild(targetDiv);
+                container.appendChild(targetDiv);
             }
 
-        function removeTargetItem(button) {
-            button.closest('.target-item').remove();
-        }
 
-        function filterDropdown(input) {
-            const searchTerm = input.value.toLowerCase();
-            const dropdownMenu = input.nextElementSibling;
-
-            if (searchTerm) {
-                dropdownMenu.classList.add('show');
-            } else {
-                dropdownMenu.classList.remove('show');
+            function removeItem(button) {
+                button.closest('.item-to-plant').remove();
             }
 
-            Array.from(dropdownMenu.children).forEach(item => {
-                const itemName = item.textContent.toLowerCase();
-                item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
-            });
-        }
+            function addWeaponModInclusive() {
+                const container = document.querySelector('.weapon-mods-inclusive');
+                const modDiv = document.createElement('div');
+                modDiv.classList.add('weapon-mod-item');
 
-        function selectDropdownItem(item) {
-            const dropdown = item.closest('.custom-dropdown');
-            const selectedItem = dropdown.querySelector('.dropdown-search');
-            selectedItem.value = item.textContent.trim();
-            selectedItem.dataset.selectedValue = item.dataset.value;
-            dropdown.querySelector('.dropdown-menu').classList.remove('show');
-        }
+                modDiv.innerHTML = `
+                    <div class="custom-dropdown">
+                        <label style="color: #06b600;">Search or Enter Mod ID:</label>
+                        <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+                `;
+                container.appendChild(modDiv);
+            }
 
-        function getTplId(inputElement) {
-            return inputElement.dataset.selectedValue || inputElement.value;
-        }
+            function addWeaponModExclusive() {
+                const container = document.querySelector('.weapon-mods-exclusive');
+                const modDiv = document.createElement('div');
+                modDiv.classList.add('weapon-mod-item');
 
-        function addReward() {
-            const container = document.getElementById('rewards-container');
-            const rewardDiv = document.createElement('div');
-            rewardDiv.classList.add("reward");
+                modDiv.innerHTML = `
+                    <div class="custom-dropdown">
+                        <label style="color: #06b600;">Search or Enter Mod ID:</label>
+                        <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+                `;
+                container.appendChild(modDiv);
+            }
 
-            rewardDiv.innerHTML = `
-                <label style="color: #06b600;">Reward Type:
-                    <select onchange="updateRewardFields(this)">
-                        <option value="Experience">Experience</option>
-                        <option value="TraderStanding">Trader Standing</option>
-                        <option value="Item">Item</option>
-                        <option value="AssortmentUnlock">AssortmentUnlock</option>
-                        <option value="Skill">Skill</option>
-                    </select>
-                </label>
-                <div class="reward-details"></div>
-                <button onclick="removeReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
-            `;
-            
-            container.appendChild(rewardDiv);
-            updateRewardFields(rewardDiv.querySelector('select'));
-        }
+            function removeWeaponMod(button) {
+                button.closest('.weapon-mod-item').remove();
+            }
 
-        function updateRewardFields(selectElement) {
-            const rewardDetails = selectElement.closest('.reward').querySelector('.reward-details');
-            rewardDetails.innerHTML = '';
-            const skillOptions = [
-                "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
-                "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "ToubleShooting",
-                "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
-                "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
-                "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
-                "Surgery", "HideoutManagement", "MagDrills", "Crafting"
-            ];
 
-            if (selectElement.value === 'AssortmentUnlock') {
-                rewardDetails.innerHTML = `
-                    <label style="color: #06b600;">The Items _id in assort.json to unlock it on the trader:
-                        <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
-                    </label>
-                    <label style="color: #06b600;">Loyalty Level:
-                        <select class="loyalty-level" required>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+            function addEquipmentItem() {
+                const container = document.querySelector('.equipment-inclusive-container');
+                const equipmentDiv = document.createElement('div');
+                equipmentDiv.classList.add('equipment-item');
+
+                equipmentDiv.innerHTML = `
+                    <div class="custom-dropdown">
+                        <label style="color: #06b600;">Search or Enter ID:</label>
+                        <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(equipmentDiv);
+            }
+
+            function removeEquipmentItem(button) {
+                button.closest('.equipment-item').remove();
+            }
+
+            function addInclusiveItem() {
+                const container = document.querySelector('.inclusive-items-container');
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('inclusive-item');
+
+                itemDiv.innerHTML = `
+                    <label style="color: #06b600;">Inclusive Item ID:</label>
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(itemDiv);
+                }
+
+            function addExclusiveItem() {
+                const container = document.querySelector('.exclusive-items-container');
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('exclusive-item');
+                
+                itemDiv.innerHTML = `
+                    <label style="color: #06b600;">Exclusive Item ID:</label>
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(itemDiv);
+            }
+
+            function removeItem(button) {
+                button.closest('.inclusive-item, .exclusive-item').remove();
+            }
+
+            let selectedWeaponCalibers = [];
+
+            function handleWeaponCaliberSelection() {
+                const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
+                const isAllSelected = Array.from(weaponCaliberSelect.selectedOptions).some(option => option.value === 'all');
+
+                if (isAllSelected) {
+                    // Deselect all other options except "All"
+                    Array.from(weaponCaliberSelect.options).forEach(option => {
+                        option.selected = option.value === 'all';
+                    });
+                    selectedWeaponCalibers = ["all"]; // Set selectedWeaponCalibers to "all" when "All" is selected
+                } else {
+                    // Update selectedWeaponCalibers with selected options' values
+                    selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions).map(option => option.value);
+                }
+            }
+
+            function addTargetItem() {
+                const conditionDiv = event.target.closest('.condition');
+                const container = conditionDiv.querySelector('.target-items-container');
+                const targetDiv = document.createElement('div');
+                targetDiv.classList.add('target-item');
+
+                targetDiv.innerHTML = `
+                    <label style="color: #06b600;">Search or Enter ID:</label>
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(targetDiv);
+                }
+
+            function removeTargetItem(button) {
+                button.closest('.target-item').remove();
+            }
+
+            function filterDropdown(input) {
+                const searchTerm = input.value.toLowerCase();
+                const dropdownMenu = input.nextElementSibling;
+
+                if (searchTerm) {
+                    dropdownMenu.classList.add('show');
+                } else {
+                    dropdownMenu.classList.remove('show');
+                }
+
+                Array.from(dropdownMenu.children).forEach(item => {
+                    const itemName = item.textContent.toLowerCase();
+                    item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
+                });
+            }
+
+            function selectDropdownItem(item) {
+                const dropdown = item.closest('.custom-dropdown');
+                const selectedItem = dropdown.querySelector('.dropdown-search');
+                selectedItem.value = item.textContent.trim();
+                selectedItem.dataset.selectedValue = item.dataset.value;
+                dropdown.querySelector('.dropdown-menu').classList.remove('show');
+            }
+
+            function getTplId(inputElement) {
+                return inputElement.dataset.selectedValue || inputElement.value;
+            }
+
+            function addReward() {
+                const container = document.getElementById('rewards-container');
+                const rewardDiv = document.createElement('div');
+                rewardDiv.classList.add("reward");
+
+                rewardDiv.innerHTML = `
+                    <label style="color: #06b600;">Reward Type:
+                        <select onchange="updateRewardFields(this)">
+                            <option value="Experience">Experience</option>
+                            <option value="TraderStanding">Trader Standing</option>
+                            <option value="Item">Item</option>
+                            <option value="AssortmentUnlock">AssortmentUnlock</option>
+                            <option value="Skill">Skill</option>
                         </select>
                     </label>
-                    <label style="color: #06b600;">Item:
+                    <div class="reward-details"></div>
+                    <button onclick="removeReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
+                `;
+                
+                container.appendChild(rewardDiv);
+                updateRewardFields(rewardDiv.querySelector('select'));
+            }
+
+            function updateRewardFields(selectElement) {
+                const rewardDetails = selectElement.closest('.reward').querySelector('.reward-details');
+                rewardDetails.innerHTML = '';
+                const skillOptions = [
+                    "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
+                    "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "ToubleShooting",
+                    "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
+                    "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
+                    "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
+                    "Surgery", "HideoutManagement", "MagDrills", "Crafting"
+                ];
+
+                if (selectElement.value === 'AssortmentUnlock') {
+                    rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">The Items _id in assort.json to unlock it on the trader:
+                            <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
+                        </label>
+                        <label style="color: #06b600;">Loyalty Level:
+                            <select class="loyalty-level" required>
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Item:
+                            <div class="custom-dropdown">
+                                <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)">
+                                <div class="dropdown-menu">
+                                    ${items.map(item =>
+                                        `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                            ${item.displayName}
+                                        </div>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </label>
+                    `;
+                } else if (selectElement.value === 'Item') {
+                    rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">Reward Item:</label>
                         <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)">
+                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item =>
                                     `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
@@ -1005,625 +1021,611 @@
                                 ).join('')}
                             </div>
                         </div>
-                    </label>
-                `;
-            } else if (selectElement.value === 'Item') {
-                rewardDetails.innerHTML = `
-                    <label style="color: #06b600;">Reward Item:</label>
-                    <div class="custom-dropdown">
-                        <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
-                        <div class="dropdown-menu">
-                            ${items.map(item =>
-                                `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
-                                    ${item.displayName}
-                                </div>`
-                            ).join('')}
-                        </div>
-                    </div>
-                    <label style="color: #06b600;">Value:
-                        <input type="number" placeholder="Quantity" required  value="1">
-                    </label>
-                `;
-            } else if (selectElement.value === 'TraderStanding') {
-                rewardDetails.innerHTML = `
-                    <label style="color: #06b600;">Value:
-                        <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc.."  value="0.1">
-                    </label>
-                `;
-            }
-            
-            else if (selectElement.value === 'Experience') {
-                rewardDetails.innerHTML = `
-                    <label style="color: #06b600;">Value:
-                        <input type="text" class="reward-value" placeholder="Enter amount of Experience" value="5000">
-                    </label>
-                `;
-            } else if (selectElement.value === 'Skill') {
-                rewardDetails.innerHTML = `
-                    <label style="color: #06b600;">Skill Type:
-                        <select class="skill-target">
-                            ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Value: (Psycho Sniper gives value 300 which is 3 levels)
-                        <input type="number" class="skill-value" placeholder="Enter value" required  value="1">
-                    </label>
-                `;
-            }
-        }
-
-        function selectRewardItem(item) {
-            const dropdown = item.closest('.custom-dropdown');
-            const selectedItem = dropdown.querySelector('.dropdown-search');
-            selectedItem.value = item.textContent.trim();
-            selectedItem.dataset.selectedValue = item.dataset.value;
-            dropdown.querySelector('.dropdown-menu').classList.remove('show');
-        }
-
-        function removeReward(button) {
-            button.closest('.reward').remove();
-        }
-
-        function copyQuest() {
-            const outputText = document.getElementById('output').textContent;
-            navigator.clipboard.writeText(outputText).then(() => {
-                const button = document.getElementById('copyQuestButton');
-                button.innerText = "Copied to Clipboard";
-                setTimeout(() => button.innerText = "Copy Quest to Clipboard", 3000);
-            }).catch(err => {
-                console.error("Failed to copy quest:", err);
-            });
-        }
-
-        function copyLanguageEntries() {
-            const languageOutputText = document.getElementById('language-output').textContent;
-            navigator.clipboard.writeText(languageOutputText).then(() => {
-                const button = document.getElementById('copyLangButton');
-                button.innerText = "Copied to Clipboard";
-                setTimeout(() => button.innerText = "Copy Language Variables to Clipboard", 3000);
-            }).catch(err => {
-                console.error("Failed to copy language variables:", err);
-            });
-        }
-
-        let usefulInfoVisible = false;
-
-        function toggleUsefulInfo() {
-            const usefulInfoSection = document.getElementById('useful-info');
-            usefulInfoVisible = !usefulInfoVisible;
-
-            if (usefulInfoVisible) {
-                usefulInfoSection.style.display = 'block';
-                document.getElementById('toggleUsefulInfoBtn').innerText = 'Hide Useful Info';
-            } else {
-                usefulInfoSection.style.display = 'none';
-                document.getElementById('toggleUsefulInfoBtn').innerText = 'Show Useful Info';
-            }
-        }
-
-        let howToUseVisible = false;
-
-        function toggleHowToUse() {
-            const howToUseSection = document.getElementById('how-to-use');
-            howToUseVisible = !howToUseVisible;
-
-            if (howToUseVisible) {
-                howToUseSection.style.display = 'block';
-                document.getElementById('toggleHowToUseBtn').innerText = 'Hide How to Use';
-            } else {
-                howToUseSection.style.display = 'none';
-                document.getElementById('toggleHowToUseBtn').innerText = 'Show How to Use';
-            }
-        }
-
-        function populateLanguageFields() {
-            const languageSection = document.getElementById('language-entries-section');
-            if (!languageSection) {
-                console.error("languageSection element is null.");
-                return;
-            }
-            languageSection.innerHTML = ''; // Clear any previous entries
-
-            // Quest name and basic language fields
-            const baseFields = [
-                { id: 'quest-desc-lang', label: 'Quest Description' },
-                { id: 'quest-start-msg-lang', label: 'Quest Started Message' },
-                { id: 'quest-success-msg-lang', label: 'Quest Success Message' },
-                { id: 'quest-fail-msg-lang', label: 'Quest Fail Message' },
-                { id: 'quest-accept-msg-lang', label: 'Quest Accept Message' },
-                { id: 'quest-decline-msg-lang', label: 'Quest Decline Message' },
-                { id: 'quest-complete-msg-lang', label: 'Quest Complete Message' },
-                { id: 'quest-change-msg-lang', label: 'Quest Change Quest Message' }
-            ];
-
-            baseFields.forEach(field => {
-                const div = document.createElement('div');
-                div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
-                languageSection.appendChild(div);
-            });
-
-            // Dynamic fields for all conditions with unique IDs
-            const traderId = document.getElementById('trader-name').value || 'trader';
-            const questNumber = document.getElementById('quest-number').value || '0';
-            const conditions = document.querySelectorAll('#conditions-container > .condition');
-
-            conditions.forEach((condition, index) => {
-                const conditionType = condition.querySelector('select').value;
-                const objLabel = `${traderId}_${questNumber} Obj_${index + 1}`;
-
-                const div = document.createElement('div');
-                div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label style="color: #06b600;" for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
-                languageSection.appendChild(div);
-            });
-
-            // Dynamic fields for rewards
-            const rewards = document.querySelectorAll('#rewards-container > .reward');
-            rewards.forEach((reward, index) => {
-                const rewardId = `${traderId}_${questNumber} reward_${index}`;
-                const div = document.createElement('div');
-                div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label style="color: #06b600;" for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
-                languageSection.appendChild(div);
-            });
-        }
-
-        function addAvailableForStartCondition() {
-            const container = document.getElementById('available-for-start-container');
-            const conditionDiv = document.createElement('div');
-            conditionDiv.classList.add("condition");
-
-            conditionDiv.innerHTML = `
-                <label style="color: #06b600;">Condition Type:
-                    <select onchange="updateAvailableForStartFields(this)">
-                        <option value="Level">Level</option>
-                        <option value="Quest">Quest</option>
-                        <option value="TraderLoyalty">Trader Loyalty</option>
-                    </select>
-                </label>
-                <div class="available-for-start-details"></div>
-                <button type="button" onclick="removeAvailableForStartCondition(this)" style="margin-top: 10px;">Remove</button>
-            `;
-            container.appendChild(conditionDiv);
-
-            // Show the container if it has child elements
-            container.style.display = 'block';
-            updateAvailableForStartFields(conditionDiv.querySelector('select'));
-        }
-
-        function removeAvailableForStartCondition(button) {
-            const container = document.getElementById('available-for-start-container');
-            const conditionDiv = button.closest('.condition');
-            conditionDiv.remove();
-
-            // Hide the container if no child elements are present
-            if (container.children.length === 0) {
-                container.style.display = 'none';
-            }
-        }
-
-
-        // Function to update fields based on selected condition type for AvailableForStart
-        function updateAvailableForStartFields(selectElement) {
-            const conditionDetails = selectElement.closest('.condition').querySelector('.available-for-start-details');
-            conditionDetails.innerHTML = '';
-
-            if (selectElement.value === 'Level') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Compare Method:
-                        <select>
-                            <option value=">=">>=</option>
-                            <option value="<="><=</option>
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Value:
-                        <input type="number" placeholder="Enter level" required>
-                    </label>
-                `;
-            } else if (selectElement.value === 'Quest') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Quest Status:
-                        <select>
-                            <option value="1">Quest Available - 1</option>
-                            <option value="2">Quest Accepted And In Progress - 2</option>
-                            <option value="3">Quest Finished, Awaiting Confirmation - 3</option>
-                            <option value="4" selected>Quest Finished And Confirmed - 4</option>
-                            <option value="5">Quest Failed - 5</option>
-                        </select>
-                    </label>
-                    <label style="color: #06b600;">Target Quest ID:
-                        <input type="text" placeholder="Enter quest ID" required>
-                    </label>
-                `;
-            } else if (selectElement.value === 'TraderLoyalty') {
-                conditionDetails.innerHTML = `
-                    <label style="color: #06b600;">Trader ID:
-                        <input type="text" placeholder="Enter trader ID" required>
-                    </label>
-                    <label style="color: #06b600;">Loyalty Level:
-                        <select>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </label>
-                `;
-            }
-        }
-
-        function copyAssortments() {
-            const assortmentsText = document.getElementById('assortments-output').textContent;
-            navigator.clipboard.writeText(assortmentsText).then(() => {
-                const button = document.getElementById('copyAssortmentsButton');
-                button.innerText = "Copied to Clipboard";
-                setTimeout(() => button.innerText = "Copy Assortments to Clipboard", 3000);
-            }).catch(err => {
-                console.error("Failed to copy assortments:", err);
-            });
-        }
-
-        // Helper function to generate visibility conditions if a target ID is specified
-        function generateVisibilityConditions(div, conditionId) {
-            const visibilityTargetId = div.querySelector('.visibility-target')?.value;
-            if (visibilityTargetId) {
-                return [{
-                    conditionType: "CompleteCondition",
-                    id: generateUniqueId(),
-                    target: visibilityTargetId
-                }];
-            }
-            return [];
-        }
-
-        function savageSelection() {
-            const targetSelect = document.querySelector('select[required]');
-            const savageRoleLabel = document.getElementById('savage-role-label');
-            const savageRoleSelect = document.getElementById('savage-role-select');
-
-            // Check if "Scavs" is selected to toggle visibility of savage-role
-            if (targetSelect.value === 'Savage') {
-                savageRoleLabel.style.display = 'inline';
-                savageRoleSelect.style.display = 'inline';
-            } else {
-                savageRoleLabel.style.display = 'none';
-                savageRoleSelect.style.display = 'none';
-            }
-        }
-
-        function weaponCaliberSelection() {
-            const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
-            if (weaponCaliberSelect) {
-                weaponCaliberSelect.addEventListener('change', handleWeaponCaliberSelection);
-            }
-        }
-
-        function generateUniqueId() {
-            const timestamp = Math.floor(Date.now() / 1000).toString(16); // 4-byte timestamp
-            const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join(''); // 10 random hex chars
-            return (timestamp + randomBytes).padEnd(24, "0").slice(0, 24); // Ensures length is exactly 24
-        }
-
-        function generateQuest() {
-            const questName = document.getElementById('quest-name').value;
-            const questNameID = questName.replace(/\s+/g, '_');
-            const trader = document.getElementById('trader-name').value || 'TRADERNAME';
-            const questNumber = document.getElementById('quest-number').value || '0';
-            const questType = document.getElementById('quest-type').value;
-
-            // Start Conditions
-            const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
-                const conditionType = div.querySelector('select').value;
+                        <label style="color: #06b600;">Value:
+                            <input type="number" placeholder="Quantity" required  value="1">
+                        </label>
+                    `;
+                } else if (selectElement.value === 'TraderStanding') {
+                    rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">Value:
+                            <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc.."  value="0.1">
+                        </label>
+                    `;
+                }
                 
-                if (conditionType === 'Level') {
-                    const compareSelect = div.querySelector('select:nth-of-type(2)');
-                    const levelInput = div.querySelector('input[type=number]');
-                    
-                    return {
-                        compareMethod: compareSelect ? compareSelect.value : '',
-                        conditionType: 'Level',
-                        id: `${trader}_condition_${index}`,
-                        value: levelInput ? parseInt(levelInput.value, 10) : 0
-                    };
-                } else if (conditionType === 'Quest') {
-                    const statusOptions = div.querySelectorAll('select[multiple] option:checked');
-                    const targetInput = div.querySelector('input[type=text]');
-                    
-                    return {
-                        conditionType: 'Quest',
-                        id: `${trader}_condition_${index}`,
-                        status: statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [],
-                        target: targetInput ? targetInput.value : ''
-                    };
-                } else if (conditionType === 'TraderLoyalty') {
-                    const targetInput = div.querySelector('input[type=text]');
-                    const valueInput = div.querySelector('input[type=number]');
-                    
-                    return {
-                        conditionType: 'TraderLoyalty',
-                        id: `${trader}_condition_${index}`,
-                        target: targetInput ? targetInput.value : '',
-                        value: valueInput ? parseInt(valueInput.value, 10) : 0
-                    };
+                else if (selectElement.value === 'Experience') {
+                    rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">Value:
+                            <input type="text" class="reward-value" placeholder="Enter amount of Experience" value="5000">
+                        </label>
+                    `;
+                } else if (selectElement.value === 'Skill') {
+                    rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">Skill Type:
+                            <select class="skill-target">
+                                ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Value: (Psycho Sniper gives value 300 which is 3 levels)
+                            <input type="number" class="skill-value" placeholder="Enter value" required  value="1">
+                        </label>
+                    `;
                 }
-                return {};
-            });
+            }
 
-            // Objective Conditions
-            const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
-                const conditionType = div.querySelector('select').value;
-                const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
+            function selectRewardItem(item) {
+                const dropdown = item.closest('.custom-dropdown');
+                const selectedItem = dropdown.querySelector('.dropdown-search');
+                selectedItem.value = item.textContent.trim();
+                selectedItem.dataset.selectedValue = item.dataset.value;
+                dropdown.querySelector('.dropdown-menu').classList.remove('show');
+            }
 
-                if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                    const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
-                        const inputElement = targetDiv.querySelector('.dropdown-search');
-                        return getTplId(inputElement);
-                    });
-                    return {
-                        conditionType: conditionType,
-                        id: conditionId,
-                        targetItems: targetItems,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10),
-                        onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
-                        visibilityConditions: generateVisibilityConditions(div, conditionId)
-                    };
+            function removeReward(button) {
+                button.closest('.reward').remove();
+            }
+
+            function copyQuest() {
+                const outputText = document.getElementById('output').textContent;
+                navigator.clipboard.writeText(outputText).then(() => {
+                    const button = document.getElementById('copyQuestButton');
+                    button.innerText = "Copied to Clipboard";
+                    setTimeout(() => button.innerText = "Copy Quest to Clipboard", 3000);
+                }).catch(err => {
+                    console.error("Failed to copy quest:", err);
+                });
+            }
+
+            function copyLanguageEntries() {
+                const languageOutputText = document.getElementById('language-output').textContent;
+                navigator.clipboard.writeText(languageOutputText).then(() => {
+                    const button = document.getElementById('copyLangButton');
+                    button.innerText = "Copied to Clipboard";
+                    setTimeout(() => button.innerText = "Copy Language Variables to Clipboard", 3000);
+                }).catch(err => {
+                    console.error("Failed to copy language variables:", err);
+                });
+            }
+
+            let usefulInfoVisible = false;
+
+            function toggleUsefulInfo() {
+                const usefulInfoSection = document.getElementById('useful-info');
+                usefulInfoVisible = !usefulInfoVisible;
+
+                if (usefulInfoVisible) {
+                    usefulInfoSection.style.display = 'block';
+                    document.getElementById('toggleUsefulInfoBtn').innerText = 'Hide Useful Info';
+                } else {
+                    usefulInfoSection.style.display = 'none';
+                    document.getElementById('toggleUsefulInfoBtn').innerText = 'Show Useful Info';
                 }
-                else if (conditionType === 'Kills') {
-                    const locationDropdown = div.querySelector('.location-dropdown');
-                    const targetSelect = div.querySelector('#target-select');
-                    const killsRequiredInput = div.querySelector('input[type=number]');
-                    const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
-                    const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
-                    const bodyPartSelect = div.querySelector('#body-part-select');
-                    const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
-                    const savageRoleSelect = document.getElementById('savage-role-select');
-                    const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
-                    const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
+            }
 
-                    let selectedSavageRoles = [];
-                    if (targetSelect && targetSelect.value === 'Savage') {
-                        selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+            let howToUseVisible = false;
+
+            function toggleHowToUse() {
+                const howToUseSection = document.getElementById('how-to-use');
+                howToUseVisible = !howToUseVisible;
+
+                if (howToUseVisible) {
+                    howToUseSection.style.display = 'block';
+                    document.getElementById('toggleHowToUseBtn').innerText = 'Hide How to Use';
+                } else {
+                    howToUseSection.style.display = 'none';
+                    document.getElementById('toggleHowToUseBtn').innerText = 'Show How to Use';
+                }
+            }
+
+            function populateLanguageFields() {
+                const languageSection = document.getElementById('language-entries-section');
+                if (!languageSection) {
+                    console.error("languageSection element is null.");
+                    return;
+                }
+                languageSection.innerHTML = ''; // Clear any previous entries
+
+                // Quest name and basic language fields
+                const baseFields = [
+                    { id: 'quest-desc-lang', label: 'Quest Description' },
+                    { id: 'quest-start-msg-lang', label: 'Quest Started Message' },
+                    { id: 'quest-success-msg-lang', label: 'Quest Success Message' },
+                    { id: 'quest-fail-msg-lang', label: 'Quest Fail Message' },
+                    { id: 'quest-accept-msg-lang', label: 'Quest Accept Message' },
+                    { id: 'quest-decline-msg-lang', label: 'Quest Decline Message' },
+                    { id: 'quest-complete-msg-lang', label: 'Quest Complete Message' },
+                    { id: 'quest-change-msg-lang', label: 'Quest Change Quest Message' }
+                ];
+
+                baseFields.forEach(field => {
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-lang-entry';
+                    div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
+                    languageSection.appendChild(div);
+                });
+
+                // Dynamic fields for all conditions with unique IDs
+                const traderId = document.getElementById('trader-name').value || 'trader';
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const conditions = document.querySelectorAll('#conditions-container > .condition');
+
+                conditions.forEach((condition, index) => {
+                    const conditionType = condition.querySelector('select').value;
+                    const objLabel = `${traderId}_${questNumber} Obj_${index + 1}`;
+
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-lang-entry';
+                    div.innerHTML = `<label style="color: #06b600;" for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
+                    languageSection.appendChild(div);
+                });
+
+                // Dynamic fields for rewards
+                const rewards = document.querySelectorAll('#rewards-container > .reward');
+                rewards.forEach((reward, index) => {
+                    const rewardId = `${traderId}_${questNumber} reward_${index}`;
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-lang-entry';
+                    div.innerHTML = `<label style="color: #06b600;" for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
+                    languageSection.appendChild(div);
+                });
+            }
+
+            function addAvailableForStartCondition() {
+                const container = document.getElementById('available-for-start-container');
+                const conditionDiv = document.createElement('div');
+                conditionDiv.classList.add("condition");
+
+                conditionDiv.innerHTML = `
+                    <label style="color: #06b600;">Condition Type:
+                        <select onchange="updateAvailableForStartFields(this)">
+                            <option value="Level">Level</option>
+                            <option value="Quest">Quest</option>
+                            <option value="TraderLoyalty">Trader Loyalty</option>
+                        </select>
+                    </label>
+                    <div class="available-for-start-details"></div>
+                    <button type="button" onclick="removeAvailableForStartCondition(this)" style="margin-top: 10px;">Remove</button>
+                `;
+                container.appendChild(conditionDiv);
+
+                // Show the container if it has child elements
+                container.style.display = 'block';
+                updateAvailableForStartFields(conditionDiv.querySelector('select'));
+            }
+
+            function removeAvailableForStartCondition(button) {
+                const container = document.getElementById('available-for-start-container');
+                const conditionDiv = button.closest('.condition');
+                conditionDiv.remove();
+
+                // Hide the container if no child elements are present
+                if (container.children.length === 0) {
+                    container.style.display = 'none';
+                }
+            }
+
+
+            // Function to update fields based on selected condition type for AvailableForStart
+            function updateAvailableForStartFields(selectElement) {
+                const conditionDetails = selectElement.closest('.condition').querySelector('.available-for-start-details');
+                conditionDetails.innerHTML = '';
+
+                if (selectElement.value === 'Level') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Compare Method:
+                            <select>
+                                <option value=">=">>=</option>
+                                <option value="<="><=</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Value:
+                            <input type="number" placeholder="Enter level" required>
+                        </label>
+                    `;
+                } else if (selectElement.value === 'Quest') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Quest Status:
+                            <select>
+                                <option value="1">Quest Available - 1</option>
+                                <option value="2">Quest Accepted And In Progress - 2</option>
+                                <option value="3">Quest Finished, Awaiting Confirmation - 3</option>
+                                <option value="4" selected>Quest Finished And Confirmed - 4</option>
+                                <option value="5">Quest Failed - 5</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Target Quest ID:
+                            <input type="text" placeholder="Enter quest ID" required>
+                        </label>
+                    `;
+                } else if (selectElement.value === 'TraderLoyalty') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Trader ID:
+                            <input type="text" placeholder="Enter trader ID" required>
+                        </label>
+                        <label style="color: #06b600;">Loyalty Level:
+                            <select>
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </label>
+                    `;
+                }
+            }
+
+            function copyAssortments() {
+                const assortmentsText = document.getElementById('assortments-output').textContent;
+                navigator.clipboard.writeText(assortmentsText).then(() => {
+                    const button = document.getElementById('copyAssortmentsButton');
+                    button.innerText = "Copied to Clipboard";
+                    setTimeout(() => button.innerText = "Copy Assortments to Clipboard", 3000);
+                }).catch(err => {
+                    console.error("Failed to copy assortments:", err);
+                });
+            }
+
+            // Helper function to generate visibility conditions if a target ID is specified
+            function generateVisibilityConditions(div, conditionId) {
+                const visibilityTargetId = div.querySelector('.visibility-target')?.value;
+                if (visibilityTargetId) {
+                    return [{
+                        conditionType: "CompleteCondition",
+                        id: generateUniqueId(),
+                        target: visibilityTargetId
+                    }];
+                }
+                return [];
+            }
+
+            function savageSelection() {
+                const targetSelect = document.querySelector('select[required]');
+                const savageRoleLabel = document.getElementById('savage-role-label');
+                const savageRoleSelect = document.getElementById('savage-role-select');
+
+                // Check if "Scavs" is selected to toggle visibility of savage-role
+                if (targetSelect.value === 'Savage') {
+                    savageRoleLabel.style.display = 'inline';
+                    savageRoleSelect.style.display = 'inline';
+                } else {
+                    savageRoleLabel.style.display = 'none';
+                    savageRoleSelect.style.display = 'none';
+                }
+            }
+
+            function weaponCaliberSelection() {
+                const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
+                if (weaponCaliberSelect) {
+                    weaponCaliberSelect.addEventListener('change', handleWeaponCaliberSelection);
+                }
+            }
+
+            function generateUniqueId() {
+                const timestamp = Math.floor(Date.now() / 1000).toString(16); // 4-byte timestamp
+                const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join(''); // 10 random hex chars
+                return (timestamp + randomBytes).padEnd(24, "0").slice(0, 24); // Ensures length is exactly 24
+            }
+
+            function generateQuest() {
+                const questName = document.getElementById('quest-name').value;
+                const questNameID = questName.replace(/\s+/g, '_');
+                const trader = document.getElementById('trader-name').value || 'TRADERNAME';
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const questType = document.getElementById('quest-type').value;
+
+                // Start Conditions
+                const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
+                    const conditionType = div.querySelector('select').value;
+                    
+                    if (conditionType === 'Level') {
+                        const compareSelect = div.querySelector('select:nth-of-type(2)');
+                        const levelInput = div.querySelector('input[type=number]');
+                        
+                        return {
+                            compareMethod: compareSelect ? compareSelect.value : '',
+                            conditionType: 'Level',
+                            id: `${trader}_condition_${index}`,
+                            value: levelInput ? parseInt(levelInput.value, 10) : 0
+                        };
+                    } else if (conditionType === 'Quest') {
+                        const statusOptions = div.querySelectorAll('select[multiple] option:checked');
+                        const targetInput = div.querySelector('input[type=text]');
+                        
+                        return {
+                            conditionType: 'Quest',
+                            id: `${trader}_condition_${index}`,
+                            status: statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [],
+                            target: targetInput ? targetInput.value : ''
+                        };
+                    } else if (conditionType === 'TraderLoyalty') {
+                        const targetInput = div.querySelector('input[type=text]');
+                        const valueInput = div.querySelector('input[type=number]');
+                        
+                        return {
+                            conditionType: 'TraderLoyalty',
+                            id: `${trader}_condition_${index}`,
+                            target: targetInput ? targetInput.value : '',
+                            value: valueInput ? parseInt(valueInput.value, 10) : 0
+                        };
+                    }
+                    return {};
+                });
+
+                // Objective Conditions
+                const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
+                    const conditionType = div.querySelector('select').value;
+                    const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
+
+                    if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
+                        const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
+                            const inputElement = targetDiv.querySelector('.dropdown-search');
+                            return getTplId(inputElement);
+                        });
+                        return {
+                            conditionType: conditionType,
+                            id: conditionId,
+                            targetItems: targetItems,
+                            value: parseInt(div.querySelector('input[type=number]').value, 10),
+                            onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+                    else if (conditionType === 'Kills') {
+                        const locationDropdown = div.querySelector('.location-dropdown');
+                        const targetSelect = div.querySelector('#target-select');
+                        const killsRequiredInput = div.querySelector('input[type=number]');
+                        const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
+                        const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
+                        const bodyPartSelect = div.querySelector('#body-part-select');
+                        const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
+                        const savageRoleSelect = document.getElementById('savage-role-select');
+                        const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
+                        const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
+
+                        let selectedSavageRoles = [];
+                        if (targetSelect && targetSelect.value === 'Savage') {
+                            selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+                        }
+
+                        return {
+                            conditionType: "Kills",
+                            id: conditionId,
+                            location: locationDropdown ? locationDropdown.value : 'any',
+                            target: targetSelect ? targetSelect.value : 'Any',
+                            killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
+                            timeOfDay: {
+                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
+                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
+                            },
+                            bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
+                            savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
+                            weaponCaliber: selectedWeaponCalibers,
+                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
+                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+                    else if (conditionType === 'VisitPlace') {
+                        return {
+                            completeInSeconds: 0,
+                            conditionType: 'CounterCreator',
+                            counter: {
+                                conditions: [
+                                    {
+                                        conditionType: "VisitPlace",
+                                        dynamicLocale: false,
+                                        id: conditionId,
+                                        target: div.querySelector('.visit-place-target').value
+                                    }
+                                ],
+                                id: `${conditionId}_counter`
+                            },
+                            doNotResetIfCounterCompleted: false,
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
+                            parentId: "",
+                            type: "Exploration",
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+                    else if (conditionType === 'Skill') {
+                        const compareSelect = div.querySelector('select:nth-of-type(1)');
+                        return {
+                            compareMethod: compareSelect ? compareSelect.value : '',
+                            conditionType: "Skill",
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            parentId: "",
+                            target: div.querySelector('.skill-target').value,
+                            value: parseInt(div.querySelector('.skill-value').value, 10),
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+                    else if (conditionType === 'Equipment') {
+                        const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
+                            .map(input => getTplId(input));
+                        const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
+                            .map(input => getTplId(input));
+
+                        return {
+                            includeNotEquippedItems: false,
+                            conditionType: "Equipment",
+                            dynamicLocale: false,
+                            equipmentExclusive: exclusiveItems,
+                            equipmentInclusive: inclusiveItems,
+                            id: conditionId
+                        };
                     }
 
-                    return {
-                        conditionType: "Kills",
-                        id: conditionId,
-                        location: locationDropdown ? locationDropdown.value : 'any',
-                        target: targetSelect ? targetSelect.value : 'Any',
-                        killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
-                        timeOfDay: {
-                            from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
-                            to: timeToInput ? parseInt(timeToInput.value, 10) : 0
-                        },
-                        bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
-                        savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
-                        weaponCaliber: selectedWeaponCalibers,
-                        weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
-                        weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
-                        visibilityConditions: generateVisibilityConditions(div, conditionId)
-                    };
-                }
-                else if (conditionType === 'VisitPlace') {
-                    return {
-                        completeInSeconds: 0,
-                        conditionType: 'CounterCreator',
-                        counter: {
-                            conditions: [
-                                {
-                                    conditionType: "VisitPlace",
-                                    dynamicLocale: false,
-                                    id: conditionId,
-                                    target: div.querySelector('.visit-place-target').value
-                                }
-                            ],
-                            id: `${conditionId}_counter`
-                        },
-                        doNotResetIfCounterCompleted: false,
-                        dynamicLocale: false,
-                        globalQuestCounterId: "",
-                        id: conditionId,
-                        index: index,
-                        oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
-                        parentId: "",
-                        type: "Exploration",
-                        visibilityConditions: generateVisibilityConditions(div, conditionId)
-                    };
-                }
-                else if (conditionType === 'Skill') {
-                    const compareSelect = div.querySelector('select:nth-of-type(1)');
-                    return {
-                        compareMethod: compareSelect ? compareSelect.value : '',
-                        conditionType: "Skill",
-                        dynamicLocale: false,
-                        globalQuestCounterId: "",
-                        id: conditionId,
-                        index: index,
-                        parentId: "",
-                        target: div.querySelector('.skill-target').value,
-                        value: parseInt(div.querySelector('.skill-value').value, 10),
-                        visibilityConditions: generateVisibilityConditions(div, conditionId)
-                    };
-                }
-                else if (conditionType === 'Equipment') {
-                    const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
-                        .map(input => getTplId(input));
-                    const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
-                        .map(input => getTplId(input));
-
-                    return {
-                        includeNotEquippedItems: false,
-                        conditionType: "Equipment",
-                        dynamicLocale: false,
-                        equipmentExclusive: exclusiveItems,
-                        equipmentInclusive: inclusiveItems,
-                        id: conditionId
-                    };
-                }
-
-                // New Location Condition
-                else if (conditionType === 'Location') {
-                    const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
-                    return {
-                        conditionType: "Location",
-                        dynamicLocale: false,
-                        id: conditionId,
-                        target: selectedLocations
-                    };
-                }
-
-                // New ExitStatus Condition
-                else if (conditionType === 'ExitStatus') {
-                    const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
-                    return {
-                        conditionType: "ExitStatus",
-                        dynamicLocale: false,
-                        id: conditionId,
-                        status: selectedStatuses
-                    };
-                }
-                // New InZone Condition
-                else if (conditionType === 'InZone') {
-                    const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
-                    return {
-                        conditionType: "InZone",
-                        dynamicLocale: false,
-                        id: conditionId,
-                        zoneIds: zoneIds,
-                        visibilityConditions: generateVisibilityConditions(div, conditionId)
-                    };
-                }
-                // New LeaveItemAtLocation Condition
-                else if (conditionType === 'LeaveItemAtLocation') {
-                    const items = Array.from(div.querySelectorAll('.target-item .dropdown-search')).map(input => getTplId(input));
-
-                    return {
-                        conditionType: "LeaveItemAtLocation",
-                        id: conditionId,
-                        zoneId: div.querySelector('input[placeholder="Enter zone ID (e.g., Saving_The_Mole)"]').value.trim(),
-                        plantTime: parseInt(div.querySelector('input[placeholder="Enter plant time in seconds"]').value, 10),
-                        value: parseInt(div.querySelector('input[placeholder="Enter quantity of item to plant"]').value, 10),
-                        minDurability: parseInt(div.querySelector('input[placeholder="Enter minimum item durability"]').value, 10),
-                        maxDurability: parseInt(div.querySelector('input[placeholder="Enter maximum item durability"]').value, 10),
-                        onlyFoundInRaid: div.querySelector('input[type="checkbox"]').checked,
-                        dogtagLevel: parseInt(div.querySelector('input[placeholder="Enter required dogtag level"]').value, 10),
-                        target: items
-                    };
-                }
-
-                return {};
-            });
-
-            // Rewards
-            const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
-                const rewardType = div.querySelector('select').value;
-                const rewardId = `${trader}_${questNumber} reward_${index}`;
-
-                if (rewardType === 'AssortmentUnlock' || rewardType === 'Item') {
-                    const inputElement = div.querySelector('.dropdown-search');
-                    const itemId = getTplId(inputElement);
-
-                    return rewardType === 'Item' ? {
-                        type: rewardType,
-                        id: rewardId,
-                        _tpl: itemId,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10)
-                    } : {
-                        type: 'AssortmentUnlock',
-                        id: rewardId,
-                        items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
-                        loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10),
-                        target: div.querySelector('.assortment-id').value
-                    };
-                } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
-                    // Correctly select the input field for the value
-                    const valueInput = div.querySelector('.reward-value'); 
-                    return {
-                        type: rewardType,
-                        id: rewardId,
-                        value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0
-                    };
-                } else if (rewardType === 'Skill') {
-                    const targetSkill = div.querySelector('.skill-target').value;
-                    const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
-                    return {
-                        type: 'Skill',
-                        id: rewardId,
-                        target: targetSkill,
-                        value: skillValue
-                    };
-                } 
-                return {};
-            });
-
-            // Language Entries
-            let languageEntries = {
-                [`${trader}_${questNumber} name`]: questName,
-                [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
-                [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
-                [`${trader}_${questNumber} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
-                [`${trader}_${questNumber} failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
-                [`${trader}_${questNumber} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
-                [`${trader}_${questNumber} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
-                [`${trader}_${questNumber} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
-                [`${trader}_${questNumber} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
-            };
-
-            const languageContainer = document.getElementById('dynamic-lang-variables-container');
-            const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
-            dynamicLangFields.forEach(input => {
-                const fieldId = input.id;
-                languageEntries[fieldId] = input.value || '';
-            });
-
-            // Quest Assortments
-            const assortments = {};
-            rewards.forEach(reward => {
-                if (reward.type === 'AssortmentUnlock' && reward.target) {
-                    assortments[reward.target] = questNameID;
-                }
-            });
-
-            const quest = {
-                [questNameID]: {
-                    QuestName: questName,
-                    _id: questNameID,
-                    traderId: trader,
-                    type: questType,
-                    description: `${trader}_${questNumber} description`,
-                    startedMessageText: `${trader}_${questNumber} startedMessageText`,
-                    successMessageText: `${trader}_${questNumber} successMessageText`,
-                    failMessageText: `${trader}_${questNumber} failMessageText`,
-                    acceptPlayerMessage: `${trader}_${questNumber} acceptPlayerMessage`,
-                    declinePlayerMessage: `${trader}_${questNumber} declinePlayerMessage`,
-                    completePlayerMessage: `${trader}_${questNumber} completePlayerMessage`,
-                    changeQuestMessageText: `${trader}_${questNumber} changeQuestMessageText`,
-                    conditions: {
-                        AvailableForStart: availableForStartConditions,
-                        AvailableForFinish: conditions,
-                        Fail: []
-                    },
-                    rewards: {
-                        Success: rewards,
-                        Fail: [],
-                        Started: []
+                    // New Location Condition
+                    else if (conditionType === 'Location') {
+                        const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                        return {
+                            conditionType: "Location",
+                            dynamicLocale: false,
+                            id: conditionId,
+                            target: selectedLocations
+                        };
                     }
-                }
-            };
 
-            // Output Display
-            const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2).slice(1, -1);
-            const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
-            const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
+                    // New ExitStatus Condition
+                    else if (conditionType === 'ExitStatus') {
+                        const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
+                        return {
+                            conditionType: "ExitStatus",
+                            dynamicLocale: false,
+                            id: conditionId,
+                            status: selectedStatuses
+                        };
+                    }
+                    // New InZone Condition
+                    else if (conditionType === 'InZone') {
+                        const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
+                        return {
+                            conditionType: "InZone",
+                            dynamicLocale: false,
+                            id: conditionId,
+                            zoneIds: zoneIds,
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+                    // New LeaveItemAtLocation Condition
+                    else if (conditionType === 'LeaveItemAtLocation') {
+                        const items = Array.from(div.querySelectorAll('.target-item .dropdown-search')).map(input => getTplId(input));
 
-            document.getElementById('output').textContent = questContent;
-            document.getElementById('language-output').textContent = languageEntriesContent;
-            document.getElementById('assortments-output').textContent = assortmentsContent;
+                        return {
+                            conditionType: "LeaveItemAtLocation",
+                            id: conditionId,
+                            zoneId: div.querySelector('input[placeholder="Enter zone ID (e.g., Saving_The_Mole)"]').value.trim(),
+                            plantTime: parseInt(div.querySelector('input[placeholder="Enter plant time in seconds"]').value, 10),
+                            value: parseInt(div.querySelector('input[placeholder="Enter quantity of item to plant"]').value, 10),
+                            minDurability: parseInt(div.querySelector('input[placeholder="Enter minimum item durability"]').value, 10),
+                            maxDurability: parseInt(div.querySelector('input[placeholder="Enter maximum item durability"]').value, 10),
+                            onlyFoundInRaid: div.querySelector('input[type="checkbox"]').checked,
+                            dogtagLevel: parseInt(div.querySelector('input[placeholder="Enter required dogtag level"]').value, 10),
+                            target: items
+                        };
+                    }
 
-            document.getElementById('quest-output-section').style.display = 'block';
-            document.getElementById('language-output-section').style.display = 'block';
-            document.getElementById('assortments-output-section').style.display = 'block';
-        }
-    </script>
+                    return {};
+                });
+
+                // Rewards
+                const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
+                    const rewardType = div.querySelector('select').value;
+                    const rewardId = `${trader}_${questNumber} reward_${index}`;
+
+                    if (rewardType === 'AssortmentUnlock' || rewardType === 'Item') {
+                        const inputElement = div.querySelector('.dropdown-search');
+                        const itemId = getTplId(inputElement);
+
+                        return rewardType === 'Item' ? {
+                            type: rewardType,
+                            id: rewardId,
+                            _tpl: itemId,
+                            value: parseInt(div.querySelector('input[type=number]').value, 10)
+                        } : {
+                            type: 'AssortmentUnlock',
+                            id: rewardId,
+                            items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
+                            loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10),
+                            target: div.querySelector('.assortment-id').value
+                        };
+                    } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
+                        // Correctly select the input field for the value
+                        const valueInput = div.querySelector('.reward-value'); 
+                        return {
+                            type: rewardType,
+                            id: rewardId,
+                            value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0
+                        };
+                    } else if (rewardType === 'Skill') {
+                        const targetSkill = div.querySelector('.skill-target').value;
+                        const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
+                        return {
+                            type: 'Skill',
+                            id: rewardId,
+                            target: targetSkill,
+                            value: skillValue
+                        };
+                    } 
+                    return {};
+                });
+
+                // Language Entries
+                let languageEntries = {
+                    [`${trader}_${questNumber} name`]: questName,
+                    [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
+                    [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
+                    [`${trader}_${questNumber} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
+                    [`${trader}_${questNumber} failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
+                    [`${trader}_${questNumber} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
+                    [`${trader}_${questNumber} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
+                    [`${trader}_${questNumber} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
+                    [`${trader}_${questNumber} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
+                };
+
+                const languageContainer = document.getElementById('dynamic-lang-variables-container');
+                const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
+                dynamicLangFields.forEach(input => {
+                    const fieldId = input.id;
+                    languageEntries[fieldId] = input.value || '';
+                });
+
+                // Quest Assortments
+                const assortments = {};
+                rewards.forEach(reward => {
+                    if (reward.type === 'AssortmentUnlock' && reward.target) {
+                        assortments[reward.target] = questNameID;
+                    }
+                });
+
+                const quest = {
+                    [questNameID]: {
+                        QuestName: questName,
+                        _id: questNameID,
+                        traderId: trader,
+                        type: questType,
+                        description: `${trader}_${questNumber} description`,
+                        startedMessageText: `${trader}_${questNumber} startedMessageText`,
+                        successMessageText: `${trader}_${questNumber} successMessageText`,
+                        failMessageText: `${trader}_${questNumber} failMessageText`,
+                        acceptPlayerMessage: `${trader}_${questNumber} acceptPlayerMessage`,
+                        declinePlayerMessage: `${trader}_${questNumber} declinePlayerMessage`,
+                        completePlayerMessage: `${trader}_${questNumber} completePlayerMessage`,
+                        changeQuestMessageText: `${trader}_${questNumber} changeQuestMessageText`,
+                        conditions: {
+                            AvailableForStart: availableForStartConditions,
+                            AvailableForFinish: conditions,
+                            Fail: []
+                        },
+                        rewards: {
+                            Success: rewards,
+                            Fail: [],
+                            Started: []
+                        }
+                    }
+                };
+
+                // Output Display
+                const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2).slice(1, -1);
+                const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
+                const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
+
+                document.getElementById('output').textContent = questContent;
+                document.getElementById('language-output').textContent = languageEntriesContent;
+                document.getElementById('assortments-output').textContent = assortmentsContent;
+
+                document.getElementById('quest-output-section').style.display = 'block';
+                document.getElementById('language-output-section').style.display = 'block';
+                document.getElementById('assortments-output-section').style.display = 'block';
+            }
+        </script>
+    </div>
 </body>
 </html>

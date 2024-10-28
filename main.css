@@ -3,12 +3,21 @@ body {
     background-image: url('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/bg.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     color: #e0e0e0;
     font-family: Arial, sans-serif;
-    padding: 20px;
+    margin: 0;
+}
+
+.content-container {
     max-width: 800px;
     margin: auto;
+    padding: 20px;
+    background-color: rgba(18, 18, 18, 0.9);
+    border-radius: 8px;
 }
+
 
 h1, h2, h3 {
     color: #c2c2c2;
