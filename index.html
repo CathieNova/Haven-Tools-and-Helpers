@@ -191,10 +191,8 @@
             populateLanguageFields();
             weaponCaliberSelection();
 
-            const targetSelect = document.getElementById('target-select');
-            if (targetSelect) {
-                targetSelect.addEventListener('change', savageSelection);
-            }
+            const targetSelect = document.querySelector('select[required]');
+            targetSelect.addEventListener('change', savageSelection);
         });
 
         function reloadPage() {
@@ -406,7 +404,7 @@
                         </select>
                     </label>
                     <label id="savage-role-label" style="display:none;">Savage Role:</label>
-                    <select id="savage-role-select" style="display:none;">
+                    <select id="savage-role-select" style="display:none;" multiple>
                         <option value="">Any</option>
                         <option value="bossKilla">Killa</option>
                         <option value="bossTagilla">Tagilla</option>
@@ -1092,14 +1090,15 @@
             return [];
         }
 
-        function savageSelection(event) {
+        function savageSelection() {
+            const targetSelect = document.querySelector('select[required]');
             const savageRoleLabel = document.getElementById('savage-role-label');
             const savageRoleSelect = document.getElementById('savage-role-select');
-            
-            // Check if "Scavs" (value: "Savage") is selected
-            if (event.target.value === 'Savage') {
-                savageRoleLabel.style.display = 'block';
-                savageRoleSelect.style.display = 'block';
+
+            // Check if "Scavs" is selected to toggle visibility of savage-role
+            if (targetSelect.value === 'Savage') {
+                savageRoleLabel.style.display = 'inline';
+                savageRoleSelect.style.display = 'inline';
             } else {
                 savageRoleLabel.style.display = 'none';
                 savageRoleSelect.style.display = 'none';
@@ -1196,9 +1195,14 @@
                     const bodyPartSelect = div.querySelector('#body-part-select');
                     const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
 
-                    const savageRoleSelect = div.querySelector('#savage-role-select');
+                    const savageRoleSelect = document.getElementById('savage-role-select');
                     const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                     const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
+
+                    let selectedSavageRoles = [];
+                    if (targetSelect && targetSelect.value === 'Savage') {
+                        selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+                    }
 
                     return {
                         conditionType: "Kills",
@@ -1212,7 +1216,7 @@
                             to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
                         bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
-                        savageRole: targetSelect && targetSelect.value === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
+                        savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
                         weaponCaliber: selectedWeaponCalibers,
                         weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
                         weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
