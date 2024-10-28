@@ -414,9 +414,12 @@
                     <label>Time of Day To (0-24):
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
-                    <label>Reset on Session End:
-                        <input type="checkbox">
-                    </label>
+                    <div style="display: flex; align-items: center; text-align: left;">
+                        <label style="display: flex; align-items: center;">
+                            <input type="checkbox" style="margin-right: 5px;">
+                            Reset on Session End
+                        </label>
+                    </div>
                     <div style="margin-top: 10px; display: inline-block;">
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
@@ -426,9 +429,12 @@
                     <label>Target Zone ID (e.g., huntsman_029):
                         <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
                     </label>
-                    <label>One Session Only:
-                        <input type="checkbox" class="visit-place-one-session-only">
-                    </label>
+                    <div style="display: flex; align-items: center; text-align: left;">
+                        <label style="display: flex; align-items: center;">
+                            <input type="checkbox" class="visit-place-one-session-only" style="margin-right: 5px;">
+                            One Session Only
+                        </label>
+                    </div>
                 `;
             } else if (selectElement.value === 'Skill') {
                 conditionDetails.innerHTML = `
@@ -462,7 +468,7 @@
             targetDiv.innerHTML = `
                 <label>Search or Enter ID:</label>
                 <div class="custom-dropdown">
-                    <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -471,14 +477,11 @@
                         `).join('')}
                     </div>
                 </div>
-                <label>Manual ID (optional):
-                    <input type="text" class="manual-id" placeholder="Enter MongoDB ID (optional)">
-                </label>
                 <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
             `;
 
             container.appendChild(targetDiv);
-        }
+            }
 
         function removeTargetItem(button) {
             button.closest('.target-item').remove();
@@ -504,8 +507,13 @@
             const dropdown = item.closest('.custom-dropdown');
             const selectedItem = dropdown.querySelector('.dropdown-search');
             selectedItem.value = item.textContent.trim();
-            selectedItem.dataset.selectedValue = item.dataset.value;
+            selectedItem.dataset.selectedValue = item.dataset.value; // Store the selected ID
             dropdown.querySelector('.dropdown-menu').classList.remove('show');
+        }
+
+        function getTplId(inputElement) {
+            // Use selected ID if available, or fallback to manually entered ID
+            return inputElement.dataset.selectedValue || inputElement.value;
         }
 
         function addReward() {
@@ -903,8 +911,8 @@
                 // FindItem or HandoverItem Condition
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
-                        const manualId = targetDiv.querySelector('.manual-id')?.value;
-                        return manualId || targetDiv.querySelector('.dropdown-search').dataset.selectedValue;
+                        const inputElement = targetDiv.querySelector('.dropdown-search');
+                        return getTplId(inputElement); // Use selected ID or typed ID
                     });
                     return {
                         conditionType: conditionType,
@@ -982,9 +990,8 @@
                 const rewardId = `${trader}_${questNumber} reward_${index}`;
 
                 if (rewardType === 'AssortmentUnlock' || rewardType === 'Item') {
-                    const manualId = div.querySelector('.manual-id')?.value;
-                    const selectedId = div.querySelector('.dropdown-search').dataset.selectedValue;
-                    const itemId = manualId || selectedId;
+                    const inputElement = div.querySelector('.dropdown-search');
+                    const itemId = getTplId(inputElement);
 
                     return rewardType === 'Item' ? {
                         type: rewardType,
