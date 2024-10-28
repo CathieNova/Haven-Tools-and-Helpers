@@ -341,13 +341,13 @@
                         <option value="ExitStatus">Exit Status</option>
                     </select>
                 </label>
-                <div class="condition-details"></div>
                 <div class="visibility-conditions">
                     <h4 style="color: #06b600;">Visibility Condition</h4>
                     <label>Visibility Target Objective ID: ("${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}" <-- for the last quest objective)
                         <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
                 </div>
+                <div class="condition-details"></div>
             `;
             container.appendChild(conditionDiv);
             updateConditionFields(conditionDiv.querySelector('select'));
