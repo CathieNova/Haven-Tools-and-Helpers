@@ -418,3 +418,68 @@ select:focus, input:focus {
     background-color: #2b2b2b;
     transition: all 0.5s ease;
 }
+
+/* Styling for new Kills condition dropdowns */
+#body-part-select, #savage-role-select, .weapon-mods-container select {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#body-part-select:hover, #savage-role-select:hover, .weapon-mods-container select:hover {
+    border-color: #b300a4;
+}
+
+#body-part-select:focus, #savage-role-select:focus, .weapon-mods-container select:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.weapon-mods-container {
+    background: #2a2a2a;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.weapon-mods-container label {
+    display: block;
+    color: #e0e0e0;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.weapon-mods-container .dropdown-search {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.weapon-mods-container .dropdown-menu {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    width: fit-content;
+    transition: opacity 0.5s ease;
+}
+
+.weapon-mods-container .dropdown-item {
+    color: #e0e0e0;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.weapon-mods-container .dropdown-item:hover {
+    background-color: #3c3c3c;
+}

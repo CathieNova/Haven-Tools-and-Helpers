@@ -416,21 +416,68 @@
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
                     <label>Select Weapon Caliber(s):</label>
-                        <div class="weapon-caliber-container">
-                            <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
-                                <option value="all">All</option>
-                                <option value="543be6564bdc2df4348b4568">Throwable</option>
-                                <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
-                                <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
-                                <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
-                                <option value="5447b5e04bdc2d62278b4567">SMGs</option>
-                                <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
-                                <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
-                                <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
-                                <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
-                                <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
-                            </select>
-                        </div>
+                    <div class="weapon-caliber-container">
+                        <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
+                            <option value="all">All</option>
+                            <option value="543be6564bdc2df4348b4568">Throwable</option>
+                            <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
+                            <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
+                            <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
+                            <option value="5447b5e04bdc2d62278b4567">SMGs</option>
+                            <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
+                            <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
+                            <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
+                            <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
+                            <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
+                        </select>
+                    </div>
+                    <label>Target Body Part:</label>
+                    <select id="body-part-select">
+                        <option value="">Any</option>
+                        <option value="Head">Head</option>
+                        <option value="Chest">Chest</option>
+                        <option value="Stomach">Stomach</option>
+                        <option value="LeftArm">Left Arm</option>
+                        <option value="RightArm">Right Arm</option>
+                        <option value="LeftLeg">Left Leg</option>
+                        <option value="RightLeg">Right Leg</option>
+                    </select>
+                    <label id="savage-role-label" style="display:none;">Savage Role:</label>
+                    <select id="savage-role-select" style="display:none;">
+                        <option value="">Any</option>
+                        <option value="bossKilla">Killa</option>
+                        <option value="bossTagilla">Tagilla</option>
+                        <option value="bossBully">Reshala</option>
+                        <option value="followerBully">Reshala's Bodyguards</option>
+                        <option value="bossKojaniy">Schturman</option>
+                        <option value="bossGluhar">Gluhar</option>
+                        <option value="followerGluharAssault">Gluhar Guard Assault</option>
+                        <option value="followerGluharScout">Gluhar Guard Scout</option>
+                        <option value="followerGluharSecurity">Gluhar Guard Security</option>
+                        <option value="followerGluharSnipe">Gluhar Guard Sniper</option>
+                        <option value="pmcBot">Raider</option>
+                        <option value="bossSanitar">Sanitar</option>
+                        <option value="followerSanitar">Sanitar Bodyguards</option>
+                        <option value="bossKnight">Knight</option>
+                        <option value="followerBigPipe">BigPipe</option>
+                        <option value="followerBirdEye">BirdEye</option>
+                        <option value="exUsec">Rogue</option>
+                        <option value="marksman">Sniper Scavs</option>
+                        <option value="sectantPriest">Cultist Priest</option>
+                        <option value="sectantWarrior">Cultist Warrior</option>
+                        <option value="arenaFighterEvent">Bloodhound</option>
+                    </select>
+                    <label>Weapons Mods to Include:</label>
+                    <div id="weapon-mods-inclusive-container">
+                        <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
+                        <div class="weapon-mods-inclusive"></div>
+                    </div>
+
+                    <label>Weapons Mods to Exclude:</label>
+                    <div id="weapon-mods-exclusive-container">
+                        <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
+                        <div class="weapon-mods-exclusive"></div>
+                    </div>
                     <div style="display: flex; align-items: center; text-align: left;">
                         <label style="display: flex; align-items: center;">
                             <input type="checkbox" style="margin-right: 5px;">
@@ -441,6 +488,18 @@
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
                 `;
+                
+                document.getElementById('target-select').addEventListener('change', function() {
+                    const savageRoleLabel = document.getElementById('savage-role-label');
+                    const savageRoleSelect = document.getElementById('savage-role-select');
+                    if (this.value === 'Savage') {
+                        savageRoleLabel.style.display = 'block';
+                        savageRoleSelect.style.display = 'block';
+                    } else {
+                        savageRoleLabel.style.display = 'none';
+                        savageRoleSelect.style.display = 'none';
+                    }
+                });
             } else if (selectElement.value === 'VisitPlace') {
                 conditionDetails.innerHTML = `
                     <label>Target Zone ID (e.g., huntsman_029):
@@ -494,6 +553,47 @@
                 `;
             }
         }
+
+        function addWeaponModInclusive() {
+            const container = document.querySelector('.weapon-mods-inclusive');
+            const modDiv = document.createElement('div');
+            modDiv.classList.add('weapon-mod-item');
+
+            modDiv.innerHTML = `
+                <div class="custom-dropdown">
+                    <label>Search or Enter Mod ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+            `;
+            container.appendChild(modDiv);
+        }
+
+        function addWeaponModExclusive() {
+            const container = document.querySelector('.weapon-mods-exclusive');
+            const modDiv = document.createElement('div');
+            modDiv.classList.add('weapon-mod-item');
+
+            modDiv.innerHTML = `
+                <div class="custom-dropdown">
+                    <label>Search or Enter Mod ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+            `;
+            container.appendChild(modDiv);
+        }
+
+        function removeWeaponMod(button) {
+            button.closest('.weapon-mod-item').remove();
+        }
+
 
         function addEquipmentItem() {
             const container = document.querySelector('.equipment-inclusive-container');
@@ -1050,18 +1150,15 @@
                 else if (conditionType === 'Kills') {
                     const zoneIdInput = div.querySelector('input[type=text]');
                     const locationDropdown = div.querySelector('.location-dropdown');
-                    const targetSelect = div.querySelector('select:nth-of-type(2)');
+                    const targetSelect = div.querySelector('#target-select');
                     const killsRequiredInput = div.querySelector('input[type=number]');
                     const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
                     const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
-
-                    // Capture selected weapon calibers
-                    const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
-                    const selectedWeaponCalibers = weaponCaliberSelect 
-                        ? Array.from(weaponCaliberSelect.options)
-                            .filter(option => option.selected && option.value !== 'all') // Exclude 'all' and unselected options
-                            .map(option => option.value)
-                        : [];
+                    
+                    const bodyPartSelect = div.querySelector('#body-part-select');
+                    const savageRoleSelect = div.querySelector('#savage-role-select');
+                    const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
+                    const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
 
                     return {
                         conditionType: "Kills",
@@ -1074,11 +1171,14 @@
                             from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
                             to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
-                        weaponCaliber: selectedWeaponCalibers, // Only includes calibers if selected
+                        bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
+                        savageRole: targetSelect && targetSelect.value === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
+                        weaponCaliber: selectedWeaponCalibers,
+                        weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
+                        weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
-
                 // VisitPlace Condition
                 else if (conditionType === 'VisitPlace') {
                     return {
