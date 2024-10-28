@@ -10,7 +10,7 @@
 <body>
     <h1>Haven Quest Helper</h1>
     <h4>Made for Virtual's Custom Quest Loader - SPT Mod</h4>
-    <h6>This website will update often since it's work in progress so make sure to refresh it to see changes. (current version: 0.0.1)</h6>
+    <h4>This website will update often since it's work in progress so make sure to refresh it to see changes. (current version: 0.0.1)</h6>
     
     <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
         <h3><strong>Website Settings</strong></h3>
@@ -62,7 +62,7 @@
         <ul>
             <li>Quest Name is the name of the quest (it converts it into an id for you too)</li>
             <li>Trader Name is the name of the trader that gives the quest</li>
-            <li>Conditions are the requirements for the quest
+            <li>Objective Conditions are the requirements for the quest like finding items, killing scavs, etc.</li>
                 <ul>
                     <li>Find Item: Find an item in raid
                         <ul>
@@ -108,6 +108,9 @@
         <label for="trader-name">Quest Trader Name:</label>
         <input type="text" id="trader-name" placeholder="Enter Trader name" required>
 
+        <label for="quest-number">Quest Number</label>
+        <input type="number" id="quest-number" placeholder="Enter Quest Number" required>
+
         <label for="quest-type">Quest Type:</label>
         <select id="quest-type">
             <option value="PickUp">Pick Up</option>
@@ -123,11 +126,11 @@
             <option value="Multi">Multi</option>
         </select>
 
-        <h3>Available For Start Conditions</h3>
+        <h3>Available For Start Conditions (if applicable)</h3>
         <button onclick="addAvailableForStartCondition()">Add Condition</button>
         <div id="available-for-start-container" class="dynamic-fields"></div>
 
-        <h3>Conditions</h3>
+        <h3>Objective Conditions</h3>
         <button onclick="addCondition()" style="margin-bottom: 10px;">Add Condition</button>
         <div id="conditions-container" class="dynamic-fields"></div>
 
@@ -266,7 +269,8 @@
 
             const conditionIndex = container.childElementCount + 1;
             const traderId = document.getElementById('trader-name').value || 'trader';
-            const objLabel = `${traderId}_0 obj_${conditionIndex}`;
+            const questNumber = document.getElementById('quest-number').value || '0';
+            const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
 
             conditionDiv.innerHTML = `
                 <label>Condition Type:
@@ -300,7 +304,8 @@
             const conditionDiv = button.closest('.condition');
             const conditionIndex = Array.from(conditionDiv.parentNode.children).indexOf(conditionDiv) + 1;
             const traderId = document.getElementById('trader-name').value || 'trader';
-            const objLabel = `${traderId}_0 obj_${conditionIndex}`;
+            const questNumber = document.getElementById('quest-number').value || '0';
+            const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
 
             // Remove the associated language entry
             document.getElementById(objLabel)?.parentElement.remove();
@@ -314,12 +319,13 @@
         
         function adjustLanguageFields() {
             const traderId = document.getElementById('trader-name').value || 'trader';
+            const questNumber = document.getElementById('quest-number').value || '0';
             const conditions = document.querySelectorAll('#conditions-container > .condition');
             const languageSection = document.getElementById('dynamic-lang-variables-container');
             let index = 1;
 
             conditions.forEach(condition => {
-                const fieldId = `${traderId}_0 obj_${index}`;
+                const fieldId = `${traderId}_${questNumber} obj_${index}`;
                 const existingInput = document.getElementById(fieldId);
 
                 if (!existingInput) {
@@ -639,11 +645,12 @@
 
             // Dynamic fields for all conditions with unique IDs
             const traderId = document.getElementById('trader-name').value || 'trader';
+            const questNumber = document.getElementById('quest-number').value || '0';
             const conditions = document.querySelectorAll('#conditions-container > .condition');
 
             conditions.forEach((condition, index) => {
                 const conditionType = condition.querySelector('select').value;
-                const objLabel = `${traderId}_0 Obj_${index + 1}`;
+                const objLabel = `${traderId}_${questNumber} Obj_${index + 1}`;
 
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
@@ -654,7 +661,7 @@
             // Dynamic fields for rewards
             const rewards = document.querySelectorAll('#rewards-container > .reward');
             rewards.forEach((reward, index) => {
-                const rewardId = `${traderId}_0 reward_${index}`;
+                const rewardId = `${traderId}_${questNumber} reward_${index}`;
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
                 div.innerHTML = `<label for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
@@ -782,7 +789,7 @@
 
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
-                const conditionId = `${trader}_0 obj_${index + 1}`;
+                const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
@@ -815,7 +822,7 @@
 
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
-                const rewardId = `${trader}_0 reward_${index}`;
+                const rewardId = `${trader}_${questNumber} reward_${index}`;
 
                 if (rewardType === 'AssortmentUnlock' || rewardType === 'Item') {
                     const manualId = div.querySelector('.manual-id')?.value;
@@ -838,15 +845,15 @@
             });
 
             let languageEntries = {
-                [`${trader}_0 name`]: document.getElementById('quest-name').value,
-                [`${trader}_0 description`]: document.getElementById('quest-desc-lang').value,
-                [`${trader}_0 startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
-                [`${trader}_0 successMessageText`]: document.getElementById('quest-success-msg-lang').value,
-                [`${trader}_0 failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
-                [`${trader}_0 acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
-                [`${trader}_0 declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
-                [`${trader}_0 completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
-                [`${trader}_0 changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
+                [`${trader}_${questNumber} name`]: document.getElementById('quest-name').value,
+                [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
+                [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
+                [`${trader}_${questNumber} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
+                [`${trader}_${questNumber} failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
+                [`${trader}_${questNumber} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
+                [`${trader}_${questNumber} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
+                [`${trader}_${questNumber} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
+                [`${trader}_${questNumber} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
             };
 
             const languageContainer = document.getElementById('dynamic-lang-variables-container');
@@ -863,14 +870,14 @@
                     _id: questNameID,
                     traderId: trader,
                     type: questType,
-                    description: `${trader}_0 description`,
-                    startedMessageText: `${trader}_0 startedMessageText`,
-                    successMessageText: `${trader}_0 successMessageText`,
-                    failMessageText: `${trader}_0 failMessageText`,
-                    acceptPlayerMessage: `${trader}_0 acceptPlayerMessage`,
-                    declinePlayerMessage: `${trader}_0 declinePlayerMessage`,
-                    completePlayerMessage: `${trader}_0 completePlayerMessage`,
-                    changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
+                    description: `${trader}_${questNumber} description`,
+                    startedMessageText: `${trader}_${questNumber} startedMessageText`,
+                    successMessageText: `${trader}_${questNumber} successMessageText`,
+                    failMessageText: `${trader}_${questNumber} failMessageText`,
+                    acceptPlayerMessage: `${trader}_${questNumber} acceptPlayerMessage`,
+                    declinePlayerMessage: `${trader}_${questNumber} declinePlayerMessage`,
+                    completePlayerMessage: `${trader}_${questNumber} completePlayerMessage`,
+                    changeQuestMessageText: `${trader}_${questNumber} changeQuestMessageText`,
                     conditions: {
                         AvailableForStart: availableForStartConditions,
                         AvailableForFinish: conditions,
