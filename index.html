@@ -265,6 +265,7 @@
                         <option value="FindItem">Find Item</option>
                         <option value="HandoverItem">Handover Item</option>
                         <option value="Kills">Kills</option>
+                        <option value="VisitPlace">Visit Place</option>
                     </select>
                 </label>
                 <div class="condition-details"></div>
@@ -402,6 +403,15 @@
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
                 `;
+            } else if (selectElement.value === 'VisitPlace') {
+                conditionDetails.innerHTML = `
+                    <label>Target Zone ID (e.g., huntsman_029):
+                        <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
+                    </label>
+                    <label>One Session Only:
+                        <input type="checkbox" class="visit-place-one-session-only">
+                    </label>
+                `;
             }
         }
 
@@ -485,6 +495,14 @@
         function updateRewardFields(selectElement) {
             const rewardDetails = selectElement.closest('.reward').querySelector('.reward-details');
             rewardDetails.innerHTML = '';
+            const skillOptions = [
+                "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
+                "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "ToubleShooting",
+                "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
+                "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
+                "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
+                "Surgery", "HideoutManagement", "MagDrills", "Crafting"
+            ];
 
             if (selectElement.value === 'AssortmentUnlock') {
                 rewardDetails.innerHTML = `
@@ -543,7 +561,19 @@
                         <input type="text" class="reward-value" placeholder="Enter amount of Experience">
                     </label>
                 `;
+            } else if (selectElement.value === 'Skill') {
+                rewardDetails.innerHTML = `
+                    <label>Skill Type:
+                        <select class="skill-target">
+                            ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
+                        </select>
+                    </label>
+                    <label>Value:
+                        <input type="number" class="skill-value" placeholder="Enter value" required>
+                    </label>
+                `;
             }
+
         }
 
         function selectRewardItem(item) {
@@ -839,6 +869,31 @@
                             to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10)
                         }
                     };
+                } else if (conditionType === 'VisitPlace') {
+                    return {
+                        completeInSeconds: 0,
+                        conditionType: 'CounterCreator',
+                        counter: {
+                            conditions: [
+                                {
+                                    conditionType: "VisitPlace",
+                                    dynamicLocale: false,
+                                    id: conditionId,
+                                    target: div.querySelector('.visit-place-target').value
+                                }
+                            ],
+                            id: `${conditionId}_counter`
+                        },
+                        doNotResetIfCounterCompleted: false,
+                        dynamicLocale: false,
+                        globalQuestCounterId: "",
+                        id: conditionId,
+                        index: index,
+                        oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
+                        parentId: "",
+                        type: "Exploration",
+                        visibilityConditions: []
+                    };
                 }
                 return {};
             });
@@ -872,7 +927,16 @@
                         id: rewardId,
                         value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0
                     };
-                }
+                } else if (rewardType === 'Skill') {
+                    const targetSkill = div.querySelector('.skill-target').value;
+                    const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
+                    return {
+                        type: 'Skill',
+                        id: rewardId,
+                        target: targetSkill,
+                        value: skillValue
+                    };
+                } 
                 return {};
             });
 
