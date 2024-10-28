@@ -169,6 +169,13 @@
             </button>
             <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
         </div>
+        <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
+            <h3>Quest Assortments</h3>
+            <button id="copyAssortButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
+                Copy Assortments to Clipboard
+            </button>
+            <pre id="assort-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
+        </div>
     </section>
 
     <script>
@@ -523,8 +530,11 @@
                     </label>
                 `;
             } else if (selectElement.value === 'Experience' || selectElement.value === 'TraderStanding') {
-                // These reward types do not need additional options
-                rewardDetails.innerHTML = `<label>No additional fields required for ${selectElement.value}</label>`;
+                rewardDetails.innerHTML = `
+                    <label>Values (comma-separated, e.g., 0.1, 1, 2.5):
+                        <input type="text" class="reward-value" placeholder="Enter values, separated by commas">
+                    </label>
+                `;
             }
         }
 
@@ -734,6 +744,17 @@
             }
         }
 
+        function copyAssortments() {
+            const assortOutputText = document.getElementById('assort-output').textContent;
+            navigator.clipboard.writeText(assortOutputText).then(() => {
+                const button = document.getElementById('copyAssortButton');
+                button.innerText = "Copied to Clipboard";
+                setTimeout(() => button.innerText = "Copy Assortments to Clipboard", 3000);
+            }).catch(err => {
+                console.error("Failed to copy assortments:", err);
+            });
+        }
+
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
@@ -815,12 +836,22 @@
                         type: rewardType,
                         id: rewardId,
                         _tpl: itemId,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10)
+                        value: parseFloat(div.querySelector('input[type=number]').value)
                     } : {
                         type: 'AssortmentUnlock',
                         id: rewardId,
                         items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
                         loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10)
+                    };
+                } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
+                    const values = div.querySelector('.reward-value').value
+                        .split(',')
+                        .map(val => parseFloat(val.trim()));
+
+                    return {
+                        type: rewardType,
+                        id: rewardId,
+                        values: values
                     };
                 }
                 return {};

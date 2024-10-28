@@ -335,3 +335,26 @@ button:hover {
 #available-for-start-container {
     display: none;
 }
+
+.dark-section {
+    margin-top: 40px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    position: relative;
+}
+
+.dark-section button:hover {
+    background-color: #b300a4;
+}
+
+.dark-section pre {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: pre-wrap;
+}
