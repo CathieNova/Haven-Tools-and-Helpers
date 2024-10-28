@@ -183,3 +183,61 @@ a:hover {
 .dropdown-item:hover {
     background: #3c3c3c;
 }
+
+/* Base styles for dynamic language entry fields */
+.dynamic-lang-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dynamic-lang-entry {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.dynamic-lang-entry label {
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+}
+
+.dynamic-lang-entry input[type="text"] {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Add focus style for better visibility */
+.dynamic-lang-entry input[type="text"]:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+/* Styling for section heading */
+.dynamic-lang-section h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+/* Button styles */
+button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #b300a4;
+}

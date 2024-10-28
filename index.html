@@ -122,6 +122,40 @@
         <button onclick="addReward()" style="margin-bottom: 10px;">Add Reward</button>
         <div id="rewards-container" class="dynamic-fields"></div>
 
+        <h3>Quest Language Variables</h3>
+        <div id="language-variables-container" style="margin-bottom: 20px;">
+            <label for="quest-name-lang">Quest Name:</label>
+            <input type="text" id="quest-name-lang" placeholder="Quest Name text">
+
+            <label for="quest-desc-lang">Quest Description:</label>
+            <input type="text" id="quest-desc-lang" placeholder="Quest Description text">
+
+            <label for="quest-start-msg-lang">Quest Start Message:</label>
+            <input type="text" id="quest-start-msg-lang" placeholder="Start Message text (if applicable)">
+
+            <label for="quest-success-msg-lang">Quest Success Message:</label>
+            <input type="text" id="quest-success-msg-lang" placeholder="Success Message text (if applicable)">
+
+            <label for="quest-fail-msg-lang">Quest Fail Message:</label>
+            <input type="text" id="quest-fail-msg-lang" placeholder="Fail Message text (if applicable)">
+
+            <label for="quest-accept-msg-lang">Quest Accept Message:</label>
+            <input type="text" id="quest-accept-msg-lang" placeholder="Accept Message text (if applicable)">
+
+            <label for="quest-decline-msg-lang">Quest Decline Message:</label>
+            <input type="text" id="quest-decline-msg-lang" placeholder="Decline Message text (if applicable)">
+
+            <label for="quest-complete-msg-lang">Quest Complete Message:</label>
+            <input type="text" id="quest-complete-msg-lang" placeholder="Complete Message text (if applicable)">
+
+            <label for="quest-change-msg-lang">Quest Change Message:</label>
+            <input type="text" id="quest-change-msg-lang" placeholder="Change Message text (if applicable)">
+        </div>
+
+        <!-- Language Variables for Conditions and Rewards -->
+        <h3>Condition & Reward Language Variables</h3>
+        <div id="dynamic-lang-variables-container"></div>
+
         <button onclick="generateQuest()" style="margin-top: 10px;">Generate Quest JSON</button>
     </section>
     
@@ -152,6 +186,10 @@
             loadLanguage('en.json');
             loadItems();
         });
+
+        document.getElementById('rewards-container').addEventListener('DOMNodeInserted', updateDynamicLanguageFields);
+        document.getElementById('conditions-container').addEventListener('DOMNodeInserted', updateDynamicLanguageFields);
+
 
         function reloadPage() {
             const currentUrl = window.location.href.split('?')[0];
@@ -232,6 +270,7 @@
             `;
             container.appendChild(conditionDiv);
             updateConditionFields(conditionDiv.querySelector('select'));
+            populateLanguageFields();
         }
 
         function removeCondition(button) {
@@ -390,6 +429,7 @@
             
             container.appendChild(rewardDiv);
             updateRewardFields(rewardDiv.querySelector('select'));
+            populateLanguageFields();
         }
 
         function updateRewardFields(selectElement) {
@@ -517,12 +557,55 @@
             }
         }
 
+        function populateLanguageFields() {
+            const languageSection = document.getElementById('language-entries-section');
+            languageSection.innerHTML = ''; // Clear any previous entries
+
+            // Quest name and basic language fields
+            const baseFields = [
+                { id: 'quest-name-lang', label: 'Quest Name' },
+                { id: 'quest-desc-lang', label: 'Description' },
+                { id: 'quest-start-msg-lang', label: 'Started Message' },
+                { id: 'quest-success-msg-lang', label: 'Success Message' },
+                { id: 'quest-fail-msg-lang', label: 'Fail Message' },
+                { id: 'quest-accept-msg-lang', label: 'Accept Message' },
+                { id: 'quest-decline-msg-lang', label: 'Decline Message' },
+                { id: 'quest-complete-msg-lang', label: 'Complete Message' },
+                { id: 'quest-change-msg-lang', label: 'Change Quest Message' }
+            ];
+
+            baseFields.forEach(field => {
+                const div = document.createElement('div');
+                div.className = 'dynamic-lang-entry';
+                div.innerHTML = `<label for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
+                languageSection.appendChild(div);
+            });
+
+            // Dynamic fields for conditions (Obj) and rewards
+            const conditions = document.querySelectorAll('#conditions-container > .condition');
+            conditions.forEach((condition, index) => {
+                const div = document.createElement('div');
+                div.className = 'dynamic-lang-entry';
+                div.innerHTML = `<label for="condition-lang-${index + 1}">Condition Obj ${index + 1}:</label><input type="text" id="condition-lang-${index + 1}" placeholder="Enter condition text">`;
+                languageSection.appendChild(div);
+            });
+
+            const rewards = document.querySelectorAll('#rewards-container > .reward');
+            rewards.forEach((reward, index) => {
+                const div = document.createElement('div');
+                div.className = 'dynamic-lang-entry';
+                div.innerHTML = `<label for="reward-lang-${index}">Reward ${index}:</label><input type="text" id="reward-lang-${index}" placeholder="Enter reward text">`;
+                languageSection.appendChild(div);
+            });
+        }
+
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
             const trader = document.getElementById('trader-name').value;
             const questType = document.getElementById('quest-type').value;
 
+            // Collect conditions
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
 
@@ -581,6 +664,7 @@
                 }
             }).flat();
 
+            // Collect rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
 
@@ -613,7 +697,29 @@
                 }
             });
 
+            // Language entries object, including the dynamically generated fields
+            let languageEntries = {
+                [`${trader}_0 name`]: document.getElementById('quest-name-lang').value,
+                [`${trader}_0 description`]: document.getElementById('quest-desc-lang').value,
+                [`${trader}_0 startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
+                [`${trader}_0 successMessageText`]: document.getElementById('quest-success-msg-lang').value,
+                [`${trader}_0 failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
+                [`${trader}_0 acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
+                [`${trader}_0 declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
+                [`${trader}_0 completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
+                [`${trader}_0 changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
+            };
 
+            // Add dynamic language entries for conditions (Obj) and rewards
+            conditions.forEach((condition, index) => {
+                languageEntries[condition.id] = document.getElementById(`condition-lang-${index + 1}`).value || '';
+            });
+
+            rewards.forEach((reward, index) => {
+                languageEntries[reward.id] = document.getElementById(`reward-lang-${index}`).value || '';
+            });
+
+            // Construct the quest object
             const quest = {
                 [questNameID]: {
                     QuestName: questName,
@@ -651,34 +757,10 @@
                 }
             };
 
-            // Prepare language entries
-            let languageEntries = {};
-            languageEntries[`${trader}_0 name`] = ""; 
-            languageEntries[`${trader}_0 description`] = ""; 
-            languageEntries[`${trader}_0 startedMessageText`] = ""; 
-            languageEntries[`${trader}_0 successMessageText`] = ""; 
-            languageEntries[`${trader}_0 failMessageText`] = ""; 
-            languageEntries[`${trader}_0 acceptPlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 declinePlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 completePlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 changeQuestMessageText`] = ""; 
-
-            // Loop through conditions to add language entries
-            conditions.forEach((condition) => {
-                if (typeof condition === "object" && condition.id) {
-                    languageEntries[condition.id] = ""; 
-                }
-            });
-
-            // Loop through rewards to add language entries
-            rewards.forEach(reward => {
-                languageEntries[reward.id] = ""; 
-            });
-
-            // Display the quest
+            // Display the quest JSON
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             
-            // Display the language variables
+            // Display the language entries JSON
             const languageEntriesOutput = document.getElementById('language-output');
             languageEntriesOutput.textContent = JSON.stringify(languageEntries, null, 2);
 
