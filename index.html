@@ -763,45 +763,45 @@
             const questNumber = document.getElementById('quest-number').value || '0';
             const questType = document.getElementById('quest-type').value;
 
+            // Start Conditions
             const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
-
+                
                 if (conditionType === 'Level') {
                     const compareSelect = div.querySelector('select:nth-of-type(2)');
-                    const compareMethod = compareSelect ? compareSelect.value : null; // Default to null if not found
-
+                    const levelInput = div.querySelector('input[type=number]');
+                    
                     return {
-                        compareMethod: compareMethod,
+                        compareMethod: compareSelect ? compareSelect.value : '',
                         conditionType: 'Level',
                         id: `level_condition_${index}`,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10)
+                        value: levelInput ? parseInt(levelInput.value, 10) : 0
                     };
                 } else if (conditionType === 'Quest') {
                     const statusOptions = div.querySelectorAll('select[multiple] option:checked');
                     const targetInput = div.querySelector('input[type=text]');
-
+                    
                     return {
                         conditionType: 'Quest',
                         id: `quest_condition_${index}`,
-                        status: statusOptions.length > 0 
-                            ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) 
-                            : [], // Empty array if no options are selected
-                        target: targetInput ? targetInput.value : '' // Default to empty string if input is missing
+                        status: statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [],
+                        target: targetInput ? targetInput.value : ''
                     };
                 } else if (conditionType === 'TraderLoyalty') {
                     const targetInput = div.querySelector('input[type=text]');
                     const valueInput = div.querySelector('input[type=number]');
-
+                    
                     return {
                         conditionType: 'TraderLoyalty',
                         id: `trader_loyalty_condition_${index}`,
-                        target: targetInput ? targetInput.value : '', // Default to empty string if input is missing
-                        value: valueInput ? parseInt(valueInput.value, 10) : 0 // Default to 0 if input is missing
+                        target: targetInput ? targetInput.value : '',
+                        value: valueInput ? parseInt(valueInput.value, 10) : 0
                     };
                 }
                 return {};
             });
 
+            // Objective Conditions
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
                 const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
@@ -835,6 +835,7 @@
                 return {};
             });
 
+            // Rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
                 const rewardId = `${trader}_${questNumber} reward_${index}`;
@@ -848,29 +849,27 @@
                         type: rewardType,
                         id: rewardId,
                         _tpl: itemId,
-                        value: parseFloat(div.querySelector('input[type=number]').value)
+                        value: parseInt(div.querySelector('input[type=number]').value, 10)
                     } : {
                         type: 'AssortmentUnlock',
                         id: rewardId,
                         items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
-                        loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10)
+                        loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10),
+                        target: div.querySelector('.assortment-id').value
                     };
                 } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
-                    const values = div.querySelector('.reward-value').value
-                        .split(',')
-                        .map(val => parseFloat(val.trim()));
-
                     return {
                         type: rewardType,
                         id: rewardId,
-                        values: values
+                        value: parseFloat(div.querySelector('input[type=number]').value.replace(',', '.'))
                     };
                 }
                 return {};
             });
 
+            // Language Entries
             let languageEntries = {
-                [`${trader}_${questNumber} name`]: document.getElementById('quest-name').value,
+                [`${trader}_${questNumber} name`]: questName,
                 [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
                 [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
                 [`${trader}_${questNumber} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
@@ -883,21 +882,18 @@
 
             const languageContainer = document.getElementById('dynamic-lang-variables-container');
             const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
-
             dynamicLangFields.forEach(input => {
                 const fieldId = input.id;
                 languageEntries[fieldId] = input.value || '';
             });
 
-            // Generate Assortments data for unlockable assortments
-            const assortments = rewards
-                .filter(reward => reward.type === 'AssortmentUnlock')
-                .reduce((assort, reward) => {
-                    const assortmentID = reward.items[0]._id;
-                    const questReference = questNameID;
-                    assort.success[assortmentID] = questReference;
-                    return assort;
-                }, { success: {} });
+            // Quest Assortments
+            const assortments = {};
+            rewards.forEach(reward => {
+                if (reward.type === 'AssortmentUnlock') {
+                    assortments[reward.target] = questNameID;
+                }
+            });
 
             const quest = {
                 [questNameID]: {
@@ -926,6 +922,7 @@
                 }
             };
 
+            // Output Display
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             document.getElementById('language-output').textContent = JSON.stringify(languageEntries, null, 2);
             document.getElementById('assortments-output').textContent = JSON.stringify(assortments, null, 2);
