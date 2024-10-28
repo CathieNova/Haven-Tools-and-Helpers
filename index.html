@@ -188,10 +188,6 @@
             populateLanguageFields();
         });
 
-        document.getElementById('rewards-container').addEventListener('DOMNodeInserted', updateDynamicLanguageFields);
-        document.getElementById('conditions-container').addEventListener('DOMNodeInserted', updateDynamicLanguageFields);
-
-
         function reloadPage() {
             const currentUrl = window.location.href.split('?')[0];
             window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
@@ -331,8 +327,9 @@
             }
 
             const conditionDetails = selectElement.closest('.condition').querySelector('.condition-details');
-            conditionDetails.innerHTML = '';
+            if (!conditionDetails) return; // Check if conditionDetails is found
 
+            // Populate conditionDetails based on selection value
             if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                 conditionDetails.innerHTML = `
                     <label>Target Items:</label>
