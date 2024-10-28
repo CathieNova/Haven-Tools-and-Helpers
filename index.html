@@ -185,6 +185,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadLanguage('en.json');
             loadItems();
+            populateLanguageFields();
         });
 
         document.getElementById('rewards-container').addEventListener('DOMNodeInserted', updateDynamicLanguageFields);
@@ -257,6 +258,10 @@
             const conditionDiv = document.createElement('div');
             conditionDiv.classList.add("condition");
 
+            const conditionIndex = container.childElementCount + 1;
+            const traderId = document.getElementById('trader-name').value || 'trader';
+            const objLabel = `${traderId}_0 obj_${conditionIndex}`;
+
             conditionDiv.innerHTML = `
                 <label>Condition Type:
                     <select onchange="updateConditionFields(this)">
@@ -266,15 +271,57 @@
                     </select>
                 </label>
                 <div class="condition-details"></div>
-                <div class="target-items-container"></div> <!-- Separate container for target items -->
+                <div class="target-items-container"></div>
             `;
             container.appendChild(conditionDiv);
+
             updateConditionFields(conditionDiv.querySelector('select'));
-            populateLanguageFields();
+
+            // Directly add the language field for this specific objective
+            addLanguageField(objLabel, `Objective ${conditionIndex}`);
+        }
+
+        function addLanguageField(fieldId, label) {
+            const languageSection = document.getElementById('dynamic-lang-variables-container');
+            
+            const div = document.createElement('div');
+            div.className = 'dynamic-lang-entry';
+            div.innerHTML = `<label for="${fieldId}">${label}:</label><input type="text" id="${fieldId}" placeholder="Enter text for ${label}">`;
+            languageSection.appendChild(div);
         }
 
         function removeCondition(button) {
-            button.closest('.condition').remove();
+            const conditionDiv = button.closest('.condition');
+            const conditionIndex = Array.from(conditionDiv.parentNode.children).indexOf(conditionDiv) + 1;
+            const traderId = document.getElementById('trader-name').value || 'trader';
+            const objLabel = `${traderId}_0 obj_${conditionIndex}`;
+
+            // Remove the associated language entry
+            document.getElementById(objLabel)?.parentElement.remove();
+
+            // Remove the condition
+            conditionDiv.remove();
+
+            // Adjust language fields if needed
+            adjustLanguageFields();
+        }
+        
+        function adjustLanguageFields() {
+            const traderId = document.getElementById('trader-name').value || 'trader';
+            const conditions = document.querySelectorAll('#conditions-container > .condition');
+            const languageSection = document.getElementById('dynamic-lang-variables-container');
+            let index = 1;
+
+            conditions.forEach(condition => {
+                const fieldId = `${traderId}_0 obj_${index}`;
+                const existingInput = document.getElementById(fieldId);
+
+                if (!existingInput) {
+                    addLanguageField(fieldId, `Objective ${index}`);
+                }
+
+                index++;
+            });
         }
 
         async function updateConditionFields(selectElement) {
@@ -429,7 +476,6 @@
             
             container.appendChild(rewardDiv);
             updateRewardFields(rewardDiv.querySelector('select'));
-            populateLanguageFields();
         }
 
         function updateRewardFields(selectElement) {
