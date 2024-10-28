@@ -1496,18 +1496,15 @@
             };
 
             // Output Display
-            const questObject = { [questNameID]: quest[questNameID] };
-            const questContent = JSON.stringify(questObject, null, 2);
-
+            const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2).slice(1, -1);
             const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
             const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
 
-            document.getElementById('output').textContent = questContent;
-            document.getElementById('language-output').textContent = languageEntriesContent;
-            document.getElementById('assortments-output').textContent = assortmentsContent;
+            document.getElementById('output').textContent = `{ ${questContent} }`;
+            document.getElementById('language-output').textContent = `{ ${languageEntriesContent} }`;
+            document.getElementById('assortments-output').textContent = `{ ${assortmentsContent} }`;
 
             document.getElementById('quest-output-section').style.display = 'block';
-
         }
 
     </script>
