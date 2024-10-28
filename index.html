@@ -580,113 +580,137 @@
         }
 
         function generateQuest() {
-            const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
-                const rewardType = div.querySelector('select').value;
+            try {
+                console.log("Starting quest generation...");
 
-                if (rewardType === 'AssortmentUnlock') {
-                    const rewardId = div.querySelector('.assortment-id').value;
-                    const loyaltyLevel = parseInt(div.querySelector('.loyalty-level').value);
-                    const mainItemTpl = div.querySelector('.main-item').dataset.selectedValue;
+                // Collect rewards from each reward section
+                const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
+                    const rewardType = div.querySelector('select').value;
+                    console.log("Reward Type for index", index, ":", rewardType);
 
-                    const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => {
-                        const attachmentId = attachmentDiv.querySelector('.attachment-id').value;
-                        const tpl = attachmentDiv.querySelector('.attachment-tpl').dataset.selectedValue;
-                        const parentId = attachmentDiv.querySelector('.attachment-parent')?.value || null;
-                        const slotId = attachmentDiv.querySelector('.attachment-slot')?.value || null;
+                    if (rewardType === 'AssortmentUnlock') {
+                        const rewardId = div.querySelector('.assortment-id')?.value || "";
+                        const loyaltyLevel = parseInt(div.querySelector('.loyalty-level')?.value || "1");
+                        const mainItemTpl = div.querySelector('.main-item')?.dataset.selectedValue || "";
 
-                        const attachment = {
-                            _id: attachmentId,
-                            _tpl: tpl,
-                            ...(parentId && { parentId }),
-                            ...(slotId && { slotId })
-                        };
-
-                        if (attachmentDiv.querySelector('.is-weapon').checked) {
-                            attachment.upd = {
-                                FireMode: { FireMode: attachmentDiv.querySelector('.weapon-firemode').value || 'single' },
-                                Foldable: { Folded: !attachmentDiv.querySelector('.weapon-foldable').checked },
-                                Repairable: {
-                                    Durability: parseInt(attachmentDiv.querySelector('.weapon-durability').value) || 100,
-                                    MaxDurability: parseInt(attachmentDiv.querySelector('.weapon-max-durability').value) || 100,
-                                },
-                                StackObjectsCount: parseInt(attachmentDiv.querySelector('.stack-objects-count').value) || 1
-                            };
+                        if (!rewardId || !mainItemTpl) {
+                            console.error("Missing reward ID or main item template");
+                            return null;
                         }
 
-                        return attachment;
-                    });
+                        // Gather attachments
+                        const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => {
+                            const attachmentId = attachmentDiv.querySelector('.attachment-id')?.value || "";
+                            const tpl = attachmentDiv.querySelector('.attachment-tpl')?.dataset.selectedValue || "";
+                            const parentId = attachmentDiv.querySelector('.attachment-parent')?.value || null;
+                            const slotId = attachmentDiv.querySelector('.attachment-slot')?.value || null;
 
-                    const items = [
-                        {
-                            _id: rewardId,
-                            _tpl: mainItemTpl,
+                            if (!attachmentId || !tpl) {
+                                console.error("Attachment missing essential fields");
+                                return null;
+                            }
+
+                            // Base attachment structure
+                            const attachment = {
+                                _id: attachmentId,
+                                _tpl: tpl,
+                                ...(parentId && { parentId }),
+                                ...(slotId && { slotId })
+                            };
+
+                            // If it's a weapon, add weapon-specific attributes
+                            if (attachmentDiv.querySelector('.is-weapon')?.checked) {
+                                attachment.upd = {
+                                    FireMode: { FireMode: attachmentDiv.querySelector('.weapon-firemode')?.value || "single" },
+                                    Foldable: { Folded: !attachmentDiv.querySelector('.weapon-foldable')?.checked },
+                                    Repairable: {
+                                        Durability: parseInt(attachmentDiv.querySelector('.weapon-durability')?.value || "100"),
+                                        MaxDurability: parseInt(attachmentDiv.querySelector('.weapon-max-durability')?.value || "100")
+                                    },
+                                    StackObjectsCount: parseInt(attachmentDiv.querySelector('.stack-objects-count')?.value || "1")
+                                };
+                            }
+
+                            return attachment;
+                        }).filter(Boolean); // Filter out any nulls from invalid attachments
+
+                        const items = [
+                            { _id: rewardId, _tpl: mainItemTpl },
+                            ...attachments
+                        ];
+
+                        return {
+                            id: rewardId,
+                            index: index,
+                            items: items,
+                            loyaltyLevel: loyaltyLevel,
+                            target: rewardId,
+                            traderId: "Chloe", // Adjust dynamically if needed
+                            type: 'AssortmentUnlock'
+                        };
+                    } else {
+                        // For non-AssortmentUnlock reward types
+                        const rewardValue = parseInt(div.querySelector('input[type=number]')?.value || "0");
+                        return {
+                            id: `reward_${index}`,
+                            index: index,
+                            type: rewardType,
+                            value: rewardValue
+                        };
+                    }
+                }).filter(Boolean);
+
+                console.log("Rewards Array:", rewards);
+
+                // Collect basic quest information
+                const questName = document.getElementById('quest-name')?.value || "Unnamed Quest";
+                const questNameID = questName.replace(/\s+/g, '_');
+                const trader = document.getElementById('trader-name')?.value || "Unknown Trader";
+                const questType = document.getElementById('quest-type')?.value || "Unknown Type";
+
+                const quest = {
+                    [questNameID]: {
+                        QuestName: questName,
+                        _id: questNameID,
+                        acceptPlayerMessage: `${trader}_0 acceptPlayerMessage`,
+                        canShowNotificationsInGame: true,
+                        changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
+                        completePlayerMessage: `${trader}_0 completePlayerMessage`,
+                        conditions: {
+                            AvailableForFinish: [],
+                            AvailableForStart: [],
+                            Fail: []
                         },
-                        ...attachments
-                    ];
+                        declinePlayerMessage: `${trader}_0 declinePlayerMessage`,
+                        description: `${trader}_0 description`,
+                        failMessageText: `${trader}_0 failMessageText`,
+                        image: `/files/quest/icon/${trader}_0.png`,
+                        instantComplete: false,
+                        isKey: false,
+                        location: "any",
+                        name: `${trader}_0 name`,
+                        note: `${trader}_0 note`,
+                        restartable: false,
+                        rewards: {
+                            Fail: [],
+                            Started: [],
+                            Success: rewards
+                        },
+                        secretQuest: false,
+                        side: "Pmc",
+                        startedMessageText: `${trader}_0 startedMessageText`,
+                        successMessageText: `${trader}_0 successMessageText`,
+                        traderId: trader,
+                        type: questType
+                    }
+                };
 
-                    return {
-                        id: rewardId,
-                        index: index,
-                        items: items,
-                        loyaltyLevel: loyaltyLevel,
-                        target: rewardId,
-                        traderId: "Chloe",
-                        type: 'AssortmentUnlock'
-                    };
-                } else {
-                    return {
-                        id: `reward_${index}`,
-                        index: index,
-                        type: rewardType,
-                        value: parseInt(div.querySelector('input[type=number]').value)
-                    };
-                }
-            });
+                document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
+                console.log("Generated Quest:", quest);
 
-            const questName = document.getElementById('quest-name').value;
-            const questNameID = questName.replace(/\s+/g, '_');
-            const trader = document.getElementById('trader-name').value;
-            const questType = document.getElementById('quest-type').value;
-
-            const quest = {
-                [questNameID]: {
-                    QuestName: questName,
-                    _id: questNameID,
-                    acceptPlayerMessage: `${trader}_0 acceptPlayerMessage`,
-                    canShowNotificationsInGame: true,
-                    changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
-                    completePlayerMessage: `${trader}_0 completePlayerMessage`,
-                    conditions: {
-                        AvailableForFinish: [],
-                        AvailableForStart: [],
-                        Fail: []
-                    },
-                    declinePlayerMessage: `${trader}_0 declinePlayerMessage`,
-                    description: `${trader}_0 description`,
-                    failMessageText: `${trader}_0 failMessageText`,
-                    image: `/files/quest/icon/${trader}_0.png`,
-                    instantComplete: false,
-                    isKey: false,
-                    location: "any",
-                    name: `${trader}_0 name`,
-                    note: `${trader}_0 note`,
-                    restartable: false,
-                    rewards: {
-                        Fail: [],
-                        Started: [],
-                        Success: rewards
-                    },
-                    secretQuest: false,
-                    side: "Pmc",
-                    startedMessageText: `${trader}_0 startedMessageText`,
-                    successMessageText: `${trader}_0 successMessageText`,
-                    traderId: trader,
-                    type: questType
-                }
-            };
-
-            document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
-            console.log("Generated Quest:", quest);
+            } catch (error) {
+                console.error("Error generating quest:", error);
+            }
         }
 
     </script>
