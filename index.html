@@ -655,10 +655,9 @@
             const trader = document.getElementById('trader-name').value || 'trader';
             const questType = document.getElementById('quest-type').value;
 
-            // Collect conditions
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
-                const conditionId = `${trader}_0 Obj_${index + 1}`; // Unique ID for each condition
+                const conditionId = `${trader}_0 obj_${index + 1}`;
 
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.dropdown-search')).map(input => input.dataset.selectedValue);
@@ -683,10 +682,9 @@
                         }
                     };
                 }
-                return {}; // Add more condition types as needed
+                return {};
             });
 
-            // Collect rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
                 const rewardId = `${trader}_0 reward_${index}`;
@@ -708,7 +706,6 @@
                 }
             });
 
-            // Collect dynamic language entries for each condition
             let languageEntries = {
                 [`${trader}_0 name`]: document.getElementById('quest-name-lang').value,
                 [`${trader}_0 description`]: document.getElementById('quest-desc-lang').value,
@@ -721,21 +718,14 @@
                 [`${trader}_0 changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
             };
 
-            conditions.forEach((condition) => {
-                const langInput = document.getElementById(condition.id); // Get input by condition ID
-                if (langInput) {
-                    languageEntries[condition.id] = langInput.value || '';
-                }
+            const languageContainer = document.getElementById('dynamic-lang-variables-container');
+            const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
+
+            dynamicLangFields.forEach(input => {
+                const fieldId = input.id;
+                languageEntries[fieldId] = input.value || '';
             });
 
-            rewards.forEach((reward) => {
-                const langInput = document.getElementById(reward.id); // Get input by reward ID
-                if (langInput) {
-                    languageEntries[reward.id] = langInput.value || '';
-                }
-            });
-
-            // Construct the quest object
             const quest = {
                 [questNameID]: {
                     QuestName: questName,
@@ -763,11 +753,8 @@
                 }
             };
 
-            // Display the generated quest JSON and language entries
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             document.getElementById('language-output').textContent = JSON.stringify(languageEntries, null, 2);
-
-            // Show the quest output section
             document.getElementById('quest-output-section').style.display = 'block';
         }
 
