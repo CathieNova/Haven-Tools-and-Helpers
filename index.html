@@ -357,9 +357,10 @@
                     <label>Value:
                         <input type="number" placeholder="Enter level" required value="1">
                     </label>
-                    <div style="text-align: left;">
-                        <label>Only Found In Raid:
-                        <input type="checkbox">
+                    <div style="display: flex; align-items: center; text-align: left;">
+                        <label style="display: flex; align-items: center;">
+                            <input type="checkbox" style="margin-right: 5px;"> Only Found In Raid
+                        </label>
                     </div>
                     </label>
                     <div style="margin-top: 10px; display: inline-block;">
@@ -595,7 +596,7 @@
             
             else if (selectElement.value === 'Experience') {
                 rewardDetails.innerHTML = `
-                    <label>Value::
+                    <label>Value:
                         <input type="text" class="reward-value" placeholder="Enter amount of Experience">
                     </label>
                 `;
