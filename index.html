@@ -9,14 +9,14 @@
 </head>
 <body>
     <section id="main-content">
-        <h1>Haven VCQL Helper - Version 0.0.1</h1>
+        <h1 style="color: #ff7920;">Haven VCQL Helper - Version 0.0.1</h1>
         <h4>Made for <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">Virtual's Custom Quest Loader</a> - SPT Mod</h4>
         <h4>This website will update often since it's work in progress so make sure to refresh it to see changes.</h6>
         <h4>For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h4>
     </section>
     
     <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
-        <h3><strong>Website Settings</strong></h3>
+        <h3 style="color: #009b27;"><strong">Website Settings</strong></h3>
         <div id="language-container" style="text-align: left;">
             <label for="language-select">Item Names Language: </label>
             <select id="language-select" onchange="loadLanguage(this.value)">
@@ -158,18 +158,18 @@
     
     <!-- Quest Input Section -->
     <section>
-        <h2>Quest Creation</h2>
+        <h2 style="color: #ff7920;">Quest Creation</h2>
         <label for="quest-name">Quest Name:</label>
         <input type="text" id="quest-name" placeholder="Enter quest name" required>
 
-        <label for="trader-name">Quest Trader Name:</label>
+        <label for="trader-name" style="color: #06b600;">Quest Trader Name:</label>
         <input type="text" id="trader-name" placeholder="Enter Trader name" required>
 
-        <label for="quest-number">Quest Number</label>
+        <label for="quest-number" style="color: #06b600;">Quest Number</label>
         <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
 
 
-        <label for="quest-type">Quest Type:</label>
+        <label for="quest-type" style="color: #06b600;">Quest Type:</label>
         <select id="quest-type">
             <option value="PickUp">Pick Up</option>
             <option value="Completion">Completion</option>
@@ -184,33 +184,33 @@
             <option value="Multi">Multi</option>
         </select>
 
-        <h3>Available For Start Conditions (if applicable)</h3>
+        <h3 style="color: #06b600;">Available For Start Conditions (if applicable)</h3>
         <button onclick="addAvailableForStartCondition()">Add Start Condition Requirement</button>
         <div id="available-for-start-container" class="dynamic-fields"></div>
 
-        <h3>Objective Conditions</h3>
+        <h3 style="color: #06b600;">Objective Conditions</h3>
         <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
         <div id="conditions-container" class="dynamic-fields"></div>
 
-        <h3>Rewards</h3>
+        <h3 style="color: #06b600;">Rewards</h3>
         <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
         <div id="rewards-container" class="dynamic-fields"></div>
 
-        <h3>Quest Language Variables</h3>
+        <h3 style="color: #06b600;">Quest Language Variables</h3>
         <div id="language-variables-container" style="margin-bottom: 20px;">
             <div id="language-entries-section"></div>
             <div id="dynamic-lang-variables-container"></div>
         </div>
 
         <!-- Language Variables for Conditions and Rewards -->
-        <h3>Condition & Reward Language Variables</h3>
+        <h3 style="color: #06b600;">Condition & Reward Language Variables</h3>
         <div id="dynamic-lang-variables-container"></div>
 
         <button onclick="generateQuest()" style="margin-top: 10px;">Generate Quest JSON</button>
     </section>
     
     <section id="quest-output-section" style="display: none; position: relative;">
-        <h2>Quest JSON Output</h2>
+        <h2 style="color: #06b600;">Quest JSON Output</h2>
         <h4>Copy this to your trader json inside <strong>'SPT\user\mods\Virtual's Custom Quest Loader\database\quests'</strong>, e.g., <strong>'Chloe.json'</strong></h4>
         
         <div style="position: relative;">
@@ -222,7 +222,7 @@
     </section>
     
     <section id="language-output-section" style="display: none; position: relative;">
-        <h3>Quest Language Variables</h3>
+        <h3 style="color: #06b600;">Quest Language Variables</h3>
         <h4>Copy this to your language json inside <strong>'SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en'</strong>, e.g., <strong>'ChloeLocale.json'</strong></h4>
         <div style="position: relative;">
             <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
@@ -233,7 +233,7 @@
     </section>
     
     <section id="assortments-output-section" style="display: none; position: relative;">
-        <h3>Quest Assortments</h3>
+        <h3 style="color: #06b600;">Quest Assortments</h3>
         <h4>Copy this to your trader json inside either <strong>'base.json'</strong> or <strong>'questassort.json'</strong> at <strong>'SPT\user\mods\TRADERNAME\db'</strong>, e.g., <strong>'questassort.json'</strong></h4>
         <div style="position: relative;">
             <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
@@ -329,7 +329,7 @@
             const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
 
             conditionDiv.innerHTML = `
-                <label>Condition Type:
+                <label style="color: #06b600;">Condition Type:
                     <select onchange="updateConditionFields(this)">
                         <option value="FindItem">Find Item</option>
                         <option value="HandoverItem">Handover Item</option>
@@ -420,7 +420,7 @@
             // Populate conditionDetails based on selection value
             if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                 conditionDetails.innerHTML = `
-                    <label>Target Items:</label>
+                    <label style="color: #06b600;">Target Items:</label>
                     <div class="target-items-container"></div>
                     <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
                     <label>Value:
@@ -438,7 +438,7 @@
                 `;
             } else if (selectElement.value === 'Kills') {
                 conditionDetails.innerHTML = `
-                    <label>Zone ID (e.g., huntsman_005_2) 
+                    <label style="color: #06b600;">Zone ID (e.g., huntsman_005_2) 
                         <a href="https://github.com/guillaumearm/SPT_CustomQuests/blob/master/docs/ALL_ZONES.md" target="_blank" style="color: #4646ff; text-decoration: underline;">Click Here for All Zones</a>:
                         <input type="text" placeholder="Enter zone ID" required>
                     </label>
@@ -458,7 +458,7 @@
                             <option value="653e6760052c01c1c805532f">Ground Zero</option>
                         </select>
                     </label>
-                    <label>Target:
+                    <label style="color: #06b600;">Target:
                         <select id="target-select" required>
                             <option value="Savage">Scavs</option>
                             <option value="AnyPmc">PMCs</option>
@@ -467,7 +467,7 @@
                             <option value="Any" selected>Any</option>
                         </select>
                     </label>
-                    <label id="savage-role-label" style="display:none;">Savage Role (select multiple with ctrl + click):</label>
+                    <label id="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
                     <select id="savage-role-select" style="display:none;" multiple>
                         <option value="">Any</option>
                         <option value="bossKilla">Killa</option>
@@ -492,23 +492,23 @@
                         <option value="sectantWarrior">Cultist Warrior</option>
                         <option value="arenaFighterEvent">Bloodhound</option>
                     </select>
-                    <label>Kills Required:
+                    <label style="color: #06b600;">Kills Required:
                         <input type="number" placeholder="Number of kills" required value="1">
                     </label>
-                    <label>Distance Comparison: (0 = any distance, >= 50 = greater than or equal to 50 meters)
+                    <label style="color: #06b600;">Distance Comparison: (0 = any distance, >= 50 = greater than or equal to 50 meters)
                         <select>
                             <option value=">=">&ge;</option>
                             <option value="<=">&le;</option>
                         </select>
                         <input type="number" placeholder="Distance in meters" required value="0">
                     </label>
-                    <label>Time of Day From (0-24):
+                    <label style="color: #06b600;">Time of Day From (0-24):
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
-                    <label>Time of Day To (0-24):
+                    <label style="color: #06b600;">Time of Day To (0-24):
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
-                    <label>Select Weapon Caliber (select multiple with ctrl + click):</label>
+                    <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
                     <div class="weapon-caliber-container">
                         <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
                             <option value="all">All</option>
@@ -524,7 +524,7 @@
                             <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
                         </select>
                     </div>
-                    <label>Target Body Part (select multiple with ctrl + click):</label>
+                    <label style="color: #06b600;">Target Body Part (select multiple with ctrl + click):</label>
                     <select id="body-part-select" multiple>
                         <option value="">Any</option>
                         <option value="Head">Head</option>
@@ -535,13 +535,13 @@
                         <option value="LeftLeg">Left Leg</option>
                         <option value="RightLeg">Right Leg</option>
                     </select>
-                    <label>Weapons Mods to Include:</label>
+                    <label style="color: #06b600;">Weapons Mods to Include:</label>
                     <div id="weapon-mods-inclusive-container">
                         <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
                         <div class="weapon-mods-inclusive"></div>
                     </div>
 
-                    <label>Weapons Mods to Exclude:</label>
+                    <label style="color: #06b600;">Weapons Mods to Exclude:</label>
                     <div id="weapon-mods-exclusive-container">
                         <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
                         <div class="weapon-mods-exclusive"></div>
@@ -574,7 +574,7 @@
 
             } else if (selectElement.value === 'VisitPlace') {
                 conditionDetails.innerHTML = `
-                    <label>Target Zone ID (e.g., huntsman_029):
+                    <label style="color: #06b600;">Target Zone ID (e.g., huntsman_029):
                         <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
                     </label>
                     <div style="display: flex; align-items: center; text-align: left;">
@@ -586,18 +586,18 @@
                 `;
             } else if (selectElement.value === 'Skill') {
                 conditionDetails.innerHTML = `
-                    <label>Compare Method:
+                    <label style="color: #06b600;">Compare Method:
                         <select>
                             <option value=">=" selected>&ge;</option>
                             <option value="<=">&le;</option>
                         </select>
                     </label>
-                    <label>Skill Type:
+                    <label style="color: #06b600;">Skill Type:
                         <select class="skill-target">
                             ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
                         </select>
                     </label>
-                    <label>Required Skill Level: (1 = 1 level, 2 = 2 levels, etc.)
+                    <label style="color: #06b600;">Required Skill Level: (1 = 1 level, 2 = 2 levels, etc.)
                         <input type="number" class="skill-value" placeholder="Enter skill level" required>
                     </label>
                     <div style="margin-top: 10px; display: inline-block;">
@@ -606,13 +606,13 @@
                 `;
             } else if (selectElement.value === 'Equipment') {
                 conditionDetails.innerHTML = `
-                    <label>Items Required to be Equipped:</label>
+                    <label style="color: #06b600;">Items Required to be Equipped:</label>
                     <div id="equipment-inclusive-container">
                         <button type="button" onclick="addInclusiveItem()">Add Item to Include</button>
                         <div class="inclusive-items-container"></div>
                     </div>
                     
-                    <label>Items Required to NOT be Equipped</label>
+                    <label style="color: #06b600;">Items Required to NOT be Equipped</label>
                     <div id="equipment-exclusive-container">
                         <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
                         <div class="exclusive-items-container"></div>
@@ -625,7 +625,7 @@
                 `;
             } else if (selectElement.value === 'Location') {
                 conditionDetails.innerHTML = `
-                    <label>Location (select multiple with ctrl + click):</label>
+                    <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
                     <select multiple class="location-dropdown">
                         <option value="Interchange">Interchange</option>
                         <option value="factory4_day">Factory Day</option>
@@ -649,7 +649,7 @@
             // Condition for Exit Status
             else if (selectElement.value === 'ExitStatus') {
                 conditionDetails.innerHTML = `
-                    <label>Exit Status (select multiple with ctrl + click):</label>
+                    <label style="color: #06b600;">Exit Status (select multiple with ctrl + click):</label>
                     <select multiple class="exit-status-dropdown">
                         <option value="Survived">Survived</option>
                         <option value="Runner">Runner</option>
@@ -671,7 +671,7 @@
 
             modDiv.innerHTML = `
                 <div class="custom-dropdown">
-                    <label>Search or Enter Mod ID:</label>
+                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
                     <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
@@ -689,7 +689,7 @@
 
             modDiv.innerHTML = `
                 <div class="custom-dropdown">
-                    <label>Search or Enter Mod ID:</label>
+                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
                     <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
@@ -712,7 +712,7 @@
 
             equipmentDiv.innerHTML = `
                 <div class="custom-dropdown">
-                    <label>Search or Enter ID:</label>
+                    <label style="color: #06b600;">Search or Enter ID:</label>
                     <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
@@ -738,7 +738,7 @@
             itemDiv.classList.add('inclusive-item');
 
             itemDiv.innerHTML = `
-                <label>Inclusive Item ID:</label>
+                <label style="color: #06b600;">Inclusive Item ID:</label>
                 <div class="custom-dropdown">
                     <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
@@ -761,7 +761,7 @@
             itemDiv.classList.add('exclusive-item');
             
             itemDiv.innerHTML = `
-                <label>Exclusive Item ID:</label>
+                <label style="color: #06b600;">Exclusive Item ID:</label>
                 <div class="custom-dropdown">
                     <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
@@ -807,7 +807,7 @@
             targetDiv.classList.add('target-item');
 
             targetDiv.innerHTML = `
-                <label>Search or Enter ID:</label>
+                <label style="color: #06b600;">Search or Enter ID:</label>
                 <div class="custom-dropdown">
                     <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
@@ -862,7 +862,7 @@
             rewardDiv.classList.add("reward");
 
             rewardDiv.innerHTML = `
-                <label>Reward Type:
+                <label style="color: #06b600;">Reward Type:
                     <select onchange="updateRewardFields(this)">
                         <option value="Experience">Experience</option>
                         <option value="TraderStanding">Trader Standing</option>
@@ -893,10 +893,10 @@
 
             if (selectElement.value === 'AssortmentUnlock') {
                 rewardDetails.innerHTML = `
-                    <label>The Items _id in assort.json to unlock it on the trader:
+                    <label style="color: #06b600;">The Items _id in assort.json to unlock it on the trader:
                         <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
                     </label>
-                    <label>Loyalty Level:
+                    <label style="color: #06b600;">Loyalty Level:
                         <select class="loyalty-level" required>
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
@@ -904,7 +904,7 @@
                             <option value="4">4</option>
                         </select>
                     </label>
-                    <label>Item:
+                    <label style="color: #06b600;">Item:
                         <div class="custom-dropdown">
                             <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)">
                             <div class="dropdown-menu">
@@ -919,7 +919,7 @@
                 `;
             } else if (selectElement.value === 'Item') {
                 rewardDetails.innerHTML = `
-                    <label>Reward Item:</label>
+                    <label style="color: #06b600;">Reward Item:</label>
                     <div class="custom-dropdown">
                         <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
                         <div class="dropdown-menu">
@@ -936,7 +936,7 @@
                 `;
             } else if (selectElement.value === 'TraderStanding') {
                 rewardDetails.innerHTML = `
-                    <label>Value:
+                    <label style="color: #06b600;">Value:
                         <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc.."  value="0.1">
                     </label>
                 `;
@@ -944,18 +944,18 @@
             
             else if (selectElement.value === 'Experience') {
                 rewardDetails.innerHTML = `
-                    <label>Value:
+                    <label style="color: #06b600;">Value:
                         <input type="text" class="reward-value" placeholder="Enter amount of Experience" value="5000">
                     </label>
                 `;
             } else if (selectElement.value === 'Skill') {
                 rewardDetails.innerHTML = `
-                    <label>Skill Type:
+                    <label style="color: #06b600;">Skill Type:
                         <select class="skill-target">
                             ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
                         </select>
                     </label>
-                    <label>Value: (Psycho Sniper gives value 300 which is 3 levels)
+                    <label style="color: #06b600;">Value: (Psycho Sniper gives value 300 which is 3 levels)
                         <input type="number" class="skill-value" placeholder="Enter value" required  value="1">
                     </label>
                 `;
@@ -1049,7 +1049,7 @@
             baseFields.forEach(field => {
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
+                div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
                 languageSection.appendChild(div);
             });
 
@@ -1064,7 +1064,7 @@
 
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
+                div.innerHTML = `<label style="color: #06b600;" for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
                 languageSection.appendChild(div);
             });
 
@@ -1074,7 +1074,7 @@
                 const rewardId = `${traderId}_${questNumber} reward_${index}`;
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
+                div.innerHTML = `<label style="color: #06b600;" for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
                 languageSection.appendChild(div);
             });
         }
@@ -1085,7 +1085,7 @@
             conditionDiv.classList.add("condition");
 
             conditionDiv.innerHTML = `
-                <label>Condition Type:
+                <label style="color: #06b600;">Condition Type:
                     <select onchange="updateAvailableForStartFields(this)">
                         <option value="Level">Level</option>
                         <option value="Quest">Quest</option>
@@ -1121,7 +1121,7 @@
 
             if (selectElement.value === 'Level') {
                 conditionDetails.innerHTML = `
-                    <label>Compare Method:
+                    <label style="color: #06b600;">Compare Method:
                         <select>
                             <option value=">=">>=</option>
                             <option value="<="><=</option>
@@ -1133,7 +1133,7 @@
                 `;
             } else if (selectElement.value === 'Quest') {
                 conditionDetails.innerHTML = `
-                    <label>Quest Status:
+                    <label style="color: #06b600;">Quest Status:
                         <select>
                             <option value="1">Quest Available - 1</option>
                             <option value="2">Quest Accepted And In Progress - 2</option>
@@ -1148,7 +1148,7 @@
                 `;
             } else if (selectElement.value === 'TraderLoyalty') {
                 conditionDetails.innerHTML = `
-                    <label>Trader ID:
+                    <label style="color: #06b600;">Trader ID:
                         <input type="text" placeholder="Enter trader ID" required>
                     </label>
                     <label>Loyalty Level:
