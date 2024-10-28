@@ -82,6 +82,7 @@ button:hover {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
+    transition: all 0.3s ease;
 }
 
 .dropdown-menu {
@@ -93,12 +94,14 @@ button:hover {
     max-height: 350px;
     overflow-y: auto;
     z-index: 100;
+    transition: all 0.3s ease;
 }
 
 .dropdown-item {
     color: #e0e0e0;
     padding: 8px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .dropdown-item:hover {
@@ -178,6 +181,7 @@ a:hover {
     display: none;
     position: absolute;
     background-color: #2b2b2b;
+    transition: all 0.3s ease;
 }
 
 .dropdown-menu.show {
@@ -367,17 +371,14 @@ button:hover {
     white-space: pre-wrap;
 }
 
-/* Add spacing between buttons in button groups */
 .button-group button {
     margin: 5px;
 }
 
-/* Highlight selected items in dropdown */
 .dropdown-item.selected {
     background-color: #555;
 }
 
-/* Hover and focus styling for inputs and selects */
 select:hover, input:hover, .custom-dropdown:hover {
     border-color: #b300a4;
 }
@@ -386,7 +387,6 @@ select:focus, input:focus {
     outline: none;
 }
 
-/* Tooltip styling for helpful tooltips */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -412,7 +412,6 @@ select:focus, input:focus {
     visibility: visible;
 }
 
-/* Smooth transition for dropdown menus */
 .dropdown-menu {
     display: none;
     position: absolute;

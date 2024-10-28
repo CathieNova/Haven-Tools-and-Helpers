@@ -1048,16 +1048,21 @@
                 }
                 // Kills Condition
                 else if (conditionType === 'Kills') {
+                    const zoneIdInput = div.querySelector('input[type=text]');
+                    const locationDropdown = div.querySelector('.location-dropdown');
+                    const targetSelect = div.querySelector('select:nth-of-type(2)');
+                    const killsRequiredInput = div.querySelector('input[type=number]');
+
                     return {
                         conditionType: "Kills",
                         id: conditionId,
-                        zoneId: div.querySelector('input[type=text]').value,
-                        location: div.querySelector('.location-dropdown').value,
-                        target: div.querySelector('select:nth-of-type(2)').value,
-                        killsRequired: parseInt(div.querySelector('input[type=number]').value, 10),
+                        zoneId: zoneIdInput ? zoneIdInput.value : '',
+                        location: locationDropdown ? locationDropdown.value : 'any',
+                        target: targetSelect ? targetSelect.value : 'Any',
+                        killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
                         timeOfDay: {
-                            from: parseInt(div.querySelector('input[type=number]:nth-of-type(1)').value, 10),
-                            to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10)
+                            from: parseInt(div.querySelector('input[type=number]:nth-of-type(1)').value, 10) || 0,
+                            to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10) || 0
                         },
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
