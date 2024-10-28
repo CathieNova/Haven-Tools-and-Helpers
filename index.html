@@ -8,9 +8,12 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-    <h1>Haven Quest Helper</h1>
-    <h4>Made for Virtual's Custom Quest Loader - SPT Mod</h4>
-    <h4>This website will update often since it's work in progress so make sure to refresh it to see changes. (current version: 0.0.1)</h6>
+    <section id="main-content">
+        <h1>Haven VCQL Helper - Version 0.0.1</h1>
+        <h4>Made for Virtual's Custom Quest Loader - SPT Mod</h4>
+        <h4>This website will update often since it's work in progress so make sure to refresh it to see changes.</h6>
+        <h4>For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h4>
+    </section>
     
     <div id="top-right-box" style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 10px;  border-radius: 8px;">
         <h3><strong>Website Settings</strong></h3>
@@ -100,8 +103,8 @@
     </section>
     
     <!-- Quest Input Section -->
-    <h2>Quest Creation</h2>
     <section>
+        <h2>Quest Creation</h2>
         <label for="quest-name">Quest Name:</label>
         <input type="text" id="quest-name" placeholder="Enter quest name" required>
 
@@ -128,15 +131,15 @@
         </select>
 
         <h3>Available For Start Conditions (if applicable)</h3>
-        <button onclick="addAvailableForStartCondition()">Add Condition</button>
+        <button onclick="addAvailableForStartCondition()">Add Start Condition Requirement</button>
         <div id="available-for-start-container" class="dynamic-fields"></div>
 
         <h3>Objective Conditions</h3>
-        <button onclick="addCondition()" style="margin-bottom: 10px;">Add Condition</button>
+        <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
         <div id="conditions-container" class="dynamic-fields"></div>
 
         <h3>Rewards</h3>
-        <button onclick="addReward()" style="margin-bottom: 10px;">Add Reward</button>
+        <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
         <div id="rewards-container" class="dynamic-fields"></div>
 
         <h3>Quest Language Variables</h3>
@@ -335,6 +338,15 @@
             const conditionDetails = selectElement.closest('.condition').querySelector('.condition-details');
             if (!conditionDetails) return; // Check if conditionDetails is found
 
+            const skillOptions = [
+                "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
+                "Attention", "Charisma", "Intellect", "Memory", "Perception", "AimDrills", "Troubleshooting",
+                "Assault", "Throwables", "Revolver", "Pistol", "SMG", "HMG", "Shotgun", "Sniper", "LMG",
+                "DMR", "Melee", "RecoilControl", "WeaponModding", "Sniping", "CovertMovement", "ProneMovement",
+                "Troubleshooting", "FirstAid", "LightVests", "HeavyVests", "AdvancedModding", "Barter",
+                "Surgery", "HideoutManagement", "MagDrills", "Crafting"
+            ];
+
             // Populate conditionDetails based on selection value
             if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                 conditionDetails.innerHTML = `
@@ -413,6 +425,26 @@
                     <label>One Session Only:
                         <input type="checkbox" class="visit-place-one-session-only">
                     </label>
+                `;
+            } else if (selectElement.value === 'Skill') {
+                conditionDetails.innerHTML = `
+                    <label>Compare Method:
+                        <select>
+                            <option value=">=" selected>&ge;</option>
+                            <option value="<=">&le;</option>
+                        </select>
+                    </label>
+                    <label>Skill Type:
+                        <select class="skill-target">
+                            ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
+                        </select>
+                    </label>
+                    <label>Required Skill Level:
+                        <input type="number" class="skill-value" placeholder="Enter skill level" required>
+                    </label>
+                    <div style="margin-top: 10px; display: inline-block;">
+                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
+                    </div>
                 `;
             }
         }
@@ -509,7 +541,7 @@
 
             if (selectElement.value === 'AssortmentUnlock') {
                 rewardDetails.innerHTML = `
-                    <label>Reward ID:
+                    <label>The Items _id in assort.json to unlock it on the trader:
                         <input type="text" class="assortment-id" placeholder="Enter reward _id" required>
                     </label>
                     <label>Loyalty Level:
@@ -571,7 +603,7 @@
                             ${skillOptions.map(skill => `<option value="${skill}">${skill}</option>`).join('')}
                         </select>
                     </label>
-                    <label>Value:
+                    <label>Value: (Psycho Sniper gives value 300 as which is 3 levels)
                         <input type="number" class="skill-value" placeholder="Enter value" required>
                     </label>
                 `;
@@ -919,6 +951,21 @@
                         oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
                         parentId: "",
                         type: "Exploration",
+                        visibilityConditions: generateVisibilityConditions(div, conditionId)
+                    };
+                }
+                // Skill Condition
+                else if (conditionType === 'Skill') {
+                    return {
+                        compareMethod: div.querySelector('select').value,
+                        conditionType: "Skill",
+                        dynamicLocale: false,
+                        globalQuestCounterId: "",
+                        id: conditionId,
+                        index: index,
+                        parentId: "",
+                        target: div.querySelector('.skill-target').value,
+                        value: parseInt(div.querySelector('.skill-value').value, 10),
                         visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
