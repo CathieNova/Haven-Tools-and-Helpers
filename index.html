@@ -757,6 +757,7 @@
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
             const trader = document.getElementById('trader-name').value || 'TRADERNAME';
+            const questNumber = document.getElementById('quest-number').value || '0';
             const questType = document.getElementById('quest-type').value;
 
             const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
