@@ -155,6 +155,15 @@ a:hover {
     white-space: pre-wrap;
 }
 
+#assortments-output {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: pre-wrap;
+}
+
 .assortment-id,
 .loyalty-level,
 .dropdown-search {

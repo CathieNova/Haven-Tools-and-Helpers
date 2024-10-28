@@ -211,7 +211,7 @@
     
     <section id="quest-output-section" style="display: none; position: relative;">
         <h2>Quest JSON Output</h2>
-        <h4>Copy this to your trader json inside <strong>*SPT\user\mods\Virtual's Custom Quest Loader\database\quests*</strong> for example <strong>*Chloe.json*</strong></h4>
+        <h4>Copy this to your trader JSON inside <strong>*SPT\user\mods\Virtual's Custom Quest Loader\database\quests*</strong> (e.g., <strong>*Chloe.json*</strong>)</h4>
         
         <div style="position: relative;">
             <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 30px; padding: 5px 10px; width: auto;">
@@ -220,23 +220,24 @@
         </div>
         <pre id="output" style="margin-top: 40px; padding: 10px;">Generated quest JSON will appear here...</pre>
     
+        <h3>Quest Language Variables</h3>
+        <h4>Copy this to your language JSON inside <strong>*C:\SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en*</strong> (e.g., <strong>ChloeLocale.json</strong>)</h4>
         <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
-            <h3>Quest Language Variables</h3>
-            <h4>Copy this to your language json inside <strong>*C:\SPT\user\mods\Virtual's Custom Quest Loader\database\locales\en*</strong> for example <strong>ChloeLocale.json</strong></h4>
             <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Language Variables to Clipboard
             </button>
             <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
         </div>
+    
+        <h3>Quest Assortments</h3>
+        <h4>Copy this to your trader JSON inside either <strong>*base.json*</strong> or <strong>*questassort.json*</strong> <strong>*SPT\user\mods\TRADERNAME\db*</strong> (e.g., <strong>*questassort.json*</strong>)</h4>
         <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
-            <h3>Quest Assortments</h3>
-            <h4>Copy this to your trader json inside either <strong>*base.json*</strong> or <strong>*questassort.json*</strong> <strong>*SPT\user\mods\TRADERNAME\db*</strong> for example <strong>*questassort.json*</strong></h4>
             <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Assortments to Clipboard
             </button>
             <pre id="assortments-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
         </div>
-    </section>
+    </section>    
 
     <script>
         let items = [];
