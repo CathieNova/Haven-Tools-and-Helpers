@@ -271,7 +271,7 @@
                 <div class="condition-details"></div>
                 <div class="visibility-conditions">
                     <h4>Visibility Condition</h4>
-                    <label>Visibility Target Objective ID:
+                    <label>Visibility Target Objective ID: (${document.getElementById('trader-name').value || 'trader'}_${conditionIndex} obj_${(a, b) => (conditionIndex - 1 || 0)} <-- for the last quest objective)
                         <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
                 </div>
@@ -657,14 +657,14 @@
 
             // Quest name and basic language fields
             const baseFields = [
-                { id: 'quest-desc-lang', label: 'Description' },
-                { id: 'quest-start-msg-lang', label: 'Started Message' },
-                { id: 'quest-success-msg-lang', label: 'Success Message' },
-                { id: 'quest-fail-msg-lang', label: 'Fail Message' },
-                { id: 'quest-accept-msg-lang', label: 'Accept Message' },
-                { id: 'quest-decline-msg-lang', label: 'Decline Message' },
-                { id: 'quest-complete-msg-lang', label: 'Complete Message' },
-                { id: 'quest-change-msg-lang', label: 'Change Quest Message' }
+                { id: 'quest-desc-lang', label: 'Quest Description' },
+                { id: 'quest-start-msg-lang', label: 'Quest Started Message' },
+                { id: 'quest-success-msg-lang', label: 'Quest Success Message' },
+                { id: 'quest-fail-msg-lang', label: 'Quest Fail Message' },
+                { id: 'quest-accept-msg-lang', label: 'Quest Accept Message' },
+                { id: 'quest-decline-msg-lang', label: 'Quest Decline Message' },
+                { id: 'quest-complete-msg-lang', label: 'Quest Complete Message' },
+                { id: 'quest-change-msg-lang', label: 'Quest Change Quest Message' }
             ];
 
             baseFields.forEach(field => {
