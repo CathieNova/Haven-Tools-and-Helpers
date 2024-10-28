@@ -443,18 +443,66 @@
                     <input type="text" class="attachment-id" placeholder="Enter attachment _id" required>
                 </label>
                 <label>Template ID (_tpl):
-                    <input type="text" class="attachment-tpl" placeholder="Enter _tpl ID" required>
-                </label>
-                <label>Parent ID:
-                    <input type="text" class="attachment-parent" placeholder="Enter parent ID (if applicable)">
+                    <div class="custom-dropdown">
+                        <input type="text" class="dropdown-search attachment-tpl" placeholder="Search items..." oninput="filterDropdown(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item =>
+                                `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                    ${item.displayName}
+                                </div>`
+                            ).join('')}
+                        </div>
+                    </div>
                 </label>
                 <label>Slot ID:
-                    <input type="text" class="attachment-slot" placeholder="Enter slot ID (if applicable)">
+                    <select class="attachment-slot" required>
+                        <option value="">Select slot</option>
+                        <option value="mod_pistol_grip">mod_pistol_grip</option>
+                        <option value="mod_magazine">mod_magazine</option>
+                        <option value="mod_reciever">mod_reciever</option>
+                        <option value="mod_barrel">mod_barrel</option>
+                        <option value="mod_muzzle">mod_muzzle</option>
+                        <option value="mod_gas_block">mod_gas_block</option>
+                        <option value="mod_handguard">mod_handguard</option>
+                        <option value="mod_sight_front">mod_sight_front</option>
+                        <option value="mod_sight_rear">mod_sight_rear</option>
+                        <option value="mod_stock_001">mod_stock_001</option>
+                        <option value="mod_stock_000">mod_stock_000</option>
+                        <option value="mod_charge">mod_charge</option>
+                    </select>
                 </label>
+                <label>
+                    <input type="checkbox" class="is-weapon" onclick="toggleWeaponAttributes(this)"> Is a Weapon
+                </label>
+                <div class="weapon-attributes" style="display: none;">
+                    <label>Fire Mode:
+                        <select class="weapon-firemode">
+                            <option value="single" selected>Single</option>
+                            <option value="auto">Auto</option>
+                        </select>
+                    </label>
+                    <label>Foldable:
+                        <input type="checkbox" class="weapon-foldable">
+                    </label>
+                    <label>Durability:
+                        <input type="number" class="weapon-durability" placeholder="Current durability" value="100">
+                    </label>
+                    <label>Max Durability:
+                        <input type="number" class="weapon-max-durability" placeholder="Max durability" value="100">
+                    </label>
+                    <label>Stack Objects Count:
+                        <input type="number" class="stack-objects-count" placeholder="Stack count" value="1">
+                    </label>
+                </div>
                 <button type="button" onclick="removeAttachment(this)" style="margin-top: 10px;">Remove Attachment</button>
             `;
 
             attachmentContainer.appendChild(attachmentDiv);
+        }
+
+        function toggleWeaponAttributes(checkbox) {
+            const weaponAttributes = checkbox.closest('.attachment').querySelector('.weapon-attributes');
+            weaponAttributes.style.display = checkbox.checked ? 'block' : 'none';
         }
 
         function removeAttachment(button) {
@@ -604,12 +652,29 @@
                     const mainItemId = div.querySelector('.main-item').dataset.selectedValue;
 
                     // Collect attachments
-                    const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => ({
-                        _id: attachmentDiv.querySelector('.attachment-id').value,
-                        _tpl: attachmentDiv.querySelector('.attachment-tpl').value,
-                        parentId: attachmentDiv.querySelector('.attachment-parent').value || null,
-                        slotId: attachmentDiv.querySelector('.attachment-slot').value || null,
-                    }));
+                    const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => {
+                        const attachment = {
+                            _id: attachmentDiv.querySelector('.attachment-id').value,
+                            _tpl: attachmentDiv.querySelector('.attachment-tpl').dataset.selectedValue,
+                            parentId: attachmentDiv.querySelector('.attachment-parent').value || null,
+                            slotId: attachmentDiv.querySelector('.attachment-slot').value || null,
+                        };
+
+                        // If it's marked as a weapon, add additional properties
+                        if (attachmentDiv.querySelector('.is-weapon').checked) {
+                            attachment.upd = {
+                                FireMode: { FireMode: attachmentDiv.querySelector('.weapon-firemode').value },
+                                Foldable: { Folded: !attachmentDiv.querySelector('.weapon-foldable').checked },
+                                Repairable: {
+                                    Durability: parseInt(attachmentDiv.querySelector('.weapon-durability').value),
+                                    MaxDurability: parseInt(attachmentDiv.querySelector('.weapon-max-durability').value)
+                                },
+                                StackObjectsCount: parseInt(attachmentDiv.querySelector('.stack-objects-count').value)
+                            };
+                        }
+
+                        return attachment;
+                    });
 
                     // Main item structure
                     const items = [
