@@ -415,6 +415,22 @@
                     <label>Time of Day To (0-24):
                         <input type="number" min="0" max="24" value="0" required>
                     </label>
+                    <label>Select Weapon Caliber(s):</label>
+                        <div class="weapon-caliber-container">
+                            <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown" onchange="handleWeaponCaliberSelection()">
+                                <option value="all">All</option>
+                                <option value="543be6564bdc2df4348b4568">Throwable</option>
+                                <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
+                                <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
+                                <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
+                                <option value="5447b5e04bdc2d62278b4567">SMGs</option>
+                                <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
+                                <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
+                                <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
+                                <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
+                                <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
+                            </select>
+                        </div>
                     <div style="display: flex; align-items: center; text-align: left;">
                         <label style="display: flex; align-items: center;">
                             <input type="checkbox" style="margin-right: 5px;">
@@ -460,11 +476,21 @@
             } else if (selectElement.value === 'Equipment') {
                 conditionDetails.innerHTML = `
                     <label>Items Required to be Equipped:</label>
-                    <div class="equipment-inclusive-container"></div>
-                    <button type="button" onclick="addEquipmentItem()" style="margin-top: 10px;">Add Item</button>
+                    <div id="equipment-inclusive-container">
+                        <button type="button" onclick="addInclusiveItem()">Add Item to Include</button>
+                        <div class="inclusive-items-container"></div>
+                    </div>
+                    
+                    <label>Items Required to NOT be Equipped</label>
+                    <div id="equipment-exclusive-container">
+                        <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
+                        <div class="exclusive-items-container"></div>
+                    </div>
+                    
                     <div style="margin-top: 10px; display: inline-block;">
                         <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                     </div>
+                    
                 `;
             }
         }
@@ -494,6 +520,67 @@
 
         function removeEquipmentItem(button) {
             button.closest('.equipment-item').remove();
+        }
+
+        function addInclusiveItem() {
+            const container = document.querySelector('.inclusive-items-container');
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('inclusive-item');
+
+            itemDiv.innerHTML = `
+                <label>Inclusive Item ID:</label>
+                <div class="custom-dropdown">
+                    <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
+            `;
+
+            container.appendChild(itemDiv);
+            }
+
+        function addExclusiveItem() {
+            const container = document.querySelector('.exclusive-items-container');
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('exclusive-item');
+            
+            itemDiv.innerHTML = `
+                <label>Exclusive Item ID:</label>
+                <div class="custom-dropdown">
+                    <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
+            `;
+
+            container.appendChild(itemDiv);
+        }
+
+        function removeItem(button) {
+            button.closest('.inclusive-item, .exclusive-item').remove();
+        }
+
+        function handleWeaponCaliberSelection() {
+            const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
+            const isAllSelected = Array.from(weaponCaliberSelect.selectedOptions).some(option => option.value === 'all');
+
+            if (isAllSelected) {
+                // If "All" is selected, clear other selections
+                weaponCaliberSelect.selectedIndex = -1; // Deselect all options
+                weaponCaliberSelect.querySelector('[value="all"]').selected = true; // Only keep "All" selected
+            }
         }
 
         function addTargetItem() {
@@ -544,12 +631,11 @@
             const dropdown = item.closest('.custom-dropdown');
             const selectedItem = dropdown.querySelector('.dropdown-search');
             selectedItem.value = item.textContent.trim();
-            selectedItem.dataset.selectedValue = item.dataset.value; // Store the selected ID
+            selectedItem.dataset.selectedValue = item.dataset.value;
             dropdown.querySelector('.dropdown-menu').classList.remove('show');
         }
 
         function getTplId(inputElement) {
-            // Use selected ID if available, or fallback to manually entered ID
             return inputElement.dataset.selectedValue || inputElement.value;
         }
 
@@ -1021,16 +1107,24 @@
                 }
                 // Equipment Condition
                 else if (conditionType === 'Equipment') {
-                    const equipmentInclusiveItems = Array.from(div.querySelectorAll('.equipment-item')).map(itemDiv => {
-                        const inputElement = itemDiv.querySelector('.dropdown-search');
-                        return [getTplId(inputElement)];
-                    });
+                    const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
+                        .map(input => getTplId(input));
+                    const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
+                        .map(input => getTplId(input));
+
+                    // Handle weaponCaliber selections
+                    const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
+                    const selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions)
+                        .map(option => option.value)
+                        .filter(value => value !== 'all');
+
                     return {
                         includeNotEquippedItems: false,
                         conditionType: "Equipment",
                         dynamicLocale: false,
-                        equipmentExclusive: [],
-                        equipmentInclusive: equipmentInclusiveItems,
+                        equipmentExclusive: exclusiveItems,
+                        equipmentInclusive: inclusiveItems,
+                        weaponCaliber: selectedWeaponCalibers.length === 0 ? [] : selectedWeaponCalibers,
                         id: conditionId
                     };
                 }
