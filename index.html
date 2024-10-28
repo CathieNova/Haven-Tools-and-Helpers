@@ -271,7 +271,7 @@
                 <div class="condition-details"></div>
                 <div class="visibility-conditions">
                     <h4>Visibility Condition</h4>
-                    <label>Visibility Target Objective ID: (${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1} <-- for the last quest objective)
+                    <label>Visibility Target Objective ID: ("${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}" <-- for the last quest objective)
                         <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                     </label>
                 </div>
@@ -484,6 +484,7 @@
                         <option value="TraderStanding">Trader Standing</option>
                         <option value="Item">Item</option>
                         <option value="AssortmentUnlock">AssortmentUnlock</option>
+                        <option value="Skill">Skill</option>
                     </select>
                 </label>
                 <div class="reward-details"></div>
@@ -575,7 +576,6 @@
                     </label>
                 `;
             }
-
         }
 
         function selectRewardItem(item) {
@@ -948,7 +948,8 @@
                         target: div.querySelector('.assortment-id').value
                     };
                 } else if (rewardType === 'Experience' || rewardType === 'TraderStanding') {
-                    const valueInput = div.querySelector('input[type=number]');
+                    // Correctly select the input field for the value
+                    const valueInput = div.querySelector('.reward-value'); 
                     return {
                         type: rewardType,
                         id: rewardId,
