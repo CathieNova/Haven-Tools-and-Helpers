@@ -1035,7 +1035,7 @@
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
                         const inputElement = targetDiv.querySelector('.dropdown-search');
-                        return getTplId(inputElement); // Use selected ID or typed ID
+                        return getTplId(inputElement);
                     });
                     return {
                         conditionType: conditionType,
@@ -1119,9 +1119,9 @@
                     const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
                         .map(input => getTplId(input));
 
-                    // Attempt to locate the weapon caliber select element and handle selections
+                    // Ensure weaponCaliber selections are properly captured
                     const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
-                    const selectedWeaponCalibers = weaponCaliberSelect
+                    const selectedWeaponCalibers = weaponCaliberSelect 
                         ? Array.from(weaponCaliberSelect.selectedOptions)
                             .map(option => option.value)
                             .filter(value => value !== 'all')
@@ -1133,7 +1133,7 @@
                         dynamicLocale: false,
                         equipmentExclusive: exclusiveItems,
                         equipmentInclusive: inclusiveItems,
-                        weaponCaliber: selectedWeaponCalibers,
+                        weaponCaliber: selectedWeaponCalibers.length === 0 ? [] : selectedWeaponCalibers,
                         id: conditionId
                     };
                 }
