@@ -189,11 +189,8 @@
             loadLanguage('en.json');
             loadItems();
             populateLanguageFields();
-
-            const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
-            if (weaponCaliberSelect) {
-                weaponCaliberSelect.addEventListener('change', handleWeaponCaliberSelection);
-            }
+            weaponCaliberSelection();
+            savageSelection();
         });
 
         function reloadPage() {
@@ -1091,6 +1088,27 @@
             return [];
         }
 
+        function savageSelection()
+        {
+            const savageRoleLabel = document.getElementById('savage-role-label');
+            const savageRoleSelect = document.getElementById('savage-role-select');
+            if (this.value === 'Savage') {
+                savageRoleLabel.style.display = 'block';
+                savageRoleSelect.style.display = 'block';
+            } else {
+                savageRoleLabel.style.display = 'none';
+                savageRoleSelect.style.display = 'none';
+            }
+        }
+
+        function weaponCaliberSelection()
+        {
+            const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
+            if (weaponCaliberSelect) {
+                weaponCaliberSelect.addEventListener('change', handleWeaponCaliberSelection);
+            }
+        }
+
         function generateUniqueId() {
             const timestamp = Math.floor(Date.now() / 1000).toString(16); // 4-byte timestamp
             const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join(''); // 10 random hex chars
@@ -1190,7 +1208,7 @@
                             to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                         },
                         bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
-                        savageRole: targetSelect && targetSelect.value === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
+                        savageRole: targetSelect && targetSelect.nameKey === 'Savage' && savageRoleSelect ? [savageRoleSelect.value] : [],
                         weaponCaliber: selectedWeaponCalibers,
                         weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
                         weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
