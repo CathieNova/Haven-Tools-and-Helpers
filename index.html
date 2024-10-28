@@ -581,20 +581,27 @@
                 languageSection.appendChild(div);
             });
 
-            // Dynamic fields for conditions (Obj) and rewards
+            // Dynamic fields for all conditions with unique IDs
+            const traderId = document.getElementById('trader-name').value || 'trader';
             const conditions = document.querySelectorAll('#conditions-container > .condition');
+
             conditions.forEach((condition, index) => {
+                const conditionType = condition.querySelector('select').value;
+                const objLabel = `${traderId}_0 Obj_${index + 1}`;
+
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label for="condition-lang-${index + 1}">Condition Obj ${index + 1}:</label><input type="text" id="condition-lang-${index + 1}" placeholder="Enter condition text">`;
+                div.innerHTML = `<label for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
                 languageSection.appendChild(div);
             });
 
+            // Dynamic fields for rewards
             const rewards = document.querySelectorAll('#rewards-container > .reward');
             rewards.forEach((reward, index) => {
+                const rewardId = `${traderId}_0 reward_${index}`;
                 const div = document.createElement('div');
                 div.className = 'dynamic-lang-entry';
-                div.innerHTML = `<label for="reward-lang-${index}">Reward ${index}:</label><input type="text" id="reward-lang-${index}" placeholder="Enter reward text">`;
+                div.innerHTML = `<label for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
                 languageSection.appendChild(div);
             });
         }
@@ -602,102 +609,63 @@
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
-            const trader = document.getElementById('trader-name').value;
+            const trader = document.getElementById('trader-name').value || 'trader';
             const questType = document.getElementById('quest-type').value;
 
             // Collect conditions
             const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                 const conditionType = div.querySelector('select').value;
+                const conditionId = `${trader}_0 Obj_${index + 1}`; // Unique ID for each condition
 
-                if (conditionType === 'Kills') {
-                    const locationId = div.querySelector('.location-dropdown').value;
-                    const timeFrom = div.querySelector('input[type=number]:nth-of-type(1)').value;
-                    const timeTo = div.querySelector('input[type=number]:nth-of-type(2)').value;
-                    return [
-                        {
-                            conditionType: "InZone",
-                            dynamicLocale: false,
-                            id: `${trader}_0 zoneCondition`,
-                            zoneIds: [div.querySelector('input[type=text]').value]
-                        },
-                        {
-                            bodyPart: [],
-                            compareMethod: div.querySelector('select:nth-of-type(2)').value,
-                            conditionType: "Kills",
-                            daytime: { from: parseInt(timeFrom), to: parseInt(timeTo) },
-                            distance: { compareMethod: div.querySelector('select:nth-of-type(2)').value, value: parseInt(div.querySelector('input[type=number]').value, 10) },
-                            dynamicLocale: false,
-                            enemyEquipmentExclusive: [],
-                            enemyEquipmentInclusive: [],
-                            enemyHealthEffects: [],
-                            id: `${trader}_0 Obj_${index + 1}`,
-                            resetOnSessionEnd: div.querySelector('input[type=checkbox]').checked,
-                            savageRole: [],
-                            target: div.querySelector('input[type=text]:nth-of-type(2)').value,
-                            value: parseInt(div.querySelector('input[type=number]').value, 10),
-                            location: locationId,
-                            weapon: [],
-                            weaponCaliber: [],
-                            weaponModsExclusive: [],
-                            weaponModsInclusive: []
-                        }
-                    ];
-                } else {
+                if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.dropdown-search')).map(input => input.dataset.selectedValue);
                     return {
                         conditionType: conditionType,
-                        countInRaid: false,
-                        dogtagLevel: 0,
-                        dynamicLocale: false,
-                        globalQuestCounterId: "",
-                        id: `${trader}_0 Obj_${index + 1}`,
-                        index: index,
-                        isEncoded: false,
-                        maxDurability: 100,
-                        minDurability: 0,
-                        onlyFoundInRaid: true,
-                        parentId: "",
-                        target: targetItems,
+                        id: conditionId,
+                        targetItems: targetItems,
                         value: parseInt(div.querySelector('input[type=number]').value, 10),
-                        visibilityConditions: []
+                        onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked
+                    };
+                } else if (conditionType === 'Kills') {
+                    return {
+                        conditionType: "Kills",
+                        id: conditionId,
+                        zoneId: div.querySelector('input[type=text]').value,
+                        location: div.querySelector('.location-dropdown').value,
+                        target: div.querySelector('select:nth-of-type(2)').value,
+                        killsRequired: parseInt(div.querySelector('input[type=number]').value, 10),
+                        timeOfDay: {
+                            from: parseInt(div.querySelector('input[type=number]:nth-of-type(1)').value, 10),
+                            to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10)
+                        }
                     };
                 }
-            }).flat();
+                return {}; // Add more condition types as needed
+            });
 
             // Collect rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
+                const rewardId = `${trader}_0 reward_${index}`;
 
                 if (rewardType === 'AssortmentUnlock') {
-                    const rewardId = div.querySelector('.assortment-id').value;
-                    const loyaltyLevel = parseInt(div.querySelector('.loyalty-level').value);
                     const itemId = div.querySelector('.dropdown-search').dataset.selectedValue;
-
                     return {
-                        id: `${trader}_0 reward_${index}`,
-                        index: index,
-                        items: [
-                            {
-                                _id: rewardId,
-                                _tpl: itemId,
-                            }
-                        ],
-                        loyaltyLevel: loyaltyLevel,
-                        target: rewardId,
-                        traderId: trader,
-                        type: 'AssortmentUnlock'
+                        type: 'AssortmentUnlock',
+                        id: rewardId,
+                        items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
+                        loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10)
                     };
                 } else {
                     return {
-                        id: `${trader}_0 reward_${index}`,
-                        index: index,
                         type: rewardType,
-                        value: div.querySelector('input[type=number]').value
+                        id: rewardId,
+                        value: parseInt(div.querySelector('input[type=number]').value, 10)
                     };
                 }
             });
 
-            // Language entries object, including the dynamically generated fields
+            // Collect dynamic language entries for each condition
             let languageEntries = {
                 [`${trader}_0 name`]: document.getElementById('quest-name-lang').value,
                 [`${trader}_0 description`]: document.getElementById('quest-desc-lang').value,
@@ -710,13 +678,18 @@
                 [`${trader}_0 changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
             };
 
-            // Add dynamic language entries for conditions (Obj) and rewards
-            conditions.forEach((condition, index) => {
-                languageEntries[condition.id] = document.getElementById(`condition-lang-${index + 1}`).value || '';
+            conditions.forEach((condition) => {
+                const langInput = document.getElementById(condition.id); // Get input by condition ID
+                if (langInput) {
+                    languageEntries[condition.id] = langInput.value || '';
+                }
             });
 
-            rewards.forEach((reward, index) => {
-                languageEntries[reward.id] = document.getElementById(`reward-lang-${index}`).value || '';
+            rewards.forEach((reward) => {
+                const langInput = document.getElementById(reward.id); // Get input by reward ID
+                if (langInput) {
+                    languageEntries[reward.id] = langInput.value || '';
+                }
             });
 
             // Construct the quest object
@@ -724,45 +697,32 @@
                 [questNameID]: {
                     QuestName: questName,
                     _id: questNameID,
+                    traderId: trader,
+                    type: questType,
+                    description: `${trader}_0 description`,
+                    startedMessageText: `${trader}_0 startedMessageText`,
+                    successMessageText: `${trader}_0 successMessageText`,
+                    failMessageText: `${trader}_0 failMessageText`,
                     acceptPlayerMessage: `${trader}_0 acceptPlayerMessage`,
-                    canShowNotificationsInGame: true,
-                    changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
+                    declinePlayerMessage: `${trader}_0 declinePlayerMessage`,
                     completePlayerMessage: `${trader}_0 completePlayerMessage`,
+                    changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
                     conditions: {
                         AvailableForFinish: conditions,
                         AvailableForStart: [],
                         Fail: []
                     },
-                    declinePlayerMessage: `${trader}_0 declinePlayerMessage`,
-                    description: `${trader}_0 description`,
-                    failMessageText: `${trader}_0 failMessageText`,
-                    image: `/files/quest/icon/${trader}_0.png`,
-                    instantComplete: false,
-                    isKey: false,
-                    location: "any",
-                    name: `${trader}_0 name`,
-                    note: `${trader}_0 note`,
-                    restartable: false,
                     rewards: {
+                        Success: rewards,
                         Fail: [],
-                        Started: [],
-                        Success: rewards
-                    },
-                    secretQuest: false,
-                    side: "Pmc",
-                    startedMessageText: `${trader}_0 startedMessageText`,
-                    successMessageText: `${trader}_0 successMessageText`,
-                    traderId: trader,
-                    type: questType
+                        Started: []
+                    }
                 }
             };
 
-            // Display the quest JSON
+            // Display the generated quest JSON and language entries
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
-            
-            // Display the language entries JSON
-            const languageEntriesOutput = document.getElementById('language-output');
-            languageEntriesOutput.textContent = JSON.stringify(languageEntries, null, 2);
+            document.getElementById('language-output').textContent = JSON.stringify(languageEntries, null, 2);
 
             // Show the quest output section
             document.getElementById('quest-output-section').style.display = 'block';
