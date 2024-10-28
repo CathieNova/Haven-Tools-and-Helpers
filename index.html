@@ -529,10 +529,18 @@
                         <input type="number" placeholder="Quantity" required>
                     </label>
                 `;
-            } else if (selectElement.value === 'Experience' || selectElement.value === 'TraderStanding') {
+            } else if (selectElement.value === 'TraderStanding') {
                 rewardDetails.innerHTML = `
-                    <label>Values (comma-separated, e.g., 0.1, 1, 2.5):
-                        <input type="text" class="reward-value" placeholder="Enter values, separated by commas">
+                    <label>Value:
+                        <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc..">
+                    </label>
+                `;
+            }
+            
+            else if (selectElement.value === 'Experience') {
+                rewardDetails.innerHTML = `
+                    <label>Value::
+                        <input type="text" class="reward-value" placeholder="Enter amount of Experience">
                     </label>
                 `;
             }
@@ -891,7 +899,7 @@
             // Quest Assortments
             const assortments = {};
             rewards.forEach(reward => {
-                if (reward.type === 'AssortmentUnlock') {
+                if (reward.type === 'AssortmentUnlock' && reward.target) {
                     assortments[reward.target] = questNameID;
                 }
             });
