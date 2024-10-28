@@ -1496,13 +1496,13 @@
             };
 
             // Output Display
-            const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2).slice(1, -1);
-            const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
-            const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
+            const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2); // No slice needed
+            const languageEntriesContent = JSON.stringify(languageEntries, null, 2); // No slice here either
+            const assortmentsContent = JSON.stringify(assortments, null, 2); // And no slice here
 
-            document.getElementById('output').textContent = `{ ${questContent} }`;
-            document.getElementById('language-output').textContent = `{ ${languageEntriesContent} }`;
-            document.getElementById('assortments-output').textContent = `{ ${assortmentsContent} }`;
+            document.getElementById('output').textContent = questContent;
+            document.getElementById('language-output').textContent = languageEntriesContent;
+            document.getElementById('assortments-output').textContent = assortmentsContent;
 
             document.getElementById('quest-output-section').style.display = 'block';
         }
