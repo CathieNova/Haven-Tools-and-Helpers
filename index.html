@@ -171,10 +171,10 @@
         </div>
         <div style="margin-top: 40px; padding: 15px; border: 1px solid #444; border-radius: 5px; background-color: #1e1e1e; color: #e0e0e0; position: relative;">
             <h3>Quest Assortments</h3>
-            <button id="copyAssortButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
+            <button id="copyAssortmentsButton" onclick="copyAssortments()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
                 Copy Assortments to Clipboard
             </button>
-            <pre id="assort-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
+            <pre id="assortments-output" style="margin-top: 20px; padding: 10px;">Assortments will appear here...</pre>
         </div>
     </section>
 
@@ -745,15 +745,16 @@
         }
 
         function copyAssortments() {
-            const assortOutputText = document.getElementById('assort-output').textContent;
-            navigator.clipboard.writeText(assortOutputText).then(() => {
-                const button = document.getElementById('copyAssortButton');
+            const assortmentsText = document.getElementById('assortments-output').textContent;
+            navigator.clipboard.writeText(assortmentsText).then(() => {
+                const button = document.getElementById('copyAssortmentsButton');
                 button.innerText = "Copied to Clipboard";
                 setTimeout(() => button.innerText = "Copy Assortments to Clipboard", 3000);
             }).catch(err => {
                 console.error("Failed to copy assortments:", err);
             });
         }
+
 
         function generateQuest() {
             const questName = document.getElementById('quest-name').value;
@@ -877,6 +878,16 @@
                 languageEntries[fieldId] = input.value || '';
             });
 
+            // Generate Assortments data for unlockable assortments
+            const assortments = rewards
+                .filter(reward => reward.type === 'AssortmentUnlock')
+                .reduce((assort, reward) => {
+                    const assortmentID = reward.items[0]._id;
+                    const questReference = questNameID;
+                    assort.success[assortmentID] = questReference;
+                    return assort;
+                }, { success: {} });
+
             const quest = {
                 [questNameID]: {
                     QuestName: questName,
@@ -906,6 +917,7 @@
 
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
             document.getElementById('language-output').textContent = JSON.stringify(languageEntries, null, 2);
+            document.getElementById('assortments-output').textContent = JSON.stringify(assortments, null, 2);
             document.getElementById('quest-output-section').style.display = 'block';
         }
 
