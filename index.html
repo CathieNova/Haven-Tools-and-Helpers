@@ -582,32 +582,31 @@
         function generateQuest() {
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
-                console.log("Reward Type:", rewardType); // Debugging line
 
                 if (rewardType === 'AssortmentUnlock') {
                     const rewardId = div.querySelector('.assortment-id').value;
                     const loyaltyLevel = parseInt(div.querySelector('.loyalty-level').value);
                     const mainItemTpl = div.querySelector('.main-item').dataset.selectedValue;
-                    console.log("Reward ID:", rewardId, "Loyalty Level:", loyaltyLevel, "Main Item TPL:", mainItemTpl); // Debugging line
 
                     // Collect attachments, ensuring required fields are captured
                     const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => {
                         const attachmentId = attachmentDiv.querySelector('.attachment-id').value;
                         const tpl = attachmentDiv.querySelector('.attachment-tpl').dataset.selectedValue;
 
+                        // Optional fields: parentId and slotId
                         const parentId = attachmentDiv.querySelector('.attachment-parent')?.value || null;
                         const slotId = attachmentDiv.querySelector('.attachment-slot')?.value || null;
-                        console.log("Attachment ID:", attachmentId, "Item:", tpl, "Item Parent ID:", parentId, "Slot ID:", slotId); // Debugging line
 
+                        // Base attachment structure
                         const attachment = {
                             _id: attachmentId,
                             _tpl: tpl,
-                            ...(parentId && { parentId }),
-                            ...(slotId && { slotId })
+                            ...(parentId && { parentId }), // Add only if defined
+                            ...(slotId && { slotId }),     // Add only if defined
                         };
 
+                        // If marked as a weapon, add weapon-specific attributes
                         if (attachmentDiv.querySelector('.is-weapon').checked) {
-                            console.log("Weapon Detected in Attachment"); // Debugging line
                             attachment.upd = {
                                 FireMode: { FireMode: attachmentDiv.querySelector('.weapon-firemode').value },
                                 Foldable: { Folded: !attachmentDiv.querySelector('.weapon-foldable').checked },
@@ -621,14 +620,14 @@
 
                         return attachment;
                     });
-                    console.log("Attachments Collected:", attachments); // Debugging line
 
+                    // Main item and attachments combined into `items`
                     const items = [
                         {
                             _id: rewardId,
                             _tpl: mainItemTpl,
                         },
-                        ...attachments
+                        ...attachments // Append attachments array
                     ];
 
                     return {
@@ -637,11 +636,11 @@
                         items: items,
                         loyaltyLevel: loyaltyLevel,
                         target: rewardId,
-                        traderId: "Chloe",
+                        traderId: "Chloe", // Set your trader ID dynamically if needed
                         type: 'AssortmentUnlock'
                     };
                 } else {
-                    console.log("Processing Non-AssortmentUnlock Reward"); // Debugging line
+                    // For non-AssortmentUnlock reward types, just capture basic reward info
                     return {
                         id: `reward_${index}`,
                         index: index,
@@ -651,12 +650,11 @@
                 }
             });
 
+            // Construct final quest object
             const questName = document.getElementById('quest-name').value;
             const questNameID = questName.replace(/\s+/g, '_');
             const trader = document.getElementById('trader-name').value;
             const questType = document.getElementById('quest-type').value;
-
-            console.log("Quest Name:", questName, "Trader:", trader, "Quest Type:", questType); // Debugging line
 
             const quest = {
                 [questNameID]: {
@@ -667,7 +665,7 @@
                     changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
                     completePlayerMessage: `${trader}_0 completePlayerMessage`,
                     conditions: {
-                        AvailableForFinish: [],
+                        AvailableForFinish: [], // Add condition handling here if needed
                         AvailableForStart: [],
                         Fail: []
                     },
@@ -697,7 +695,7 @@
 
             // Display the generated quest JSON and output to console for debugging
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
-            console.log("Generated Quest:", quest); // Final output
+            console.log("Generated Quest:", quest);
         }
 
     </script>
