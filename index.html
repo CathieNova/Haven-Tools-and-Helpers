@@ -409,7 +409,7 @@
                             <option value="4">4</option>
                         </select>
                     </label>
-                    <label>Main Item:
+                    <label>Main Item (_tpl):
                         <div class="custom-dropdown">
                             <input type="text" class="dropdown-search main-item" placeholder="Search items..." oninput="filterDropdown(this)">
                             <div class="dropdown-menu">
@@ -505,17 +505,17 @@
             weaponAttributes.style.display = checkbox.checked ? 'block' : 'none';
         }
 
-        function removeAttachment(button) {
-            button.closest('.attachment').remove();
+        function selectRewardItem(item) {
+            const dropdown = item.closest('.custom-dropdown');
+            const inputField = dropdown.querySelector('.dropdown-search');
+            inputField.value = item.textContent;
+            inputField.dataset.selectedValue = item.dataset.value;
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
         }
 
 
-        function selectRewardItem(item) {
-            const dropdown = item.closest('.custom-dropdown');
-            const selectedItem = dropdown.querySelector('.dropdown-search');
-            selectedItem.value = item.textContent.trim();
-            selectedItem.dataset.selectedValue = item.dataset.value;
-            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+        function removeAttachment(button) {
+            button.closest('.attachment').remove();
         }
 
         function removeReward(button) {
@@ -580,94 +580,39 @@
         }
 
         function generateQuest() {
-            const questName = document.getElementById('quest-name').value;
-            const questNameID = questName.replace(/\s+/g, '_');
-            const trader = document.getElementById('trader-name').value;
-            const questType = document.getElementById('quest-type').value;
-
-            const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
-                const conditionType = div.querySelector('select').value;
-
-                if (conditionType === 'Kills') {
-                    const locationId = div.querySelector('.location-dropdown').value;
-                    const timeFrom = div.querySelector('input[type=number]:nth-of-type(1)').value;
-                    const timeTo = div.querySelector('input[type=number]:nth-of-type(2)').value;
-                    return [
-                        {
-                            conditionType: "InZone",
-                            dynamicLocale: false,
-                            id: `${trader}_0 zoneCondition`,
-                            zoneIds: [div.querySelector('input[type=text]').value]
-                        },
-                        {
-                            bodyPart: [],
-                            compareMethod: div.querySelector('select:nth-of-type(2)').value,
-                            conditionType: "Kills",
-                            daytime: { from: parseInt(timeFrom), to: parseInt(timeTo) },
-                            distance: { compareMethod: div.querySelector('select:nth-of-type(2)').value, value: parseInt(div.querySelector('input[type=number]').value, 10) },
-                            dynamicLocale: false,
-                            enemyEquipmentExclusive: [],
-                            enemyEquipmentInclusive: [],
-                            enemyHealthEffects: [],
-                            id: `${trader}_0 Obj_${index + 1}`,
-                            resetOnSessionEnd: div.querySelector('input[type=checkbox]').checked,
-                            savageRole: [],
-                            target: div.querySelector('input[type=text]:nth-of-type(2)').value,
-                            value: parseInt(div.querySelector('input[type=number]').value, 10),
-                            location: locationId,
-                            weapon: [],
-                            weaponCaliber: [],
-                            weaponModsExclusive: [],
-                            weaponModsInclusive: []
-                        }
-                    ];
-                } else {
-                    const targetItems = Array.from(div.querySelectorAll('.dropdown-search')).map(input => input.dataset.selectedValue);
-                    return {
-                        conditionType: conditionType,
-                        countInRaid: false,
-                        dogtagLevel: 0,
-                        dynamicLocale: false,
-                        globalQuestCounterId: "",
-                        id: `${trader}_0 Obj_${index + 1}`,
-                        index: index,
-                        isEncoded: false,
-                        maxDurability: 100,
-                        minDurability: 0,
-                        onlyFoundInRaid: true,
-                        parentId: "",
-                        target: targetItems,
-                        value: parseInt(div.querySelector('input[type=number]').value, 10),
-                        visibilityConditions: []
-                    };
-                }
-            }).flat();
-
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                 const rewardType = div.querySelector('select').value;
 
                 if (rewardType === 'AssortmentUnlock') {
                     const rewardId = div.querySelector('.assortment-id').value;
                     const loyaltyLevel = parseInt(div.querySelector('.loyalty-level').value);
-                    const mainItemId = div.querySelector('.main-item').dataset.selectedValue;
+                    const mainItemTpl = div.querySelector('.main-item').dataset.selectedValue;
 
-                    // Collect attachments
+                    // Collect attachments, ensuring required fields are captured
                     const attachments = Array.from(div.querySelectorAll('.attachment')).map(attachmentDiv => {
+                        const attachmentId = attachmentDiv.querySelector('.attachment-id').value;
+                        const tpl = attachmentDiv.querySelector('.attachment-tpl').dataset.selectedValue;
+
+                        // Optional fields: parentId and slotId
+                        const parentId = attachmentDiv.querySelector('.attachment-parent')?.value || null;
+                        const slotId = attachmentDiv.querySelector('.attachment-slot')?.value || null;
+
+                        // Base attachment structure
                         const attachment = {
-                            _id: attachmentDiv.querySelector('.attachment-id').value,
-                            _tpl: attachmentDiv.querySelector('.attachment-tpl').dataset.selectedValue,
-                            parentId: attachmentDiv.querySelector('.attachment-parent').value || null,
-                            slotId: attachmentDiv.querySelector('.attachment-slot').value || null,
+                            _id: attachmentId,
+                            _tpl: tpl,
+                            ...(parentId && { parentId }), // Add only if defined
+                            ...(slotId && { slotId }),     // Add only if defined
                         };
 
-                        // If it's marked as a weapon, add additional properties
+                        // If marked as a weapon, add weapon-specific attributes
                         if (attachmentDiv.querySelector('.is-weapon').checked) {
                             attachment.upd = {
                                 FireMode: { FireMode: attachmentDiv.querySelector('.weapon-firemode').value },
                                 Foldable: { Folded: !attachmentDiv.querySelector('.weapon-foldable').checked },
                                 Repairable: {
                                     Durability: parseInt(attachmentDiv.querySelector('.weapon-durability').value),
-                                    MaxDurability: parseInt(attachmentDiv.querySelector('.weapon-max-durability').value)
+                                    MaxDurability: parseInt(attachmentDiv.querySelector('.weapon-max-durability').value),
                                 },
                                 StackObjectsCount: parseInt(attachmentDiv.querySelector('.stack-objects-count').value)
                             };
@@ -676,33 +621,40 @@
                         return attachment;
                     });
 
-                    // Main item structure
+                    // Main item and attachments combined into `items`
                     const items = [
                         {
                             _id: rewardId,
-                            _tpl: mainItemId,
+                            _tpl: mainItemTpl,
                         },
-                        ...attachments
+                        ...attachments // Append attachments array
                     ];
 
                     return {
-                        id: `${trader}_0 reward_${index}`,
+                        id: `${rewardId}_reward_${index}`,
                         index: index,
                         items: items,
                         loyaltyLevel: loyaltyLevel,
                         target: rewardId,
-                        traderId: trader,
+                        traderId: "Chloe", // Set your trader ID dynamically if needed
                         type: 'AssortmentUnlock'
                     };
                 } else {
+                    // For non-AssortmentUnlock reward types, just capture basic reward info
                     return {
-                        id: `${trader}_0 reward_${index}`,
+                        id: `reward_${index}`,
                         index: index,
                         type: rewardType,
-                        value: div.querySelector('input[type=number]').value
+                        value: parseInt(div.querySelector('input[type=number]').value)
                     };
                 }
             });
+
+            // Construct final quest object
+            const questName = document.getElementById('quest-name').value;
+            const questNameID = questName.replace(/\s+/g, '_');
+            const trader = document.getElementById('trader-name').value;
+            const questType = document.getElementById('quest-type').value;
 
             const quest = {
                 [questNameID]: {
@@ -713,7 +665,7 @@
                     changeQuestMessageText: `${trader}_0 changeQuestMessageText`,
                     completePlayerMessage: `${trader}_0 completePlayerMessage`,
                     conditions: {
-                        AvailableForFinish: conditions,
+                        AvailableForFinish: [], // Add condition handling here if needed
                         AvailableForStart: [],
                         Fail: []
                     },
@@ -741,39 +693,9 @@
                 }
             };
 
-            // Prepare language entries
-            let languageEntries = {};
-            languageEntries[`${trader}_0 name`] = ""; 
-            languageEntries[`${trader}_0 description`] = ""; 
-            languageEntries[`${trader}_0 startedMessageText`] = ""; 
-            languageEntries[`${trader}_0 successMessageText`] = ""; 
-            languageEntries[`${trader}_0 failMessageText`] = ""; 
-            languageEntries[`${trader}_0 acceptPlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 declinePlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 completePlayerMessage`] = ""; 
-            languageEntries[`${trader}_0 changeQuestMessageText`] = ""; 
-
-            // Loop through conditions to add language entries
-            conditions.forEach((condition) => {
-                if (typeof condition === "object" && condition.id) {
-                    languageEntries[condition.id] = ""; 
-                }
-            });
-
-            // Loop through rewards to add language entries
-            rewards.forEach(reward => {
-                languageEntries[reward.id] = ""; 
-            });
-
-            // Display the quest
+            // Display the generated quest JSON and output to console for debugging
             document.getElementById('output').textContent = JSON.stringify(quest, null, 2);
-            
-            // Display the language variables
-            const languageEntriesOutput = document.getElementById('language-output');
-            languageEntriesOutput.textContent = JSON.stringify(languageEntries, null, 2);
-
-            // Show the quest output section
-            document.getElementById('quest-output-section').style.display = 'block';
+            console.log("Generated Quest:", quest);
         }
 
     </script>
