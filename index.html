@@ -269,13 +269,15 @@
                     </select>
                 </label>
                 <div class="condition-details"></div>
-                <div class="target-items-container"></div>
+                <div class="visibility-conditions">
+                    <h4>Visibility Condition</h4>
+                    <label>Visibility Target Objective ID:
+                        <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed.">
+                    </label>
+                </div>
             `;
             container.appendChild(conditionDiv);
-
             updateConditionFields(conditionDiv.querySelector('select'));
-
-            // Directly add the language field for this specific objective
             addLanguageField(objLabel, `Objective ${conditionIndex}`);
         }
 
@@ -844,6 +846,7 @@
                 const conditionType = div.querySelector('select').value;
                 const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
+                // FindItem or HandoverItem Condition
                 if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                     const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
                         const manualId = targetDiv.querySelector('.manual-id')?.value;
@@ -854,9 +857,12 @@
                         id: conditionId,
                         targetItems: targetItems,
                         value: parseInt(div.querySelector('input[type=number]').value, 10),
-                        onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked
+                        onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
+                        visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
-                } else if (conditionType === 'Kills') {
+                }
+                // Kills Condition
+                else if (conditionType === 'Kills') {
                     return {
                         conditionType: "Kills",
                         id: conditionId,
@@ -867,9 +873,12 @@
                         timeOfDay: {
                             from: parseInt(div.querySelector('input[type=number]:nth-of-type(1)').value, 10),
                             to: parseInt(div.querySelector('input[type=number]:nth-of-type(2)').value, 10)
-                        }
+                        },
+                        visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
-                } else if (conditionType === 'VisitPlace') {
+                }
+                // VisitPlace Condition
+                else if (conditionType === 'VisitPlace') {
                     return {
                         completeInSeconds: 0,
                         conditionType: 'CounterCreator',
@@ -892,11 +901,25 @@
                         oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
                         parentId: "",
                         type: "Exploration",
-                        visibilityConditions: []
+                        visibilityConditions: generateVisibilityConditions(div, conditionId)
                     };
                 }
                 return {};
             });
+
+            // Helper function to generate visibility conditions if a target ID is specified
+            function generateVisibilityConditions(div, conditionId) {
+                const visibilityTargetId = div.querySelector('.visibility-target')?.value;
+                if (visibilityTargetId) {
+                    return [{
+                        conditionType: "CompleteCondition",
+                        id: generateUniqueId(),  // Generates a unique MongoDB-style ID for each visibility condition
+                        target: visibilityTargetId
+                    }];
+                }
+                return [];
+            }
+
 
             // Rewards
             const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
