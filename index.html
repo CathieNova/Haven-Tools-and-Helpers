@@ -1112,11 +1112,13 @@
                     const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
                         .map(input => getTplId(input));
 
-                    // Handle weaponCaliber selections
+                    // Attempt to locate the weapon caliber select element and handle selections
                     const weaponCaliberSelect = div.querySelector('#weapon-caliber-select');
-                    const selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions)
-                        .map(option => option.value)
-                        .filter(value => value !== 'all');
+                    const selectedWeaponCalibers = weaponCaliberSelect
+                        ? Array.from(weaponCaliberSelect.selectedOptions)
+                            .map(option => option.value)
+                            .filter(value => value !== 'all')
+                        : [];
 
                     return {
                         includeNotEquippedItems: false,
@@ -1124,7 +1126,7 @@
                         dynamicLocale: false,
                         equipmentExclusive: exclusiveItems,
                         equipmentInclusive: inclusiveItems,
-                        weaponCaliber: selectedWeaponCalibers.length === 0 ? [] : selectedWeaponCalibers,
+                        weaponCaliber: selectedWeaponCalibers,
                         id: conditionId
                     };
                 }
