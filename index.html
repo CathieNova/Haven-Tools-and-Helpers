@@ -1491,7 +1491,7 @@
                     const conditionType = div.querySelector('select').value;
                     const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
-                    // New FindItem or HandoverItem Condition
+                    // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                         const targetItems = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
 
@@ -1506,7 +1506,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New Kill Condition
+                    // Kill Condition
                     else if (conditionType === 'Kills') {
                         const locationDropdown = div.querySelector('.location-dropdown');
                         const targetSelect = div.querySelector('#target-select');
@@ -1544,7 +1544,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New VisitPlace Condition
+                    // VisitPlace Condition
                     else if (conditionType === 'VisitPlace') {
                         return {
                             completeInSeconds: 0,
@@ -1571,7 +1571,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New Skill Condition
+                    // Skill Condition
                     else if (conditionType === 'Skill') {
                         const compareSelect = div.querySelector('select:nth-of-type(1)');
                         return {
@@ -1587,7 +1587,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New Equipment Condition
+                    // Equipment Condition
                     else if (conditionType === 'Equipment') {
                         const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
                             .map(input => getTplId(input));
@@ -1606,7 +1606,7 @@
                         };
                     }
 
-                    // New Location Condition
+                    // Location Condition
                     else if (conditionType === 'Location') {
                         const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
                         return {
@@ -1619,7 +1619,7 @@
                         };
                     }
 
-                    // New ExitStatus Condition
+                    // ExitStatus Condition
                     else if (conditionType === 'ExitStatus') {
                         const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
                         return {
@@ -1631,7 +1631,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New InZone Condition
+                    // InZone Condition
                     else if (conditionType === 'InZone') {
                         const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
                         return {
@@ -1643,7 +1643,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-                    // New LeaveItemAtLocation Condition
+                    // LeaveItemAtLocation Condition
                     else if (conditionType === 'LeaveItemAtLocation') {
                         const items = Array.from(div.querySelectorAll('.target-item .dropdown-search')).map(input => getTplId(input));
 
