@@ -17,3 +17,6 @@ Describe the intended functionality.
 
 **Screenshots**
 Add any screenshots if applicable.
+
+**Browser**
+What Browser are you using? (Firefox, Chrome, etc..)
