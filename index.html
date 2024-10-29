@@ -94,6 +94,7 @@
         
         <section id="how-to-use" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <strong style="color: #ffdd57; font-size: 1.6em; margin-bottom: 15px; display: block;">✨ How to Use</strong>
+            <h4 style="color: #b60000;">Refreshing the page will reset values</h4>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.2em; line-height: 1.6;">
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Quest Name:</strong> Enter the quest name; it will be converted into an ID automatically.</li>
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Trader Name:</strong> Specify the trader who assigns the quest.</li>
@@ -315,7 +316,6 @@
                 if (targetSelect) {
                     targetSelect.addEventListener('change', savageSelection);
                 } else {
-                    console.warn("targetSelect element not found. Retrying...");
                     setTimeout(initializeTargetSelectListener, 500);
                 }
             }
