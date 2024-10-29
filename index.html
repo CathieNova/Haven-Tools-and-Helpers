@@ -322,8 +322,7 @@
             }
 
             function reloadPage() {
-                const currentUrl = window.location.href.split('?')[0];
-                window.location.href = `${currentUrl}?t=${new Date().getTime()}`;
+                window.location.reload(true);
             }
 
             async function loadLanguage(languageFile) {
