@@ -466,8 +466,17 @@
                 if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Target Items:</label>
-                        <div class="target-items-container"></div>
-                        <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                            <div class="dropdown-menu">
+                                ${items.map(item => `
+                                    <div class="dropdown-item" data-value="${item._id}">
+                                        ${item.displayName}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <!-- Existing code remains unchanged -->
                         <label style="color: #06b600;">Value:
                             <input type="number" placeholder="Enter level" required value="1">
                         </label>
@@ -476,7 +485,6 @@
                                 <input type="checkbox" style="margin-right: 5px;"> Only Found In Raid
                             </label>
                         </div>
-                        </label>
                         <div style="margin-top: 10px; display: inline-block;">
                             <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                         </div>
@@ -747,13 +755,13 @@
                 }
             }
 
-            function addTargetItem() {
-                const container = document.querySelector('.target-items-container');
+            function addTargetItem(button) {
+                const container = button.closest('.condition').querySelector('.target-items-container');
                 const targetDiv = document.createElement('div');
                 targetDiv.classList.add('target-item');
 
                 targetDiv.innerHTML = `
-                    <label style="color: #06b600;">Item ID:</label>
+                    <label style="color: #06b600;">Search or Enter ID:</label>
                     <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
@@ -764,7 +772,6 @@
                     </div>
                     <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
-
                 container.appendChild(targetDiv);
             }
 
@@ -941,17 +948,32 @@
                 });
             }
 
-            function selectDropdownItem(item) {
-                const dropdown = item.closest('.custom-dropdown');
-                const selectedItem = dropdown.querySelector('.dropdown-search');
-                selectedItem.value = item.textContent.trim();
-                selectedItem.dataset.selectedValue = item.dataset.value;
-                dropdown.querySelector('.dropdown-menu').classList.remove('show');
-            }
-
             function getTplId(inputElement) {
                 return inputElement.dataset.selectedValue || inputElement.value;
             }
+
+            function selectDropdownItem(item) {
+                const dropdown = item.closest('.custom-dropdown');
+                const searchInput = dropdown.querySelector('.dropdown-search');
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                
+                // Deselect previously selected items
+                Array.from(dropdownMenu.children).forEach(child => child.removeAttribute('data-selected'));
+
+                // Mark the current item as selected
+                item.setAttribute('data-selected', "true");
+
+                // Set the item name in the input field
+                searchInput.value = item.textContent.trim();
+                searchInput.dataset.selectedName = item.textContent.trim();
+
+                // Close dropdown
+                dropdownMenu.classList.remove('show');
+
+                // Log for debugging
+                console.log(`Item selected: ${item.dataset.value} - ${item.textContent}`);
+            }
+
 
             function addStartedReward() {
                 const container = document.getElementById('started-rewards-container');
@@ -959,20 +981,25 @@
                 rewardDiv.classList.add("started-reward");
 
                 rewardDiv.innerHTML = `
-                <section id="quest-start-rewards-container">
-                    <label style="color: #06b600;">Item:
-                        <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
-                        <div class="dropdown-menu">
-                            ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                    <section id="quest-start-rewards-container">
+                        <label style="color: #06b600;">Item ID:</label>
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                            <div class="dropdown-menu">
+                                ${items.map(item => `
+                                    <div class="dropdown-item" data-value="${item._id}">
+                                        ${item.displayName}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <label style="color: #06b600;">Quantity:
+                            <input type="number" class="stack-count" value="1" min="1">
+                        </label>
                         </div>
-                    </label>
-                    <label style="color: #06b600;">Quantity:
-                        <input type="number" class="stack-count" value="1" min="1">
-                    </label>
-                    <button onclick="removeStartedReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
-                </section>
+                        <button onclick="removeStartedReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
+                    </section>
                 `;
-                
+
                 container.appendChild(rewardDiv);
             }
 
@@ -980,8 +1007,20 @@
                 button.closest('.started-reward').remove();
             }
 
+            document.addEventListener('click', (event) => {
+                const isDropdownItem = event.target.classList.contains('dropdown-item');
+                const isSearchInput = event.target.classList.contains('dropdown-search');
+
+                if (isDropdownItem) {
+                    event.stopPropagation();
+                    selectDropdownItem(event.target);
+                } else if (!isSearchInput) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+                }
+            });
+
             function generateStartedRewards() {
-                const rewards = Array.from(document.querySelectorAll('#quest-start-rewards-container > .started-reward')).map((rewardDiv, index) => {
+                const rewards = Array.from(document.querySelectorAll('#started-rewards-container .started-reward')).map((rewardDiv, index) => {
                     const inputElement = rewardDiv.querySelector('.dropdown-search');
                     const tplId = getTplId(inputElement);
                     const stackCount = parseInt(rewardDiv.querySelector('.stack-count').value, 10);
@@ -1077,21 +1116,24 @@
                 } else if (selectElement.value === 'Item') {
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Reward Item:</label>
-                        <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)">
-                        <div class="dropdown-menu">
-                            ${items.map(item =>
-                                `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
-                                    ${item.displayName}
-                                </div>`
-                            ).join('')}
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                            <div class="dropdown-menu">
+                                ${items.map(item => `
+                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                        ${item.displayName}
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                         <label style="color: #06b600;">Value:
-                            <input type="number" placeholder="Quantity" required  value="1">
+                            <input type="number" placeholder="Quantity" required value="1">
                         </label>
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
                     `;
+
                 } else if (selectElement.value === 'TraderStanding') {
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Value:
@@ -1131,10 +1173,21 @@
 
             function selectRewardItem(item) {
                 const dropdown = item.closest('.custom-dropdown');
-                const selectedItem = dropdown.querySelector('.dropdown-search');
-                selectedItem.value = item.textContent.trim();
-                selectedItem.dataset.selectedValue = item.dataset.value;
-                dropdown.querySelector('.dropdown-menu').classList.remove('show');
+                const searchInput = dropdown.querySelector('.dropdown-search');
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+                // Deselect any previously selected items
+                Array.from(dropdownMenu.children).forEach(child => child.removeAttribute('data-selected'));
+
+                // Mark the current item as selected and store the item ID
+                item.setAttribute('data-selected', "true");
+                searchInput.value = item.textContent.trim();
+                searchInput.dataset.selectedValue = item.getAttribute('data-value');  // Store the item ID directly
+
+                dropdownMenu.classList.remove('show');
+
+                // Debug log to confirm reward selection
+                console.log(`Selected reward item ID: ${item.getAttribute('data-value')}, Name: ${item.textContent.trim()}`);
             }
 
             function removeReward(button) {
@@ -1441,16 +1494,15 @@
                     const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                        const targetItems = Array.from(div.querySelectorAll('.target-item')).map(targetDiv => {
-                            const inputElement = targetDiv.querySelector('.dropdown-search');
-                            return getTplId(inputElement);
-                        });
+                        const targetItems = Array.from(div.querySelectorAll('.dropdown-item[data-selected="true"]'))
+                            .map(item => item.getAttribute('data-value'));
+
                         return {
-                            conditionType: conditionType,
+                            conditionType,
                             id: conditionId,
-                            index: index,
+                            index,
                             dynamicLocale: false,
-                            targetItems: targetItems,
+                            targetItems,
                             value: parseInt(div.querySelector('input[type=number]').value, 10),
                             onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
@@ -1642,15 +1694,17 @@
                             index: index
                         };
                     } else if (rewardType === 'Item') {
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-                        const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
                         const inputElement = div.querySelector('.dropdown-search');
-                        const itemId = getTplId(inputElement);
+                        const itemId = inputElement.dataset.selectedValue;  // Retrieve the stored item ID
+                        const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
                         const uniqueId = generateUniqueId();
+
+                        console.log(`Reward Item ID: ${itemId}, Quantity: ${stackCount}`);  // Debug log
+
                         return {
                             findInRaid: true,
                             id: rewardId,
-                            index: index,
+                            index,
                             items: [
                                 {
                                     _id: uniqueId,
@@ -1662,8 +1716,7 @@
                             ],
                             target: uniqueId,
                             type: rewardType,
-                            value: stackCount.toString(),
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false
+                            value: stackCount.toString()
                         };
                     } else if (rewardType === 'AssortmentUnlock') {
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');

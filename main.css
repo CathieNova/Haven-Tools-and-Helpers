@@ -188,13 +188,13 @@ button:hover {
 }
 
 .custom-dropdown {
-    background-color: #333;
     color: #e0e0e0;
-    border: 1px solid #555;
     transition: all 0.5s ease;
     width: 50%;
     max-width: 100%;
     box-sizing: border-box;
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
 
 .dropdown-menu {
@@ -284,8 +284,8 @@ a:hover {
 .dropdown-search {
     color: #e0e0e0;
     padding: 8px;
-    margin-top: 5px;
-    width: 50%;
+    margin-top: 10px;
+    width: 60%;
     box-sizing: border-box;
 }
 
