@@ -20,3 +20,6 @@ Add any screenshots if applicable.
 
 **Browser**
 What Browser are you using? (Firefox, Chrome, etc..)
+
+**Identifying Errors**
+Press F12 and go to Console tab, if there's any errors or red text there post that here too.
