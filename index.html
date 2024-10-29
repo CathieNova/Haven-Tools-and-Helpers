@@ -53,7 +53,7 @@
             <h2><strong>Changelog:</strong></h2>
             <ul style="list-style: none; padding-left: 0; color: #cfcfcf; font-size: 1.2em; line-height: 1.6;">
                 <ul>
-                    <li><strong>Version 0.0.1 - 29 Oct 2024</strong></li>
+                    <li><strong>29 Oct 2024</strong></li>
                     <ul style="padding-left: 20px;">
                         <li>Initial release</li>
                     </ul>
@@ -1683,6 +1683,7 @@
                             value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
                             id: rewardId,
                             type: rewardType,
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
                             index: index
                         };
                     } 
@@ -1693,7 +1694,8 @@
                             value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
                             id: rewardId,
                             type: 'TraderStanding',
-                            target: div.querySelector('.trader-standing-target').value,
+                            target: trader,
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
                             index: index
                         };
                     }
@@ -1719,6 +1721,7 @@
                             ],
                             target: uniqueId,
                             type: rewardType,
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
                             value: stackCount.toString()
                         };
                     } 
