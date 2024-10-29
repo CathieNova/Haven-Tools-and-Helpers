@@ -10,7 +10,7 @@
 <body>
     <div class="content-container">
         <section id="main-content">
-            <h1 style="color: #ff7920;">Haven VCQL Helper - <small style="color: #06b600;"> Version 0.0.1</small></h1>
+            <h1 style="color: #ff7920;">Haven VCQL Helper</h1>
             <h4>Made for <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">Virtual's Custom Quest Loader</a> - SPT Mod</h4>
             <h4>Haven VCQL Helper is a tool to help you create quests for Virtual's Custom Quest Loader, if you don't know how to make quests then see the <strong style="color: #06b600;">How To Use</strong> section on the right side.</h4>
             <h4>For more information about the mod and how to use it, visit the Mod Page on <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4646ff; text-decoration: underline;">SPT Hub</a></h4>
@@ -46,6 +46,7 @@
             <button class="top-right-button" id="toggleUsefulInfoBtn" onclick="toggleUsefulInfo()">Show Useful Info</button>
             <button class="top-right-button" id="toggleHowToUseBtn" onclick="toggleHowToUse()">Show How to Use</button>
             <button class="top-right-button" id="toggleChangelogBtn" onclick="toggleChangelog()">Show Changelog</button>
+            <button class="top-right-button" id="toggleRoadmapBtn" onclick="toggleRoadmap()">Show Roadmap</button>
             <button class="top-right-button" id="reloadButton" onclick="reloadPage()">Reset Quest Info</button>
         </div>
         
@@ -59,6 +60,17 @@
                     </ul>
                 </ul>
             </ul>
+        </section>
+
+        <section id="roadmap" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
+            <h2><strong style="color: #06b600;">Roadmap:</strong></h2>
+            <ul style="list-style: none; padding-left: 0; color: #cfcfcf; font-size: 1.2em; line-height: 1.6;">
+                <li><strong style="color: ff7920;">Features Planned:</strong></li>
+                <ul>
+                    <li>Weapon Modding for Start and Finish Reward.</li>
+                </ul>
+            </ul>
+            <h3>Got any suggestions or feature requests? please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4646ff; text-decoration: underline;">Github</a></h3>
         </section>
 
         <section id="useful-info" style="display: none; position: relative;">
@@ -1259,6 +1271,14 @@
 
                 const button = document.getElementById('toggleChangelogBtn');
                 button.innerText = changelogSection.style.display === 'none' ? 'Show Changelog' : 'Hide Changelog';
+            }
+
+            function toggleRoadmap() {
+                const roadmapSection = document.getElementById('roadmap');
+                roadmapSection.style.display = roadmapSection.style.display === 'none' ? 'block' : 'none';
+
+                const button = document.getElementById('toggleRoadmapBtn');
+                button.innerText = roadmapSection.style.display === 'none' ? 'Show Roadmap' : 'Hide Roadmap';
             }
 
             function populateLanguageFields() {
