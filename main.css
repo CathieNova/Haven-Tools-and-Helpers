@@ -11,7 +11,7 @@ body {
 }
 
 .content-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
     padding: 20px;
     background-color: rgba(18, 18, 18, 0.9);
@@ -20,6 +20,7 @@ body {
 
 h1, h2, h3 {
     color: #c2c2c2;
+    margin-top: 0px;
 }
 
 section {
@@ -41,6 +42,7 @@ label {
     align-items: center;
     font-weight: bold;
     color: #e0e0e0;
+    margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -51,7 +53,8 @@ label input[type="checkbox"] {
     width: auto;
 }
 
-select, input, button {
+select, input
+{
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
@@ -60,6 +63,17 @@ select, input, button {
     margin: 5px 0;
     margin-left: 10px;
     width: 50%;
+    box-sizing: border-box;
+}
+button {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0;
+    margin-left: 10px;
+    width: 40%;
     box-sizing: border-box;
 }
 
@@ -106,7 +120,6 @@ pre {
     max-width: 100%;
 }
 
-/* Ensure dynamic fields fit within container */
 .dynamic-fields,
 .dynamic-fields > div,
 .condition-details,
@@ -118,21 +131,44 @@ pre {
     box-sizing: border-box;
 }
 
-#top-right-box,
-#top-right-box * {
-    width: 100%;
-    max-width: 100%;
+.top-right-button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 10%;
+}
+
+.language-container {
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.language-select-label {
+    color: #e0e0e0;
+    padding: 8px;
+    margin-top: 5px;
     box-sizing: border-box;
 }
 
-/* Ensure dropdowns and buttons resize */
-.custom-dropdown .dropdown-search {
-    width: 100%;
-    max-width: 100%;
+.language-select {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
     box-sizing: border-box;
+    width: 10%;
 }
 
-/* Tooltip and dropdown bounds */
+.language-select:hover {
+    border-color: #b300a4;
+}
+
 .tooltip .tooltiptext,
 .dropdown-menu {
     max-width: 100%;
@@ -151,11 +187,14 @@ button:hover {
     background-color: #b300a4;
 }
 
-.custom-dropdown .dropdown-search {
+.custom-dropdown {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
     transition: all 0.5s ease;
+    width: 50%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .dropdown-menu {
@@ -206,17 +245,29 @@ a:hover {
     color: #c2c2c2;
 }
 
-#top-right-box select, #top-right-box button {
+#top-right-box select
+{
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+#top-right-box button {
+    background-color: #700067;
+    color: #e0e0e0;
+    border: 1px solid #555;
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
     box-sizing: border-box;
 }
 
 #top-right-box button:hover {
     background-color: #555;
+    width: 90%;
 }
 
 #language-output, #assortments-output {
@@ -231,12 +282,63 @@ a:hover {
 .assortment-id,
 .loyalty-level,
 .dropdown-search {
+    color: #e0e0e0;
+    padding: 8px;
+    margin-top: 5px;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.visibility-target {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
     padding: 8px;
     margin-top: 5px;
-    width: 100%;
+    width: 60%;
+    box-sizing: border-box;
+}
+
+.zoneid-inzone {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 40%;
+    box-sizing: border-box;
+}
+
+.equalto
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.small-number
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.skill-value
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 30%;
     box-sizing: border-box;
 }
 
@@ -264,7 +366,7 @@ a:hover {
 }
 
 .dropdown-item:hover {
-    background: #3c3c3c;
+    background-color: #b300a4;
 }
 
 .dynamic-lang-section {
@@ -318,7 +420,7 @@ button {
 }
 
 button:hover {
-    background-color: #b300a4;
+    background-color: #555;
 }
 
 #language-entries-section {
@@ -380,7 +482,7 @@ button:hover {
 }
 
 .available-for-start-condition button:hover {
-    background-color: #b300a4;
+    background-color: #555;
 }
 
 #available-for-start-container {
@@ -491,7 +593,7 @@ select:focus, input:focus {
     margin-top: 5px;
 }
 
-.weapon-mods-container .dropdown-search {
+.weapon-mods-container {
     background-color: #333;
     color: #e0e0e0;
     border: 1px solid #555;
