@@ -43,6 +43,7 @@
                 </select>
             </div>
             
+            <button class="top-right-button" id="toggleMainContentBtn" onclick="toggleMainContent()">Hide Main Content</button>
             <button class="top-right-button" id="toggleUsefulInfoBtn" onclick="toggleUsefulInfo()">Show Useful Info</button>
             <button class="top-right-button" id="toggleHowToUseBtn" onclick="toggleHowToUse()">Show How to Use</button>
             <button class="top-right-button" id="toggleChangelogBtn" onclick="toggleChangelog()">Show Changelog</button>
@@ -1285,6 +1286,14 @@
 
                 const button = document.getElementById('toggleRoadmapBtn');
                 button.innerText = roadmapSection.style.display === 'none' ? 'Show Roadmap' : 'Hide Roadmap';
+            }
+
+            function toggleMainContent() {
+                const mainContent = document.getElementById('main-content');
+                mainContent.style.display = mainContent.style.display === 'none' ? 'block' : 'none';
+
+                const button = document.getElementById('toggleMainContentBtn');
+                button.innerText = mainContent.style.display === 'none' ? 'Show Main Content' : 'Hide Main Content';
             }
 
             function populateLanguageFields() {
