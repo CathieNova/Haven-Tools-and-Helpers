@@ -296,7 +296,7 @@
                     targetSelect.addEventListener('change', savageSelection);
                 } else {
                     console.warn("targetSelect element not found. Retrying...");
-                    setTimeout(initializeTargetSelectListener, 500); // Retry after 500ms
+                    setTimeout(initializeTargetSelectListener, 500);
                 }
             }
 
@@ -361,6 +361,36 @@
                 items.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
             }
 
+            document.addEventListener('click', (event) => {
+                const isDropdownItem = event.target.classList.contains('dropdown-item');
+                const isSearchInput = event.target.classList.contains('dropdown-search');
+
+                if (isDropdownItem) {
+                    selectDropdownItem(event.target);
+                } else if (!isSearchInput) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+                }
+            });
+
+            function toggleDropdownMenu(input) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+                
+                const dropdownMenu = input.nextElementSibling;
+                dropdownMenu.classList.toggle('show');
+            }
+
+            function filterDropdown(input) {
+                const searchTerm = input.value.toLowerCase();
+                const dropdownMenu = input.nextElementSibling;
+
+                dropdownMenu.classList.add('show');
+
+                Array.from(dropdownMenu.children).forEach(item => {
+                    const itemName = item.textContent.toLowerCase();
+                    item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
+                });
+            }
+
             function addCondition() {
                 const container = document.getElementById('conditions-container');
                 const conditionDiv = document.createElement('div');
@@ -415,13 +445,10 @@
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
 
-                // Remove the associated language entry
                 document.getElementById(objLabel)?.parentElement.remove();
 
-                // Remove the condition
                 conditionDiv.remove();
 
-                // Adjust language fields if needed
                 adjustLanguageFields();
             }
             
@@ -462,7 +489,7 @@
                     "Surgery", "HideoutManagement", "MagDrills", "Crafting"
                 ];
 
-                // Populate conditionDetails based on selection value
+                // FindItem and HandoverItem conditions
                 if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Target Items:</label>
@@ -480,7 +507,9 @@
                             <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                         </div>
                     `;
-                } else if (selectElement.value === 'Kills') {
+                } 
+                // Kill condition
+                else if (selectElement.value === 'Kills') {
                     conditionDetails.innerHTML = `
                         <label>Location:
                             <select class="location-dropdown" required>
@@ -612,7 +641,9 @@
                             });
                         }
 
-                } else if (selectElement.value === 'VisitPlace') {
+                } 
+                // VisitPlace condition
+                else if (selectElement.value === 'VisitPlace') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Target Zone ID (e.g., huntsman_029):
                             <input type="text" class="visit-place-target" placeholder="Enter zone ID" required>
@@ -624,7 +655,9 @@
                             </label>
                         </div>
                     `;
-                } else if (selectElement.value === 'Skill') {
+                } 
+                // Skill condition
+                else if (selectElement.value === 'Skill') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Compare Method:
                             <select>
@@ -644,7 +677,9 @@
                             <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                         </div>
                     `;
-                } else if (selectElement.value === 'Equipment') {
+                } 
+                // Equipment condition
+                else if (selectElement.value === 'Equipment') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Items Required to be Equipped:</label>
                         <div id="equipment-inclusive-container">
@@ -663,7 +698,8 @@
                         </div>
                         
                     `;
-                } else if (selectElement.value === 'Location') {
+                } // Location condition 
+                else if (selectElement.value === 'Location') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
                         <select multiple class="location-dropdown">
@@ -685,7 +721,7 @@
                         </div>
                     `;
                 }
-                // Condition for Exit Status
+                // ExitStatus condition
                 else if (selectElement.value === 'ExitStatus') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Exit Status (select multiple with ctrl + click):</label>
@@ -701,7 +737,7 @@
                         </div>
                     `;
                 }
-                // Condition for InZone
+                // InZone condition
                 else if (selectElement.value === 'InZone') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Zone IDs (e.g., Woods_Sawmill, Woods_Old_Sawmill):
@@ -712,7 +748,7 @@
                         </div>
                     `;
                 }
-                // Condition for LeaveItemAtLocation
+                // LeaveItemAtLocation condition
                 else if (selectElement.value === 'LeaveItemAtLocation') {
                     conditionDetails.innerHTML = `
                         <div class="condition">
@@ -741,7 +777,6 @@
                             <button type="button" onclick="addTargetItem()" style="margin-top: 10px;">Add Item</button>
                             <div class="target-items-container"></div>
                         </div>
-
                     `;
                 }
             }
@@ -815,13 +850,6 @@
                 `;
 
                 container.appendChild(modDiv);
-            }
-
-            function toggleDropdownMenu(input) {
-                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
-                
-                const dropdownMenu = input.nextElementSibling;
-                dropdownMenu.classList.toggle('show');
             }
 
             function removeWeaponMod(button) {
@@ -910,13 +938,11 @@
                 const isAllSelected = Array.from(weaponCaliberSelect.selectedOptions).some(option => option.value === 'all');
 
                 if (isAllSelected) {
-                    // Deselect all other options except "All"
                     Array.from(weaponCaliberSelect.options).forEach(option => {
                         option.selected = option.value === 'all';
                     });
-                    selectedWeaponCalibers = ["all"]; // Set selectedWeaponCalibers to "all" when "All" is selected
+                    selectedWeaponCalibers = ["all"];
                 } else {
-                    // Update selectedWeaponCalibers with selected options' values
                     selectedWeaponCalibers = Array.from(weaponCaliberSelect.selectedOptions).map(option => option.value);
                 }
             }
@@ -970,19 +996,6 @@
                 console.log(`Selected item: ${item.dataset.value} - ${item.textContent.trim()}`);
             }
 
-
-            function filterDropdown(input) {
-                const searchTerm = input.value.toLowerCase();
-                const dropdownMenu = input.nextElementSibling;
-
-                dropdownMenu.classList.add('show');
-
-                Array.from(dropdownMenu.children).forEach(item => {
-                    const itemName = item.textContent.toLowerCase();
-                    item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
-                });
-            }
-
             function addStartedReward() {
                 const container = document.getElementById('started-rewards-container');
                 const rewardDiv = document.createElement('div');
@@ -1015,17 +1028,6 @@
             function removeStartedReward(button) {
                 button.closest('.started-reward').remove();
             }
-
-            document.addEventListener('click', (event) => {
-                const isDropdownItem = event.target.classList.contains('dropdown-item');
-                const isSearchInput = event.target.classList.contains('dropdown-search');
-
-                if (isDropdownItem) {
-                    selectDropdownItem(event.target);
-                } else if (!isSearchInput) {
-                    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
-                }
-            });
 
             function generateStartedRewards() {
                 const rewards = Array.from(document.querySelectorAll('#started-rewards-container .started-reward')).map((rewardDiv, index) => {
@@ -1184,17 +1186,14 @@
                 const searchInput = dropdown.querySelector('.dropdown-search');
                 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 
-                // Deselect any previously selected items
                 Array.from(dropdownMenu.children).forEach(child => child.removeAttribute('data-selected'));
 
-                // Mark the current item as selected and store the item ID
                 item.setAttribute('data-selected', "true");
                 searchInput.value = item.textContent.trim();
-                searchInput.dataset.selectedValue = item.getAttribute('data-value');  // Store the item ID directly
+                searchInput.dataset.selectedValue = item.getAttribute('data-value');
 
                 dropdownMenu.classList.remove('show');
 
-                // Debug log to confirm reward selection
                 console.log(`Selected reward item ID: ${item.getAttribute('data-value')}, Name: ${item.textContent.trim()}`);
             }
 
@@ -1268,9 +1267,8 @@
                     console.error("languageSection element is null.");
                     return;
                 }
-                languageSection.innerHTML = ''; // Clear any previous entries
+                languageSection.innerHTML = '';
 
-                // Quest name and basic language fields
                 const baseFields = [
                     { id: 'quest-desc-lang', label: 'Quest Description' },
                     { id: 'quest-start-msg-lang', label: 'Quest Started Message' },
@@ -1289,7 +1287,6 @@
                     languageSection.appendChild(div);
                 });
 
-                // Dynamic fields for all conditions with unique IDs
                 const traderId = document.getElementById('trader-name').value || 'trader';
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const conditions = document.querySelectorAll('#conditions-container > .condition');
@@ -1304,7 +1301,6 @@
                     languageSection.appendChild(div);
                 });
 
-                // Dynamic fields for rewards
                 const rewards = document.querySelectorAll('#rewards-container > .reward');
                 rewards.forEach((reward, index) => {
                     const rewardId = `${traderId}_${questNumber} reward_${index}`;
@@ -1333,7 +1329,6 @@
                 `;
                 container.appendChild(conditionDiv);
 
-                // Show the container if it has child elements
                 container.style.display = 'block';
                 updateAvailableForStartFields(conditionDiv.querySelector('select'));
             }
@@ -1343,14 +1338,11 @@
                 const conditionDiv = button.closest('.condition');
                 conditionDiv.remove();
 
-                // Hide the container if no child elements are present
                 if (container.children.length === 0) {
                     container.style.display = 'none';
                 }
             }
 
-
-            // Function to update fields based on selected condition type for AvailableForStart
             function updateAvailableForStartFields(selectElement) {
                 const conditionDetails = selectElement.closest('.condition').querySelector('.available-for-start-details');
                 conditionDetails.innerHTML = '';
@@ -1410,7 +1402,6 @@
                 });
             }
 
-            // Helper function to generate visibility conditions if a target ID is specified
             function generateVisibilityConditions(div, conditionId) {
                 const visibilityTargetId = div.querySelector('.visibility-target')?.value;
                 if (visibilityTargetId) {
@@ -1428,7 +1419,6 @@
                 const savageRoleLabel = document.getElementById('savage-role-label');
                 const savageRoleSelect = document.getElementById('savage-role-select');
 
-                // Check if "Scavs" is selected to toggle visibility of savage-role
                 if (targetSelect.value === 'Savage') {
                     savageRoleLabel.style.display = 'inline';
                     savageRoleSelect.style.display = 'inline';
@@ -1446,9 +1436,9 @@
             }
 
             function generateUniqueId() {
-                const timestamp = Math.floor(Date.now() / 1000).toString(16); // 4-byte timestamp
-                const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join(''); // 10 random hex chars
-                return (timestamp + randomBytes).padEnd(24, "0").slice(0, 24); // Ensures length is exactly 24
+                const timestamp = Math.floor(Date.now() / 1000).toString(16);
+                const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+                return (timestamp + randomBytes).padEnd(24, "0").slice(0, 24);
             }
 
             function generateQuest() {
@@ -1501,6 +1491,7 @@
                     const conditionType = div.querySelector('select').value;
                     const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
+                    // New FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                         const targetItems = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
 
@@ -1515,6 +1506,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
+                    // New Kill Condition
                     else if (conditionType === 'Kills') {
                         const locationDropdown = div.querySelector('.location-dropdown');
                         const targetSelect = div.querySelector('#target-select');
@@ -1552,6 +1544,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
+                    // New VisitPlace Condition
                     else if (conditionType === 'VisitPlace') {
                         return {
                             completeInSeconds: 0,
@@ -1578,6 +1571,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
+                    // New Skill Condition
                     else if (conditionType === 'Skill') {
                         const compareSelect = div.querySelector('select:nth-of-type(1)');
                         return {
@@ -1593,6 +1587,7 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
+                    // New Equipment Condition
                     else if (conditionType === 'Equipment') {
                         const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
                             .map(input => getTplId(input));
@@ -1681,8 +1676,8 @@
                     const rewardType = div.querySelector('select').value;
                     const rewardId = `${trader}_${questNumber} reward_${index}`;
 
+                    // Experience Reward
                     if (rewardType === 'Experience') {
-                        // Correctly select the input field for the value
                         const valueInput = div.querySelector('.reward-value'); 
                         return {
                             value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
@@ -1690,8 +1685,9 @@
                             type: rewardType,
                             index: index
                         };
-                    } else if (rewardType === 'TraderStanding')
-                    {
+                    } 
+                    // Trader Standing Reward
+                    else if (rewardType === 'TraderStanding') {
                         const valueInput = div.querySelector('.reward-value');
                         return {
                             value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
@@ -1700,13 +1696,13 @@
                             target: div.querySelector('.trader-standing-target').value,
                             index: index
                         };
-                    } else if (rewardType === 'Item') {
+                    }
+                    // Item Reward 
+                    else if (rewardType === 'Item') {
                         const inputElement = div.querySelector('.dropdown-search');
-                        const itemId = inputElement.dataset.selectedValue;  // Retrieve the stored item ID
+                        const itemId = inputElement.dataset.selectedValue;
                         const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
                         const uniqueId = generateUniqueId();
-
-                        console.log(`Reward Item ID: ${itemId}, Quantity: ${stackCount}`);  // Debug log
 
                         return {
                             findInRaid: true,
@@ -1725,7 +1721,9 @@
                             type: rewardType,
                             value: stackCount.toString()
                         };
-                    } else if (rewardType === 'AssortmentUnlock') {
+                    } 
+                    // Assortment Unlock Reward
+                    else if (rewardType === 'AssortmentUnlock') {
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         const inputElement = div.querySelector('.dropdown-search');
                         const itemId = getTplId(inputElement);
@@ -1740,7 +1738,9 @@
                             type: 'AssortmentUnlock',
                             unknown: unknownCheckbox ? unknownCheckbox.checked : false
                         };
-                    } else if (rewardType === 'Skill') {
+                    }
+                    // Skill Reward 
+                    else if (rewardType === 'Skill') {
                         const targetSkill = div.querySelector('.skill-target').value;
                         const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
@@ -1756,7 +1756,6 @@
                     return {};
                 });
 
-                // Language Entries
                 let languageEntries = {
                     [`${trader}_${questNumber} name`]: questName,
                     [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
