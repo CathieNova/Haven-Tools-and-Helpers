@@ -1744,6 +1744,7 @@
                         const itemId = inputElement.dataset.selectedValue;
                         const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
                         const uniqueId = generateUniqueId();
+                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
 
                         return {
                             findInRaid: true,
