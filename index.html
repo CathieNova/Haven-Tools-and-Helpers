@@ -451,7 +451,7 @@
                 }
 
                 const conditionDetails = selectElement.closest('.condition').querySelector('.condition-details');
-                if (!conditionDetails) return; // Check if conditionDetails is found
+                if (!conditionDetails) return;
 
                 const skillOptions = [
                     "Endurance", "Health", "Immunity", "Metabolism", "Strength", "Vitality", "StressResistance",
@@ -466,17 +466,8 @@
                 if (selectElement.value === 'FindItem' || selectElement.value === 'HandoverItem') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Target Items:</label>
-                        <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
-                            <div class="dropdown-menu">
-                                ${items.map(item => `
-                                    <div class="dropdown-item" data-value="${item._id}">
-                                        ${item.displayName}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <!-- Existing code remains unchanged -->
+                        <div class="target-items-container"></div>
+                        <button type="button" onclick="addTargetItem()" style="margin-top: 10px; width: auto;">Add New Item</button>
                         <label style="color: #06b600;">Value:
                             <input type="number" placeholder="Enter level" required value="1">
                         </label>
@@ -755,14 +746,15 @@
                 }
             }
 
-            function addTargetItem(button) {
-                const container = button.closest('.condition').querySelector('.target-items-container');
+            function addTargetItem() {
+                const container = document.querySelector('.target-items-container');
                 const targetDiv = document.createElement('div');
                 targetDiv.classList.add('target-item');
 
                 targetDiv.innerHTML = `
                     <label style="color: #06b600;">Search or Enter ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." 
+                        oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -772,10 +764,13 @@
                     </div>
                     <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
                 container.appendChild(targetDiv);
             }
 
-
+            function removeTargetItem(button) {
+                button.closest('.target-item').remove();
+            }
             function removeItem(button) {
                 button.closest('.item-to-plant').remove();
             }
@@ -787,12 +782,17 @@
 
                 modDiv.innerHTML = `
                     <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
-                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
                     </div>
-                    <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+                    <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
                 container.appendChild(modDiv);
             }
 
@@ -803,13 +803,25 @@
 
                 modDiv.innerHTML = `
                     <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
-                        ${items.map(item => `<div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">${item.displayName}</div>`).join('')}
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
                     </div>
-                    <button type="button" onclick="removeWeaponMod(this)">Remove</button>
+                    <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
                 container.appendChild(modDiv);
+            }
+
+            function toggleDropdownMenu(input) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+                
+                const dropdownMenu = input.nextElementSibling;
+                dropdownMenu.classList.toggle('show');
             }
 
             function removeWeaponMod(button) {
@@ -824,7 +836,7 @@
 
                 equipmentDiv.innerHTML = `
                     <label style="color: #06b600;">Search or Enter ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -834,6 +846,7 @@
                     </div>
                     <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
 
                 container.appendChild(equipmentDiv);
             }
@@ -849,7 +862,7 @@
 
                 itemDiv.innerHTML = `
                     <label style="color: #06b600;">Inclusive Item ID:</label>
-                    <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search inclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -859,6 +872,7 @@
                     </div>
                     <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
 
                 container.appendChild(itemDiv);
                 }
@@ -870,7 +884,7 @@
                 
                 itemDiv.innerHTML = `
                     <label style="color: #06b600;">Exclusive Item ID:</label>
-                    <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search exclusive-item-id" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -880,6 +894,7 @@
                     </div>
                     <button type="button" onclick="removeItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
+
 
                 container.appendChild(itemDiv);
             }
@@ -914,7 +929,7 @@
 
                 targetDiv.innerHTML = `
                     <label style="color: #06b600;">Search or Enter ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                     <div class="dropdown-menu">
                         ${items.map(item => `
                             <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -925,6 +940,7 @@
                     <button type="button" onclick="removeTargetItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
 
+
                 container.appendChild(targetDiv);
                 }
 
@@ -932,48 +948,40 @@
                 button.closest('.target-item').remove();
             }
 
+            function getTplId(inputElement) {
+                return inputElement.dataset.selectedValue || inputElement.value;
+            }
+
+            function selectDropdownItem(item) {
+                const searchInput = item.closest('.target-item')?.querySelector('.dropdown-search') 
+                                || item.closest('.reward')?.querySelector('.dropdown-search')
+                                || item.closest('.custom-dropdown')?.querySelector('.dropdown-search');
+                
+                const dropdownMenu = item.closest('.dropdown-menu');
+
+                if (searchInput && dropdownMenu) {
+                    searchInput.value = item.textContent.trim();
+                    searchInput.dataset.selectedValue = item.dataset.value;
+                    dropdownMenu.classList.remove('show');
+                } else {
+                    console.error("Dropdown structure not found");
+                }
+
+                console.log(`Selected item: ${item.dataset.value} - ${item.textContent.trim()}`);
+            }
+
+
             function filterDropdown(input) {
                 const searchTerm = input.value.toLowerCase();
                 const dropdownMenu = input.nextElementSibling;
 
-                if (searchTerm) {
-                    dropdownMenu.classList.add('show');
-                } else {
-                    dropdownMenu.classList.remove('show');
-                }
+                dropdownMenu.classList.add('show');
 
                 Array.from(dropdownMenu.children).forEach(item => {
                     const itemName = item.textContent.toLowerCase();
                     item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
                 });
             }
-
-            function getTplId(inputElement) {
-                return inputElement.dataset.selectedValue || inputElement.value;
-            }
-
-            function selectDropdownItem(item) {
-                const dropdown = item.closest('.custom-dropdown');
-                const searchInput = dropdown.querySelector('.dropdown-search');
-                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                
-                // Deselect previously selected items
-                Array.from(dropdownMenu.children).forEach(child => child.removeAttribute('data-selected'));
-
-                // Mark the current item as selected
-                item.setAttribute('data-selected', "true");
-
-                // Set the item name in the input field
-                searchInput.value = item.textContent.trim();
-                searchInput.dataset.selectedName = item.textContent.trim();
-
-                // Close dropdown
-                dropdownMenu.classList.remove('show');
-
-                // Log for debugging
-                console.log(`Item selected: ${item.dataset.value} - ${item.textContent}`);
-            }
-
 
             function addStartedReward() {
                 const container = document.getElementById('started-rewards-container');
@@ -984,21 +992,22 @@
                     <section id="quest-start-rewards-container">
                         <label style="color: #06b600;">Item ID:</label>
                         <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)">
+                            <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item => `
-                                    <div class="dropdown-item" data-value="${item._id}">
+                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
                                         ${item.displayName}
                                     </div>
                                 `).join('')}
                             </div>
-                            <label style="color: #06b600;">Quantity:
+                        </div>
+                        <label style="color: #06b600;">Quantity:
                             <input type="number" class="stack-count" value="1" min="1">
                         </label>
-                        </div>
                         <button onclick="removeStartedReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
                     </section>
                 `;
+
 
                 container.appendChild(rewardDiv);
             }
@@ -1012,7 +1021,6 @@
                 const isSearchInput = event.target.classList.contains('dropdown-search');
 
                 if (isDropdownItem) {
-                    event.stopPropagation();
                     selectDropdownItem(event.target);
                 } else if (!isSearchInput) {
                     document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
@@ -1100,19 +1108,20 @@
                             </select>
                         </label>
                         <label style="color: #06b600;">Item:
-                            <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)">
+                            <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                             <div class="dropdown-menu">
-                                ${items.map(item =>
-                                    `<div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                ${items.map(item => `
+                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
                                         ${item.displayName}
-                                    </div>`
-                                ).join('')}
+                                    </div>
+                                `).join('')}
                             </div>
                         </label>
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
                     `;
+
                 } else if (selectElement.value === 'Item') {
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Reward Item:</label>
@@ -1120,7 +1129,7 @@
                             <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item => `
-                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectRewardItem(this)">
+                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
                                         ${item.displayName}
                                     </div>
                                 `).join('')}
@@ -1133,7 +1142,6 @@
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
                     `;
-
                 } else if (selectElement.value === 'TraderStanding') {
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Value:
@@ -1494,8 +1502,7 @@
                     const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
 
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                        const targetItems = Array.from(div.querySelectorAll('.dropdown-item[data-selected="true"]'))
-                            .map(item => item.getAttribute('data-value'));
+                        const targetItems = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
 
                         return {
                             conditionType,
