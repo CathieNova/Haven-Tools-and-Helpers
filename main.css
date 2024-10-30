@@ -434,6 +434,31 @@ button:hover {
     overflow-y: auto;
 }
 
+.dynamic-lang-entry textarea {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 30px;
+    max-height: 300px;
+    overflow-y: auto;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.dynamic-lang-entry textarea:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.dynamic-lang-entry textarea::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
 #available-for-start-container {
     margin-top: 20px;
     padding: 15px;

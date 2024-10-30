@@ -63,6 +63,7 @@
                     <li>Fixed the 'Quest Status' to properly generate in 'Available For Start Conditions'</li>
                     <li>Added 'Quest Location' dropdown for the quest location</li>
                     <li>Fixed the 'Objective Items' to be in seperate fields</li>
+                    <li>Changed the ID generation to work with the upcoming 3.10 update of SPT</li>
                 </ul>
                 <li><strong style="color: #ff7920;">29 Oct 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -109,6 +110,7 @@
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Quest Name:</strong> Enter the quest name; it will be converted into an ID automatically.</li>
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Trader Name:</strong> Specify the trader who assigns the quest.</li>
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Objective Conditions:</strong> Define requirements like finding items, kills, or visits.</li>
+                <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Quest Location:</strong> Select the map this quest is focused in.</li>
                 <ul style="padding-left: 30px; color: #b0b0b0;">
                     <li style="margin-top: 10px;"><strong style="color: #06b600;">Find Item:</strong> Locate specific items within a raid.
                         <ul style="padding-left: 25px; margin-top: 5px;">
@@ -279,8 +281,11 @@
 
             <h3 style="color: #06b600;">Quest Language Variables</h3>
             <div id="language-variables-container" style="margin-bottom: 20px;">
-                <div id="language-entries-section"></div>
-                <div id="dynamic-lang-variables-container"></div>
+                <section id="language-section">
+                    <label style="color: #ff7920;">This is where you will add quest information, any of these fields in the scroll window supports new lines and will convert them to "\n".</label>
+                    <div id="language-entries-section"></div>
+                    <div id="dynamic-lang-variables-container"></div>
+                </section>
             </div>
 
             <!-- Language Variables for Conditions and Rewards -->
@@ -332,6 +337,7 @@
         <script>
             let items = [];
             let languageData = {};
+            let increment = 0;
 
             document.addEventListener('DOMContentLoaded', () => {
                 loadLanguage('en.json');
@@ -890,7 +896,6 @@
                 button.closest('.weapon-mod-item').remove();
             }
 
-
             function addEquipmentItem() {
                 const container = document.querySelector('.equipment-inclusive-container');
                 const equipmentDiv = document.createElement('div');
@@ -1015,8 +1020,9 @@
             function selectDropdownItem(item) {
                 const searchInput = item.closest('.target-item')?.querySelector('.dropdown-search') 
                                 || item.closest('.reward')?.querySelector('.dropdown-search')
-                                || item.closest('.custom-dropdown')?.querySelector('.dropdown-search');
-                
+                                || item.closest('.custom-dropdown')?.querySelector('.dropdown-search')
+                                || item.closest('.dropdown-menu')?.previousElementSibling;
+
                 const dropdownMenu = item.closest('.dropdown-menu');
 
                 if (searchInput && dropdownMenu) {
@@ -1143,8 +1149,9 @@
                                 <option value="4">4</option>
                             </select>
                         </label>
-                        <label style="color: #06b600;">Item:
-                            <input type="text" class="dropdown-search assortment-item" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                        <label style="color: #06b600;">Item:</label>
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item => `
                                     <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -1152,12 +1159,11 @@
                                     </div>
                                 `).join('')}
                             </div>
-                        </label>
+                        </div>
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
                     `;
-
                 } else if (selectElement.value === 'Item') {
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Reward Item:</label>
@@ -1390,7 +1396,8 @@
                 baseFields.forEach(field => {
                     const div = document.createElement('div');
                     div.className = 'dynamic-lang-entry';
-                    div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><input type="text" id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}">`;
+                    div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><textarea id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}" style="width: 100%; resize: vertical;"></textarea>`;
+
                     languageSection.appendChild(div);
                 });
 
@@ -1540,16 +1547,20 @@
             }
 
             function generateUniqueId() {
-                let randomHex = '';
-                for (let i = 0; i < 24; i++) {
-                    randomHex += Math.floor(Math.random() * 16).toString(16);
-                }
-                return randomHex;
+                const timestamp = Math.floor(Date.now() / 1000).toString(16).padStart(8, '0');
+                
+                const machineIdentifier = (Math.random() * 0xFFFFFF | 0).toString(16).padStart(6, '0');
+                const processId = (Math.random() * 0xFFFF | 0).toString(16).padStart(4, '0');
+                
+                increment = (increment + 1) & 0xFFFFFF;
+                const counter = increment.toString(16).padStart(6, '0');
+
+                return timestamp + machineIdentifier + processId + counter;
             }
 
             function generateQuest() {
                 const questName = document.getElementById('quest-name').value;
-                const questNameID = questName.replace(/\s+/g, '_');
+                const questNameID = generateUniqueId();
                 const trader = document.getElementById('trader-name').value || 'TRADERNAME';
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const questType = document.getElementById('quest-type').value;
@@ -1566,7 +1577,7 @@
                         return {
                             compareMethod: compareSelect ? compareSelect.value : '',
                             conditionType: 'Level',
-                            id: `${trader}_condition_${index}`,
+                            id: generateUniqueId(),
                             value: levelInput ? parseInt(levelInput.value, 10) : 0
                         };
                     } else if (conditionType === 'Quest') {
@@ -1576,7 +1587,7 @@
                         
                         return {
                             conditionType: 'Quest',
-                            id: `${trader}_condition_${index}`,
+                            id: generateUniqueId(),
                             status: statusValues,
                             target: targetInput ? targetInput.value : ''
                         };
@@ -1586,7 +1597,7 @@
                         
                         return {
                             conditionType: 'TraderLoyalty',
-                            id: `${trader}_condition_${index}`,
+                            id: generateUniqueId(),
                             target: targetInput ? targetInput.value : '',
                             value: valueInput ? parseInt(valueInput.value, 10) : 0
                         };
@@ -1597,7 +1608,7 @@
                 // Objective Conditions
                 const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                     const conditionType = div.querySelector('select').value;
-                    const conditionId = `${trader}_${questNumber} obj_${index + 1}`;
+                    const conditionId = generateUniqueId();
 
                     // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
@@ -1784,7 +1795,7 @@
                 // Rewards
                 const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                     const rewardType = div.querySelector('select').value;
-                    const rewardId = `${trader}_${questNumber} reward_${index}`;
+                    const rewardId = generateUniqueId();
 
                     // Experience Reward
                     if (rewardType === 'Experience') {
@@ -1875,15 +1886,15 @@
                 let languageEntries = {};
 
                 const entries = {
-                    [`${trader}_${questNumber} name`]: questName,
-                    [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
-                    [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
-                    [`${trader}_${questNumber} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
-                    [`${trader}_${questNumber} failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
-                    [`${trader}_${questNumber} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
-                    [`${trader}_${questNumber} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
-                    [`${trader}_${questNumber} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
-                    [`${trader}_${questNumber} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
+                    [`${questNameID} name`]: questName,
+                    [`${questNameID} description`]: document.getElementById('quest-desc-lang').value,
+                    [`${questNameID} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
+                    [`${questNameID} successMessageText`]: document.getElementById('quest-success-msg-lang').value,
+                    [`${questNameID} failMessageText`]: document.getElementById('quest-fail-msg-lang').value,
+                    [`${questNameID} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
+                    [`${questNameID} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
+                    [`${questNameID} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
+                    [`${questNameID} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
                 };
 
                 for (const key in entries) {
@@ -1896,7 +1907,7 @@
                 const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
                 dynamicLangFields.forEach(input => {
                     const fieldId = input.id;
-                    languageEntries[fieldId] = input.value || '';
+                    languageEntries[fieldId] = input.value.replace(/\n/g, '\\n') || '';
                 });
 
                 // Quest Assortments
@@ -1914,14 +1925,14 @@
                         traderId: trader,
                         type: questType,
                         location: questlocation,
-                        description: `${trader}_${questNumber} description`,
-                        startedMessageText: `${trader}_${questNumber} startedMessageText`,
-                        successMessageText: `${trader}_${questNumber} successMessageText`,
-                        failMessageText: `${trader}_${questNumber} failMessageText`,
-                        acceptPlayerMessage: `${trader}_${questNumber} acceptPlayerMessage`,
-                        declinePlayerMessage: `${trader}_${questNumber} declinePlayerMessage`,
-                        completePlayerMessage: `${trader}_${questNumber} completePlayerMessage`,
-                        changeQuestMessageText: `${trader}_${questNumber} changeQuestMessageText`,
+                        description: `${questNameID} description`,
+                        startedMessageText: `${questNameID} startedMessageText`,
+                        successMessageText: `${questNameID} successMessageText`,
+                        failMessageText: `${questNameID} failMessageText`,
+                        acceptPlayerMessage: `${questNameID} acceptPlayerMessage`,
+                        declinePlayerMessage: `${questNameID} declinePlayerMessage`,
+                        completePlayerMessage: `${questNameID} completePlayerMessage`,
+                        changeQuestMessageText: `${questNameID} changeQuestMessageText`,
                         conditions: {
                             AvailableForStart: availableForStartConditions,
                             AvailableForFinish: conditions,
