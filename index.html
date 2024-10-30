@@ -58,6 +58,7 @@
                 <ul style="padding-left: 20px;">
                     <li>Fixed so the AssortmentUnlocks only show up if there are any.</li>
                     <li>Fixed so the Language Variables only show the entries that have text.</li>
+                    <li>Added Download Json Buttons for the Outputs.</li>
                 </ul>
                 <li><strong style="color: #ff7920;">29 Oct 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -273,9 +274,12 @@
         
         <section id="quest-output-section" style="display: none; position: relative;">
             <h2 style="color: #06b600;">Quest JSON Output</h2>
-            <h4>Copy this to your trader json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\quests</strong>, e.g., <strong style="color: #9b008e;">Chloe.json</strong></h4>
+            <h4 id="dynamicQuestPath">Copy this to your quest folder inside...</h4>
             <div style="position: relative;">
-                <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 40px; padding: 5px 10px; width: auto;">
+                <button id="downloadQuestButton" onclick="downloadQuest()" style="position: absolute; right: 180px; top: 35px; padding: 5px 10px; width: auto;">
+                    Download Quest as JSON
+                </button>
+                <button id="copyQuestButton" onclick="copyQuest()" style="position: absolute; right: 10px; top: 35px; padding: 5px 10px; width: auto;">
                     Copy Quest to Clipboard
                 </button>
             </div>
@@ -284,13 +288,16 @@
         
         <section id="language-output-section" style="display: none; position: relative;">
             <h3 style="color: #06b600;">Quest Language Variables</h3>
-            <h4>Copy this to your language json inside <strong style="color: #9b008e;">SPT\user\mods\Virtuals Custom Quest Loader\database\locales\en</strong>, e.g., <strong style="color: #9b008e;">ChloeLocale.json</strong></h4>
+            <h4 id="dynamicLangPath">Copy this to your language folder inside...</h4>
             <div style="position: relative;">
-                <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; width: auto;">
-                    Copy Language Variables to Clipboard
+                <button id="downloadLangButton" onclick="downloadLanguageEntries()" style="position: absolute; right: 205px; top: 15px; padding: 5px 10px; width: auto;">
+                    Download Language as JSON
                 </button>
-                <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
+                <button id="copyLangButton" onclick="copyLanguageEntries()" style="position: absolute; right: 10px; top: 15px; padding: 5px 10px; width: auto;">
+                    Copy Language to Clipboard
+                </button>
             </div>
+            <pre id="language-output" style="margin-top: 20px; padding: 10px;">Language variables will appear here...</pre>
         </section>
         
         <section id="assortments-output-section" style="display: none; position: relative;">
@@ -1237,6 +1244,24 @@
                 });
             }
 
+            function downloadQuest() {
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const questName = document.getElementById('quest-name').value.trim().replace(/\s+/g, '_') || 'quest';
+                const filename = `${questNumber}_${questName}.json`;
+
+                const outputText = `${document.getElementById('output').textContent}`;
+                const blob = new Blob([outputText], { type: "application/json" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+                URL.revokeObjectURL(link.href);
+
+                const button = document.getElementById('downloadQuestButton');
+                button.innerText = "Downloaded Quest";
+                setTimeout(() => button.innerText = "Download Quest as JSON", 3000);
+            }
+
             function copyLanguageEntries() {
                 const languageOutputText = document.getElementById('language-output').textContent;
                 navigator.clipboard.writeText(languageOutputText).then(() => {
@@ -1247,6 +1272,25 @@
                     console.error("Failed to copy language variables:", err);
                 });
             }
+
+            function downloadLanguageEntries() {
+                const questNumber = document.getElementById('quest-number').value || '0';
+                const questName = document.getElementById('quest-name').value.trim().replace(/\s+/g, '_') || 'quest';
+                const filename = `${questNumber}_${questName}_language.json`;
+
+                const languageOutputText = `${document.getElementById('language-output').textContent}`;
+                const blob = new Blob([languageOutputText], { type: "application/json" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+                URL.revokeObjectURL(link.href);
+
+                const button = document.getElementById('downloadLangButton');
+                button.innerText = "Downloaded Language";
+                setTimeout(() => button.innerText = "Download Language as JSON", 3000);
+            }
+
 
             let usefulInfoVisible = false;
 
@@ -1300,6 +1344,26 @@
 
                 const button = document.getElementById('toggleMainContentBtn');
                 button.innerText = mainContent.style.display === 'none' ? 'Show Main Content' : 'Hide Main Content';
+            }
+
+            function updateDynamicQuestPath() {
+                const traderId = document.getElementById('trader-name').value.trim() || 'TRADERID';
+                const questNumber = document.getElementById('quest-number').value.trim() || '0';
+                const questName = document.getElementById('quest-name').value.trim().replace(/\s+/g, '_') || 'quest';
+                const questFilename = `${questNumber}_${questName}.json`;
+
+                const pathText = `Copy or download this to your trader folder inside <strong style="color: #9b008e;">SPT\\user\\mods\\Virtuals Custom Quest Loader\\database\\quests\\${traderId}\\</strong>, e.g., <strong style="color: #9b008e;">${questFilename}</strong>`;
+                document.getElementById('dynamicQuestPath').innerHTML = pathText;
+            }
+
+            function updateDynamicLangPath() {
+                const traderId = document.getElementById('trader-name').value.trim() || 'TRADERID';
+                const questNumber = document.getElementById('quest-number').value.trim() || '0';
+                const questName = document.getElementById('quest-name').value.trim().replace(/\s+/g, '_') || 'quest';
+                const langFilename = `${questNumber}_${questName}_Locale.json`;
+
+                const langPathText = `Copy this to your language JSON inside <strong style="color: #9b008e;">SPT\\user\\mods\\Virtuals Custom Quest Loader\\database\\locales\\en\\${traderId}\\</strong>, e.g., <strong style="color: #9b008e;">${langFilename}</strong>`;
+                document.getElementById('dynamicLangPath').innerHTML = langPathText;
             }
 
             function populateLanguageFields() {
@@ -1534,7 +1598,7 @@
 
                     // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                        const targetItems = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
+                        const target = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
 
                         return {
                             conditionType,
@@ -1866,14 +1930,16 @@
                 };
 
                 // Output Display
-                const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2).slice(1, -1);
-                const languageEntriesContent = JSON.stringify(languageEntries, null, 2).slice(1, -1);
+                const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2);
+                const languageEntriesContent = JSON.stringify(languageEntries, null, 2);
                 const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
 
                 document.getElementById('output').textContent = questContent;
                 document.getElementById('language-output').textContent = languageEntriesContent;
                 document.getElementById('assortments-output').textContent = assortmentsContent;
 
+                updateDynamicQuestPath();
+                updateDynamicLangPath();
                 document.getElementById('quest-output-section').style.display = 'block';
                 if (languageEntriesContent.length > 0) {
                     document.getElementById('language-output-section').style.display = 'block';
