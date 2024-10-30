@@ -62,6 +62,7 @@
                     <li>Fixed the 'FindItem' and 'HandoverItem' using 'target' instead of 'targetItems' (oopsie)</li>
                     <li>Fixed the 'Quest Status' to properly generate in 'Available For Start Conditions'</li>
                     <li>Added 'Quest Location' dropdown for the quest location</li>
+                    <li>Fixed the 'Objective Items' to be in seperate fields</li>
                 </ul>
                 <li><strong style="color: #ff7920;">29 Oct 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -1600,14 +1601,16 @@
 
                     // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                        const target = Array.from(document.querySelectorAll('.target-items-container .target-item .dropdown-search')).map(input => input.dataset.selectedValue || input.value);
+                        const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
+                            .map(input => input.dataset.selectedValue || input.value)
+                            .filter(Boolean);
 
                         return {
                             conditionType,
                             id: conditionId,
                             index,
                             dynamicLocale: false,
-                            target,
+                            target: targetItems,  // Assign all selected items for this condition
                             value: parseInt(div.querySelector('input[type=number]').value, 10),
                             onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
