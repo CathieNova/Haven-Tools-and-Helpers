@@ -112,6 +112,8 @@
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Trader Name:</strong> Specify the trader who assigns the quest.</li>
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Objective Conditions:</strong> Define requirements like finding items, kills, or visits.</li>
                 <li style="margin-bottom: 15px;"><span style="color: #4db8ff;">🔹</span> <strong style="color: #06b600;">Quest Location:</strong> Select the map this quest is focused in.</li>
+                <br>
+                <li style="margin-top: 15px; font-weight: bold; color: #ffdd57;">🚁 Objectives:</li>
                 <ul style="padding-left: 30px; color: #b0b0b0;">
                     <li style="margin-top: 10px;"><strong style="color: #06b600;">Find Item:</strong> Locate specific items within a raid.
                         <ul style="padding-left: 25px; margin-top: 5px;">
@@ -218,6 +220,64 @@
                         </ul>
                     </li>
                 </ul>
+                <li style="margin-top: 15px; font-weight: bold; color: #ffdd57;">⚠️ Fail Conditions:</li>
+                <ul style="padding-left: 30px; color: #b0b0b0;">
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Level:</strong> Set a fail condition based on player level.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Compare Method:</strong> Choose ≥ or ≤ for level comparison.</li>
+                            <li><strong style="color: #ff7037;">Value:</strong> Enter the target level.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Location:</strong> Set a fail condition based on the Map, must have a secondary condition.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Locations:</strong> Select the map(s) for the condition.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Quest: </strong> Set a fail condition based on another quest.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Quest ID:</strong> Enter the quest ID to fail.</li>
+                            <li><strong style="color: #ff7037;">Status:</strong> Choose the status of the Quest ID to fail the quest, for example if you complete "Debut" it will fail this quest.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Kills: </strong> Set a fail condition based on kills.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Target:</strong> Target type (Scavs, PMCs, etc.).</li>
+                            <li><strong style="color: #ff7037;">If Scavs is selected:</strong> The Bosses can be selected, if the Bosses selected are killed it will fail the quest.</li>
+                            <li><strong style="color: #ff7037;">Kills Required:</strong> Number of kills needed, greater than or less than.</li>
+                            <li><strong style="color: #ff7037;">Distance Comparison:</strong> Set distance parameters (e.g., ≥ 50 meters).</li>
+                            <li><strong style="color: #ff7037;">Time of Day From/To:</strong> Enter time range (0-24; e.g., 6 = 6 AM).</li>
+                            <li><strong style="color: #ff7037;">Weapon Caliber:</strong> If using these weapon calibers you will fail the quest.</li>
+                            <li><strong style="color: #ff7037;">Target Body Part:</strong> Specify body part to hit that will fail the quest, if applicable.</li>
+                            <li><strong style="color: #ff7037;">Weapon Mods to include:</strong> If using these weapon mods you will fail the quest.</li>
+                            <li><strong style="color: #ff7037;">Weapon Mods to exclude:</strong> If using these weapon mods you will not fail the quest.</li>
+                            <li><strong style="color: #ff7037;">Reset on Session End:</strong> If enabled, it will reset the quest if it's failed when the player extracts.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Exit Status:</strong> Set a fail condition based on the player's exit status.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Status:</strong> Choose one or multiple statuses (e.g., Survived, Killed).</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Use Item: </strong> Set a fail condition based on using an item.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Item:</strong> Select the items that will fail the quest if used.</li>
+                            <li><strong style="color: #ff7037;">Value:</strong> The amount of the item to use(e.g., ≥ 2 items).</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Trader Standing:</strong> Set a fail condition based on the trader standing.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Standing Value:</strong> Greater than or less than the level.</li>
+                            <li><strong style="color: #ff7037;">Trader ID:</strong> The trader ID to check the standing.</li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 10px;"><strong style="color: #06b600;">Exit Status On Location:</strong> Set a fail condition based on the player's exit status on a location.
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong style="color: #ff7037;">Sub Conditions:</strong> Works the same as Exit Status and Location, it can be combined.</li>
+                            <li><strong style="color: #ff7037;">Do Not Reset If Counter Completed:</strong> If enabled, it will not reset the quest if the counter is completed.</li>
+                            <li><strong style="color: #ff7037;">One Session Only:</strong> If enabled, it will only allow the quest to be failed once per session.</li>
+                        </ul>
+                    </li>
+                </ul>
             </ul>
         </section>
         
@@ -275,6 +335,10 @@
             <h3 style="color: #06b600;">Objective Conditions</h3>
             <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
             <div id="conditions-container" class="dynamic-fields"></div>
+
+            <h3 style="color: #06b600;">Fail Conditions</h3>
+            <button onclick="addFailCondition()" style="margin-bottom: 10px;">Add Fail Condition</button>
+            <div id="fail-conditions-container" class="dynamic-fields"></div>
 
             <h3 style="color: #06b600;">Completion Rewards</h3>
             <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
@@ -681,7 +745,6 @@
                                 }
                             });
                         }
-
                 } 
                 // VisitPlace condition
                 else if (selectElement.value === 'VisitPlace') {
@@ -878,16 +941,18 @@
                 modDiv.classList.add('weapon-mod-item');
 
                 modDiv.innerHTML = `
-                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
-                    <div class="dropdown-menu">
-                        ${items.map(item => `
-                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                ${item.displayName}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
+                    <section id="weapon-mods-exclusive">
+                        <label style="color: #06b600;">Search or Enter Mod ID:</label>
+                        <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
+                    </section>
                 `;
 
                 container.appendChild(modDiv);
@@ -1008,10 +1073,39 @@
 
 
                 container.appendChild(targetDiv);
-                }
+            }
 
             function removeTargetItem(button) {
                 button.closest('.target-item').remove();
+            }
+
+            function addTargetItemFail(container = null) {
+                container = container || document.querySelector('.target-items-fail-container');
+                if (!container) {
+                    console.error("No container found for target items.");
+                    return;
+                }
+
+                const targetDiv = document.createElement('div');
+                targetDiv.classList.add('target-item-fail');
+
+                targetDiv.innerHTML = `
+                    <input type="text" class="dropdown-search-fail" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" onclick="removeTargetItemFail(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(targetDiv);
+            }
+
+            function removeTargetItemFail(button) {
+                button.closest('.target-item-fail').remove();
             }
 
             function getTplId(inputElement) {
@@ -1426,6 +1520,337 @@
                 });
             }
 
+            function addFailCondition() {
+                const container = document.getElementById('fail-conditions-container');
+                const failDiv = document.createElement('div');
+                failDiv.classList.add("fail-condition");
+
+                failDiv.innerHTML = `
+                    <section id="fail-condition">
+                        <label style="color: #06b600;">Condition Type:
+                            <select onchange="updateFailConditionFields(this)">
+                                <option value="Level">Level</option>
+                                <option value="Location">Location</option>
+                                <option value="Quest">Quest</option>
+                                <option value="Kills">Kills</option>
+                                <option value="ExitStatus">Exit Status</option>
+                                <option value="UseItem">Use Item</option>
+                                <option value="TraderStanding">Trader Standing</option>
+                                <option value="ExitStatusOnLocation">Exit Status On Location</option>
+                            </select>
+                        </label>
+                        <div class="fail-condition-details"></div>
+                        <button type="button" onclick="removeFailCondition(this)" style="margin-top: 10px;">Remove Fail Condition</button>
+                    </section>
+                `;
+
+                container.appendChild(failDiv);
+                updateFailConditionFields(failDiv.querySelector('select'));
+            }
+
+            function addSubCondition(container) {
+                const subConditionDiv = document.createElement('div');
+                subConditionDiv.classList.add('counter-subcondition');
+                
+                subConditionDiv.innerHTML = `
+                    <label style="color: #06b600;">Subcondition Type:
+                        <select class="subcondition-type-select">
+                            <option value="ExitStatus">Exit Status</option>
+                            <option value="Location">Location</option>
+                        </select>
+                    </label>
+                    <div class="subcondition-details"></div>
+                    
+                    <button type="button" class="remove-subcondition-btn" onclick="removeSubCondition(this)" style="margin-top: 10px;">
+                        Remove Subcondition
+                    </button>
+                `;
+
+                container.appendChild(subConditionDiv);
+
+                const selectElement = subConditionDiv.querySelector('.subcondition-type-select');
+                selectElement.addEventListener('change', function() {
+                    updateSubConditionFields(selectElement);
+                });
+
+                updateSubConditionFields(selectElement); // Initial update for default fields
+            }
+
+            function removeSubCondition(button) {
+                button.closest('.counter-subcondition').remove();
+            }
+
+            function updateSubConditionFields(selectElement) {
+                const subConditionType = selectElement.value;
+                const detailsDiv = selectElement.closest('.counter-subcondition').querySelector('.subcondition-details');
+                detailsDiv.innerHTML = '';
+
+                if (subConditionType === 'ExitStatus') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Exit Status:
+                            <select multiple>
+                                <option value="Killed">Killed</option>
+                                <option value="Left">Left</option>
+                                <option value="MissingInAction">Missing In Action</option>
+                                <option value="Survived">Survived</option>
+                                <option value="Runner">Runner</option>
+                            </select>
+                        </label>
+                    `;
+                } else if (subConditionType === 'Location') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Locations (select multiple):
+                            <select multiple class="location-dropdown">
+                                <option value="factory4_day">Factory Day</option>
+                                <option value="factory4_night">Factory Night</option>
+                                <option value="Interchange">Interchange</option>
+                                <option value="Shoreline">Shoreline</option>
+                                <option value="Lighthouse">Lighthouse</option>
+                                <option value="bigmap">Customs</option>
+                                <option value="Woods">Woods</option>
+                                <option value="RezervBase">Reserve</option>
+                                <option value="laboratory">The Lab</option>
+                                <option value="TarkovStreets">Streets</option>
+                            </select>
+                        </label>
+                    `;
+                }
+            }
+
+            function updateFailConditionFields(selectElement) {
+                const detailsDiv = selectElement.closest('.fail-condition').querySelector('.fail-condition-details');
+                const conditionType = selectElement.value;
+                detailsDiv.innerHTML = '';
+
+                if (conditionType === 'Level') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Compare Method:
+                            <select class="compare-method-select">
+                                <option value=">=" selected>&ge;</option>
+                                <option value="<=">&le;</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Level:
+                            <input type="number" placeholder="Enter level" required>
+                        </label>
+                    `;
+                }
+                else if (conditionType === 'Quest') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Quest ID:
+                            <input type="text" placeholder="Enter quest ID" required>
+                        </label>
+                        <label style="color: #06b600;">Quest Status:
+                            <select multiple>
+                                <option value="1">Available - 1</option>
+                                <option value="2">In Progress - 2</option>
+                                <option value="3">Finished - 3</option>
+                                <option value="4" selected>Confirmed - 4</option>
+                                <option value="5">Failed - 5</option>
+                            </select>
+                        </label>
+                    `;
+                } else if (selectElement.value === 'Location') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
+                        <select multiple class="location-dropdown">
+                            <option value="bigmap">Customs</option>
+                            <option value="Interchange">Interchange</option>
+                            <option value="factory4_day">Factory Day</option>
+                            <option value="factory4_night">Factory Night</option>
+                            <option value="Woods">Woods</option>
+                            <option value="Lighthouse">Lighthouse</option>
+                            <option value="Shoreline">Shoreline</option>
+                            <option value="RezervBase">Reserve</option>
+                            <option value="laboratory">The Lab</option>
+                            <option value="TarkovStreets">Streets</option>
+                            <option value="Sandbox">Ground Zero (PMC < 20)</option>
+                            <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
+                        </select>
+                    `;
+                } else if (selectElement.value === 'Kills') {
+                    detailsDiv.innerHTML = `
+                        <section id="kills-fail-condition">
+                            <label style="color: #06b600;">Target:
+                                <select id="target-select" required>
+                                    <option value="Savage">Scavs</option>
+                                    <option value="AnyPmc">PMCs</option>
+                                    <option value="Usec">Usec</option>
+                                    <option value="Bear">Bear</option>
+                                    <option value="Any" selected>Any</option>
+                                </select>
+                            </label>
+                            
+                            <label id="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
+                            <select id="savage-role-select" style="display:none;" multiple>
+                                <option value="">Any</option>
+                                <option value="bossKilla">Killa</option>
+                                <option value="bossTagilla">Tagilla</option>
+                                <option value="bossBully">Reshala</option>
+                                <option value="followerBully">Reshala's Bodyguards</option>
+                                <option value="bossKojaniy">Schturman</option>
+                                <option value="bossGluhar">Gluhar</option>
+                                <option value="followerGluharAssault">Gluhar Guard Assault</option>
+                                <option value="followerGluharScout">Gluhar Guard Scout</option>
+                                <option value="followerGluharSecurity">Gluhar Guard Security</option>
+                                <option value="followerGluharSnipe">Gluhar Guard Sniper</option>
+                                <option value="pmcBot">Raider</option>
+                                <option value="bossSanitar">Sanitar</option>
+                                <option value="followerSanitar">Sanitar Bodyguards</option>
+                                <option value="bossKnight">Knight</option>
+                                <option value="followerBigPipe">BigPipe</option>
+                                <option value="followerBirdEye">BirdEye</option>
+                                <option value="exUsec">Rogue</option>
+                                <option value="marksman">Sniper Scavs</option>
+                                <option value="sectantPriest">Cultist Priest</option>
+                                <option value="sectantWarrior">Cultist Warrior</option>
+                                <option value="arenaFighterEvent">Bloodhound</option>
+                            </select>
+
+                            <label style="color: #06b600;">Kills Required:
+                                <select class="compare-method-select">
+                                    <option value=">=">&ge;</option>
+                                    <option value="<=">&le;</option>
+                                </select>
+                                <input type="number" placeholder="Number of kills" required value="1">
+                            </label>
+
+                            <label style="color: #06b600;">Distance (>= 50 means more than or equal to 50m):
+                                <select class="equalto">
+                                    <option value=">=">&ge;</option>
+                                    <option value="<=">&le;</option>
+                                </select>
+                                <input class="small-number" type="number" placeholder="Distance in meters" required value="0">
+                            </label>
+
+                            <label style="color: #06b600;">Time of Day From (0-24):
+                                <input class="small-number" type="number" min="0" max="24" value="0" required>
+                            </label>
+                            <label style="color: #06b600;">Time of Day To (0-24):
+                                <input class="small-number" type="number" min="0" max="24" value="0" required>
+                            </label>
+
+                            <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
+                            <div class="weapon-caliber-container">
+                                <select multiple id="weapon-caliber-select" class="weapon-caliber-dropdown">
+                                    <option value="all">All</option>
+                                    <option value="543be6564bdc2df4348b4568">Throwable</option>
+                                    <option value="5447e1d04bdc2dff2f8b4567">Melee Weapons</option>
+                                    <option value="5447bed64bdc2d97278b4568">Machine Guns</option>
+                                    <option value="5447b6254bdc2dc3278b4568">Sniper Rifles</option>
+                                    <option value="5447b5e04bdc2d62278b4567">SMGs</option>
+                                    <option value="5447b6094bdc2dc3278b4567">Shotguns</option>
+                                    <option value="5447b5cf4bdc2d65278b4567">Pistol</option>
+                                    <option value="5447b6194bdc2d67278b4567">Marksman Rifles</option>
+                                    <option value="5447b5f14bdc2d61278b4567">Assault Rifles</option>
+                                    <option value="5447b5fc4bdc2d87278b4567">Assault Carbines</option>
+                                </select>
+                            </div>
+
+                            <label style="color: #06b600;">Target Body Part (select multiple with ctrl + click):</label>
+                            <select id="body-part-select" multiple>
+                                <option value="">Any</option>
+                                <option value="Head">Head</option>
+                                <option value="Chest">Chest</option>
+                                <option value="Stomach">Stomach</option>
+                                <option value="LeftArm">Left Arm</option>
+                                <option value="RightArm">Right Arm</option>
+                                <option value="LeftLeg">Left Leg</option>
+                                <option value="RightLeg">Right Leg</option>
+                            </select>
+
+                            <label style="color: #06b600;">Weapon Mods to Include:</label>
+                            <div id="weapon-mods-inclusive-container">
+                                <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
+                                <div class="weapon-mods-inclusive"></div>
+                            </div>
+
+                            <label style="color: #06b600;">Weapon Mods to Exclude:</label>
+                            <div id="weapon-mods-exclusive-container">
+                                <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
+                                <div class="weapon-mods-exclusive"></div>
+                            </div>
+
+                            <div style="display: flex; align-items: center; text-align: left;">
+                                <label style="display: flex; align-items: center;">
+                                    <input type="checkbox" style="margin-right: 5px;"> Reset on Session End
+                                </label>
+                            </div>
+                        </section>
+                    `;
+
+                    const targetSelect = document.getElementById('target-select');
+                    if (targetSelect) {
+                        targetSelect.addEventListener('change', function() {
+                            const savageRoleLabel = document.getElementById('savage-role-label');
+                            const savageRoleSelect = document.getElementById('savage-role-select');
+                            if (this.value === 'Savage') {
+                                savageRoleLabel.style.display = 'block';
+                                savageRoleSelect.style.display = 'block';
+                            } else {
+                                savageRoleLabel.style.display = 'none';
+                                savageRoleSelect.style.display = 'none';
+                            }
+                        });
+                    }
+                } else if (conditionType === 'ExitStatusOnLocation') {
+                    detailsDiv.innerHTML = `
+                        <div class="counter-conditions-container"></div>
+                        <button type="button" onclick="addSubCondition(document.querySelector('.counter-conditions-container'))" style="margin-top: 10px;">Add Subcondition</button>
+                        <label style="color: #06b600;">
+                            <input type="checkbox" class="reset-counter-checkbox"> Do Not Reset If Counter Completed
+                        </label>
+                        <label style="color: #06b600;">
+                            <input type="checkbox" class="one-session-only-checkbox"> One Session Only
+                        </label>
+                    `;
+                } else if (conditionType === 'ExitStatus') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Exit Status:
+                            <select multiple>
+                                <option value="Survived">Survived</option>
+                                <option value="Runner">Runner</option>
+                                <option value="Killed">Killed</option>
+                                <option value="Left">Left</option>
+                                <option value="MissingInAction">Missing In Action</option>
+                            </select>
+                        </label>
+                    `;
+                } else if (conditionType === 'UseItem') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Fail Condition Target Items:</label>
+                        <div class="target-items-fail-container"></div>
+                        <button type="button" onclick="addTargetItemFail(document.querySelector('.target-items-fail-container'))" style="margin-top: 10px; width: auto;">Add New Item</button>
+
+                        <label style="color: #06b600;">Value:
+                            <select class="compare-method-select">
+                                <option value=">=">&ge;</option>
+                                <option value="<=">&le;</option>
+                            </select>
+                            <input type="number" class="use-item-value" placeholder="Enter value" required value="1">
+                        </label>
+                    `;
+                } else if (conditionType === 'TraderStanding') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Standing Value:
+                            <select class="compare-method-select">
+                                <option value=">=">>=</option>
+                                <option value="<="><=</option>
+                            </select>
+                            <input type="number" class="standing-value-input" placeholder="Enter standing value" required>
+                        </label>
+                        
+                        <label style="color: #06b600;">Trader ID:
+                            <input type="text" class="trader-id-input" placeholder="Enter Trader ID" required>
+                        </label>
+                    `;
+                }
+            }
+
+            function removeFailCondition(button) {
+                button.closest('.fail-condition').remove();
+            }
+
             function addAvailableForStartCondition() {
                 const container = document.getElementById('available-for-start-container');
                 const conditionDiv = document.createElement('div');
@@ -1791,6 +2216,176 @@
                     return {};
                 });
 
+                const failConditions = Array.from(document.querySelectorAll('#fail-conditions-container > .fail-condition')).map((div, index) => {
+                    const conditionType = div.querySelector('select').value;
+                    const conditionId = generateUniqueId();
+
+                    if (conditionType === 'Level') {
+                        const compareSelect = div.querySelector('.compare-method-select');
+                        return {
+                            compareMethod: compareSelect ? compareSelect.value : '',
+                            conditionType: 'Level',
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            parentId: "",
+                            value: parseInt(div.querySelector('input[type="number"]').value, 10),
+                            visibilityConditions: []
+                        };
+                    } else if (conditionType === 'Location') {
+                        const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                        return {
+                            conditionType: "Location",
+                            dynamicLocale: false,
+                            id: conditionId,
+                            index: index,
+                            target: selectedLocations,
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    } else if (conditionType === 'Quest') {
+                        const statusValues = Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => parseInt(opt.value, 10));
+                        return {
+                            availableAfter: 0,
+                            conditionType: 'Quest',
+                            dispersion: 0,
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            parentId: "",
+                            status: statusValues,
+                            target: div.querySelector('input[type="text"]').value,
+                            visibilityConditions: []
+                        };
+                    } else if (conditionType === 'Kills') {
+                        const locationDropdown = div.querySelector('.location-dropdown');
+                        const targetSelect = div.querySelector('#target-select');
+                        const compareSelect = div.querySelector('.compare-method-select');
+                        const killsRequiredInput = div.querySelector('input[type="number"]');
+                        const timeFromInput = div.querySelector('input[type="number"]:nth-of-type(1)');
+                        const timeToInput = div.querySelector('input[type="number"]:nth-of-type(2)');
+                        const bodyPartSelect = div.querySelector('#body-part-select');
+                        const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
+                        const distanceComparisonSelect = div.querySelector('.distance-compare-select');
+                        const distanceValueInput = div.querySelector('.distance-value-input');
+                        const savageRoleSelect = div.querySelector('#savage-role-select');
+                        const weaponCaliberSelect = div.querySelectorAll('#weapon-caliber-select option:checked');
+                        const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
+                        const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
+                        const selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+
+                        return {
+                            conditionType: "Kills",
+                            id: conditionId,
+                            index: index,
+                            dynamicLocale: false,
+                            location: locationDropdown ? locationDropdown.value : 'any',
+                            target: targetSelect ? targetSelect.value : 'Any',
+                            compareMethod: compareSelect ? compareSelect.value : '',
+                            value: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
+                            timeOfDay: {
+                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
+                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
+                            },
+                            bodyPart: selectedBodyParts,
+                            distance: {
+                                compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
+                                value: distanceValueInput ? parseInt(distanceValueInput.value, 10) : 0
+                            },
+                            savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
+                            weaponCaliber: Array.from(weaponCaliberSelect).map(option => option.value),
+                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
+                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
+                            resetOnSessionEnd: false,  // Adjust based on your form’s reset option
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    } else if (conditionType === 'ExitStatus') {
+                        const statusValues = Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => opt.value);
+                        return {
+                            conditionType: "ExitStatus",
+                            id: conditionId,
+                            index,
+                            status: statusValues,
+                            visibilityConditions: []
+                        };
+                    } else if (conditionType === 'UseItem') {
+                        const compareMethod = div.querySelector('.compare-method-select').value;
+                        const targetItems = Array.from(div.querySelectorAll('.target-items-fail-container .target-item-fail .dropdown-search-fail'))
+                        .map(input => input.dataset.selectedValue || input.value)
+                        .filter(Boolean);
+                        
+                        const value = parseInt(div.querySelector('.use-item-value').value, 10);
+                        
+                        const useItemCondition = {
+                            compareMethod: compareMethod,
+                            conditionType: "UseItem",
+                            dynamicLocale: false,
+                            id: conditionId,
+                            target: targetItems,
+                            value: value,
+                        };
+                        
+                        conditions.push(useItemCondition);
+                    } else if (conditionType === 'TraderStanding') {
+                        return {
+                            compareMethod: div.querySelector('.compare-method-select').value,
+                            conditionType: "TraderStanding",
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            target: div.querySelector('.trader-id-input').value,
+                            value: parseInt(div.querySelector('.standing-value-input').value, 10),
+                            visibilityConditions: []
+                        };
+                    } else if (conditionType === 'ExitStatusOnLocation') {
+                        const subConditions = Array.from(div.querySelectorAll('.counter-conditions-container .counter-subcondition')).map((subDiv) => {
+                            const subConditionType = subDiv.querySelector('.subcondition-type-select').value;
+                            const subConditionId = generateUniqueId();
+
+                            if (subConditionType === 'ExitStatus') {
+                                const statusValues = Array.from(subDiv.querySelector('select[multiple]').selectedOptions).map(option => option.value);
+                                return {
+                                    conditionType: "ExitStatus",
+                                    dynamicLocale: false,
+                                    id: subConditionId,
+                                    status: statusValues
+                                };
+                            } else if (subConditionType === 'Location') {
+                                const selectedLocations = Array.from(subDiv.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                                return {
+                                    conditionType: "Location",
+                                    dynamicLocale: false,
+                                    id: subConditionId,
+                                    target: selectedLocations
+                                };
+                            }
+                        });
+
+                        return {
+                            completeInSeconds: 0,
+                            conditionType: "CounterCreator",
+                            counter: {
+                                conditions: subConditions,
+                                id: generateUniqueId()
+                            },
+                            doNotResetIfCounterCompleted: div.querySelector('.reset-counter-checkbox').checked,
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            index: index,
+                            oneSessionOnly: div.querySelector('.one-session-only-checkbox').checked,
+                            parentId: "",
+                            type: "Exploration",
+                            value: 1,
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    }
+
+                    return {};
+                });
+
                 const startedRewards = generateStartedRewards();
 
                 // Rewards
@@ -1937,7 +2532,7 @@
                         conditions: {
                             AvailableForStart: availableForStartConditions,
                             AvailableForFinish: conditions,
-                            Fail: []
+                            Fail: failConditions
                         },
                         rewards: {
                             Success: rewards,

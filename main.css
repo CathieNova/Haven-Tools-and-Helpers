@@ -309,6 +309,7 @@ a:hover {
     box-sizing: border-box;
 }
 
+.compare-method-select,
 .equalto
 {
     background-color: #333;
