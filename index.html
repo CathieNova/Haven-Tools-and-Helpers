@@ -54,6 +54,10 @@
         <section id="changelog" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <h2 style="color: #ffdd57; font-size: 1.4em; margin-bottom: 10px;"><strong>Changelog:</strong></h2>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
+                <li><strong style="color: #ff7920;">30 Oct 2024</strong></li>
+                <ul style="padding-left: 20px;">
+                    <li>Fixed so the AssortmentUnlocks only show up if there are any.</li>
+                </ul>
                 <li><strong style="color: #ff7920;">29 Oct 2024</strong></li>
                 <ul style="padding-left: 20px;">
                     <li>Initial release</li>
@@ -1863,7 +1867,9 @@
 
                 document.getElementById('quest-output-section').style.display = 'block';
                 document.getElementById('language-output-section').style.display = 'block';
-                document.getElementById('assortments-output-section').style.display = 'block';
+                if (assortments.length > 0) {
+                    document.getElementById('assortments-output-section').style.display = 'block';
+                }
             }
         </script>
     </div>
