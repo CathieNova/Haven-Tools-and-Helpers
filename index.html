@@ -228,6 +228,22 @@
             <label for="quest-number" style="color: #06b600;">Quest Number (first quest is 0)</label>
             <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
 
+            <label>Location:
+                <select id="quest-location-dropdown" class="quest-location-dropdown" required>
+                    <option value="any" selected>Any</option>
+                    <option value="55f2d3fd4bdc2d5f408b4567">Factory Day</option>
+                    <option value="59fc81d786f774390775787e">Factory Night</option>
+                    <option value="56f40101d2720b2a4d8b45d6">Customs</option>
+                    <option value="5704e3c2d2720bac5b8b4567">Woods</option>
+                    <option value="5704e4dad2720bb55b8b4567">Lighthouse</option>
+                    <option value="5704e554d2720bac5b8b456e">Shoreline</option>
+                    <option value="5704e5fad2720bc05b8b4567">Reserve</option>
+                    <option value="5714dbc024597771384a510d">Interchange</option>
+                    <option value="5b0fc42d86f7744a585f9105">The Lab</option>
+                    <option value="5714dc692459777137212e12">Streets</option>
+                    <option value="653e6760052c01c1c805532f">Ground Zero</option>
+                </select>
+            </label>
 
             <label for="quest-type" style="color: #06b600;">Quest Type:</label>
             <select id="quest-type">
@@ -544,22 +560,6 @@
                 // Kill condition
                 else if (selectElement.value === 'Kills') {
                     conditionDetails.innerHTML = `
-                        <label>Location:
-                            <select class="location-dropdown" required>
-                                <option value="any" selected>Any</option>
-                                <option value="55f2d3fd4bdc2d5f408b4567">Factory Day</option>
-                                <option value="59fc81d786f774390775787e">Factory Night</option>
-                                <option value="56f40101d2720b2a4d8b45d6">Customs</option>
-                                <option value="5704e3c2d2720bac5b8b4567">Woods</option>
-                                <option value="5704e4dad2720bb55b8b4567">Lighthouse</option>
-                                <option value="5704e554d2720bac5b8b456e">Shoreline</option>
-                                <option value="5704e5fad2720bc05b8b4567">Reserve</option>
-                                <option value="5714dbc024597771384a510d">Interchange</option>
-                                <option value="5b0fc42d86f7744a585f9105">The Lab</option>
-                                <option value="5714dc692459777137212e12">Streets</option>
-                                <option value="653e6760052c01c1c805532f">Ground Zero</option>
-                            </select>
-                        </label>
                         <label style="color: #06b600;">Target:
                             <select id="target-select" required>
                                 <option value="Savage">Scavs</option>
@@ -1528,9 +1528,6 @@
                 if (targetSelect.value === 'Savage') {
                     savageRoleLabel.style.display = 'inline';
                     savageRoleSelect.style.display = 'inline';
-                } else {
-                    savageRoleLabel.style.display = 'none';
-                    savageRoleSelect.style.display = 'none';
                 }
             }
 
@@ -1542,9 +1539,11 @@
             }
 
             function generateUniqueId() {
-                const timestamp = Math.floor(Date.now() / 1000).toString(16);
-                const randomBytes = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-                return (timestamp + randomBytes).padEnd(24, "0").slice(0, 24);
+                let randomHex = '';
+                for (let i = 0; i < 24; i++) {
+                    randomHex += Math.floor(Math.random() * 16).toString(16);
+                }
+                return randomHex;
             }
 
             function generateQuest() {
@@ -1553,6 +1552,7 @@
                 const trader = document.getElementById('trader-name').value || 'TRADERNAME';
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const questType = document.getElementById('quest-type').value;
+                const questlocation = document.getElementById('quest-location-dropdown').value;
 
                 // Start Conditions
                 const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
@@ -1910,6 +1910,7 @@
                         _id: questNameID,
                         traderId: trader,
                         type: questType,
+                        location: questlocation,
                         description: `${trader}_${questNumber} description`,
                         startedMessageText: `${trader}_${questNumber} startedMessageText`,
                         successMessageText: `${trader}_${questNumber} successMessageText`,
