@@ -222,7 +222,7 @@
             <input type="text" id="quest-name" placeholder="Enter quest name" required>
 
             <label for="trader-name" style="color: #06b600;">Quest Trader Name:</label>
-            <input type="text" id="trader-name" placeholder="Enter Trader name" required>
+            <input type="text" id="trader-name" placeholder="Enter Trader name (or mongoId)" required>
 
             <label for="quest-number" style="color: #06b600;">Quest Number (first quest is 0)</label>
             <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
@@ -248,14 +248,14 @@
             <div id="available-for-start-container" class="dynamic-fields"></div>
 
             <h3 style="color: #06b600;">Quest Start Rewards</h3>
-            <button onclick="addStartedReward()">Add Started Reward</button>
+            <button onclick="addStartedReward()">Add Start Rewards</button>
             <div id="started-rewards-container" class="dynamic-fields"></div>
 
             <h3 style="color: #06b600;">Objective Conditions</h3>
             <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
             <div id="conditions-container" class="dynamic-fields"></div>
 
-            <h3 style="color: #06b600;">Rewards</h3>
+            <h3 style="color: #06b600;">Completion Rewards</h3>
             <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
             <div id="rewards-container" class="dynamic-fields"></div>
 
