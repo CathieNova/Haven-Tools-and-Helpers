@@ -84,7 +84,6 @@
                 <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4db8ff; text-decoration: underline;">GitHub</a>
             </h3>
         </section>
-        
 
         <section id="useful-info" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <strong style="color: #ffdd57; font-size: 1.4em; display: block; margin-bottom: 10px;">📘 Useful Info:</strong>
@@ -1468,7 +1467,7 @@
                 } else if (selectElement.value === 'Quest') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Quest Status:
-                            <select>
+                            <select multiple>
                                 <option value="1">Quest Available - 1</option>
                                 <option value="2">Quest Accepted And In Progress - 2</option>
                                 <option value="3">Quest Finished, Awaiting Confirmation - 3</option>
@@ -1570,12 +1569,13 @@
                         };
                     } else if (conditionType === 'Quest') {
                         const statusOptions = div.querySelectorAll('select[multiple] option:checked');
+                        const statusValues = statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [];
                         const targetInput = div.querySelector('input[type=text]');
                         
                         return {
                             conditionType: 'Quest',
                             id: `${trader}_condition_${index}`,
-                            status: statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [],
+                            status: statusValues,
                             target: targetInput ? targetInput.value : ''
                         };
                     } else if (conditionType === 'TraderLoyalty') {
