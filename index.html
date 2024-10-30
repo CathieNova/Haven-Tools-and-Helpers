@@ -326,25 +326,35 @@
                 <option value="Multi">Multi</option>
             </select>
 
-            <h3 style="color: #06b600;">Available For Start Conditions (if applicable)</h3>
+            <section>
+            <h3 class="h3-title" style="color: #06b600;">Available For Start Conditions</h3>
             <button onclick="addAvailableForStartCondition()">Add Start Condition Requirement</button>
             <div id="available-for-start-container" class="dynamic-fields"></div>
+            </section>
 
-            <h3 style="color: #06b600;">Quest Start Rewards</h3>
+            <section>
+            <h3 class="h3-title" style="color: #06b600;">Quest Start Rewards</h3>
             <button onclick="addStartedReward()">Add Start Rewards</button>
             <div id="started-rewards-container" class="dynamic-fields"></div>
+        </section>
 
+        <section>
             <h3 style="color: #06b600;">Objective Conditions</h3>
             <button onclick="addCondition()" style="margin-bottom: 10px;">Add Quest Requirement Condition</button>
             <div id="conditions-container" class="dynamic-fields"></div>
+        </section>
 
-            <h3 style="color: #06b600;">Fail Conditions</h3>
+        <section>
+            <h3 class="h3-title" style="color: #06b600;">Fail Conditions</h3>
             <button onclick="addFailCondition()" style="margin-bottom: 10px;">Add Fail Condition</button>
             <div id="fail-conditions-container" class="dynamic-fields"></div>
+        </section>
 
+        <section>
             <h3 style="color: #06b600;">Completion Rewards</h3>
             <button onclick="addReward()" style="margin-bottom: 10px;">Add Quest Reward</button>
             <div id="rewards-container" class="dynamic-fields"></div>
+        </section>
 
             <h3 style="color: #06b600;">Quest Language Variables</h3>
             <div id="language-variables-container" style="margin-bottom: 20px;">
@@ -405,6 +415,7 @@
             let items = [];
             let languageData = {};
             let increment = 0;
+            let usefulInfoVisible = false;
 
             document.addEventListener('DOMContentLoaded', () => {
                 loadLanguage('en.json');
@@ -542,9 +553,13 @@
                     <div class="condition-details"></div>
                     <div class="visibility-conditions">
                         <h4 style="color: #06b600;">Visibility Condition</h4>
-                        <label>Objective ID: "${document.getElementById('trader-name').value || 'trader'}_${questNumber} obj_${conditionIndex - 1}"
+                        <label>Objective ID: (Add a reference and add it after generation)
                             <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
                         </label>
+                    </div>
+                    
+                    <div style="margin-top: 10px; display: inline-block;">
+                        <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 10px 20px;">Remove Condition</button>
                     </div>
                 `;
                 container.appendChild(conditionDiv);
@@ -625,9 +640,6 @@
                             <label style="display: flex; align-items: center;">
                                 <input type="checkbox" style="margin-right: 5px;"> Only Found In Raid
                             </label>
-                        </div>
-                        <div style="margin-top: 10px; display: inline-block;">
-                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                         </div>
                     `;
                 } 
@@ -728,9 +740,6 @@
                                 Reset on Session End
                             </label>
                         </div>
-                        <div style="margin-top: 10px; display: inline-block;">
-                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                        </div>
                     `;
                     
                     const targetSelect = document.getElementById('target-select');
@@ -779,9 +788,6 @@
                         <label style="color: #06b600;">Required Skill Level: (1 = 1 level, 2 = 2 levels, etc.)
                             <input type="number" class="skill-value" placeholder="Enter skill level" required>
                         </label>
-                        <div style="margin-top: 10px; display: inline-block;">
-                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                        </div>
                     `;
                 } 
                 // Equipment condition
@@ -797,10 +803,6 @@
                         <div id="equipment-exclusive-container">
                             <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
                             <div class="exclusive-items-container"></div>
-                        </div>
-                        
-                        <div style="margin-top: 10px; display: inline-block;">
-                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
                         </div>
                         
                     `;
@@ -822,9 +824,6 @@
                             <option value="Sandbox">Ground Zero (PMC < 20)</option>
                             <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
                         </select>
-                        <div style="margin-top: 10px;">
-                            <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
-                        </div>
                     `;
                 }
                 // ExitStatus condition
@@ -838,9 +837,6 @@
                             <option value="Left">Left</option>
                             <option value="MissingInAction">Missing In Action</option>
                         </select>
-                        <div style="margin-top: 10px;">
-                            <button class="remove-btn" onclick="removeCondition(this)">Remove Condition</button>
-                        </div>
                     `;
                 }
                 // InZone condition
@@ -849,9 +845,6 @@
                         <label style="color: #06b600;">Zone IDs (e.g., Woods_Sawmill, Woods_Old_Sawmill):
                             <input class="zoneid-inzone" type="text" placeholder="Enter zone IDs, separated by commas" required>
                         </label>
-                        <div style="margin-top: 10px; display: inline-block;">
-                            <button class="remove-btn" onclick="removeCondition(this)" style="width: auto; padding: 5px 10px;">Remove Condition</button>
-                        </div>
                     `;
                 }
                 // LeaveItemAtLocation condition
@@ -1372,7 +1365,7 @@
                 navigator.clipboard.writeText(languageOutputText).then(() => {
                     const button = document.getElementById('copyLangButton');
                     button.innerText = "Copied to Clipboard";
-                    setTimeout(() => button.innerText = "Copy Language Variables to Clipboard", 3000);
+                    setTimeout(() => button.innerText = "Copy Language to Clipboard", 3000);
                 }).catch(err => {
                     console.error("Failed to copy language variables:", err);
                 });
@@ -1395,9 +1388,6 @@
                 button.innerText = "Downloaded Language";
                 setTimeout(() => button.innerText = "Download Language as JSON", 3000);
             }
-
-
-            let usefulInfoVisible = false;
 
             function toggleUsefulInfo() {
                 const usefulInfoSection = document.getElementById('useful-info');
