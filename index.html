@@ -1802,7 +1802,9 @@
                     return {};
                 });
 
-                let languageEntries = {
+                let languageEntries = {};
+
+                const entries = {
                     [`${trader}_${questNumber} name`]: questName,
                     [`${trader}_${questNumber} description`]: document.getElementById('quest-desc-lang').value,
                     [`${trader}_${questNumber} startedMessageText`]: document.getElementById('quest-start-msg-lang').value,
@@ -1813,6 +1815,12 @@
                     [`${trader}_${questNumber} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
                     [`${trader}_${questNumber} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
                 };
+
+                for (const key in entries) {
+                    if (entries[key]) {
+                        languageEntries[key] = entries[key];
+                    }
+                }
 
                 const languageContainer = document.getElementById('dynamic-lang-variables-container');
                 const dynamicLangFields = languageContainer.querySelectorAll('.dynamic-lang-entry input[type="text"]');
@@ -1866,7 +1874,10 @@
                 document.getElementById('assortments-output').textContent = assortmentsContent;
 
                 document.getElementById('quest-output-section').style.display = 'block';
-                document.getElementById('language-output-section').style.display = 'block';
+                if (languageEntriesContent.length > 0) {
+                    document.getElementById('language-output-section').style.display = 'block';
+                }
+
                 if (assortments.length > 0) {
                     document.getElementById('assortments-output-section').style.display = 'block';
                 }
