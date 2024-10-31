@@ -141,3 +141,16 @@ pre {
 .mongo-id {
     color: rgb(179, 70, 70);
 }
+
+#copy-tooltip {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#copy-tooltip.show-tooltip {
+    opacity: 1;
+}
+
+.copy-icon {
+    cursor: pointer; /* Changes cursor to a hand icon on hover */
+}
