@@ -25,6 +25,10 @@
             <button id="show-all-button" onclick="showAll()" style="display: none;">Show All</button>
         </div>
         <section id="item-display" class="center-content"></section>
+
+        <div id="copy-tooltip" style="display: none; position: absolute; background-color: #333; color: #fff; padding: 5px; border-radius: 4px; font-size: 12px; pointer-events: none;">
+            Copied to Clipboard
+        </div>
     </div>
 
 
@@ -244,15 +248,40 @@
 
             // Colorize MongoDB Object IDs and append item name or item group if available
             json = json.replace(/"([a-f\d]{24})"/g, (match, id) => {
-                // Try to get the item name, then the item group, or leave blank if neither is available
                 const itemName = languageData[id] || data.find(d => d._id === id)?.displayName || '';
-                const itemGroup = !itemName && selectedFile === 'itemGroups' ? data[id] : ''; // Check itemGroups if no itemName
-                const displayName = itemName || itemGroup;
-                
-                return `<span class="mongo-id">"${id}"</span>${displayName ? ` <span class="item-name">// ${displayName}</span>` : ''}`;
+                const displayName = itemName ? ` <span class="item-name">// ${itemName}</span>` : '';
+
+                // Add a copy icon with an onclick event to copy the ID
+                return `<span class="mongo-id">"${id}"</span> <span class="copy-icon" onclick="copyToClipboard('${id}', event)">📋</span> ${displayName}`;
             });
 
             return json;
+        }
+
+        function copyToClipboard(id, event) {
+            navigator.clipboard.writeText(id).then(() => {
+                showTooltip(event);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function showTooltip(event) {
+            const tooltip = document.getElementById('copy-tooltip');
+
+            // Set the position near the cursor
+            tooltip.style.left = `${event.pageX + 10}px`;  // Offset to the right of cursor
+            tooltip.style.top = `${event.pageY + 10}px`;   // Offset below the cursor
+            tooltip.style.display = 'block';
+
+            // Add a class to fade in and out
+            tooltip.classList.add('show-tooltip');
+
+            // Hide tooltip after 1 second
+            setTimeout(() => {
+                tooltip.classList.remove('show-tooltip');
+                tooltip.style.display = 'none';
+            }, 1000);
         }
 
         document.addEventListener('click', (event) => {
@@ -261,6 +290,12 @@
 
             if (!isDropdownItem && !isSearchInput) {
                 document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+            }
+        });
+
+        document.getElementById('dynamic-search').addEventListener('focus', () => {
+            if (data.length) {
+                performSearch();
             }
         });
 
