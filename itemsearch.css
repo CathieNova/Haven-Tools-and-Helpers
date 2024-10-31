@@ -2,18 +2,28 @@ body {
     background-color: #121212;
     color: #e0e0e0;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
 .center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 1000px;
     margin: auto;
+    padding-top: 20px;
+}
+.item-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding-top: 20px;
 }
 
 #json-file-select,
@@ -56,8 +66,9 @@ body {
     border: 1px solid #444;
     background-color: #1e1e1e;
     border-radius: 8px;
-    max-width: 500px;
     width: 100%;
+    max-width: 1000px;
+    overflow-y: auto;
 }
 
 pre {
@@ -67,9 +78,47 @@ pre {
     border-radius: 8px;
     overflow: auto;
     white-space: pre-wrap;
+    text-align: left;
 }
+
 
 .name-highlight {
     color: #00ff00;
     font-weight: bold;
+}
+
+.highlight-key {
+    color: orange;
+}
+
+.key-colon {
+    color: orange;
+}
+
+.key-colon-bracket {
+    color: lightblue;
+}
+
+.key-colon-curly {
+    color: magenta;
+}
+
+.json-key {
+    color: orange;
+}
+
+.json-string {
+    color: lightgreen;
+}
+
+.json-number {
+    color: lightblue;
+}
+
+.json-boolean {
+    color: violet;
+}
+
+.mongo-id {
+    color: red;
 }
