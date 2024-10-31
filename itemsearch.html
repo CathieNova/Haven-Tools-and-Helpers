@@ -252,7 +252,7 @@
                 const displayName = itemName ? ` <span class="item-name">// ${itemName}</span>` : '';
 
                 // Add a copy icon with an onclick event to copy the ID
-                return `<span class="mongo-id">"${id}"</span> <span class="copy-icon" onclick="copyToClipboard('${id}', event)">📋</span> ${displayName}`;
+                return `<span class="mongo-id">"${id}"</span> <span class="copy-icon" onclick="copyToClipboard('${id}', event)">📋</span>`;
             });
 
             return json;
