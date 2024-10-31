@@ -23,11 +23,12 @@ body {
     width: 100%;
     max-width: 400px;
     margin: auto;
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
 .show-all-button {
-    margin-top: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
     padding: 10px;
     background-color: #333;
     color: #e0e0e0;
@@ -72,6 +73,10 @@ body {
     background-color: #444;
 }
 
+h1 {
+    margin-top: 0px;
+}
+
 #item-display {
     margin-top: 20px;
     padding: 15px;
@@ -87,15 +92,16 @@ pre {
     background-color: #1e1e1e;
     color: #e0e0e0;
     padding: 15px;
+    margin-top: 10px;
     border-radius: 8px;
     overflow: auto;
     white-space: pre-wrap;
     text-align: left;
 }
 
-
+.item-name,
 .name-highlight {
-    color: #00ff00;
+    color: #17bea8;
     font-weight: bold;
 }
 
@@ -131,6 +137,7 @@ pre {
     color: violet;
 }
 
+.tpl-id,
 .mongo-id {
     color: rgb(179, 70, 70);
 }
