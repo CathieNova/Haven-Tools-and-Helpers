@@ -120,7 +120,7 @@ pre {
 }
 
 .json-string {
-    color: lightgreen;
+    color: rgb(89, 192, 89);
 }
 
 .json-number {
@@ -132,5 +132,5 @@ pre {
 }
 
 .mongo-id {
-    color: red;
+    color: rgb(179, 70, 70);
 }
