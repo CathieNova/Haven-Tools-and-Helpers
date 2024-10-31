@@ -26,6 +26,16 @@ body {
     padding-top: 20px;
 }
 
+.show-all-button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 #json-file-select,
 #dynamic-search {
     width: 100%;
@@ -41,9 +51,11 @@ body {
     display: none;
     background-color: #333;
     color: #e0e0e0;
-    max-height: 200px;
+    max-height: 300px;
+    min-width: 500px;
     overflow-y: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
     border: 1px solid #444;
     border-radius: 5px;
     padding: 10px;
