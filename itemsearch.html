@@ -10,15 +10,12 @@
 <body>
     <div class="center-container">
         <div class="item-search-container">
-            <h1>Database:</h1>
-            <label for="json-file-select">Select JSON File:</label>
+            <h1>Haven Tarkov Database</h1>
             <select id="json-file-select" onchange="loadSelectedFile()">
                 <option value="">Select a file...</option>
-                <option value="achievements">Achievements</option>
                 <option value="handbook">Handbook</option>
                 <option value="items">Items</option>
                 <option value="quests">Quests</option>
-                <option value="repeatableQuests">Repeatable Quests</option>
                 <option value="itemGroups">Item Groups</option>
             </select>
 
@@ -35,10 +32,11 @@
         let data = [];
         let searchKey = '';
         let languageData = {};
+        selectedFile = '';
 
         async function loadSelectedFile() {
             const fileSelect = document.getElementById('json-file-select');
-            const selectedFile = fileSelect.value;
+            selectedFile = fileSelect.value;
             const searchInput = document.getElementById('dynamic-search');
             const showAllButton = document.getElementById('show-all-button');
             const itemDisplay = document.getElementById('item-display');
@@ -58,13 +56,7 @@
                 const fileData = await response.json();
 
                 switch (selectedFile) {
-                    case 'achievements':
-                        data = Array.isArray(fileData) ? fileData : [];
-                        searchKey = 'id';
-                        break;
                     case 'quests':
-                    case 'archivedQuests':
-                    case 'repeatableQuests':
                         data = Object.values(fileData).map(item => ({ displayName: item.QuestName || item._id, ...item }));
                         searchKey = 'QuestName';
                         break;
@@ -111,12 +103,20 @@
 
         function performSearch() {
             const searchTerm = document.getElementById('dynamic-search').value.toLowerCase();
-            
+
             let filteredData;
-            
+
             if (Array.isArray(data)) {
-                // For array-based data
-                filteredData = data.filter(item => (item[searchKey] || '').toLowerCase().includes(searchTerm));
+                filteredData = data.filter(item => {
+                    const matchesDisplayName = item.displayName?.toLowerCase().includes(searchTerm);
+                    const matchesId = item._id?.toLowerCase().includes(searchTerm);
+                    const matchesExactName = item._name?.toLowerCase().includes(searchTerm);
+
+                    // Create a modified item only if there's a match in _name
+                    const modifiedItem = matchesExactName ? { ...item, displayName: item._name } : item;
+
+                    return matchesDisplayName || matchesId || matchesExactName ? modifiedItem : null;
+                });
             } else {
                 // For object-based data like itemGroups
                 filteredData = Object.fromEntries(
@@ -126,32 +126,20 @@
                 );
             }
 
-            displayResults(filteredData);
-        }
-
-        function displayResults(results) {
-            const itemDisplay = document.getElementById('item-display');
-            itemDisplay.style.display = 'block';
-
-            const formattedOutput = Array.isArray(results) 
-                ? results.map(item => `<pre>${formatItemDetails(item)}</pre>`).join('')
-                : `<pre>${formatItemDetails(results)}</pre>`;
-
-            itemDisplay.innerHTML = formattedOutput;
-        }
-
-        function showAll() {
-            displayResults(data);
+            if (selectedFile === 'itemGroups') {
+                displayResults(filteredData);
+            } else {
+                populateDropdown(filteredData);
+            }
         }
 
         function populateDropdown(results) {
             const dropdownMenu = document.getElementById('dropdown-content');
 
-            // Check if results is an array before sorting
             if (Array.isArray(results)) {
                 results.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
             }
-
+            
             dropdownMenu.innerHTML = (Array.isArray(results) ? results : Object.values(results)).map(item => {
                 const id = item._id || item.id || item.Id;
                 const displayText = item.displayName || item.QuestName || item.Name || id;
@@ -165,6 +153,16 @@
             dropdownMenu.style.display = results.length ? 'block' : 'none';
         }
 
+        function displaySelectedItem(item) {
+            const itemDisplay = document.getElementById('item-display');
+            itemDisplay.style.display = 'block';
+            itemDisplay.innerHTML = `<pre>${formatItemDetails(item)}</pre>`;
+            appendNamesToMongoIds(); // Refresh links with item names
+        }
+
+        function showAll() {
+            displayResults(data);
+        }
 
         function selectDropdownItem(element) {
             const selectedItemId = element.getAttribute('data-value');
@@ -175,8 +173,58 @@
             itemDisplay.style.display = 'block';
             itemDisplay.innerHTML = selectedItem ? `<pre>${itemSelectedOutput}</pre>` : '<p>No item selected</p>';
 
+            if (selectedItem)
+                appendNamesToMongoIds();
+
             document.getElementById('dropdown-content').style.display = 'none';
         }
+
+        function appendNamesToMongoIds() {
+            const mongoIdElements = document.querySelectorAll('.mongo-id');
+            mongoIdElements.forEach(element => {
+                const id = element.textContent.replace(/"/g, ''); // Remove quotes
+                const itemName = languageData[id] || ''; // Lookup in languageData
+
+                const anchor = document.createElement('a');
+                anchor.href = `#${id}`; // Set URL with ID in the hash
+                anchor.className = 'mongo-id-link';
+                anchor.textContent = `"${id}"`;
+
+                if (itemName) {
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'item-name';
+                    nameSpan.textContent = ` // ${itemName}`;
+                    anchor.appendChild(nameSpan);
+                }
+
+                element.innerHTML = '';
+                element.appendChild(anchor);
+            });
+        }
+
+        async function handleHashChange() {
+            const id = location.hash.slice(1); // Get the ID from the URL hash (remove #)
+            if (!id) return;
+
+            const fileSelect = document.getElementById('json-file-select');
+            const options = Array.from(fileSelect.options).slice(1); // Get all options except the placeholder
+
+            for (let option of options) {
+                fileSelect.value = option.value; // Set the dropdown to the current file
+                await loadSelectedFile(); // Load the selected file data
+
+                const selectedItem = data.find(item => item._id === id || item.id === id || item.Id === id);
+                if (selectedItem) {
+                    displaySelectedItem(selectedItem);
+                    window.scrollTo({ top: 0, behavior: "instant" });
+                    document.getElementById('dropdown-content').style.display = 'none';
+                    return; // Stop searching once the item is found
+                }
+            }
+
+            console.warn(`No item or quest found with ID: ${id}`);
+        }
+
 
         function formatItemDetails(item) {
             let json = JSON.stringify(item, null, 4);
@@ -192,9 +240,17 @@
 
             // Colorize booleans
             json = json.replace(/: (true|false)(,?)/g, ': <span class="json-boolean">$1</span>$2');
+            
 
-            // Colorize MongoDB Object IDs (24-character hex strings)
-            json = json.replace(/"([a-f\d]{24})"/g, '<span class="mongo-id">"$1"</span>');
+            // Colorize MongoDB Object IDs and append item name or item group if available
+            json = json.replace(/"([a-f\d]{24})"/g, (match, id) => {
+                // Try to get the item name, then the item group, or leave blank if neither is available
+                const itemName = languageData[id] || data.find(d => d._id === id)?.displayName || '';
+                const itemGroup = !itemName && selectedFile === 'itemGroups' ? data[id] : ''; // Check itemGroups if no itemName
+                const displayName = itemName || itemGroup;
+                
+                return `<span class="mongo-id">"${id}"</span>${displayName ? ` <span class="item-name">// ${displayName}</span>` : ''}`;
+            });
 
             return json;
         }
@@ -208,8 +264,13 @@
             }
         });
 
+        window.addEventListener('load', handleHashChange);
+        window.addEventListener('hashchange', handleHashChange);
+
         window.onload = async function() {
             await loadLanguage('en.json');
+            await loadSelectedFile();
+            handleHashChange();
         };
 
         async function loadLanguage(languageFile) {
