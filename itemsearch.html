@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Search</title>
+    <title>Haven Tarkov Database</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
     <link rel="stylesheet" type="text/css" href="itemsearch.css">
 </head>
 <body>
     <div class="center-container">
         <div class="item-search-container">
-            <h1>Item Search</h1>
+            <h1>Database:</h1>
             <label for="json-file-select">Select JSON File:</label>
             <select id="json-file-select" onchange="loadSelectedFile()">
                 <option value="">Select a file...</option>
@@ -80,11 +81,11 @@
                         mapLanguageToItems();
                         break;
                     case 'itemGroups':
-                        data = Object.entries(fileData).map(([id, item]) => ({
-                            displayName: idToNameMap[id] || id,
-                            ...item
-                        }));
-                        searchKey = 'displayName';
+                        data = Object.fromEntries(
+                            Object.entries(fileData).sort((a, b) => a[1].localeCompare(b[1]))
+                        );
+                        displayResults(data);
+                        searchKey = '';
                         break;
                     default:
                         data = [];
@@ -110,14 +111,33 @@
 
         function performSearch() {
             const searchTerm = document.getElementById('dynamic-search').value.toLowerCase();
-            const filteredData = data.filter(item => (item[searchKey] || '').toLowerCase().includes(searchTerm));
-            populateDropdown(filteredData || []);
+            
+            let filteredData;
+            
+            if (Array.isArray(data)) {
+                // For array-based data
+                filteredData = data.filter(item => (item[searchKey] || '').toLowerCase().includes(searchTerm));
+            } else {
+                // For object-based data like itemGroups
+                filteredData = Object.fromEntries(
+                    Object.entries(data).filter(([key, value]) => 
+                        JSON.stringify(value).toLowerCase().includes(searchTerm)
+                    )
+                );
+            }
+
+            displayResults(filteredData);
         }
 
         function displayResults(results) {
             const itemDisplay = document.getElementById('item-display');
             itemDisplay.style.display = 'block';
-            itemDisplay.innerHTML = `<pre>${formatItemDetails(results)}</pre>`;
+
+            const formattedOutput = Array.isArray(results) 
+                ? results.map(item => `<pre>${formatItemDetails(item)}</pre>`).join('')
+                : `<pre>${formatItemDetails(results)}</pre>`;
+
+            itemDisplay.innerHTML = formattedOutput;
         }
 
         function showAll() {
@@ -125,21 +145,25 @@
         }
 
         function populateDropdown(results) {
-    const dropdownMenu = document.getElementById('dropdown-content');
-    
-    results.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+            const dropdownMenu = document.getElementById('dropdown-content');
 
-    dropdownMenu.innerHTML = results.map(item => {
-        const displayText = item.displayName || item.QuestName || item.Name || item._props?.Name || item._id || item.id || item.Id;
-        return `
-            <div class="dropdown-item" data-value="${item._id || item.id || item.Id}" onclick="selectDropdownItem(this)">
-                ${displayText}
-            </div>
-        `;
-    }).join('');
+            // Check if results is an array before sorting
+            if (Array.isArray(results)) {
+                results.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+            }
 
-    dropdownMenu.style.display = results.length ? 'block' : 'none';
-}
+            dropdownMenu.innerHTML = (Array.isArray(results) ? results : Object.values(results)).map(item => {
+                const id = item._id || item.id || item.Id;
+                const displayText = item.displayName || item.QuestName || item.Name || id;
+                return `
+                    <div class="dropdown-item" data-value="${id}" onclick="selectDropdownItem(this)">
+                        ${displayText}
+                    </div>
+                `;
+            }).join('');
+
+            dropdownMenu.style.display = results.length ? 'block' : 'none';
+        }
 
 
         function selectDropdownItem(element) {
