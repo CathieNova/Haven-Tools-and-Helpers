@@ -150,7 +150,7 @@ pre {
 #copy-tooltip.show-tooltip {
     opacity: 1;
 }
-
+.mongo-id-link,
 .copy-icon {
-    cursor: pointer; /* Changes cursor to a hand icon on hover */
+    cursor: pointer;
 }
