@@ -37,6 +37,18 @@
         let searchKey = '';
         let languageData = {};
         selectedFile = '';
+        let itemGroups = {};
+
+        async function loadItemGroups() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/database/templates/itemGroups.json');
+                if (!response.ok) throw new Error(`Error loading itemGroups.json: ${response.status}`);
+                itemGroups = await response.json();  // Remove 'const' to assign to global itemGroups
+                searchKey = '';
+            } catch (error) {
+                console.error('Failed to load itemGroups.json:', error);
+            }
+        }
 
         async function loadSelectedFile() {
             const fileSelect = document.getElementById('json-file-select');
@@ -96,13 +108,29 @@
         }
 
         function mapLanguageToItems() {
-            if (!languageData || !data.length) return;
+            if (!languageData || !Array.isArray(data)) return;
+
             data.forEach(item => {
                 const itemId = item._id;
-                const shortNameKey = `${itemId} ShortName`;
                 const nameKey = `${itemId} Name`;
-                item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props.Name;
+                const shortNameKey = `${itemId} ShortName`;
+
+                item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props?.Name || 'Unnamed Item';
             });
+
+            data.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+        }
+
+        function displayResults(results) {
+            const itemDisplay = document.getElementById('item-display');
+            itemDisplay.style.display = 'block';
+
+            const formattedOutput = Array.isArray(results)
+                ? results.map(item => `<pre>${formatItemDetails(item)}</pre>`).join('')
+                : `<pre>${formatItemDetails(results)}</pre>`;
+
+            itemDisplay.innerHTML = formattedOutput;
+            appendNamesToMongoIds(); // Refresh links with item names
         }
 
         function performSearch() {
@@ -185,10 +213,17 @@
 
         function appendNamesToMongoIds() {
             const mongoIdElements = document.querySelectorAll('.mongo-id');
+            
             mongoIdElements.forEach(element => {
-                const id = element.textContent.replace(/"/g, ''); // Remove quotes
-                const itemName = languageData[id] || ''; // Lookup in languageData
+                const id = element.textContent.replace(/"/g, ''); // Remove quotes from ID
+                const itemName = languageData[id] || ''; // Lookup item name in languageData
 
+                // Set the tooltip with the item name if available
+                if (itemName) {
+                    element.setAttribute('title', itemName); // Adds tooltip
+                }
+
+                // Add a link around the ID for hash navigation
                 const anchor = document.createElement('a');
                 anchor.href = `#${id}`; // Set URL with ID in the hash
                 anchor.className = 'mongo-id-link';
@@ -201,6 +236,7 @@
                     anchor.appendChild(nameSpan);
                 }
 
+                // Replace the original element's content with the new link and tooltip
                 element.innerHTML = '';
                 element.appendChild(anchor);
             });
@@ -229,7 +265,6 @@
             console.warn(`No item or quest found with ID: ${id}`);
         }
 
-
         function formatItemDetails(item) {
             let json = JSON.stringify(item, null, 4);
 
@@ -248,7 +283,7 @@
 
             // Colorize MongoDB Object IDs and append item name or item group if available
             json = json.replace(/"([a-f\d]{24})"/g, (match, id) => {
-                const itemName = languageData[id] || data.find(d => d._id === id)?.displayName || '';
+                const itemName = languageData[id] || (Array.isArray(data) ? data.find(d => d._id === id)?.displayName : '') || '';
                 const displayName = itemName ? ` <span class="item-name">// ${itemName}</span>` : '';
 
                 // Add a copy icon with an onclick event to copy the ID
@@ -305,6 +340,7 @@
         window.onload = async function() {
             await loadLanguage('en.json');
             await loadSelectedFile();
+            loadItemGroups();
             handleHashChange();
         };
 
