@@ -8,9 +8,16 @@
     <link rel="stylesheet" type="text/css" href="itemsearch.css">
 </head>
 <body>
+
+    <div class="header">
+        <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
+        <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
+    </div>
+
     <div class="center-container">
         <div class="item-search-container">
-            <h1>Haven Tarkov Database</h1>
+            <h1 id="main-text">Haven Tarkov Database</h1>
             <select id="json-file-select" onchange="loadSelectedFile()">
                 <option value="">Select a file...</option>
                 <option value="handbook">Handbook</option>
@@ -39,6 +46,15 @@
         selectedFile = '';
         let itemGroups = {};
 
+        function openURL(url) {
+            if (url === 'vcql')
+                window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
+            else if (url === 'questhelper')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/');
+            else if (url === 'traderassort')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+        }
+        
         async function loadItemGroups() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/database/templates/itemGroups.json');

@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="traderassort.css">
 </head>
 <body>
+    <div class="header">
+        <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
+        <button id="header-button" onclick="openURL('itemsearch')">Haven Item Database</button>
+        <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
+    </div>
+
     <div class="generator-container">
         <h1>Trader Assort Generator</h1>
 
@@ -36,6 +42,15 @@
         let languageData = {};
         let increment = 0;
 
+        function openURL(url) {
+            if (url === 'vcql')
+                window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
+            else if (url === 'itemsearch')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemsearch');
+            else if (url === assorttrader)
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+        }
+        
         async function loadItems() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');

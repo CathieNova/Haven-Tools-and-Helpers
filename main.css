@@ -10,12 +10,99 @@ body {
     margin: 0;
 }
 
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #333333;
+    color: #e0e0e0;
+    padding: 0 10px;
+    z-index: 1000;
+}
+
+#header-button {
+    background-color: #700067;
+    color: #fcfcfc;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 40%;
+}
+
+#header-button:hover {
+    background-color: #555;
+}
+
 .content-container {
     max-width: 900px;
     margin: auto;
     padding: 20px;
     background-color: rgba(18, 18, 18, 0.9);
     border-radius: 8px;
+    margin-top: 40px;
+}
+
+#top-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #333333;
+    color: #e0e0e0;
+    padding: 10px;
+    z-index: 999;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+#top-right-box {
+    border: 1px solid #444;
+    padding: 10px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    width: 90%;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+#top-right-box h3 {
+    color: #c2c2c2;
+}
+
+#top-right-box select
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+#top-right-box button {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    background-color: #700067;
+    color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+#top-right-box button:hover {
+    background-color: #555;
+    width: 90%;
 }
 
 h1, h2, h3, h4, h5 {
@@ -238,47 +325,6 @@ a {
 
 a:hover {
     color: #bbf;
-}
-
-#top-right-box {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    border: 1px solid #444;
-    padding: 10px;
-    background: #1e1e1e;
-    border-radius: 8px;
-    width: 200px;
-    color: #e0e0e0;
-}
-
-#top-right-box h3 {
-    color: #c2c2c2;
-}
-
-#top-right-box select
-{
-    background-color: #333;
-    color: #e0e0e0;
-    border: 1px solid #555;
-    padding: 8px;
-    margin-top: 5px;
-    width: 90%;
-    box-sizing: border-box;
-}
-
-#top-right-box button {
-    background-color: #700067;
-    color: #e0e0e0;
-    border: 1px solid #555;
-    margin-top: 10px;
-    width: 90%;
-    box-sizing: border-box;
-}
-
-#top-right-box button:hover {
-    background-color: #555;
-    width: 90%;
 }
 
 #language-output, #assortments-output {
