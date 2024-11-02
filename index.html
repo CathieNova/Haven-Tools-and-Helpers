@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haven VCQL Helper</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
     <div class="header">
         <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
-        <button id="header-button" onclick="openURL('itemsearch')">Haven Item Database</button>
+        <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
         <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
     </div>
         
@@ -58,8 +58,6 @@
             <h4>For more information about the mod and how to use it, visit the Mod Page on <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4db8ff; text-decoration: underline;">SPT Hub</a></h4>
             <h4 style="color: orange;">This website will update often since it's work in progress so make sure to refresh it to see changes, i have not fully tested everything with the mod but the formatting is correct as far as i've seen.</h6>
             <h4 style="color: red;">For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4db8ff; text-decoration: underline;">Github</a></h4>
-
-            <h5 style="color: #ff7920;">You can view another work in progress Database for Quests, items and Item Groups here: <a href="https://cathienova.github.io/Haven-VCQL-Helper/itemsearch" target="_blank" style="color: #4db8ff; text-decoration: underline;">Haven Tarkov Database</a></h5>
         </section>
         
         <section id="changelog" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
@@ -441,8 +439,8 @@
             function openURL(url) {
                 if (url === 'vcql')
                     window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
-                else if (url === 'itemsearch')
-                    window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemsearch');
+                else if (url === 'itemdatabase')
+                    window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
                 else if (url === 'assorttrader')
                     window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
             }

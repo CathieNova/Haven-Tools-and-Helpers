@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
     <title>Trader Assort Generator</title>
     <link rel="stylesheet" type="text/css" href="traderassort.css">
 </head>
 <body>
     <div class="header">
         <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
-        <button id="header-button" onclick="openURL('itemsearch')">Haven Item Database</button>
+        <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
         <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
     </div>
 
@@ -45,8 +46,8 @@
         function openURL(url) {
             if (url === 'vcql')
                 window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
-            else if (url === 'itemsearch')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemsearch');
+            else if (url === 'itemdatabase')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
             else if (url === assorttrader)
                 window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
         }
