@@ -16,6 +16,8 @@
             <h4>For more information about the mod and how to use it, visit the Mod Page on <a href="https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/" target="_blank" style="color: #4db8ff; text-decoration: underline;">SPT Hub</a></h4>
             <h4 style="color: orange;">This website will update often since it's work in progress so make sure to refresh it to see changes, i have not fully tested everything with the mod but the formatting is correct as far as i've seen.</h6>
             <h4 style="color: red;">For any issues or suggestions, please post them on <a href="https://github.com/CathieNova/Haven-VCQL-Helper/issues" target="_blank" style="color: #4db8ff; text-decoration: underline;">Github</a></h4>
+
+            <h5 style="color: #ff7920;">You can view another work in progress Database for Quests, items and Item Groups here: <a href="https://cathienova.github.io/Haven-VCQL-Helper/itemsearch" target="_blank" style="color: #4db8ff; text-decoration: underline;">Haven Tarkov Database</a></h5>
         </section>
         
         <div id="top-right-box" >
@@ -54,6 +56,12 @@
         <section id="changelog" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <h2 style="color: #ffdd57; font-size: 1.4em; margin-bottom: 10px;"><strong>Changelog:</strong></h2>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
+                <li><strong style="color: #ff7920;">02 Nov 2024</strong></li>
+                <ul style="padding-left: 20px;">
+                    <li>Added Quest Image Location field</li>
+                    <li>Fixed the MongoId generation for everything</li>
+                    <li>Added Trader ID Field for Trader Standing in Completion Rewards</li>
+                </ul>
                 <li><strong style="color: #ff7920;">30 Oct 2024</strong></li>
                 <ul style="padding-left: 20px;">
                     <li>Fixed so the 'AssortmentUnlocks' only show up if there are any</li>
@@ -85,8 +93,6 @@
                     <li>Add Weapon modding to Quest Start and Quest Rewards</li>
                     <li>Add Character Condition to accept quest like Usec Only, Bear Only, etc..</li>
                     <li>Add dropdown for ModInclusive and ModExclusive for vanilla EFT items for easier selection</li>
-                    <li>Change the Trader Standing to use id's instead of default to the quest giver.</li>
-                    <li>Add Image text field for the quest</li>
                     <li>Make everything more organised and pretty</li>
                 </ul>
             </ul>
@@ -297,6 +303,9 @@
 
             <label for="quest-number" style="color: #06b600;">Quest Number (first quest is 0)</label>
             <input type="number" id="quest-number" placeholder="Enter Quest Number" required value="0">
+
+            <label for="quest-image" style="color: #06b600;">Quest Image Location:</label>
+            <input type="text" id="quest-image" placeholder="/files/quest/icon/Chloe_0.png" required>
 
             <label for="quest-location-dropdown" style="color: #06b600;">Quest Location:</label>
                 <select id="quest-location-dropdown" class="quest-location-dropdown" required>
@@ -536,9 +545,11 @@
                 const conditionIndex = container.childElementCount + 1;
                 const traderId = document.getElementById('trader-name').value || 'trader';
                 const questNumber = document.getElementById('quest-number').value || '0';
-                const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
+                const objLabel = generateUniqueId();
+                conditionDiv.setAttribute('data-obj-label', objLabel);
 
                 conditionDiv.innerHTML = `
+                <h4 class="objective-title" style="color: #06b600;">Objective - (Condition ID: ${objLabel})</h4>
                     <label style="color: #06b600;">Condition Type:
                         <select onchange="updateConditionFields(this)">
                             <option value="FindItem">Find Item</option>
@@ -556,8 +567,8 @@
                     <div class="condition-details"></div>
                     <div class="visibility-conditions">
                         <h4 style="color: #06b600;">Visibility Condition</h4>
-                        <label>Objective ID: (Add a reference and add it after generation)
-                            <input type="text" class="visibility-target" placeholder="Enter Objective ID for hiding it until it's completed. (leave empty for none)">
+                        <label>Condition ID to require completed:
+                            <input type="text" class="visibility-target" placeholder="Enter Condition ID for hiding it until it's completed. (leave empty for none)">
                         </label>
                     </div>
                     
@@ -581,36 +592,33 @@
 
             function removeCondition(button) {
                 const conditionDiv = button.closest('.condition');
-                const conditionIndex = Array.from(conditionDiv.parentNode.children).indexOf(conditionDiv) + 1;
-                const traderId = document.getElementById('trader-name').value || 'trader';
-                const questNumber = document.getElementById('quest-number').value || '0';
-                const objLabel = `${traderId}_${questNumber} obj_${conditionIndex}`;
+                const objLabel = conditionDiv.getAttribute('data-obj-label');
 
+                // Remove the associated language field using the objLabel as ID
                 document.getElementById(objLabel)?.parentElement.remove();
 
+                // Remove the condition element itself
                 conditionDiv.remove();
 
                 adjustLanguageFields();
             }
             
             function adjustLanguageFields() {
-                const traderId = document.getElementById('trader-name').value || 'trader';
-                const questNumber = document.getElementById('quest-number').value || '0';
-                const conditions = document.querySelectorAll('#conditions-container > .condition');
                 const languageSection = document.getElementById('dynamic-lang-variables-container');
-                let index = 1;
+                const conditions = document.querySelectorAll('#conditions-container > .condition');
 
                 conditions.forEach(condition => {
-                    const fieldId = `${traderId}_${questNumber} obj_${index}`;
-                    const existingInput = document.getElementById(fieldId);
+                    const objLabel = condition.getAttribute('data-obj-label');
 
+                    const existingInput = document.getElementById(objLabel);
+
+                    // If the language field for this objLabel doesn’t exist, create it
                     if (!existingInput) {
-                        addLanguageField(fieldId, `Objective ${index}`);
+                        addLanguageField(objLabel, `Objective`);
                     }
-
-                    index++;
                 });
             }
+
 
             async function updateConditionFields(selectElement) {
                 if (!window.itemsLoaded) {
@@ -1279,6 +1287,9 @@
                     `;
                 } else if (selectElement.value === 'TraderStanding') {
                     rewardDetails.innerHTML = `
+                        <label style="color: #06b600;">Trader ID:
+                            <input type="text" class="trader-id-reward" placeholder="Enter Trader ID" required>
+                        </label>
                         <label style="color: #06b600;">Value:
                             <input type="text" class="reward-value" placeholder="Enter amount of Rep, 0.1, 1, 2.5, etc.."  value="0.1">
                         </label>
@@ -1486,22 +1497,20 @@
                 baseFields.forEach(field => {
                     const div = document.createElement('div');
                     div.className = 'dynamic-lang-entry';
-                    div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label><textarea id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}" style="width: 100%; resize: vertical;"></textarea>`;
-
+                    div.innerHTML = `<label style="color: #06b600;" for="${field.id}">${field.label}:</label>
+                                    <textarea id="${field.id}" placeholder="Enter ${field.label.toLowerCase()}" style="width: 100%; resize: vertical;"></textarea>`;
                     languageSection.appendChild(div);
                 });
 
-                const traderId = document.getElementById('trader-name').value || 'trader';
-                const questNumber = document.getElementById('quest-number').value || '0';
                 const conditions = document.querySelectorAll('#conditions-container > .condition');
-
-                conditions.forEach((condition, index) => {
+                conditions.forEach(condition => {
                     const conditionType = condition.querySelector('select').value;
-                    const objLabel = `${traderId}_${questNumber} Obj_${index + 1}`;
+                    const objLabel = condition.getAttribute('data-obj-label');
 
                     const div = document.createElement('div');
                     div.className = 'dynamic-lang-entry';
-                    div.innerHTML = `<label style="color: #06b600;" for="${objLabel}">${objLabel} (${conditionType}):</label><input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
+                    div.innerHTML = `<label style="color: #06b600;" for="${objLabel}">${objLabel} (${conditionType}):</label>
+                                    <input type="text" id="${objLabel}" placeholder="Enter text for ${conditionType} condition">`;
                     languageSection.appendChild(div);
                 });
 
@@ -1510,10 +1519,12 @@
                     const rewardId = `${traderId}_${questNumber} reward_${index}`;
                     const div = document.createElement('div');
                     div.className = 'dynamic-lang-entry';
-                    div.innerHTML = `<label style="color: #06b600;" for="${rewardId}">Reward ${index}:</label><input type="text" id="${rewardId}" placeholder="Enter reward text">`;
+                    div.innerHTML = `<label style="color: #06b600;" for="${rewardId}">Reward ${index}:</label>
+                                    <input type="text" id="${rewardId}" placeholder="Enter reward text">`;
                     languageSection.appendChild(div);
                 });
             }
+
 
             function addFailCondition() {
                 const container = document.getElementById('fail-conditions-container');
@@ -1968,15 +1979,12 @@
             }
 
             function generateUniqueId() {
-                const timestamp = Math.floor(Date.now() / 1000).toString(16).padStart(8, '0');
-                
-                const machineIdentifier = (Math.random() * 0xFFFFFF | 0).toString(16).padStart(6, '0');
-                const processId = (Math.random() * 0xFFFF | 0).toString(16).padStart(4, '0');
-                
-                increment = (increment + 1) & 0xFFFFFF;
-                const counter = increment.toString(16).padStart(6, '0');
+                const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
+                const objectId = timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => {
+                    return Math.floor(Math.random() * 16).toString(16);
+                }).toLowerCase();
 
-                return timestamp + machineIdentifier + processId + counter;
+                return objectId;
             }
 
             function generateQuest() {
@@ -1984,6 +1992,7 @@
                 const questNameID = generateUniqueId();
                 const trader = document.getElementById('trader-name').value || 'TRADERNAME';
                 const questNumber = document.getElementById('quest-number').value || '0';
+                const questImage = document.getElementById('quest-image').value || 'quest_image.png';
                 const questType = document.getElementById('quest-type').value;
                 const questlocation = document.getElementById('quest-location-dropdown').value;
 
@@ -2404,11 +2413,12 @@
                     else if (rewardType === 'TraderStanding') {
                         const valueInput = div.querySelector('.reward-value');
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
+                        const traderIdReward = div.querySelector('.trader-id-reward').value;
                         return {
                             value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
                             id: rewardId,
                             type: 'TraderStanding',
-                            target: trader,
+                            target: traderIdReward,
                             unknown: unknownCheckbox ? unknownCheckbox.checked : false,
                             index: index
                         };
@@ -2516,7 +2526,7 @@
                         traderId: trader,
                         type: questType,
                         location: questlocation,
-                        Image: "",
+                        image: questImage,
                         instantComplete: false,
                         isKey: false,
                         secretQuest: false,
