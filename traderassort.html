@@ -17,7 +17,6 @@
     <div class="generator-container">
         <h1>Trader Assort Generator</h1>
 
-        <!-- Item Sections -->
         <div id="item-sections"></div>
 
         <button onclick="addItem()">Add Item</button>
@@ -26,7 +25,6 @@
         <button onclick="generateJson()">Generate JSON</button>
         <button onclick="convertTo310ID()"> Convert id's to 3.10 system</button>
 
-        <!-- Display JSON output -->
         <div id="json-output-section" style="display: none; margin-top: 20px;">
             <h2>Generated JSON</h2>
             <div style="position: relative;">
@@ -113,11 +111,11 @@
             const item = {
                 _id: itemId,
                 _tpl: '',
-                stackObjectCount: 0,
+                stackObjectCount: 100,
                 unlimitedCount: false,
                 buyRestrictionMax: 0,
                 buyRestrictionCurrent: 0,
-                barterScheme: { _tpl: '', count: 0 },
+                barterScheme: [],
                 loyalLevel: 1
             };
             items.push(item);
@@ -145,14 +143,26 @@
             });
         });
 
-        function searchItems(term, index) {
+        function searchItems(term, index, fieldType = 'template', barterIndex = null) {
             const results = term
                 ? allItems.filter(item => item.displayName && item.displayName.toLowerCase().includes(term.toLowerCase()))
                 : allItems;
 
-            const dropdown = document.getElementById(`dropdown-content-${index}`);
+            let dropdownId;
+            if (fieldType === 'template') {
+                dropdownId = `dropdown-content-template-${index}`;
+            } else if (fieldType === 'barter') {
+                dropdownId = `dropdown-content-barter-${index}-${barterIndex}`;
+            }
+
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) {
+                console.error(`Dropdown with ID ${dropdownId} not found.`);
+                return;
+            }
+
             dropdown.innerHTML = results.map(item => `
-                <div class="dropdown-item" data-value="${item._id}" onclick="selectItem('${item._id}', ${index})">
+                <div class="dropdown-item" data-value="${item._id}" onclick="selectItem('${item._id}', ${index}, '${fieldType}', ${barterIndex})">
                     ${item.displayName}
                 </div>`).join('');
             dropdown.style.display = results.length ? 'block' : 'none';
@@ -177,44 +187,62 @@
             }
         }
 
-        function searchItems(term, index, fieldType) {
+        function searchItems(term, index, fieldType = 'template', barterIndex = null) {
+            // Check if input is a MongoID (24 hex characters)
+            const isMongoId = /^[a-f\d]{24}$/i.test(term);
+
+            if (isMongoId) {
+                // If it's a MongoID, directly set it without showing dropdown
+                selectItem(term, index, fieldType, barterIndex);
+                return;
+            }
+
             const results = term
                 ? allItems.filter(item => item.displayName && item.displayName.toLowerCase().includes(term.toLowerCase()))
                 : allItems;
 
-            const dropdownId = fieldType === 'template' ? `dropdown-content-template-${index}` : `dropdown-content-barter-${index}`;
-            const dropdown = document.getElementById(dropdownId);
+            let dropdownId;
+            if (fieldType === 'template') {
+                dropdownId = `dropdown-content-template-${index}`;
+            } else if (fieldType === 'barter') {
+                dropdownId = `dropdown-content-barter-${index}-${barterIndex}`;
+            }
 
+            const dropdown = document.getElementById(dropdownId);
             if (!dropdown) {
                 console.error(`Dropdown with ID ${dropdownId} not found.`);
                 return;
             }
 
             dropdown.innerHTML = results.map(item => `
-                <div class="dropdown-item" data-value="${item._id}" onclick="selectItem('${item._id}', ${index}, '${fieldType}')">
+                <div class="dropdown-item" data-value="${item._id}" onclick="selectItem('${item._id}', ${index}, '${fieldType}', ${barterIndex})">
                     ${item.displayName}
                 </div>`).join('');
             dropdown.style.display = results.length ? 'block' : 'none';
         }
 
-        function selectItem(itemId, index, fieldType) {
+        function selectItem(itemId, index, fieldType = 'template', barterIndex = null) {
             const selectedItem = allItems.find(i => i._id === itemId);
-            const inputId = fieldType === 'template' ? `item-search-${index}` : `barter-tpl-${index}`;
-            const dropdownId = fieldType === 'template' ? `dropdown-content-template-${index}` : `dropdown-content-barter-${index}`;
-            
+            let inputId, dropdownId;
+
             if (fieldType === 'template') {
                 items[index]._tpl = selectedItem._id;
                 items[index].displayName = selectedItem.displayName;
+                inputId = `item-search-${index}`;
+                dropdownId = `dropdown-content-template-${index}`;
                 document.getElementById(`item-header-${index}`).textContent = selectedItem.displayName || `Item ${index + 1}`;
             } else if (fieldType === 'barter') {
-                items[index].barterScheme._tpl = selectedItem._id;
+                items[index].barterScheme[barterIndex]._tpl = selectedItem._id;
+                items[index].barterScheme[barterIndex].displayName = selectedItem.displayName;
+                inputId = `barter-tpl-${index}-${barterIndex}`;
+                dropdownId = `dropdown-content-barter-${index}-${barterIndex}`;
             }
 
             document.getElementById(inputId).value = selectedItem.displayName;
-
             const dropdown = document.getElementById(dropdownId);
             if (dropdown) dropdown.style.display = 'none';
         }
+
 
         function updateField(index, field, value) {
             let item = items[index];
@@ -240,7 +268,10 @@
             }));
 
             const barterScheme = items.reduce((acc, item) => {
-                acc[item._id] = [{ _tpl: item.barterScheme._tpl, count: item.barterScheme.count }];
+                acc[item._id] = [item.barterScheme.map(barter => ({
+                    _tpl: barter._tpl,
+                    count: barter.count
+                }))];
                 return acc;
             }, {});
 
@@ -318,8 +349,8 @@
                 try {
                     const jsonData = JSON.parse(e.target.result);
 
-                    const barterSchemes = jsonData.barter_scheme;
-                    const loyalLevels = jsonData.loyal_level_items;
+                    const barterSchemes = jsonData.barter_scheme || {};
+                    const loyalLevels = jsonData.loyal_level_items || {};
 
                     items = jsonData.items.map(item => {
                         return {
@@ -330,11 +361,13 @@
                             unlimitedCount: item.upd.UnlimitedCount || false,
                             buyRestrictionMax: item.upd.BuyRestrictionMax || 0,
                             buyRestrictionCurrent: item.upd.BuyRestrictionCurrent || 0,
-                            barterScheme: barterSchemes[item._id] ? {
-                                _tpl: barterSchemes[item._id][0][0]._tpl,
-                                count: barterSchemes[item._id][0][0].count,
-                                displayName: getItemDisplayName(barterSchemes[item._id][0][0]._tpl)
-                            } : { _tpl: '', count: 0, displayName: '' },
+                            barterScheme: (barterSchemes[item._id] || []).map(barterArray => 
+                                barterArray.map(barter => ({ 
+                                    _tpl: barter._tpl, 
+                                    count: barter.count,
+                                    displayName: getItemDisplayName(barter._tpl)
+                                }))
+                            ).flat(),
                             loyalLevel: loyalLevels[item._id] || 1
                         };
                     });
@@ -347,9 +380,41 @@
             reader.readAsText(file);
         }
 
+
+        function addBarterItem(index) {
+            if (!items[index].barterScheme) {
+                items[index].barterScheme = [];
+            }
+            items[index].barterScheme.push({ _tpl: '', count: 1 });
+            renderItems();
+        }
+
+        function removeBarterItem(itemIndex, barterIndex) {
+            items[itemIndex].barterScheme.splice(barterIndex, 1);
+            renderItems();
+        }
+
+        function updateBarterField(itemIndex, barterIndex, field, value) {
+            items[itemIndex].barterScheme[barterIndex][field] = value;
+        }
+
         function renderItems() {
+            items.forEach((item, index) => {
+                item._tpl = document.getElementById(`item-search-${index}`)?.value || item._tpl;
+                item.stackObjectCount = parseInt(document.getElementById(`stock-${index}`)?.value) || item.stackObjectCount;
+                item.unlimitedCount = document.getElementById(`unlimited-${index}`)?.checked || item.unlimitedCount;
+                item.buyRestrictionMax = parseInt(document.getElementById(`max-purchase-${index}`)?.value) || item.buyRestrictionMax;
+                item.buyRestrictionCurrent = parseInt(document.getElementById(`buy-restriction-${index}`)?.value) || item.buyRestrictionCurrent;
+
+                item.barterScheme.forEach((barter, bIndex) => {
+                    barter._tpl = document.getElementById(`barter-tpl-${index}-${bIndex}`)?.value || barter._tpl;
+                    barter.count = parseInt(document.getElementById(`barter-count-${index}-${bIndex}`)?.value) || barter.count;
+                });
+            });
+
             const sections = document.getElementById('item-sections');
             sections.innerHTML = '';
+
             items.forEach((item, index) => {
                 const itemName = item.displayName || `Item ${index + 1}`;
                 sections.innerHTML += `
@@ -367,8 +432,8 @@
                                     <label for="item-search-${index}">Item</label>
                                     <div class="dropdown-container">
                                         <input type="text" class="item-input" id="item-search-${index}" 
-                                            placeholder="Search for an item..." oninput="searchItems(this.value, ${index}, 'template')" 
-                                            value="${item.displayName || ''}">
+                                            placeholder="Search for name or ID, manual ids work too" oninput="searchItems(this.value, ${index}, 'template')" 
+                                            value="${item._tpl}">
                                         <div id="dropdown-content-template-${index}" class="dropdown-menu"></div>
                                     </div>
                                 </div>
@@ -405,23 +470,28 @@
                         <!-- Barter Scheme Section -->
                         <div class="section">
                             <h4>Barter Scheme</h4>
-                            <div class="section-grid">
-                                <div class="section-group">
-                                    <label for="barter-tpl-${index}">Item</label>
-                                    <div class="dropdown-container">
-                                        <input type="text" class="item-input" id="barter-tpl-${index}" 
-                                            placeholder="Search for an item..." oninput="searchItems(this.value, ${index}, 'barter')" 
-                                            value="${item.barterScheme.displayName || item.barterScheme._tpl}">
-                                        <div id="dropdown-content-barter-${index}" class="dropdown-menu"></div>
+                            <button onclick="addBarterItem(${index})">Add Barter Item</button>
+                            ${item.barterScheme.map((barter, bIndex) => `
+                                <div class="section-grid barter-item">
+                                    <div class="section-group">
+                                        <label for="barter-tpl-${index}-${bIndex}">Item</label>
+                                        <div class="dropdown-container">
+                                            <input type="text" class="item-input" id="barter-tpl-${index}-${bIndex}" 
+                                                placeholder="Search for name or ID, manual ids work too" 
+                                                oninput="searchItems(this.value, ${index}, 'barter', ${bIndex})" 
+                                                value="${barter._tpl}">
+                                            <div id="dropdown-content-barter-${index}-${bIndex}" class="dropdown-menu"></div>
+                                        </div>
                                     </div>
+                                    <div class="section-group">
+                                        <label for="barter-count-${index}-${bIndex}">Count</label>
+                                        <input type="number" id="barter-count-${index}-${bIndex}" 
+                                            value="${barter.count || 1}" 
+                                            oninput="updateBarterField(${index}, ${bIndex}, 'count', parseInt(this.value))">
+                                    </div>
+                                    <button onclick="removeBarterItem(${index}, ${bIndex})">Remove</button>
                                 </div>
-                                <div class="section-group">
-                                    <label for="barter-cost-${index}">Cost Amount</label>
-                                    <input type="number" id="barter-cost-${index}" placeholder="Cost Amount" 
-                                        value="${item.barterScheme.count || 0}"
-                                        onchange="updateField(${index}, 'barterScheme.count', parseInt(this.value))">
-                                </div>
-                            </div>
+                            `).join('')}
                         </div>
 
                         <!-- Loyalty Level Section -->
