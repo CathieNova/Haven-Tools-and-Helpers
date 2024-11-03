@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
+    <title>Slot Generator</title>
+    <link rel="stylesheet" type="text/css" href="modslots.css">
+</head>
+<body>
+    <div class="header">
+        <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
+        <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
+        <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
+    </div>
+
+    <div class="generator-container">
+        <h1>Slot Generator</h1>
+        
+        <div id="slot-sections" class="slots-section-border"></div>
+        
+        <button onclick="addSlot()">Add New Slot</button>
+        <button onclick="generateJsonSlots()">Generate Slots JSON</button>
+
+        <div id="json-output-section-slots" style="display: none; margin-top: 20px;">
+            <h2>Generated Slots JSON</h2>
+            <button onclick="downloadJsonSlots()">Download JSON</button>
+            <button onclick="copySlotsText()">Copy to Clipboard</button>
+            <pre id="output-slots"></pre>
+        </div>
+    </div>
+
+    <script>
+        let slots = [];
+        let slotIncrement = 0;
+        let allItems = [];
+        let languageData = {};
+
+        async function loadItems() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');
+                const itemData = await response.json();
+                allItems = Object.values(itemData).filter(item => item._id && item._props);
+                mapLanguageToItems();
+            } catch (error) {
+                console.error("Failed to load items:", error);
+            }
+        }
+
+        async function loadLanguage() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/lang/en.json');
+                if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
+                languageData = await response.json();
+                mapLanguageToItems();
+            } catch (error) {
+                console.error("Failed to load language:", error);
+            }
+        }
+
+        function mapLanguageToItems() {
+            if (!languageData || !allItems) return;
+            allItems.forEach(item => {
+                const itemId = item._id;
+                const shortNameKey = `${itemId} ShortName`;
+                const nameKey = `${itemId} Name`;
+                item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props.Name;
+            });
+            allItems.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+        }
+
+        function generateUniqueId() {
+            const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
+            return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => Math.floor(Math.random() * 16).toString(16)).toLowerCase();
+        }
+
+        function openURL(url) {
+            if (url === 'vcql')
+                window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
+            else if (url === 'itemdatabase')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
+            else if (url === 'questhelper')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+        }
+
+        function addSlot() {
+            const slotId = generateUniqueId();
+            const slot = {
+                _name: `mod_mount_${String(slotIncrement).padStart(3, '0')}`,
+                _id: slotId,
+                _parent: '',
+                _props: {
+                    filters: [
+                        {
+                            Shift: 0,
+                            Filter: []
+                        }
+                    ]
+                },
+                _required: false,
+                _mergeSlotWithChildren: false,
+                _proto: "6727519c89db2a08630208a7"
+            };
+            slots.push(slot);
+            slotIncrement++;
+            renderSlots();
+        }
+
+        function renderSlots() {
+            const slotSections = document.getElementById('slot-sections');
+            slotSections.style.display = slots.length ? 'block' : 'none';
+            slotSections.innerHTML = '';
+            slots.forEach((slot, index) => {
+                slotSections.innerHTML += `
+                    <section class="slot-section">
+                        <h3>Slot: ${slot._name}</h3>
+                        <div class="section-group">
+                            <label for="slot-parent-${index}">Parent ID</label>
+                            <input type="text" id="slot-parent-${index}" 
+                                placeholder="Enter Parent ID" 
+                                value="${slot._parent}" 
+                                onchange="updateSlotField(${index}, '_parent', this.value)">
+                        </div>
+                        
+                        <div class="section-group">
+                            <label for="slot-filter-${index}">Filter Item</label>
+                            <div class="dropdown-container">
+                                <input type="text" class="item-input" id="slot-filter-${index}" 
+                                    placeholder="Search for an item..." oninput="searchFilterItems(this.value, ${index})">
+                                <div id="dropdown-content-filter-${index}" class="dropdown-menu"></div>
+                            </div>
+                        </div>
+                        <div class="section-header">
+                            <button class="remove-button" onclick="removeSlot(${index})">Remove Slot</button>
+                        </div>
+                    </section>
+                `;
+            });
+        }
+
+        function searchFilterItems(term, index) {
+            const results = term
+                ? allItems.filter(item => item.displayName && item.displayName.toLowerCase().includes(term.toLowerCase()))
+                : allItems;
+
+            const dropdown = document.getElementById(`dropdown-content-filter-${index}`);
+            dropdown.innerHTML = results.map(item => `
+                <div class="dropdown-item" data-value="${item._id}" onclick="selectFilterItem('${item._id}', ${index})">
+                    ${item.displayName}
+                </div>`).join('');
+            dropdown.style.display = results.length ? 'block' : 'none';
+        }
+
+        function selectFilterItem(itemId, index) {
+            const selectedItem = allItems.find(item => item._id === itemId);
+
+            if (selectedItem && selectedItem.displayName) {
+                document.getElementById(`slot-filter-${index}`).value = selectedItem.displayName;
+
+                slots[index]._props.filters[0].Filter.push(itemId);
+
+                document.getElementById(`dropdown-content-filter-${index}`).style.display = 'none';
+            }
+        }
+
+        function updateSlotField(index, field, value) {
+            slots[index][field] = value;
+        }
+
+        function generateJsonSlots() {
+            document.getElementById('output-slots').textContent = JSON.stringify({ Slots: slots }, null, 2);
+            document.getElementById('json-output-section-slots').style.display = 'block';
+        }
+
+        function copySlotsText() {
+            navigator.clipboard.writeText(document.getElementById('output-slots').textContent).then(() => {
+                alert("Copied to Clipboard");
+            });
+        }
+
+        function downloadJsonSlots() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('output-slots').textContent);
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "slots.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function removeSlot(index) {
+            slots.splice(index, 1);
+            renderSlots();
+        }
+
+        window.onload = async function() {
+            await loadLanguage();
+            await loadItems();
+        };
+    </script>
+</body>
+</html>
