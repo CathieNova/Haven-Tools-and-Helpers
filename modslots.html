@@ -84,6 +84,7 @@
         }
 
         function addSlot() {
+            // Add a new slot with default values
             const slotId = generateUniqueId();
             const slot = {
                 _name: `mod_mount_${String(slotIncrement).padStart(3, '0')}`,
@@ -106,10 +107,54 @@
             renderSlots();
         }
 
+        function preserveSlotValues() {
+            slots.forEach((slot, index) => {
+                const parentInput = document.getElementById(`slot-parent-${index}`);
+                if (parentInput) {
+                    slot._parent = parentInput.value;
+                }
+
+                const filterInput = document.getElementById(`slot-filter-${index}`);
+                if (filterInput) {
+                    const filterValue = filterInput.value.trim();
+
+                    // Check if the input matches an item in allItems
+                    const matchingItem = allItems.find(item => item._id === filterValue);
+
+                    if (matchingItem) {
+                        // If found, show the display name for user feedback
+                        filterInput.value = matchingItem.displayName;
+
+                        // Add only the Mongo ID to the Filter array
+                        if (!slot._props.filters[0].Filter.includes(matchingItem._id)) {
+                            slot._props.filters[0].Filter.push(matchingItem._id);
+                        }
+                    } else {
+                        // If not found in allItems, treat it as a manual Mongo ID
+                        const isMongoId = /^[a-f0-9]{24}$/.test(filterValue);
+
+                        if (isMongoId && !slot._props.filters[0].Filter.includes(filterValue)) {
+                            slot._props.filters[0].Filter.push(filterValue);
+                        }
+                    }
+                }
+            });
+        }
+
         function renderSlots() {
+            preserveSlotValues();
+
             const slotSections = document.getElementById('slot-sections');
-            slotSections.style.display = slots.length ? 'block' : 'none';
+
+            if (slots.length > 0) {
+                slotSections.style.display = 'block';
+            } else {
+                slotSections.style.display = 'none';
+            }
+
             slotSections.innerHTML = '';
+
+            // Render each slot with preserved values
             slots.forEach((slot, index) => {
                 slotSections.innerHTML += `
                     <section class="slot-section">
@@ -126,7 +171,9 @@
                             <label for="slot-filter-${index}">Filter Item</label>
                             <div class="dropdown-container">
                                 <input type="text" class="item-input" id="slot-filter-${index}" 
-                                    placeholder="Search for an item..." oninput="searchFilterItems(this.value, ${index})">
+                                    placeholder="Search for an item..." 
+                                    value="${slot._props.filters[0].Filter[slot._props.filters[0].Filter.length - 1] || ''}"
+                                    oninput="searchFilterItems(this.value, ${index})">
                                 <div id="dropdown-content-filter-${index}" class="dropdown-menu"></div>
                             </div>
                         </div>
