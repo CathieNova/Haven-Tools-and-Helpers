@@ -222,8 +222,10 @@
             itemDisplay.innerHTML = selectedItem ? `<pre>${itemSelectedOutput}</pre>` : '<p>No item selected</p>';
 
             if (selectedItem)
+            {
                 appendNamesToMongoIds();
-
+            }
+                
             document.getElementById('dropdown-content').style.display = 'none';
         }
 
@@ -252,29 +254,28 @@
                     anchor.appendChild(nameSpan);
                 }
 
-                // Replace the original element's content with the new link and tooltip
                 element.innerHTML = '';
                 element.appendChild(anchor);
             });
         }
 
         async function handleHashChange() {
-            const id = location.hash.slice(1); // Get the ID from the URL hash (remove #)
+            const id = location.hash.slice(1);
             if (!id) return;
 
             const fileSelect = document.getElementById('json-file-select');
-            const options = Array.from(fileSelect.options).slice(1); // Get all options except the placeholder
+            const options = Array.from(fileSelect.options).slice(1);
 
             for (let option of options) {
-                fileSelect.value = option.value; // Set the dropdown to the current file
-                await loadSelectedFile(); // Load the selected file data
+                fileSelect.value = option.value;
+                await loadSelectedFile();
 
                 const selectedItem = data.find(item => item._id === id || item.id === id || item.Id === id);
                 if (selectedItem) {
                     displaySelectedItem(selectedItem);
                     window.scrollTo({ top: 0, behavior: "instant" });
                     document.getElementById('dropdown-content').style.display = 'none';
-                    return; // Stop searching once the item is found
+                    return;
                 }
             }
 
@@ -321,8 +322,8 @@
             const tooltip = document.getElementById('copy-tooltip');
 
             // Set the position near the cursor
-            tooltip.style.left = `${event.pageX + 10}px`;  // Offset to the right of cursor
-            tooltip.style.top = `${event.pageY + 10}px`;   // Offset below the cursor
+            tooltip.style.left = `${event.pageX + 10}px`;
+            tooltip.style.top = `${event.pageY + 10}px`;
             tooltip.style.display = 'block';
 
             // Add a class to fade in and out
