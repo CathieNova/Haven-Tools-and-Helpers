@@ -63,6 +63,11 @@
         <section id="changelog" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <h2 style="color: #ffdd57; font-size: 1.4em; margin-bottom: 10px;"><strong>Changelog:</strong></h2>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
+                <li><strong style="color: #ff7920;">09 Nov 2024</strong></li>
+                <ul style="padding-left: 20px;">
+                    <li>Fixed the 'side' to be 'Pmc' instead of 'any'</li>
+                    <li>Fixed the ID's of the quests to match Lang and Objectives properly</li>
+                </ul>
                 <li><strong style="color: #ff7920;">02 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
                     <li>Added Quest Image Location field</li>
@@ -610,10 +615,7 @@
                 const conditionDiv = button.closest('.condition');
                 const objLabel = conditionDiv.getAttribute('data-obj-label');
 
-                // Remove the associated language field using the objLabel as ID
                 document.getElementById(objLabel)?.parentElement.remove();
-
-                // Remove the condition element itself
                 conditionDiv.remove();
 
                 adjustLanguageFields();
@@ -628,7 +630,6 @@
 
                     const existingInput = document.getElementById(objLabel);
 
-                    // If the language field for this objLabel doesn’t exist, create it
                     if (!existingInput) {
                         addLanguageField(objLabel, `Objective`);
                     }
@@ -1547,6 +1548,10 @@
                 const failDiv = document.createElement('div');
                 failDiv.classList.add("fail-condition");
 
+                const failIndex = container.childElementCount;
+                const failLabel = generateUniqueId();
+                failDiv.setAttribute('data-obj-label', failLabel);
+
                 failDiv.innerHTML = `
                     <section id="fail-condition">
                         <label style="color: #06b600;">Condition Type:
@@ -1595,7 +1600,7 @@
                     updateSubConditionFields(selectElement);
                 });
 
-                updateSubConditionFields(selectElement); // Initial update for default fields
+                updateSubConditionFields(selectElement);
             }
 
             function removeSubCondition(button) {
@@ -1878,6 +1883,10 @@
                 const conditionDiv = document.createElement('div');
                 conditionDiv.classList.add("condition");
 
+                const conditionIndex = container.childElementCount;
+                const objLabel = generateUniqueId();
+                conditionDiv.setAttribute('data-obj-label', objLabel);
+
                 conditionDiv.innerHTML = `
                     <label style="color: #06b600;">Condition Type:
                         <select onchange="updateAvailableForStartFields(this)">
@@ -2010,494 +2019,58 @@
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const questImage = document.getElementById('quest-image').value || 'quest_image.png';
                 const questType = document.getElementById('quest-type').value;
-                const questlocation = document.getElementById('quest-location-dropdown').value;
+                const questLocation = document.getElementById('quest-location-dropdown').value;
 
-                // Start Conditions
                 const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
+                    const conditionId = div.getAttribute('data-obj-label');
                     const conditionType = div.querySelector('select').value;
-                    
-                    if (conditionType === 'Level') {
-                        const compareSelect = div.querySelector('select:nth-of-type(2)');
-                        const levelInput = div.querySelector('input[type=number]');
-                        
-                        return {
-                            compareMethod: compareSelect ? compareSelect.value : '',
-                            conditionType: 'Level',
-                            id: generateUniqueId(),
-                            value: levelInput ? parseInt(levelInput.value, 10) : 0
-                        };
-                    } else if (conditionType === 'Quest') {
-                        const statusOptions = div.querySelectorAll('select[multiple] option:checked');
-                        const statusValues = statusOptions.length > 0 ? Array.from(statusOptions).map(opt => parseInt(opt.value, 10)) : [];
-                        const targetInput = div.querySelector('input[type=text]');
-                        
-                        return {
-                            conditionType: 'Quest',
-                            id: generateUniqueId(),
-                            status: statusValues,
-                            target: targetInput ? targetInput.value : ''
-                        };
-                    } else if (conditionType === 'TraderLoyalty') {
-                        const targetInput = div.querySelector('input[type=text]');
-                        const valueInput = div.querySelector('input[type=number]');
-                        
-                        return {
-                            conditionType: 'TraderLoyalty',
-                            id: generateUniqueId(),
-                            target: targetInput ? targetInput.value : '',
-                            value: valueInput ? parseInt(valueInput.value, 10) : 0
-                        };
-                    }
-                    return {};
+                    const compareMethod = div.querySelector('select:nth-of-type(2)')?.value || '';
+                    const value = parseInt(div.querySelector('input[type=number]').value, 10) || 0;
+                    const status = Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => parseInt(opt.value, 10)) || [];
+                    const target = div.querySelector('input[type=text]')?.value || '';
+                    return { compareMethod, conditionType, id: conditionId, index, status, target, value };
                 });
 
-                // Objective Conditions
                 const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
+                    const conditionId = div.getAttribute('data-obj-label');
                     const conditionType = div.querySelector('select').value;
-                    const conditionId = generateUniqueId();
-
-                    // FindItem or HandoverItem Condition
-                    if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
-                        const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
-                            .map(input => input.dataset.selectedValue || input.value)
-                            .filter(Boolean);
-
-                        return {
-                            conditionType,
-                            id: conditionId,
-                            index,
-                            dynamicLocale: false,
-                            target: targetItems,  // Assign all selected items for this condition
-                            value: parseInt(div.querySelector('input[type=number]').value, 10),
-                            onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // Kill Condition
-                    else if (conditionType === 'Kills') {
-                        const locationDropdown = div.querySelector('.location-dropdown');
-                        const targetSelect = div.querySelector('#target-select');
-                        const killsRequiredInput = div.querySelector('input[type=number]');
-                        const timeFromInput = div.querySelector('input[type=number]:nth-of-type(1)');
-                        const timeToInput = div.querySelector('input[type=number]:nth-of-type(2)');
-                        const bodyPartSelect = div.querySelector('#body-part-select');
-                        const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
-                        const savageRoleSelect = document.getElementById('savage-role-select');
-                        const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
-                        const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
-
-                        let selectedSavageRoles = [];
-                        if (targetSelect && targetSelect.value === 'Savage') {
-                            selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
-                        }
-
-                        return {
-                            conditionType: "Kills",
-                            id: conditionId,
-                            index: index,
-                            dynamicLocale: false,
-                            location: locationDropdown ? locationDropdown.value : 'any',
-                            target: targetSelect ? targetSelect.value : 'Any',
-                            killsRequired: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
-                            timeOfDay: {
-                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
-                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
-                            },
-                            bodyPart: bodyPartSelect && bodyPartSelect.value ? [bodyPartSelect.value] : [],
-                            savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
-                            weaponCaliber: selectedWeaponCalibers,
-                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
-                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // VisitPlace Condition
-                    else if (conditionType === 'VisitPlace') {
-                        return {
-                            completeInSeconds: 0,
-                            conditionType: 'CounterCreator',
-                            counter: {
-                                conditions: [
-                                    {
-                                        conditionType: "VisitPlace",
-                                        dynamicLocale: false,
-                                        id: conditionId,
-                                        target: div.querySelector('.visit-place-target').value
-                                    }
-                                ],
-                                id: `${conditionId}_counter`
-                            },
-                            doNotResetIfCounterCompleted: false,
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            oneSessionOnly: div.querySelector('.visit-place-one-session-only').checked,
-                            parentId: "",
-                            type: "Exploration",
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // Skill Condition
-                    else if (conditionType === 'Skill') {
-                        const compareSelect = div.querySelector('select:nth-of-type(1)');
-                        return {
-                            compareMethod: compareSelect ? compareSelect.value : '',
-                            conditionType: "Skill",
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            parentId: "",
-                            target: div.querySelector('.skill-target').value,
-                            value: parseInt(div.querySelector('.skill-value').value, 10),
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // Equipment Condition
-                    else if (conditionType === 'Equipment') {
-                        const inclusiveItems = Array.from(div.querySelectorAll('.inclusive-items-container .dropdown-search'))
-                            .map(input => getTplId(input));
-                        const exclusiveItems = Array.from(div.querySelectorAll('.exclusive-items-container .dropdown-search'))
-                            .map(input => getTplId(input));
-
-                        return {
-                            includeNotEquippedItems: false,
-                            conditionType: "Equipment",
-                            index: index,
-                            dynamicLocale: false,
-                            equipmentExclusive: exclusiveItems,
-                            equipmentInclusive: inclusiveItems,
-                            id: conditionId,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-
-                    // Location Condition
-                    else if (conditionType === 'Location') {
-                        const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
-                        return {
-                            conditionType: "Location",
-                            dynamicLocale: false,
-                            id: conditionId,
-                            index: index,
-                            target: selectedLocations,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-
-                    // ExitStatus Condition
-                    else if (conditionType === 'ExitStatus') {
-                        const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
-                        return {
-                            conditionType: "ExitStatus",
-                            dynamicLocale: false,
-                            id: conditionId,
-                            index: index,
-                            status: selectedStatuses,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // InZone Condition
-                    else if (conditionType === 'InZone') {
-                        const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
-                        return {
-                            conditionType: "InZone",
-                            dynamicLocale: false,
-                            id: conditionId,
-                            index: index,
-                            zoneIds: zoneIds,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-                    // LeaveItemAtLocation Condition
-                    else if (conditionType === 'LeaveItemAtLocation') {
-                        const items = Array.from(div.querySelectorAll('.target-item .dropdown-search')).map(input => getTplId(input));
-
-                        return {
-                            conditionType: "LeaveItemAtLocation",
-                            dogtagLevel: parseInt(div.querySelector('input[placeholder="Enter required dogtag level"]').value, 10),
-                            id: conditionId,
-                            index: index,
-                            isEncoded: false,
-                            maxDurability: parseInt(div.querySelector('input[placeholder="Enter maximum item durability"]').value, 10),
-                            minDurability: parseInt(div.querySelector('input[placeholder="Enter minimum item durability"]').value, 10),
-                            onlyFoundInRaid: div.querySelector('input[type="checkbox"]').checked,
-                            parentId: "",
-                            plantTime: parseInt(div.querySelector('input[placeholder="Enter plant time in seconds"]').value, 10),
-                            target: items,
-                            value: parseInt(div.querySelector('input[placeholder="Enter quantity of item to plant"]').value, 10),
-                            visibilityConditions: generateVisibilityConditions(div, conditionId),
-                            zoneId: div.querySelector('input[placeholder="Enter zone ID (e.g., Saving_The_Mole)"]').value.trim(),
-                            dynamicLocale: false
-                        };
-                    }
-
-                    return {};
-                });
-
-                const failConditions = Array.from(document.querySelectorAll('#fail-conditions-container > .fail-condition')).map((div, index) => {
-                    const conditionType = div.querySelector('select').value;
-                    const conditionId = generateUniqueId();
-
-                    if (conditionType === 'Level') {
-                        const compareSelect = div.querySelector('.compare-method-select');
-                        return {
-                            compareMethod: compareSelect ? compareSelect.value : '',
-                            conditionType: 'Level',
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            parentId: "",
-                            value: parseInt(div.querySelector('input[type="number"]').value, 10),
-                            visibilityConditions: []
-                        };
-                    } else if (conditionType === 'Location') {
-                        const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
-                        return {
-                            conditionType: "Location",
-                            dynamicLocale: false,
-                            id: conditionId,
-                            index: index,
-                            target: selectedLocations,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    } else if (conditionType === 'Quest') {
-                        const statusValues = Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => parseInt(opt.value, 10));
-                        return {
-                            availableAfter: 0,
-                            conditionType: 'Quest',
-                            dispersion: 0,
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            parentId: "",
-                            status: statusValues,
-                            target: div.querySelector('input[type="text"]').value,
-                            visibilityConditions: []
-                        };
-                    } else if (conditionType === 'Kills') {
-                        const locationDropdown = div.querySelector('.location-dropdown');
-                        const targetSelect = div.querySelector('#target-select');
-                        const compareSelect = div.querySelector('.compare-method-select');
-                        const killsRequiredInput = div.querySelector('input[type="number"]');
-                        const timeFromInput = div.querySelector('input[type="number"]:nth-of-type(1)');
-                        const timeToInput = div.querySelector('input[type="number"]:nth-of-type(2)');
-                        const bodyPartSelect = div.querySelector('#body-part-select');
-                        const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
-                        const distanceComparisonSelect = div.querySelector('.distance-compare-select');
-                        const distanceValueInput = div.querySelector('.distance-value-input');
-                        const savageRoleSelect = div.querySelector('#savage-role-select');
-                        const weaponCaliberSelect = div.querySelectorAll('#weapon-caliber-select option:checked');
-                        const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
-                        const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
-                        const selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
-
-                        return {
-                            conditionType: "Kills",
-                            id: conditionId,
-                            index: index,
-                            dynamicLocale: false,
-                            location: locationDropdown ? locationDropdown.value : 'any',
-                            target: targetSelect ? targetSelect.value : 'Any',
-                            compareMethod: compareSelect ? compareSelect.value : '',
-                            value: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
-                            timeOfDay: {
-                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
-                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
-                            },
-                            bodyPart: selectedBodyParts,
-                            distance: {
-                                compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
-                                value: distanceValueInput ? parseInt(distanceValueInput.value, 10) : 0
-                            },
-                            savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
-                            weaponCaliber: Array.from(weaponCaliberSelect).map(option => option.value),
-                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
-                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
-                            resetOnSessionEnd: false,  // Adjust based on your form’s reset option
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    } else if (conditionType === 'ExitStatus') {
-                        const statusValues = Array.from(div.querySelectorAll('select[multiple] option:checked')).map(opt => opt.value);
-                        return {
-                            conditionType: "ExitStatus",
-                            id: conditionId,
-                            index,
-                            status: statusValues,
-                            visibilityConditions: []
-                        };
-                    } else if (conditionType === 'UseItem') {
-                        const compareMethod = div.querySelector('.compare-method-select').value;
-                        const targetItems = Array.from(div.querySelectorAll('.target-items-fail-container .target-item-fail .dropdown-search-fail'))
+                    const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
                         .map(input => input.dataset.selectedValue || input.value)
                         .filter(Boolean);
-                        
-                        const value = parseInt(div.querySelector('.use-item-value').value, 10);
-                        
-                        const useItemCondition = {
-                            compareMethod: compareMethod,
-                            conditionType: "UseItem",
-                            dynamicLocale: false,
-                            id: conditionId,
-                            target: targetItems,
-                            value: value,
-                        };
-                        
-                        conditions.push(useItemCondition);
-                    } else if (conditionType === 'TraderStanding') {
-                        return {
-                            compareMethod: div.querySelector('.compare-method-select').value,
-                            conditionType: "TraderStanding",
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            target: div.querySelector('.trader-id-input').value,
-                            value: parseInt(div.querySelector('.standing-value-input').value, 10),
-                            visibilityConditions: []
-                        };
-                    } else if (conditionType === 'ExitStatusOnLocation') {
-                        const subConditions = Array.from(div.querySelectorAll('.counter-conditions-container .counter-subcondition')).map((subDiv) => {
-                            const subConditionType = subDiv.querySelector('.subcondition-type-select').value;
-                            const subConditionId = generateUniqueId();
-
-                            if (subConditionType === 'ExitStatus') {
-                                const statusValues = Array.from(subDiv.querySelector('select[multiple]').selectedOptions).map(option => option.value);
-                                return {
-                                    conditionType: "ExitStatus",
-                                    dynamicLocale: false,
-                                    id: subConditionId,
-                                    status: statusValues
-                                };
-                            } else if (subConditionType === 'Location') {
-                                const selectedLocations = Array.from(subDiv.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
-                                return {
-                                    conditionType: "Location",
-                                    dynamicLocale: false,
-                                    id: subConditionId,
-                                    target: selectedLocations
-                                };
-                            }
-                        });
-
-                        return {
-                            completeInSeconds: 0,
-                            conditionType: "CounterCreator",
-                            counter: {
-                                conditions: subConditions,
-                                id: generateUniqueId()
-                            },
-                            doNotResetIfCounterCompleted: div.querySelector('.reset-counter-checkbox').checked,
-                            dynamicLocale: false,
-                            globalQuestCounterId: "",
-                            id: conditionId,
-                            index: index,
-                            oneSessionOnly: div.querySelector('.one-session-only-checkbox').checked,
-                            parentId: "",
-                            type: "Exploration",
-                            value: 1,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
-                        };
-                    }
-
-                    return {};
+                    const value = parseInt(div.querySelector('input[type=number]').value, 10);
+                    const onlyFoundInRaid = div.querySelector('input[type=checkbox]').checked;
+                    const visibilityConditions = Array.from(div.querySelectorAll('.visibility-conditions .visibility-target')).map(el => el.value).filter(Boolean);
+                    return { conditionType, id: conditionId, index, target: targetItems, value, onlyFoundInRaid, visibilityConditions };
                 });
 
-                const startedRewards = generateStartedRewards();
+                const failConditions = Array.from(document.querySelectorAll('#fail-conditions-container .fail-condition')).map((div, index) => {
+                    const conditionId = div.getAttribute('data-obj-label');
+                    const conditionType = div.querySelector('select').value;
+                    const compareMethod = div.querySelector('.compare-method-select')?.value || '';
+                    const value = parseInt(div.querySelector('input[type=number]').value, 10);
+                    const selectedLocations = Array.from(div.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                    const status = Array.from(div.querySelectorAll('.exit-status-dropdown option:checked')).map(opt => opt.value);
+                    const visibilityConditions = Array.from(div.querySelectorAll('.visibility-conditions .visibility-target')).map(el => el.value).filter(Boolean);
+                    const target = div.querySelector('input[type=text]')?.value || '';
+                    return { compareMethod, conditionType, id: conditionId, index, target, status, value, visibilityConditions, target: selectedLocations };
+                });
 
-                // Rewards
-                const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
+                const startedRewards = Array.from(document.querySelectorAll('#started-rewards-container .started-reward')).map((rewardDiv, index) => {
+                    const tplId = rewardDiv.querySelector('.dropdown-search').dataset.selectedValue || rewardDiv.querySelector('.dropdown-search').value;
+                    const stackCount = parseInt(rewardDiv.querySelector('.stack-count').value, 10);
+                    const uniqueId = generateUniqueId();
+                    return { findInRaid: true, id: uniqueId, index, items: [{ _id: uniqueId, _tpl: tplId, upd: { StackObjectsCount: stackCount } }], target: uniqueId, type: "Item", value: "1" };
+                });
+
+                const rewards = Array.from(document.querySelectorAll('#rewards-container .reward')).map((div, index) => {
                     const rewardType = div.querySelector('select').value;
-                    const rewardId = generateUniqueId();
-
-                    // Experience Reward
-                    if (rewardType === 'Experience') {
-                        const valueInput = div.querySelector('.reward-value'); 
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-                        return {
-                            value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
-                            id: rewardId,
-                            type: rewardType,
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            index: index
-                        };
-                    } 
-                    // Trader Standing Reward
-                    else if (rewardType === 'TraderStanding') {
-                        const valueInput = div.querySelector('.reward-value');
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-                        const traderIdReward = div.querySelector('.trader-id-reward').value;
-                        return {
-                            value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
-                            id: rewardId,
-                            type: 'TraderStanding',
-                            target: traderIdReward,
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            index: index
-                        };
-                    }
-                    // Item Reward 
-                    else if (rewardType === 'Item') {
-                        const inputElement = div.querySelector('.dropdown-search');
-                        const itemId = inputElement.dataset.selectedValue;
-                        const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
-                        const uniqueId = generateUniqueId();
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-
-                        return {
-                            findInRaid: true,
-                            id: rewardId,
-                            index,
-                            items: [
-                                {
-                                    _id: uniqueId,
-                                    _tpl: itemId,
-                                    upd: {
-                                        StackObjectsCount: stackCount
-                                    }
-                                }
-                            ],
-                            target: uniqueId,
-                            type: rewardType,
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            value: stackCount.toString()
-                        };
-                    } 
-                    // Assortment Unlock Reward
-                    else if (rewardType === 'AssortmentUnlock') {
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-                        const inputElement = div.querySelector('.dropdown-search');
-                        const itemId = getTplId(inputElement);
-
-                        return {
-                            id: rewardId,
-                            index: index,
-                            items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
-                            loyaltyLevel: parseInt(div.querySelector('.loyalty-level').value, 10),
-                            target: div.querySelector('.assortment-id').value,
-                            traderId: trader,
-                            type: 'AssortmentUnlock',
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false
-                        };
-                    }
-                    // Skill Reward 
-                    else if (rewardType === 'Skill') {
-                        const targetSkill = div.querySelector('.skill-target').value;
-                        const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
-                        const unknownCheckbox = div.querySelector('.unknown-checkbox');
-                        return {
-                            id: rewardId,
-                            index: index,
-                            target: targetSkill,
-                            type: 'Skill',
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            value: skillValue
-                        };
-                    } 
-                    return {};
+                    const tplId = div.querySelector('.dropdown-search').dataset.selectedValue || div.querySelector('.dropdown-search').value;
+                    const value = parseInt(div.querySelector('.reward-value')?.value, 10) || div.querySelector('.reward-value')?.value || '1';
+                    const traderId = div.querySelector('.trader-id-reward')?.value || '';
+                    const loyaltyLevel = parseInt(div.querySelector('.loyalty-level')?.value, 10);
+                    const skillType = div.querySelector('.skill-target')?.value || '';
+                    const hiddenReward = div.querySelector('.unknown-checkbox').checked;
+                    return { type: rewardType, id: `${trader}_${questNumber}_reward_${index}`, _tpl: tplId, traderId, loyaltyLevel, value, skillType, hiddenReward, index };
                 });
 
                 let languageEntries = {};
@@ -2527,7 +2100,6 @@
                     languageEntries[fieldId] = input.value.replace(/\n/g, '\\n') || '';
                 });
 
-                // Quest Assortments
                 const assortments = {};
                 rewards.forEach(reward => {
                     if (reward.type === 'AssortmentUnlock' && reward.target) {
@@ -2541,7 +2113,7 @@
                         _id: questNameID,
                         traderId: trader,
                         type: questType,
-                        location: questlocation,
+                        location: questLocation,
                         image: questImage,
                         instantComplete: false,
                         isKey: false,
@@ -2568,7 +2140,6 @@
                     }
                 };
 
-                // Output Display
                 const questContent = JSON.stringify({ [questNameID]: quest[questNameID] }, null, 2);
                 const languageEntriesContent = JSON.stringify(languageEntries, null, 2);
                 const assortmentsContent = JSON.stringify(assortments, null, 2).slice(1, -1);
@@ -2588,6 +2159,7 @@
                     document.getElementById('assortments-output-section').style.display = 'block';
                 }
             }
+
         </script>
     </div>
 </body>
