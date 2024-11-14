@@ -11,9 +11,11 @@
     <div class="header">
         <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
         <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
-        <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
+        <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Hideout Crafting Generator</button>
     </div>
-
+        
     <div class="generator-container">
         <select id="branch-selection-dropdown" onchange="handleBranchSelection(this.value)">
             <option value="" selected>Select a Mod Slot Branches...</option>
@@ -119,16 +121,18 @@
                 window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
             else if (url === 'itemdatabase')
                 window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
-            else if (url === 'questhelper')
+            else if (url === 'traderassort')
                 window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+            else if (url === 'modslots')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/modslots');
+            else if (url === 'hideoutcraft')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/hideoutcrafts');
         }
 
         function handleBranchSelection(selectedBranch) {
-            // Hide all branch controls
             document.getElementById("mod-slot-controls").style.display = "none";
             document.getElementById("new-branch-controls").style.display = "none";
 
-            // Show the selected branch controls
             if (selectedBranch === "mod_slot") {
                 document.getElementById("mod-slot-controls").style.display = "block";
             } else if (selectedBranch === "new_branch") {
@@ -137,7 +141,6 @@
         }
 
         function addSlot() {
-            // Add a new slot with default values
             const slotId = generateUniqueId();
             const slot = {
                 _name: `mod_mount_${String(slotIncrement).padStart(3, '0')}`,
@@ -172,18 +175,15 @@
                 if (filterInput) {
                     const filterValue = filterInput.value.trim();
 
-                    // Check if the input matches an item in allItems by display name
                     const matchingItem = allItems.find(item => item.displayName === filterValue);
 
                     if (matchingItem) {
-                        // Item found, use its Mongo ID
                         if (!slot._props.filters[0].Filter.includes(matchingItem._id)) {
                             slot._props.filters[0].Filter.push(matchingItem._id);
                         }
                     } else {
-                        // No match found, treat as custom input
                         if (filterValue && !slot._props.filters[0].Filter.includes(filterValue)) {
-                            slot._props.filters[0].Filter.push(filterValue); // Add the custom input directly
+                            slot._props.filters[0].Filter.push(filterValue);
                         }
                     }
                 }
@@ -203,7 +203,6 @@
 
             slotSections.innerHTML = '';
 
-            // Render each slot with preserved values
             slots.forEach((slot, index) => {
                 slotSections.innerHTML += `
                     <section class="slot-section">

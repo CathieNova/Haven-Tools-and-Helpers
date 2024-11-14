@@ -32,6 +32,7 @@ body {
     cursor: pointer;
     margin-left: 5px;
     margin-right: 5px;
+    margin-top: 0px;
     width: 40%;
 }
 
@@ -633,7 +634,6 @@ select:focus, input:focus {
     transition: all 0.5s ease;
 }
 
-/* Styling for new Kills condition dropdowns */
 #body-part-select, #savage-role-select, .weapon-mods-container select {
     background-color: #333;
     color: #e0e0e0;

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
+    <title>Production Generator</title>
+    <link rel="stylesheet" type="text/css" href="hideoutcrafts.css">
+</head>
+<body>
+    <div class="header">
+        <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
+        <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
+        <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Hideout Crafting Generator</button>
+    </div>
+    <div id="top-box">
+        <div id="top-right-box">
+            <h3 style="color: #ff7920;"><strong>Website Settings</strong></h3>
+            <div class="language-container" id="language-container" style="text-align: left;">
+                <label class="language-select-label" for="language-select">Item Names Language:</label>
+                <select class="language-select" id="language-select" onchange="loadLanguage(this.value)">
+                    <option value="en.json" selected>English</option>
+                    <option value="cz.json">Czech</option>
+                    <option value="fr.json">French</option>
+                    <option value="ge.json">German</option>
+                    <option value="hu.json">Hungarian</option>
+                    <option value="it.json">Italian</option>
+                    <option value="jp.json">Japanese</option>
+                    <option value="kr.json">Korean</option>
+                    <option value="pl.json">Polish</option>
+                    <option value="po.json">Portuguese</option>
+                    <option value="ro.json">Romanian</option>
+                    <option value="ru.json">Russian</option>
+                    <option value="sk.json">Slovak</option>
+                    <option value="ch.json">Chinese</option>
+                    <option value="es.json">Spanish</option>
+                    <option value="es-mx.json">Mexican Spanish</option>
+                    <option value="tu.json">Turkish</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="generator-container">
+        <h2>Hideout Crafting Recipes Generator</h2>
+    
+        <!-- Area Information Section -->
+        <div class="form-section">
+            <h3>Area Information</h3>
+            <label for="area-type-dropdown">Area Type:</label>
+            <select id="area-type-dropdown">
+                <option value="" selected>Select Area Type...</option>
+            </select>
+    
+            <label for="production-time">Production Time:</label>
+            <input type="number" id="production-time" value="300">
+        </div>
+    
+        <!-- Settings Section -->
+        <div class="form-section">
+            <h3>Settings</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="need-fuel"> Need Fuel For All Production Time</label>
+                <label><input type="checkbox" id="locked"> Locked</label>
+                <label><input type="checkbox" id="continuous"> Continuous Production</label>
+                <label><input type="checkbox" id="is-encoded"> Is Encoded</label>
+                <label><input type="checkbox" id="is-code-production"> Is Code Production</label>
+            </div>
+        </div>
+    
+        <!-- Production Details Section -->
+        <div class="form-section">
+            <h3>Production Details</h3>
+            <label for="end-product">End Product:</label>
+            <div class="end-product-container">
+                <input type="text" id="end-product-search" class="dropdown-search" placeholder="Search items or enter ID..." oninput="performSearch(this.value)">
+                <div class="dropdown-menu" id="end-product-dropdown"></div>
+            </div>
+    
+            <label for="count">Count:</label>
+            <input type="number" id="count" value="1">
+        </div>
+    
+        <!-- Requirements Section -->
+        <div class="form-section">
+            <h3>Requirements</h3>
+            <div id="requirements-list"></div>
+            <button type="button" onclick="addRequirement()">Add Requirement</button>
+        </div>
+    
+        <!-- Actions -->
+        <div class="button-group">
+            <button onclick="generateJson()">Generate JSON</button>
+            <button onclick="downloadJson()">Download JSON</button>
+        </div>
+    
+        <!-- JSON Output -->
+        <div id="json-output-section" style="display: none; margin-top: 20px;">
+            <h3>Generated JSON</h3>
+            <pre id="json-output"></pre>
+        </div>
+    </div>
+
+    <script>
+        let allItems = [];
+        let languageData = {};
+
+        const areaTypes = [
+            { name: "Air Filtering Unit", type: 17, levels: 1 },
+            { name: "Bitcoin Farm", type: 20, levels: 3 },
+            { name: "Booze Generator", type: 19, levels: 1 },
+            { name: "Broken Wall", type: 22, levels: 6 },
+            { name: "Christmas Tree", type: 21, levels: 1 },
+            { name: "Generator", type: 4, levels: 3 },
+            { name: "Gym", type: 23, levels: 2 },
+            { name: "Hall of Fame", type: 16, levels: 1 },
+            { name: "Heating", type: 5, levels: 3 },
+            { name: "Illumination", type: 15, levels: 3 },
+            { name: "Intelligence Center", type: 11, levels: 3 },
+            { name: "Lavatory", type: 2, levels: 3 },
+            { name: "Library", type: 13, levels: 1 },
+            { name: "Medstation", type: 7, levels: 3 },
+            { name: "Nutrition Unit", type: 8, levels: 3 },
+            { name: "Resting Space", type: 9, levels: 3 },
+            { name: "Scav Case", type: 14, levels: 1 },
+            { name: "Security", type: 1, levels: 3 },
+            { name: "Shooting Range", type: 12, levels: 1 },
+            { name: "Solar Power", type: 18, levels: 1 },
+            { name: "Stash", type: 3, levels: 4 },
+            { name: "Vents", type: 0, levels: 3 },
+            { name: "Water Collector", type: 6, levels: 3 },
+            { name: "Weapon Rack", type: 24, levels: 3 },
+            { name: "Workbench", type: 10, levels: 3 }
+        ];
+
+        function openURL(url) {
+            if (url === 'vcql')
+                window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
+            else if (url === 'itemdatabase')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
+            else if (url === 'traderassort')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+            else if (url === 'modslots')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/modslots');
+            else if (url === 'hideoutcraft')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/hideoutcrafts');
+        }
+
+        async function loadLanguage(languageFile) {
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/lang/${languageFile}`);
+                if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
+                
+                languageData = await response.json();
+                mapLanguageToItems();
+                updateDisplayedItemNames();
+            } catch (error) {
+                console.error("Failed to load language:", error);
+            }
+        }
+
+        async function loadItems() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');
+                const itemData = await response.json();
+                allItems = Object.values(itemData).map(item => ({
+                    _id: item._id,
+                    displayName: languageData[`${item._id} Name`] || languageData[`${item._id} ShortName`] || item._props?.Name || 'Unnamed Item'
+                }));
+            } catch (error) {
+                console.error("Failed to load items:", error);
+            }
+        }
+
+        function mapLanguageToItems() {
+            if (!languageData || !allItems) return;
+
+            allItems.forEach(item => {
+                const itemId = item._id;
+                const shortNameKey = `${itemId} ShortName`;
+                const nameKey = `${itemId} Name`;
+
+                item.displayName = languageData[nameKey] || languageData[shortNameKey] || item._props?.Name || 'Unnamed Item';
+            });
+
+            allItems.sort((a, b) => (a.displayName || '').localeCompare(b.displayName || ''));
+        }
+
+        function updateDisplayedItemNames() {
+            const itemElements = document.querySelectorAll('.dropdown-item');
+            itemElements.forEach(itemElement => {
+                const itemId = itemElement.getAttribute('data-tpl');
+                const item = allItems.find(i => i._id === itemId);
+                if (item) {
+                    itemElement.textContent = item.displayName;
+                }
+            });
+        }
+
+        function performSearch(searchTerm) {
+            const results = allItems.filter(item =>
+                item.displayName.toLowerCase().includes(searchTerm.toLowerCase()) || item._id.includes(searchTerm)
+            );
+            const dropdownMenu = document.getElementById('end-product-dropdown');
+            dropdownMenu.innerHTML = results.map(item => `
+                <div class="dropdown-item" onclick="selectEndProduct('${item._id}', '${item.displayName.replace(/'/g, "\\'")}')">
+                    ${item.displayName}
+                </div>
+            `).join('');
+            dropdownMenu.style.display = results.length ? 'block' : 'none';
+        }
+
+        function selectEndProduct(tpl, name) {
+            document.getElementById('end-product-search').value = name;
+            document.getElementById('end-product-search').setAttribute('data-tpl', tpl);
+            document.getElementById('end-product-dropdown').style.display = 'none';
+        }
+
+        function addRequirement() {
+            const requirementsList = document.getElementById("requirements-list");
+            const requirementDiv = document.createElement("div");
+            requirementDiv.classList.add("requirement");
+
+            const requirementSelect = document.createElement("select");
+            requirementSelect.innerHTML = `
+                <option value="" selected>Select Requirement Type...</option>
+                <option value="area">Area Required</option>
+                <option value="items">Items</option>
+                <option value="tool">Tool</option>
+                <option value="questComplete">Quest Complete</option>
+            `;
+
+            const detailDiv = document.createElement("div");
+            detailDiv.classList.add("requirement-details");
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.type = "button";
+            removeButton.onclick = () => requirementDiv.remove();
+
+            requirementSelect.onchange = function () {
+                detailDiv.innerHTML = ""; 
+                if (requirementSelect.value === "area") {
+                    detailDiv.innerHTML = `
+                        <label>Area Type:</label>
+                        <select class="area-type">
+                            <option value="" selected>Select Area Type...</option>
+                            ${areaTypes.map(area => `<option value="${area.type}">${area.name}</option>`).join('')}
+                        </select>
+                        <label>Area Level:</label>
+                        <input type="number" class="area-level" placeholder="Enter level" min="1">
+                    `;
+                } else if (requirementSelect.value === "tool") {
+                    detailDiv.innerHTML = `
+                        <label>Tool ID:</label>
+                        <input type="text" class="dropdown-search tool-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)">
+                        <div class="dropdown-menu" style="display: none;"></div>
+                    `;
+                } else if (requirementSelect.value === "questComplete") {
+                    detailDiv.innerHTML = `
+                        <label>Quest ID:</label>
+                        <input type="text" class="quest-id" placeholder="Enter Quest ID">
+                    `;
+                } else if (requirementSelect.value === "items") {
+                    detailDiv.innerHTML = `
+                        <label>Item ID:</label>
+                        <input type="text" class="dropdown-search item-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)">
+                        <div class="dropdown-menu" style="display: none;"></div>
+                        <label>Quantity:</label>
+                        <input type="number" class="item-quantity" placeholder="Enter quantity" min="1">
+                        <label>Is Functional:</label>
+                        <input type="checkbox" class="is-functional">
+                        <label>Is Encoded:</label>
+                        <input type="checkbox" class="is-encoded">
+                    `;
+                }
+            };
+
+            requirementDiv.appendChild(requirementSelect);
+            requirementDiv.appendChild(detailDiv);
+            requirementDiv.appendChild(removeButton);
+            requirementsList.appendChild(requirementDiv);
+        }
+
+        function performItemSearch(input) {
+            const searchTerm = input.value.toLowerCase();
+            const dropdownMenu = input.nextElementSibling;
+
+            const results = allItems.filter(item =>
+                item.displayName.toLowerCase().includes(searchTerm) || item._id.includes(searchTerm)
+            );
+
+            dropdownMenu.innerHTML = results.map(item => `
+                <div class="dropdown-item" onclick="selectRequirementItem(this, '${item._id}', '${item.displayName.replace(/'/g, "\\'")}')">
+                    ${item.displayName}
+                </div>
+            `).join('');
+            dropdownMenu.style.display = results.length ? 'block' : 'none';
+        }
+
+        function selectRequirementItem(element, id, name) {
+            const searchInput = element.parentElement.previousElementSibling;
+            searchInput.value = name;
+            searchInput.setAttribute('data-tpl', id);
+            element.parentElement.style.display = 'none';
+        }
+
+        function populateAreaTypes() {
+            const areaDropdown = document.getElementById('area-type-dropdown');
+            areaTypes.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area.type;
+                option.textContent = area.name;
+                areaDropdown.appendChild(option);
+            });
+        }
+
+        function generateJson() {
+            const areaType = document.getElementById('area-type-dropdown').value;
+            const productionTime = document.getElementById('production-time').value;
+            const needFuel = document.getElementById('need-fuel').checked;
+            const locked = document.getElementById('locked').checked;
+            const endProductTpl = document.getElementById('end-product-search').getAttribute('data-tpl') || document.getElementById('end-product-search').value;
+            const continuous = document.getElementById('continuous').checked;
+            const count = document.getElementById('count').value;
+            const isEncoded = document.getElementById('is-encoded').checked;
+            const isCodeProduction = document.getElementById('is-code-production').checked;
+
+            const requirements = Array.from(document.getElementById("requirements-list").children).map(requirementDiv => {
+                const type = requirementDiv.querySelector("select").value;
+                const areaType = requirementDiv.querySelector(".area-type")?.value;
+                const level = requirementDiv.querySelector(".area-level")?.value;
+                const itemInput = requirementDiv.querySelector(".item-search");
+                const itemId = itemInput ? (itemInput.getAttribute('data-tpl') || itemInput.value) : null;
+                const toolInput = requirementDiv.querySelector(".tool-search");
+                const toolId = toolInput ? (toolInput.getAttribute('data-tpl') || toolInput.value) : null;
+                const questId = requirementDiv.querySelector(".quest-id")?.value;
+                const quantity = requirementDiv.querySelector(".item-quantity")?.value;
+                const isFunctional = requirementDiv.querySelector(".is-functional")?.checked || false;
+                const isEncoded = requirementDiv.querySelector(".is-encoded")?.checked || false;
+
+                if (type === "tool") {
+                    return { type: "Tool", templateId: toolId };
+                } else if (type === "questComplete") {
+                    return { type: "QuestComplete", questId };
+                } else if (type === "items") {
+                    return { type, templateId: itemId, count: quantity, isFunctional, isEncoded };
+                } else if (type === "area") {
+                    return { type, areaType, level };
+                }
+            });
+
+            const jsonData = {
+                _id: generateUniqueId(),
+                areaType,
+                productionTime,
+                needFuelForAllProductionTime: needFuel,
+                locked,
+                endProduct: endProductTpl,
+                continuous,
+                count,
+                isEncoded,
+                isCodeProduction,
+                requirements
+            };
+
+            document.getElementById('json-output').textContent = JSON.stringify(jsonData, null, 4);
+            document.getElementById('json-output-section').style.display = 'block';
+        }
+
+        function downloadJson() {
+            const jsonData = document.getElementById('json-output').textContent;
+            const blob = new Blob([jsonData], { type: "application/json" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "HideoutCraft.json";
+            link.click();
+        }
+
+        function generateUniqueId() {
+            const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
+            return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => Math.floor(Math.random() * 16).toString(16)).toLowerCase();
+        }
+
+        window.onload = async function() {
+            await loadLanguage('en.json');
+            await loadItems();
+            populateAreaTypes();
+        };
+
+    </script>
+</body>
+</html>

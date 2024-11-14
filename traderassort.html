@@ -11,9 +11,11 @@
     <div class="header">
         <button id="header-button" onclick="openURL('vcql')">Virtual's Custom Quest Loader Modpage</button>
         <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
-        <button id="header-button" onclick="openURL('questhelper')">Haven VCQL Quest Helper</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
+        <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
+        <button id="header-button" onclick="openURL('traderassort')">Haven Hideout Crafting Generator</button>
     </div>
-
+        
     <div class="generator-container">
         <h1>Trader Assort Generator</h1>
 
@@ -46,8 +48,12 @@
                 window.open('https://hub.sp-tarkov.com/files/file/885-virtual-s-custom-quest-loader/');
             else if (url === 'itemdatabase')
                 window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
-            else if (url === assorttrader)
+            else if (url === 'traderassort')
                 window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+            else if (url === 'modslots')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/modslots');
+            else if (url === 'hideoutcraft')
+                window.open('https://cathienova.github.io/Haven-VCQL-Helper/hideoutcrafts');
         }
         
         async function loadItems() {
@@ -188,11 +194,9 @@
         }
 
         function searchItems(term, index, fieldType = 'template', barterIndex = null) {
-            // Check if input is a MongoID (24 hex characters)
             const isMongoId = /^[a-f\d]{24}$/i.test(term);
 
             if (isMongoId) {
-                // If it's a MongoID, directly set it without showing dropdown
                 selectItem(term, index, fieldType, barterIndex);
                 return;
             }
