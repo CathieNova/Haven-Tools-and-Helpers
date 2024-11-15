@@ -1597,7 +1597,8 @@
                     { id: 'quest-accept-msg-lang', label: 'Quest Accept Message' },
                     { id: 'quest-decline-msg-lang', label: 'Quest Decline Message' },
                     { id: 'quest-complete-msg-lang', label: 'Quest Complete Message' },
-                    { id: 'quest-change-msg-lang', label: 'Quest Change Quest Message' }
+                    { id: 'quest-change-msg-lang', label: 'Quest Change Quest Message' },
+                    { id: 'quest-note-lang', label: 'Quest Note' }
                 ];
 
                 baseFields.forEach(field => {
@@ -2121,8 +2122,13 @@
                         return {
                             compareMethod: compareSelect ? compareSelect.value : '',
                             conditionType: 'Level',
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
                             id: generateUniqueId(),
-                            value: levelInput ? parseInt(levelInput.value, 10) : 0
+                            index,
+                            parentId: "",
+                            value: levelInput ? parseInt(levelInput.value, 10) : 0,
+                            visibilityConditions: []
                         };
                     } else if (conditionType === 'Quest') {
                         const statusOptions = div.querySelectorAll('select[multiple] option:checked');
@@ -2130,20 +2136,33 @@
                         const targetInput = div.querySelector('input[type=text]');
                         
                         return {
+                            availableAfter: 0,
                             conditionType: 'Quest',
+                            dispersion: 0,
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
                             id: generateUniqueId(),
+                            index,
+                            parentId: "",
                             status: statusValues,
-                            target: targetInput ? targetInput.value : ''
+                            target: targetInput ? targetInput.value : '',
+                            visibilityConditions: []
                         };
                     } else if (conditionType === 'TraderLoyalty') {
                         const targetInput = div.querySelector('input[type=text]');
                         const valueInput = div.querySelector('input[type=number]');
                         
                         return {
+                            compareMethod: compareSelect ? compareSelect.value : '',
                             conditionType: 'TraderLoyalty',
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
                             id: generateUniqueId(),
+                            index,
+                            parentId: "",
                             target: targetInput ? targetInput.value : '',
-                            value: valueInput ? parseInt(valueInput.value, 10) : 0
+                            value: valueInput ? parseInt(valueInput.value, 10) : 0,
+                            visibilityConditions: []
                         };
                     }
                     return {};
@@ -2159,7 +2178,7 @@
                     })();
 
                     // FindItem or HandoverItem Condition
-                    if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
+                    if (conditionType === 'FindItem') {
                         const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
                             .map(input => input.dataset.selectedValue || input.value).filter(Boolean);
 
@@ -2170,10 +2189,30 @@
                             dynamicLocale: false,
                             globalQuestCounterId: "",
                             id: conditionId,
+                            index,
                             isEncoded: false,
                             maxDurability: 100,
                             minDurability: 0,
+                            onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
+                            parentId: "",
+                            target: targetItems,
+                            value: parseInt(div.querySelector('input[type=number]').value, 10),
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                        };
+                    } else if (conditionType === 'HandoverItem') {
+                        const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
+                            .map(input => input.dataset.selectedValue || input.value).filter(Boolean);
+
+                        return {
+                            conditionType,
+                            dogtagLevel: 0,
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: conditionId,
                             index,
+                            isEncoded: false,
+                            maxDurability: 100,
+                            minDurability: 0,
                             onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
                             parentId: "",
                             target: targetItems,
@@ -2575,11 +2614,11 @@
                         const valueInput = div.querySelector('.reward-value'); 
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         return {
-                            value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
                             id: rewardId,
+                            index: index,
                             type: rewardType,
+                            value: valueInput ? valueInput.value.replace(',', '.') || "0" : "0",
                             unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            index: index
                         };
                     } 
                     // Trader Standing Reward
@@ -2588,12 +2627,12 @@
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         const traderIdReward = div.querySelector('.trader-id-reward').value;
                         return {
-                            value: valueInput ? parseFloat(valueInput.value.replace(',', '.')) : 0,
                             id: rewardId,
-                            type: 'TraderStanding',
+                            index: index,
                             target: traderIdReward,
+                            type: 'TraderStanding',
+                            value: valueInput ? valueInput.value.replace(',', '.') || "0" : "0",
                             unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            index: index
                         };
                     }
                     // Item Reward 
@@ -2611,7 +2650,7 @@
                             items: [
                                 {
                                     _id: uniqueId,
-                                    _tpl: itemId, // Can be selected item ID or custom input
+                                    _tpl: itemId,
                                     upd: {
                                         StackObjectsCount: stackCount
                                     }
@@ -2619,8 +2658,8 @@
                             ],
                             target: uniqueId,
                             type: rewardType,
-                            unknown: unknownCheckbox ? unknownCheckbox.checked : false,
-                            value: stackCount.toString()
+                            value: stackCount.toString(),
+                            unknown: unknownCheckbox ? unknownCheckbox.checked : false
                         };
                     }
                     // Assortment Unlock Reward
@@ -2643,7 +2682,7 @@
                     // Skill Reward 
                     else if (rewardType === 'Skill') {
                         const targetSkill = div.querySelector('.skill-target').value;
-                        const skillValue = parseInt(div.querySelector('.skill-value').value, 10);
+                        const skillValue = div.querySelector('.skill-value').value || "0";
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         return {
                             id: rewardId,
@@ -2668,7 +2707,9 @@
                     [`${questNameID} acceptPlayerMessage`]: document.getElementById('quest-accept-msg-lang').value,
                     [`${questNameID} declinePlayerMessage`]: document.getElementById('quest-decline-msg-lang').value,
                     [`${questNameID} completePlayerMessage`]: document.getElementById('quest-complete-msg-lang').value,
-                    [`${questNameID} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value
+                    [`${questNameID} changeQuestMessageText`]: document.getElementById('quest-change-msg-lang').value,
+                    [`${questNameID} name`]: questName,
+                    [`${questNameID} note`]: document.getElementById('quest-note-lang').value
                 };
 
                 for (const key in entries) {
@@ -2712,15 +2753,19 @@
                         declinePlayerMessage: `${questNameID} declinePlayerMessage`,
                         completePlayerMessage: `${questNameID} completePlayerMessage`,
                         changeQuestMessageText: `${questNameID} changeQuestMessageText`,
+                        name: `${questNameID} name`,
+                        note: `${questNameID} note`,
+                        restartable: false,
+                        canShowNotificationsInGame: true,
                         conditions: {
-                            AvailableForStart: availableForStartConditions,
                             AvailableForFinish: conditions,
+                            AvailableForStart: availableForStartConditions,
                             Fail: failConditions
                         },
                         rewards: {
-                            Success: rewards,
                             Fail: [],
-                            Started: startedRewards
+                            Started: startedRewards,
+                            Success: rewards
                         }
                     }
                 };
