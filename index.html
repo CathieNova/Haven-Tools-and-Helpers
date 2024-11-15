@@ -1286,6 +1286,17 @@
                                 <option value="4">4</option>
                             </select>
                         </label>
+                        <label style="color: #06b600;">Item:</label>
+                        <div class="custom-dropdown">
+                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                            <div class="dropdown-menu">
+                                ${items.map(item => `
+                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                        ${item.displayName}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
