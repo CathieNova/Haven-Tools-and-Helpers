@@ -2086,17 +2086,23 @@
                     // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
                         const targetItems = Array.from(div.querySelectorAll('.target-items-container .target-item .dropdown-search'))
-                            .map(input => input.dataset.selectedValue || input.value)
-                            .filter(Boolean);
+                            .map(input => input.dataset.selectedValue || input.value).filter(Boolean);
 
                         return {
                             conditionType,
-                            id: conditionId,
-                            index,
+                            countInRaid: false,
+                            dogtagLevel: 0,
                             dynamicLocale: false,
-                            target: targetItems,  // Assign all selected items for this condition
-                            value: parseInt(div.querySelector('input[type=number]').value, 10),
+                            globalQuestCounterId: "",
+                            id: conditionId,
+                            isEncoded: false,
+                            maxDurability: 100,
+                            minDurability: 0,
+                            index,
                             onlyFoundInRaid: div.querySelector('input[type=checkbox]').checked,
+                            parentId: "",
+                            target: targetItems,
+                            value: parseInt(div.querySelector('input[type=number]').value, 10),
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
