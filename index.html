@@ -72,6 +72,7 @@
                     <li>Fixed the Kills Condition to have InZone and Location as Sub Conditions</li>
                     <li>Fixed the Completion Rewards to support custom id's</li>
                     <li>Fixed StartedRewards to have MongoID's</li>
+                    <li>Fixed the MongoID of Conditions and LanguageFields</li>
                 </ul>
                 <li><strong style="color: #ff7920;">09 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -2151,7 +2152,11 @@
                 // Objective Conditions
                 const conditions = Array.from(document.querySelectorAll('#conditions-container > .condition')).map((div, index) => {
                     const conditionType = div.querySelector('select').value;
-                    const conditionId = div.getAttribute('data-obj-label');
+                    const conditionId = div.getAttribute('data-obj-label') || (() => {
+                        const newId = generateUniqueId();
+                        div.setAttribute('data-obj-label', newId);
+                        return newId;
+                    })();
 
                     // FindItem or HandoverItem Condition
                     if (conditionType === 'FindItem' || conditionType === 'HandoverItem') {
