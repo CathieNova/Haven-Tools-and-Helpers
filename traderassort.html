@@ -242,12 +242,11 @@
                 dropdownId = `dropdown-content-barter-${index}-${barterIndex}`;
             }
 
+            // Display name only in the input field
             document.getElementById(inputId).value = selectedItem.displayName;
             const dropdown = document.getElementById(dropdownId);
             if (dropdown) dropdown.style.display = 'none';
         }
-
-
         function updateField(index, field, value) {
             let item = items[index];
             let keys = field.split('.');
@@ -316,7 +315,6 @@
         }
 
         window.onload = async function() {
-            await loadLanguage();
             await loadLanguage('en.json');
             await loadItems();
         };
@@ -383,7 +381,6 @@
             };
             reader.readAsText(file);
         }
-
 
         function addBarterItem(index) {
             if (!items[index].barterScheme) {
