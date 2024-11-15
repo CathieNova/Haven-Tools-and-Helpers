@@ -26,14 +26,44 @@
         <input type="file" id="load-json" accept=".json" style="display: none;" onchange="loadJsonAssort(event)">
         <button onclick="generateJson()">Generate JSON</button>
         <button onclick="convertTo310ID()"> Convert id's to 3.10 system</button>
+        <div class="checkbox-container">
+            <input type="checkbox" id="singleOutputCheckbox" checked>
+            <label for="singleOutputCheckbox">Generate as a Single JSON</label>
+        </div>
 
         <div id="json-output-section" style="display: none; margin-top: 20px;">
             <h2>Generated JSON</h2>
-            <div style="position: relative;">
-                <button id="downloadJsonButton" onclick="downloadJson()">Download JSON</button>
-                <button id="copyJsonButton" onclick="copyText()">Copy to Clipboard</button>
+        
+            <!-- Single Output JSON -->
+            <div id="single-json-output" style="display: none;">
+                <button id="downloadSingleJsonButton" onclick="downloadJson('single')">Download JSON</button>
+                <button id="copySingleJsonButton" onclick="copyText('single')">Copy to Clipboard</button>
+                <pre id="output"></pre>
             </div>
-            <pre id="output"></pre>
+        
+            <!-- Split Output JSON Sections -->
+            <div id="split-json-output" style="display: none;">
+                <div>
+                    <h3>Items</h3>
+                    <button onclick="downloadJson('items')">Download Items JSON</button>
+                    <button onclick="copyText('items')">Copy Items</button>
+                    <pre id="items-output"></pre>
+                </div>
+                
+                <div>
+                    <h3>Barter Scheme</h3>
+                    <button onclick="downloadJson('barter_scheme')">Download Barter Scheme JSON</button>
+                    <button onclick="copyText('barter_scheme')">Copy Barter Scheme</button>
+                    <pre id="barter-output"></pre>
+                </div>
+        
+                <div>
+                    <h3>Loyalty Level Items</h3>
+                    <button onclick="downloadJson('loyal_level_items')">Download Loyalty Level JSON</button>
+                    <button onclick="copyText('loyal_level_items')">Copy Loyalty Level</button>
+                    <pre id="loyalty-output"></pre>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -255,7 +285,9 @@
         }
 
         function generateJson() {
-            const output = items.map(item => ({
+            const singleOutput = document.getElementById('singleOutputCheckbox').checked;
+
+            const itemsOutput = items.map(item => ({
                 _id: item._id,
                 _tpl: item._tpl,
                 parentId: "hideout",
@@ -283,36 +315,81 @@
                 return acc;
             }, {});
 
-            const finalJson = {
-                items: output,
-                barter_scheme: barterScheme,
-                loyal_level_items: loyalLevelItems
-            };
+            // Clear previous output
+            document.getElementById('output').textContent = '';
+            document.getElementById('items-output').textContent = '';
+            document.getElementById('barter-output').textContent = '';
+            document.getElementById('loyalty-output').textContent = '';
 
-            document.getElementById('output').textContent = JSON.stringify(finalJson, null, 2);
+            if (singleOutput) {
+                // Single JSON output
+                const finalJson = {
+                    items: itemsOutput,
+                    barter_scheme: barterScheme,
+                    loyal_level_items: loyalLevelItems
+                };
+                
+                document.getElementById('output').textContent = JSON.stringify(finalJson, null, 2);
+                document.getElementById('single-json-output').style.display = 'block';
+                document.getElementById('split-json-output').style.display = 'none';
+            } else {
+                // Split JSON output
+                document.getElementById('items-output').textContent = JSON.stringify(itemsOutput, null, 2);
+                document.getElementById('barter-output').textContent = JSON.stringify(barterScheme, null, 2);
+                document.getElementById('loyalty-output').textContent = JSON.stringify(loyalLevelItems, null, 2);
+
+                document.getElementById('single-json-output').style.display = 'none';
+                document.getElementById('split-json-output').style.display = 'block';
+            }
+
             document.getElementById('json-output-section').style.display = 'block';
         }
 
-        function copyText() {
-            const outputText = document.getElementById('output').textContent;
-            navigator.clipboard.writeText(outputText).then(() => {
-                const button = document.getElementById('copyButton');
-                button.innerText = "Copied to Clipboard";
-                setTimeout(() => button.innerText = "Copy to Clipboard", 3000);
+        function copyText(type) {
+            let textToCopy;
+
+            if (type === 'single') {
+                textToCopy = document.getElementById('output').textContent;
+            } else if (type === 'items') {
+                textToCopy = document.getElementById('items-output').textContent;
+            } else if (type === 'barter_scheme') {
+                textToCopy = document.getElementById('barter-output').textContent;
+            } else if (type === 'loyal_level_items') {
+                textToCopy = document.getElementById('loyalty-output').textContent;
+            }
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Copied to clipboard");
             }).catch(err => {
-                console.error("Failed to copy JSON:", err);
+                console.error("Failed to copy text:", err);
             });
         }
 
-        function downloadJson() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('output').textContent);
+        function downloadJson(type) {
+            let dataStr, fileName;
+
+            if (type === 'single') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('output').textContent);
+                fileName = "assort.json";
+            } else if (type === 'items') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('items-output').textContent);
+                fileName = "items.json";
+            } else if (type === 'barter_scheme') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('barter-output').textContent);
+                fileName = "barter_scheme.json";
+            } else if (type === 'loyal_level_items') {
+                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(document.getElementById('loyalty-output').textContent);
+                fileName = "loyal_level_items.json";
+            }
+
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "assort.json");
+            downloadAnchor.setAttribute("download", fileName);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
         }
+
 
         window.onload = async function() {
             await loadLanguage('en.json');
