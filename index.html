@@ -547,6 +547,16 @@
                 }
             });
 
+            document.addEventListener('change', function(event) {
+                if (event.target.classList.contains('compare-method-select')) {
+                    detailsDiv.querySelectorAll('.compare-method-select').forEach(select => {
+                        select.addEventListener('change', function() {
+                            
+                        });
+                    });
+                }
+            });
+
             function toggleDropdownMenu(input) {
                 document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
                 
@@ -1154,8 +1164,6 @@
                 } else {
                     console.error("Dropdown structure not found");
                 }
-
-                console.log(`Selected item: ${item.dataset.value} - ${item.textContent.trim()}`);
             }
 
             function addStartedReward() {
@@ -1273,17 +1281,6 @@
                                 <option value="4">4</option>
                             </select>
                         </label>
-                        <label style="color: #06b600;">Item:</label>
-                        <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
-                            <div class="dropdown-menu">
-                                ${items.map(item => `
-                                    <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                        ${item.displayName}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
@@ -1360,8 +1357,6 @@
                 searchInput.dataset.selectedValue = item.getAttribute('data-value');
 
                 dropdownMenu.classList.remove('show');
-
-                console.log(`Selected reward item ID: ${item.getAttribute('data-value')}, Name: ${item.textContent.trim()}`);
             }
 
             function removeReward(button) {
@@ -1921,38 +1916,39 @@
             }
 
             function updateAvailableForStartFields(selectElement) {
-                const conditionDetails = selectElement.closest('.condition').querySelector('.available-for-start-details');
-                conditionDetails.innerHTML = '';
+                const detailsDiv = selectElement.closest('.condition').querySelector('.available-for-start-details');
+                const conditionType = selectElement.value;
+                detailsDiv.innerHTML = '';
 
-                if (selectElement.value === 'Level') {
-                    conditionDetails.innerHTML = `
+                if (conditionType === 'Level') {
+                    detailsDiv.innerHTML = `
                         <label style="color: #06b600;">Compare Method:
-                            <select>
-                                <option value=">=">>=</option>
-                                <option value="<="><=</option>
+                            <select class="compare-method-select">
+                                <option value=">=" selected>&ge;</option>
+                                <option value="<=">&le;</option>
                             </select>
                         </label>
-                        <label style="color: #06b600;">Value:
+                        <label style="color: #06b600;">Level:
                             <input type="number" placeholder="Enter level" required>
                         </label>
                     `;
-                } else if (selectElement.value === 'Quest') {
-                    conditionDetails.innerHTML = `
-                        <label style="color: #06b600;">Quest Status:
-                            <select multiple>
-                                <option value="1">Quest Available - 1</option>
-                                <option value="2">Quest Accepted And In Progress - 2</option>
-                                <option value="3">Quest Finished, Awaiting Confirmation - 3</option>
-                                <option value="4" selected>Quest Finished And Confirmed - 4</option>
-                                <option value="5">Quest Failed - 5</option>
-                            </select>
-                        </label>
-                        <label style="color: #06b600;">Target Quest ID:
+                } else if (conditionType === 'Quest') {
+                    detailsDiv.innerHTML = `
+                        <label style="color: #06b600;">Quest ID:
                             <input type="text" placeholder="Enter quest ID" required>
                         </label>
+                        <label style="color: #06b600;">Quest Status:
+                            <select multiple>
+                                <option value="1">Available - 1</option>
+                                <option value="2">In Progress - 2</option>
+                                <option value="3">Finished - 3</option>
+                                <option value="4" selected>Confirmed - 4</option>
+                                <option value="5">Failed - 5</option>
+                            </select>
+                        </label>
                     `;
-                } else if (selectElement.value === 'TraderLoyalty') {
-                    conditionDetails.innerHTML = `
+                } else if (conditionType === 'TraderLoyalty') {
+                    detailsDiv.innerHTML = `
                         <label style="color: #06b600;">Trader ID:
                             <input type="text" placeholder="Enter trader ID" required>
                         </label>
@@ -2032,9 +2028,9 @@
                     const conditionType = div.querySelector('select').value;
                     
                     if (conditionType === 'Level') {
-                        const compareSelect = div.querySelector('select:nth-of-type(2)');
+                        const compareSelect = div.querySelector('.compare-method-select');
                         const levelInput = div.querySelector('input[type=number]');
-                        
+
                         return {
                             compareMethod: compareSelect ? compareSelect.value : '',
                             conditionType: 'Level',
@@ -2631,6 +2627,7 @@
                     document.getElementById('assortments-output-section').style.display = 'block';
                 }
             }
+        
         </script>
     </div>
 </body>
