@@ -70,6 +70,7 @@
                     <li>Fixed the Header with more Tools</li>
                     <li>Fixed the compareMethod for AvailableForStart (it was null)</li>
                     <li>Fixed the Kills Condition to have InZone and Location as Sub Conditions</li>
+                    <li>Fixed the Completion Rewards to support custom id's</li>
                 </ul>
                 <li><strong style="color: #ff7920;">09 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -1374,7 +1375,9 @@
                     rewardDetails.innerHTML = `
                         <label style="color: #06b600;">Reward Item:</label>
                         <div class="custom-dropdown">
-                            <input type="text" class="dropdown-search" placeholder="Search items..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                            <input type="text" class="dropdown-search" placeholder="Search items or enter custom ID..." 
+                                oninput="filterDropdown(this)" 
+                                onclick="toggleDropdownMenu(this)">
                             <div class="dropdown-menu">
                                 ${items.map(item => `
                                     <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
@@ -2590,7 +2593,7 @@
                     // Item Reward 
                     else if (rewardType === 'Item') {
                         const inputElement = div.querySelector('.dropdown-search');
-                        const itemId = inputElement.dataset.selectedValue;
+                        const itemId = inputElement.dataset.selectedValue || inputElement.value.trim(); // Use input value if no item selected
                         const stackCount = parseInt(div.querySelector('input[type=number]').value, 10);
                         const uniqueId = generateUniqueId();
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
@@ -2602,7 +2605,7 @@
                             items: [
                                 {
                                     _id: uniqueId,
-                                    _tpl: itemId,
+                                    _tpl: itemId, // Can be selected item ID or custom input
                                     upd: {
                                         StackObjectsCount: stackCount
                                     }
@@ -2613,7 +2616,7 @@
                             unknown: unknownCheckbox ? unknownCheckbox.checked : false,
                             value: stackCount.toString()
                         };
-                    } 
+                    }
                     // Assortment Unlock Reward
                     else if (rewardType === 'AssortmentUnlock') {
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
