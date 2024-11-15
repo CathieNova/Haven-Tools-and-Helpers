@@ -69,6 +69,7 @@
                 <ul style="padding-left: 20px;">
                     <li>Fixed the Header with more Tools</li>
                     <li>Fixed the compareMethod for AvailableForStart (it was null)</li>
+                    <li>Fixed the Kills Condition to have InZone and Location as Sub Conditions</li>
                 </ul>
                 <li><strong style="color: #ff7920;">09 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -449,6 +450,8 @@
             let languageData = {};
             let increment = 0;
             let usefulInfoVisible = false;
+            let howToUseVisible = false;
+            let selectedWeaponCalibers = [];
 
             function openURL(url) {
             if (url === 'vcqlhelper')
@@ -654,7 +657,6 @@
                 });
             }
 
-
             async function updateConditionFields(selectElement) {
                 if (!window.itemsLoaded) {
                     await loadItems();
@@ -788,8 +790,15 @@
                                 Reset on Session End
                             </label>
                         </div>
+                        <div id="subcondition-list-container" style="margin-top: 20px;">
+                            <h4 style="color: #06b600;">Subconditions:</h4>
+                        </div>
+                        <button type="button" id="add-subcondition-btn" style="margin-top: 10px;">Add Subcondition</button>
                     `;
                     
+                    const subconditionListContainer = conditionDetails.querySelector('#subcondition-list-container');
+                    const addSubconditionBtn = conditionDetails.querySelector('#add-subcondition-btn');
+
                     const targetSelect = document.getElementById('target-select');
                         if (targetSelect) {
                             targetSelect.addEventListener('change', function() {
@@ -804,6 +813,67 @@
                                 }
                             });
                         }
+
+                        addSubconditionBtn.addEventListener('click', function () {
+                            const subconditionId = generateUniqueId(); // Generate a unique ID for the subcondition
+                            const subconditionElement = document.createElement('div');
+                            subconditionElement.classList.add('subcondition');
+                            subconditionElement.dataset.subconditionId = subconditionId;
+                            subconditionElement.innerHTML = `
+                                <div style="border: 1px solid #06b600; padding: 10px; margin-top: 10px;">
+                                    <label style="color: #06b600;">Subcondition Type:
+                                        <select class="subcondition-type">
+                                            <option value="" selected>Select</option>
+                                            <option value="InZone">In Zone</option>
+                                            <option value="Location">Location</option>
+                                        </select>
+                                    </label>
+                                    <div class="subcondition-details" style="margin-top: 10px;"></div>
+                                    <button type="button" class="remove-subcondition-btn" style="margin-top: 10px;">Remove</button>
+                                </div>
+                            `;
+
+                            // Add event listener for subcondition type selection
+                            const subconditionTypeSelect = subconditionElement.querySelector('.subcondition-type');
+                            const subconditionDetails = subconditionElement.querySelector('.subcondition-details');
+                            subconditionTypeSelect.addEventListener('change', function () {
+                                if (this.value === 'InZone') {
+                                    subconditionDetails.innerHTML = `
+                                        <label style="color: #06b600;">Zone IDs (comma-separated):
+                                            <input type="text" class="zoneid-inzone" placeholder="Enter zone IDs" required>
+                                        </label>
+                                    `;
+                                } else if (this.value === 'Location') {
+                                    subconditionDetails.innerHTML = `
+                                        <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
+                                        <select multiple class="location-dropdown">
+                                            <option value="Interchange">Interchange</option>
+                                            <option value="factory4_day">Factory Day</option>
+                                            <option value="factory4_night">Factory Night</option>
+                                            <option value="bigmap">Customs</option>
+                                            <option value="Woods">Woods</option>
+                                            <option value="Lighthouse">Lighthouse</option>
+                                            <option value="Shoreline">Shoreline</option>
+                                            <option value="RezervBase">Reserve</option>
+                                            <option value="laboratory">The Lab</option>
+                                            <option value="TarkovStreets">Streets</option>
+                                            <option value="Sandbox">Ground Zero (PMC < 20)</option>
+                                            <option value="Sandbox_high">Ground Zero (PMC > 20)</option>
+                                        </select>
+                                    `;
+                                } else {
+                                    subconditionDetails.innerHTML = '';
+                                }
+                            });
+
+                            // Add event listener for removing the subcondition
+                            const removeSubconditionBtn = subconditionElement.querySelector('.remove-subcondition-btn');
+                            removeSubconditionBtn.addEventListener('click', function () {
+                                subconditionElement.remove();
+                            });
+
+                            subconditionListContainer.appendChild(subconditionElement);
+                        });
                 } 
                 // VisitPlace condition
                 else if (selectElement.value === 'VisitPlace') {
@@ -952,6 +1022,7 @@
             function removeTargetItem(button) {
                 button.closest('.target-item').remove();
             }
+            
             function removeItem(button) {
                 button.closest('.item-to-plant').remove();
             }
@@ -1077,8 +1148,6 @@
             function removeItem(button) {
                 button.closest('.inclusive-item, .exclusive-item').remove();
             }
-
-            let selectedWeaponCalibers = [];
 
             function handleWeaponCaliberSelection() {
                 const weaponCaliberSelect = document.getElementById('weapon-caliber-select');
@@ -1450,8 +1519,6 @@
                 }
             }
 
-            let howToUseVisible = false;
-
             function toggleHowToUse() {
                 const howToUseSection = document.getElementById('how-to-use');
                 howToUseVisible = !howToUseVisible;
@@ -1558,7 +1625,6 @@
                     languageSection.appendChild(div);
                 });
             }
-
 
             function addFailCondition() {
                 const container = document.getElementById('fail-conditions-container');
@@ -2108,34 +2174,57 @@
                     }
                     // Kill Condition
                     else if (conditionType === 'Kills') {
-                        const locationDropdown = div.querySelector('.location-dropdown');
                         const targetSelect = div.querySelector('#target-select');
                         const killsRequiredInput = div.querySelector('input[type=number]');
-                        const timeFromInput = div.querySelector('input[type=small-number]:nth-of-type(1)');
-                        const timeToInput = div.querySelector('input[type=small-number]:nth-of-type(2)');
+                        const timeFromInput = div.querySelector('input.small-number:nth-of-type(1)');
+                        const timeToInput = div.querySelector('input.small-number:nth-of-type(2)');
                         const bodyPartSelect = div.querySelector('#body-part-select');
                         const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
-                        const savageRoleSelect = document.getElementById('savage-role-select');
+                        const distanceComparisonSelect = div.querySelector('.equalto');
+                        const distanceValueInput = div.querySelector('.small-number');
+                        const savageRoleSelect = div.querySelector('#savage-role-select');
+                        const weaponCaliberSelect = div.querySelectorAll('#weapon-caliber-select option:checked');
                         const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                         const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
+                        const selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
 
-                        let selectedSavageRoles = [];
-                        if (targetSelect && targetSelect.value === 'Savage') {
-                            selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
-                        }
+                        const inZoneConditionElements = div.querySelectorAll('.subcondition');
+                        let additionalConditions = [];
 
-                        // Create the nested condition for CounterCreator
-                        const killCondition = {
+                        // Process each additional condition (like InZone or Location)
+                        inZoneConditionElements.forEach(subcondition => {
+                            const subconditionType = subcondition.querySelector('.subcondition-type').value;
+                            if (subconditionType === 'InZone') {
+                                const zoneIds = subcondition.querySelector('.zoneid-inzone').value.split(',').map(id => id.trim());
+                                additionalConditions.push({
+                                    conditionType: 'InZone',
+                                    dynamicLocale: false,
+                                    id: generateUniqueId(),
+                                    zoneIds: zoneIds
+                                });
+                            } else if (subconditionType === 'Location') {
+                                const selectedLocations = Array.from(subcondition.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                                additionalConditions.push({
+                                    conditionType: 'Location',
+                                    dynamicLocale: false,
+                                    id: generateUniqueId(),
+                                    target: selectedLocations
+                                });
+                            }
+                        });
+
+                        // Main Kills condition
+                        const mainKillCondition = {
                             bodyPart: selectedBodyParts,
-                            compareMethod: ">=",
+                            compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
                             conditionType: "Kills",
                             daytime: {
                                 from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
                                 to: timeToInput ? parseInt(timeToInput.value, 10) : 0
                             },
                             distance: {
-                                compareMethod: ">=",
-                                value: 0
+                                compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
+                                value: distanceValueInput ? parseInt(distanceValueInput.value, 10) : 0
                             },
                             dynamicLocale: false,
                             enemyEquipmentExclusive: [],
@@ -2143,33 +2232,33 @@
                             enemyHealthEffects: [],
                             id: generateUniqueId(),
                             resetOnSessionEnd: false,
-                            savageRole: selectedSavageRoles,
+                            savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
                             target: targetSelect ? targetSelect.value : 'Any',
-                            value: killsRequiredInput ? parseInt(killsRequiredInput.value) : 1,
+                            value: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
                             weapon: [],
-                            weaponCaliber: selectedWeaponCalibers,
-                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
-                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : []
+                            weaponCaliber: Array.from(weaponCaliberSelect).map(option => option.value),
+                            weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
+                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : []
                         };
 
-                        // Return the main CounterCreator condition structure
+                        // Combine the main Kills condition with additional conditions
                         return {
                             completeInSeconds: 0,
                             conditionType: "CounterCreator",
                             counter: {
-                                conditions: [killCondition],
+                                conditions: [mainKillCondition, ...additionalConditions],
                                 id: generateUniqueId()
                             },
                             doNotResetIfCounterCompleted: false,
                             dynamicLocale: false,
                             globalQuestCounterId: "",
-                            id: conditionId,
+                            id: generateUniqueId(),
                             index: index,
                             oneSessionOnly: false,
                             parentId: "",
                             type: "Elimination",
-                            value: killsRequiredInput ? parseInt(killsRequiredInput.value) : 1,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                            value: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
+                            visibilityConditions: []
                         };
                     }
                     // VisitPlace Condition
@@ -2266,9 +2355,7 @@
                             conditionType: "InZone",
                             dynamicLocale: false,
                             id: conditionId,
-                            index: index,
-                            zoneIds: zoneIds,
-                            visibilityConditions: generateVisibilityConditions(div, conditionId)
+                            zoneIds: zoneIds
                         };
                     }
                     // LeaveItemAtLocation Condition
