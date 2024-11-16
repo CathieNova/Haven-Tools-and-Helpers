@@ -65,6 +65,11 @@
         <section id="changelog" style="display: none; position: relative; background-color: #1a1a1a; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
             <h2 style="color: #ffdd57; font-size: 1.4em; margin-bottom: 10px;"><strong>Changelog:</strong></h2>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
+                <li><strong style="color: #ff7920;">16 Nov 2024</strong></li>
+                <ul style="padding-left: 20px;">
+                    <li>Fixed ExitStatus to have Location SubCondition so it works properly.</li>
+                    <li>Added new Condition "PlaceBeacon"</li>
+                </ul>
                 <li><strong style="color: #ff7920;">15 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
                     <li>Fixed the Header with more Tools</li>
@@ -569,8 +574,9 @@
             });
 
             function toggleDropdownMenu(input) {
+                // Hide all other dropdown menus
                 document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
-                
+
                 const dropdownMenu = input.nextElementSibling;
                 dropdownMenu.classList.toggle('show');
             }
@@ -585,6 +591,24 @@
                     const itemName = item.textContent.toLowerCase();
                     item.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
                 });
+            }
+
+            function selectDropdownItem(item) {
+                const searchInput =
+                    item.closest('.target-item')?.querySelector('.dropdown-search') ||
+                    item.closest('.reward')?.querySelector('.dropdown-search') ||
+                    item.closest('.custom-dropdown')?.querySelector('.dropdown-search') ||
+                    item.closest('.dropdown-menu')?.previousElementSibling;
+
+                const dropdownMenu = item.closest('.dropdown-menu');
+
+                if (searchInput && dropdownMenu) {
+                    searchInput.value = item.textContent.trim();
+                    searchInput.dataset.selectedValue = item.dataset.value;
+                    dropdownMenu.classList.remove('show');
+                } else {
+                    console.error("Dropdown structure not found");
+                }
             }
 
             function addCondition() {
@@ -608,6 +632,7 @@
                             <option value="InZone">In Zone</option>
                             <option value="Kills">Kills</option>
                             <option value="LeaveItemAtLocation">Leave Item At Location</option>
+                            <option value="PlaceBeacon">Place Beacon</option>
                         </select>
                     </label>
                     <div class="condition-details"></div>
@@ -928,6 +953,7 @@
                         
                     `;
                 } // Location condition 
+                // Location condition
                 else if (selectElement.value === 'Location') {
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
@@ -958,7 +984,69 @@
                             <option value="Left">Left</option>
                             <option value="MissingInAction">Missing In Action</option>
                         </select>
+                        <div id="subcondition-list-container" style="margin-top: 20px;">
+                            <h4 style="color: #06b600;">Subconditions:</h4>
+                        </div>
+                        <button type="button" id="add-subcondition-btn" style="margin-top: 10px;">Add Subcondition</button>
                     `;
+
+                    const subconditionListContainer = conditionDetails.querySelector('#subcondition-list-container');
+                    const addSubconditionBtn = conditionDetails.querySelector('#add-subcondition-btn');
+
+                    // Add functionality to add subconditions
+                    addSubconditionBtn.addEventListener('click', function () {
+                        const subconditionId = generateUniqueId();
+                        const subconditionElement = document.createElement('div');
+                        subconditionElement.classList.add('subcondition');
+                        subconditionElement.dataset.subconditionId = subconditionId;
+
+                        subconditionElement.innerHTML = `
+                            <div style="border: 1px solid #06b600; padding: 10px; margin-top: 10px;">
+                                <label style="color: #06b600;">Subcondition Type:
+                                    <select class="subcondition-type">
+                                        <option value="" selected>Select</option>
+                                        <option value="Location">Location</option>
+                                    </select>
+                                </label>
+                                <div class="subcondition-details" style="margin-top: 10px;"></div>
+                                <button type="button" class="remove-subcondition-btn" style="margin-top: 10px;">Remove</button>
+                            </div>
+                        `;
+
+                        const subconditionTypeSelect = subconditionElement.querySelector('.subcondition-type');
+                        const subconditionDetails = subconditionElement.querySelector('.subcondition-details');
+
+                        // Dynamically update subcondition details
+                        subconditionTypeSelect.addEventListener('change', function () {
+                            if (this.value === 'Location') {
+                                subconditionDetails.innerHTML = `
+                                    <label style="color: #06b600;">Location (select multiple with ctrl + click):</label>
+                                    <select multiple class="location-dropdown">
+                                        <option value="Interchange">Interchange</option>
+                                        <option value="factory4_day">Factory Day</option>
+                                        <option value="factory4_night">Factory Night</option>
+                                        <option value="bigmap">Customs</option>
+                                        <option value="Woods">Woods</option>
+                                        <option value="Lighthouse">Lighthouse</option>
+                                        <option value="Shoreline">Shoreline</option>
+                                        <option value="RezervBase">Reserve</option>
+                                        <option value="laboratory">The Lab</option>
+                                        <option value="TarkovStreets">Streets</option>
+                                    </select>
+                                `;
+                            } else {
+                                subconditionDetails.innerHTML = '';
+                            }
+                        });
+
+                        // Add functionality to remove subcondition
+                        const removeSubconditionBtn = subconditionElement.querySelector('.remove-subcondition-btn');
+                        removeSubconditionBtn.addEventListener('click', function () {
+                            subconditionElement.remove();
+                        });
+
+                        subconditionListContainer.appendChild(subconditionElement);
+                    });
                 }
                 // InZone condition
                 else if (selectElement.value === 'InZone') {
@@ -997,6 +1085,30 @@
                             <button type="button" onclick="addTargetItem()" style="margin-top: 10px;">Add Item</button>
                             <div class="target-items-container"></div>
                         </div>
+                    `;
+                }
+                // PlaceBeacon condition
+                else if (selectElement.value === 'PlaceBeacon') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Search or Enter ID:</label>
+                        <input type="text" class="dropdown-search" placeholder="Search items or enter ID..."
+                            oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                        <div class="dropdown-menu">
+                            ${items.map(item => `
+                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                    ${item.displayName}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <label style="color: #06b600;">Zone ID:
+                            <input type="text" class="place-beacon-zoneid" placeholder="Enter zone ID" required>
+                        </label>
+                        <label style="color: #06b600;">Plant Time (seconds):
+                            <input type="number" class="place-beacon-planttime" placeholder="Enter plant time" required value="30">
+                        </label>
+                        <label style="color: #06b600;">Value:
+                            <input type="number" class="place-beacon-value" placeholder="Number to place" required value="1">
+                        </label>
                     `;
                 }
             }
@@ -1224,23 +1336,6 @@
 
             function getTplId(inputElement) {
                 return inputElement.dataset.selectedValue || inputElement.value;
-            }
-
-            function selectDropdownItem(item) {
-                const searchInput = item.closest('.target-item')?.querySelector('.dropdown-search') 
-                                || item.closest('.reward')?.querySelector('.dropdown-search')
-                                || item.closest('.custom-dropdown')?.querySelector('.dropdown-search')
-                                || item.closest('.dropdown-menu')?.previousElementSibling;
-
-                const dropdownMenu = item.closest('.dropdown-menu');
-
-                if (searchInput && dropdownMenu) {
-                    searchInput.value = item.textContent.trim();
-                    searchInput.dataset.selectedValue = item.dataset.value;
-                    dropdownMenu.classList.remove('show');
-                } else {
-                    console.error("Dropdown structure not found");
-                }
             }
 
             function addStartedReward() {
@@ -2387,15 +2482,46 @@
                     // ExitStatus Condition
                     else if (conditionType === 'ExitStatus') {
                         const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
+                        const subconditionElements = div.querySelectorAll('.subcondition');
+                        const subconditions = [];
+
+                        subconditionElements.forEach(subcondition => {
+                            const subconditionType = subcondition.querySelector('.subcondition-type').value;
+                            const subconditionId = generateUniqueId();
+
+                            if (subconditionType === 'Location') {
+                                const selectedLocations = Array.from(subcondition.querySelector('.location-dropdown').selectedOptions).map(option => option.value);
+                                subconditions.push({
+                                    conditionType: 'Location',
+                                    dynamicLocale: false,
+                                    id: subconditionId,
+                                    target: selectedLocations
+                                });
+                            }
+                        });
+
                         return {
-                            conditionType: "ExitStatus",
+                            conditionType: 'CounterCreator',
+                            counter: {
+                                conditions: [
+                                    {
+                                        conditionType: "ExitStatus",
+                                        dynamicLocale: false,
+                                        id: generateUniqueId(),
+                                        status: selectedStatuses
+                                    },
+                                    ...subconditions
+                                ],
+                                id: generateUniqueId()
+                            },
                             dynamicLocale: false,
                             id: conditionId,
-                            index: index,
-                            status: selectedStatuses,
+                            index,
+                            parentId: "",
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
+
                     // InZone Condition
                     else if (conditionType === 'InZone') {
                         const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
@@ -2426,6 +2552,27 @@
                             visibilityConditions: generateVisibilityConditions(div, conditionId),
                             zoneId: div.querySelector('input[placeholder="Enter zone ID (e.g., Saving_The_Mole)"]').value.trim(),
                             dynamicLocale: false
+                        };
+                    }
+                    // PlaceBeacon Condition
+                    else if (conditionType === 'PlaceBeacon') {
+                        const targetItem = div.querySelector('.dropdown-search').getAttribute('data-selected-value') || '';
+                        const zoneId = div.querySelector('.place-beacon-zoneid').value;
+                        const plantTime = parseInt(div.querySelector('.place-beacon-planttime').value, 10);
+                        const value = parseInt(div.querySelector('.place-beacon-value').value, 10);
+
+                        return {
+                            conditionType: "PlaceBeacon",
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: generateUniqueId(),
+                            index,
+                            parentId: "",
+                            plantTime: plantTime,
+                            target: [targetItem],
+                            value: value,
+                            visibilityConditions: [],
+                            zoneId: zoneId
                         };
                     }
 
