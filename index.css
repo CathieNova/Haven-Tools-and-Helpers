@@ -270,9 +270,13 @@ pre {
 
 .tooltip .tooltiptext,
 .dropdown-menu {
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 section h2, section h3, section h4,
