@@ -15,7 +15,7 @@
         <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
         <button id="header-button" onclick="openURL('hideoutcraft')">Haven Hideout Crafting Generator</button>
     </div>
-        
+
     <div id="top-box">
         <div id="top-right-box">
             <h3 style="color: #ff7920;"><strong>Website Settings</strong></h3>
@@ -67,8 +67,9 @@
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
                 <li><strong style="color: #ff7920;">16 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
-                    <li>Fixed ExitStatus to have Location SubCondition so it works properly.</li>
+                    <li>Fixed ExitStatus to have Location SubCondition so it works properly</li>
                     <li>Added new Condition "PlaceBeacon"</li>
+                    <li>Added Equipment Inclusive & Exclusive to Fail Condition and Objective Requirements</li>
                 </ul>
                 <li><strong style="color: #ff7920;">15 Nov 2024</strong></li>
                 <ul style="padding-left: 20px;">
@@ -119,10 +120,10 @@
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
                 <li><strong style="color: #ff7920;">Features Planned:</strong></li>
                 <ul style="padding-left: 20px;">
-                    <li>Add Fail Conditions and Rewards</li>
+                    <li>Add Fail Rewards</li>
                     <li>Add Weapon modding to Quest Start and Quest Rewards</li>
                     <li>Add Character Condition to accept quest like Usec Only, Bear Only, etc..</li>
-                    <li>Add dropdown for ModInclusive and ModExclusive for vanilla EFT items for easier selection</li>
+                    <li>Add a collapsible Website Settings with the buttons from Header too</li>
                     <li>Make everything more organised and pretty</li>
                 </ul>
             </ul>
@@ -804,14 +805,27 @@
                         <label style="color: #06b600;">Weapons Mods to Include:</label>
                         <div id="weapon-mods-inclusive-container">
                             <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
-                            <div class="weapon-mods-inclusive"></div>
+                            <div id="weapon-items-container" class="weapon-mods-inclusive"></div>
                         </div>
 
                         <label style="color: #06b600;">Weapons Mods to Exclude:</label>
                         <div id="weapon-mods-exclusive-container">
                             <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
-                            <div class="weapon-mods-exclusive"></div>
+                            <div id="weapon-items-container" class="weapon-mods-exclusive"></div>
                         </div>
+                        
+                        <label style="color: #06b600;">Items Required to be Equipped:</label>
+                        <div id="kills-equipment-inclusive-container">
+                            <button type="button" onclick="addInclusiveEquipmentItem()">Add Equipment to Include</button>
+                            <div id="equipment-items-container" class="inclusive-equipment-items-container"></div>
+                        </div>
+                        
+                        <label style="color: #06b600;">Items Required to NOT be Equipped:</label>
+                        <div id="kills-equipment-exclusive-container">
+                            <button type="button" onclick="addExclusiveEquipmentItem()">Add Equipment to Exclude</button>
+                            <div id="equipment-items-container" class="exclusive-equipment-items-container"></div>
+                        </div>
+
                         <div style="display: flex; align-items: center; text-align: left;">
                             <label style="display: flex; align-items: center;">
                                 <input type="checkbox" style="margin-right: 5px;">
@@ -941,13 +955,13 @@
                     conditionDetails.innerHTML = `
                         <label style="color: #06b600;">Items Required to be Equipped:</label>
                         <div id="equipment-inclusive-container">
-                            <button type="button" onclick="addInclusiveItem()">Add Item to Include</button>
+                            <button type="button" onclick="addInclusiveItem()">Add Equipment to Include</button>
                             <div class="inclusive-items-container"></div>
                         </div>
                         
                         <label style="color: #06b600;">Items Required to NOT be Equipped</label>
                         <div id="equipment-exclusive-container">
-                            <button type="button" onclick="addExclusiveItem()">Add Item to Exclude</button>
+                            <button type="button" onclick="addExclusiveItem()">Add Equipment to Exclude</button>
                             <div class="exclusive-items-container"></div>
                         </div>
                         
@@ -1173,18 +1187,16 @@
                 modDiv.classList.add('weapon-mod-item');
 
                 modDiv.innerHTML = `
-                    <section id="weapon-mods-exclusive">
-                        <label style="color: #06b600;">Search or Enter Mod ID:</label>
-                        <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
-                        <div class="dropdown-menu">
-                            ${items.map(item => `
-                                <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
-                                    ${item.displayName}
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
-                    </section>
+                    <label style="color: #06b600;">Search or Enter Mod ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search mods or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" onclick="removeWeaponMod(this)" style="margin-top: 10px;">Remove</button>
                 `;
 
                 container.appendChild(modDiv);
@@ -1212,8 +1224,49 @@
                     <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
                 `;
 
-
                 container.appendChild(equipmentDiv);
+            }
+
+            function addInclusiveEquipmentItem() {
+                const container = document.querySelector('.inclusive-equipment-items-container');
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('equipment-item');
+
+                itemDiv.innerHTML = `
+                    <label style="color: #06b600;">Search or Enter ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(itemDiv);
+            }
+
+            function addExclusiveEquipmentItem() {
+                const container = document.querySelector('.exclusive-equipment-items-container');
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('equipment-item');
+
+                itemDiv.innerHTML = `
+                    <label style="color: #06b600;">Search or Enter ID:</label>
+                    <input type="text" class="dropdown-search" placeholder="Search items or enter ID..." oninput="filterDropdown(this)" onclick="toggleDropdownMenu(this)">
+                    <div class="dropdown-menu">
+                        ${items.map(item => `
+                            <div class="dropdown-item" data-value="${item._id}" onclick="selectDropdownItem(this)">
+                                ${item.displayName}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button type="button" onclick="removeEquipmentItem(this)" style="margin-top: 10px;">Remove</button>
+                `;
+
+                container.appendChild(itemDiv);
             }
 
             function removeEquipmentItem(button) {
@@ -1977,13 +2030,25 @@
                             <label style="color: #06b600;">Weapon Mods to Include:</label>
                             <div id="weapon-mods-inclusive-container">
                                 <button type="button" onclick="addWeaponModInclusive()">Add Weapon Mod to Include</button>
-                                <div class="weapon-mods-inclusive"></div>
+                                <div id="weapon-items-container" class="weapon-mods-inclusive"></div>
                             </div>
 
                             <label style="color: #06b600;">Weapon Mods to Exclude:</label>
                             <div id="weapon-mods-exclusive-container">
                                 <button type="button" onclick="addWeaponModExclusive()">Add Weapon Mod to Exclude</button>
-                                <div class="weapon-mods-exclusive"></div>
+                                <div id="weapon-items-container" class="weapon-mods-exclusive"></div>
+                            </div>
+                        
+                            <label style="color: #06b600;">Items Required to be Equipped:</label>
+                            <div id="kills-equipment-inclusive-container">
+                                <button type="button" onclick="addInclusiveEquipmentItem()">Add Equipment to Include</button>
+                                <div id="equipment-items-container" class="inclusive-equipment-items-container"></div>
+                            </div>
+                            
+                            <label style="color: #06b600;">Items Required to NOT be Equipped:</label>
+                            <div id="kills-equipment-exclusive-container">
+                                <button type="button" onclick="addExclusiveEquipmentItem()">Add Equipment to Exclude</button>
+                                <div id="equipment-items-container" class="exclusive-equipment-items-container"></div>
                             </div>
 
                             <div style="display: flex; align-items: center; text-align: left;">
@@ -2334,7 +2399,15 @@
                         const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                         const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
                         const selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+                        
+                        const inclusiveEquipment = Array.from(div.querySelectorAll('.inclusive-equipment-items-container .dropdown-search'))
+                            .map(input => input.dataset.selectedValue)
+                            .filter(id => id !== undefined && id !== "");
 
+                        const exclusiveEquipment = Array.from(div.querySelectorAll('.exclusive-equipment-items-container .dropdown-search'))
+                            .map(input => input.dataset.selectedValue)
+                            .filter(id => id !== undefined && id !== "");
+                            
                         const inZoneConditionElements = div.querySelectorAll('.subcondition');
                         let additionalConditions = [];
 
@@ -2385,7 +2458,9 @@
                             weapon: [],
                             weaponCaliber: Array.from(weaponCaliberSelect).map(option => option.value),
                             weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
-                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : []
+                            weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
+                            equipmentInclusive: inclusiveEquipment,
+                            equipmentExclusive: exclusiveEquipment,
                         };
 
                         // Combine the main Kills condition with additional conditions
@@ -2648,7 +2723,14 @@
                         const weaponModsInclusive = Array.from(div.querySelectorAll('.weapon-mods-inclusive .dropdown-search')).map(input => getTplId(input));
                         const weaponModsExclusive = Array.from(div.querySelectorAll('.weapon-mods-exclusive .dropdown-search')).map(input => getTplId(input));
                         const selectedSavageRoles = Array.from(savageRoleSelect.selectedOptions).map(option => option.value);
+                        const inclusiveEquipment = Array.from(div.querySelectorAll('.inclusive-equipment-items-container .dropdown-search'))
+                            .map(input => input.dataset.selectedValue)
+                            .filter(id => id !== undefined && id !== "");
 
+                        const exclusiveEquipment = Array.from(div.querySelectorAll('.exclusive-equipment-items-container .dropdown-search'))
+                            .map(input => input.dataset.selectedValue)
+                            .filter(id => id !== undefined && id !== "");
+                        
                         return {
                             conditionType: "Kills",
                             id: conditionId,
@@ -2671,7 +2753,9 @@
                             weaponCaliber: Array.from(weaponCaliberSelect).map(option => option.value),
                             weaponModsInclusive: weaponModsInclusive.length > 0 ? weaponModsInclusive : [],
                             weaponModsExclusive: weaponModsExclusive.length > 0 ? weaponModsExclusive : [],
-                            resetOnSessionEnd: false,  // Adjust based on your form’s reset option
+                            equipmentInclusive: inclusiveEquipment,
+                            equipmentExclusive: exclusiveEquipment,
+                            resetOnSessionEnd: false,
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     } else if (conditionType === 'ExitStatus') {
