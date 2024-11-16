@@ -49,46 +49,57 @@
         <!-- Area Information Section -->
         <div class="form-section">
             <h3>Area Information</h3>
-            <label for="area-type-dropdown">Area Type:</label>
-            <select id="area-type-dropdown">
+            <label for="area-type-dropdown" title="Select the type of area where the production will take place.">Area Type:</label>
+            <select id="area-type-dropdown" title="Choose the specific hideout area.">
                 <option value="" selected>Select Area Type...</option>
             </select>
-    
-            <label for="production-time">Production Time:</label>
-            <input type="number" id="production-time" value="300">
+        
+            <label for="production-time" title="Enter the total time required for production in seconds.">Production Time:</label>
+            <input type="number" id="production-time" value="300" title="Specify the production time, 1.5165units/second IRL.">
         </div>
-    
+        
         <!-- Settings Section -->
         <div class="form-section">
             <h3>Settings</h3>
             <div class="checkbox-group">
-                <label><input type="checkbox" id="need-fuel"> Need Fuel For All Production Time</label>
-                <label><input type="checkbox" id="locked"> Locked</label>
-                <label><input type="checkbox" id="continuous"> Continuous Production</label>
-                <label><input type="checkbox" id="is-encoded"> Is Encoded</label>
-                <label><input type="checkbox" id="is-code-production"> Is Code Production</label>
+                <label title="Check this box if the production requires fuel for the entire duration.">
+                    <input type="checkbox" id="need-fuel"> Need Fuel For All Production Time
+                </label>
+                <label title="Check this box to mark the production as locked.">
+                    <input type="checkbox" id="locked"> Locked
+                </label>
+                <label title="Check this box if production should continue automatically.">
+                    <input type="checkbox" id="continuous"> Continuous Production
+                </label>
+                <label title="Check this box if the production is encoded.">
+                    <input type="checkbox" id="is-encoded"> Is Encoded
+                </label>
+                <label title="Check this box if the production involves code generation.">
+                    <input type="checkbox" id="is-code-production"> Is Code Production
+                </label>
             </div>
         </div>
-    
+        
         <!-- Production Details Section -->
         <div class="form-section">
             <h3>Production Details</h3>
-            <label for="end-product">End Product:</label>
+            <label for="end-product" title="Enter or search for the ID of the crated item.">Crafted Item:</label>
             <div class="end-product-container">
-                <input type="text" id="end-product-search" class="dropdown-search" placeholder="Search items or enter ID..." oninput="performSearch(this.value)">
+                <input type="text" id="end-product-search" class="dropdown-search" placeholder="Search items or enter ID..." oninput="performSearch(this.value)" title="Search or input the ID of the end product.">
                 <div class="dropdown-menu" id="end-product-dropdown"></div>
             </div>
-    
-            <label for="count">Count:</label>
-            <input type="number" id="count" value="1">
+        
+            <label for="count" title="Specify the quantity of the crated item.">Count:</label>
+            <input type="number" id="count" value="1" title="Enter the number of items to produce.">
         </div>
-    
+        
         <!-- Requirements Section -->
         <div class="form-section">
             <h3>Requirements</h3>
-            <div id="requirements-list"></div>
-            <button type="button" onclick="addRequirement()">Add Requirement</button>
+            <button type="button" onclick="addRequirement()" title="Click to add a new production requirement.">Add Requirement</button>
+            <div id="requirements-list" title="List of requirements needed for the production."></div>
         </div>
+        
     
         <!-- Actions -->
         <div class="button-group">
@@ -226,10 +237,10 @@
             const requirementSelect = document.createElement("select");
             requirementSelect.innerHTML = `
                 <option value="" selected>Select Requirement Type...</option>
-                <option value="area">Area Required</option>
-                <option value="items">Items</option>
-                <option value="tool">Tool</option>
-                <option value="questComplete">Quest Complete</option>
+                <option value="Area">Area Required</option>
+                <option value="Tool">Tool</option>
+                <option value="QuestComplete">Completed Quest</option>
+                <option value="Item">Item</option>
             `;
 
             const detailDiv = document.createElement("div");
@@ -242,38 +253,44 @@
 
             requirementSelect.onchange = function () {
                 detailDiv.innerHTML = ""; 
-                if (requirementSelect.value === "area") {
+                if (requirementSelect.value === "Area") {
                     detailDiv.innerHTML = `
-                        <label>Area Type:</label>
-                        <select class="area-type">
+                        <label title="Select the type of hideout area required.">Area Type:</label>
+                        <select class="area-type" onchange="updateAreaLevels(this)" title="Choose the specific hideout area type.">
                             <option value="" selected>Select Area Type...</option>
-                            ${areaTypes.map(area => `<option value="${area.type}">${area.name}</option>`).join('')}
+                            ${areaTypes.map(area => `<option value="${area.type}" data-levels="${area.levels}">${area.name}</option>`).join('')}
                         </select>
-                        <label>Area Level:</label>
-                        <input type="number" class="area-level" placeholder="Enter level" min="1">
+                        <label title="Select the required level of the area.">Area Level:</label>
+                        <select class="area-level" title="Choose the required level for the selected area.">
+                            <option value="" selected>Select Area Level...</option>
+                        </select>
                     `;
-                } else if (requirementSelect.value === "tool") {
+                } else if (requirementSelect.value === "Tool") {
                     detailDiv.innerHTML = `
-                        <label>Tool ID:</label>
-                        <input type="text" class="dropdown-search tool-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)">
+                        <label title="Enter the ID of the required tool.">Tool ID:</label>
+                        <input type="text" class="dropdown-search tool-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)" title="Search for tools by name or enter the tool ID directly.">
                         <div class="dropdown-menu" style="display: none;"></div>
                     `;
-                } else if (requirementSelect.value === "questComplete") {
+                } else if (requirementSelect.value === "QuestComplete") {
                     detailDiv.innerHTML = `
-                        <label>Quest ID:</label>
-                        <input type="text" class="quest-id" placeholder="Enter Quest ID">
+                        <label title="Enter the ID of the quest that must be completed.">Quest ID:</label>
+                        <input type="text" class="quest-id" placeholder="Enter Quest ID" title="Specify the ID of the required completed quest.">
                     `;
-                } else if (requirementSelect.value === "items") {
+                } else if (requirementSelect.value === "Item") {
                     detailDiv.innerHTML = `
-                        <label>Item ID:</label>
-                        <input type="text" class="dropdown-search item-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)">
+                        <label title="Enter the ID of the required item.">Item ID:</label>
+                        <input type="text" class="dropdown-search item-search" placeholder="Search items or enter ID..." oninput="performItemSearch(this)" title="Search for items by name or enter the item ID directly.">
                         <div class="dropdown-menu" style="display: none;"></div>
-                        <label>Quantity:</label>
-                        <input type="number" class="item-quantity" placeholder="Enter quantity" min="1">
-                        <label>Is Functional:</label>
-                        <input type="checkbox" class="is-functional">
-                        <label>Is Encoded:</label>
-                        <input type="checkbox" class="is-encoded">
+
+                        <label title="Enter the quantity of the required item.">Quantity:</label>
+                        <input type="number" class="item-quantity" placeholder="Enter quantity" min="1" value="1" title="Amount of items needed.">
+
+                        <label title="Check this box if the item must be functional.">Is Functional:</label>
+                        <input type="checkbox" class="is-functional" title="Indicates that the item must be in working condition.">
+
+                        <label title="Check this box if the item is encoded.">Is Encoded:</label>
+                        <input type="checkbox" class="is-encoded" title="Marks the item as encoded.">
+
                     `;
                 }
             };
@@ -317,42 +334,70 @@
             });
         }
 
+        function updateAreaLevels(areaTypeSelect) {
+            const selectedOption = areaTypeSelect.options[areaTypeSelect.selectedIndex];
+            const levels = parseInt(selectedOption.getAttribute("data-levels"), 10) || 0;
+
+            const areaLevelDropdown = areaTypeSelect.parentElement.querySelector(".area-level");
+            areaLevelDropdown.innerHTML = `<option value="" selected>Select Area Level...</option>`;
+
+            for (let i = 1; i <= levels; i++) {
+                areaLevelDropdown.innerHTML += `<option value="${i}">${i}</option>`;
+            }
+        }
+
         function generateJson() {
-            const areaType = document.getElementById('area-type-dropdown').value;
-            const productionTime = document.getElementById('production-time').value;
+            const areaType = parseInt(document.getElementById('area-type-dropdown').value, 10);
+            const productionTime = parseInt(document.getElementById('production-time').value, 10);
             const needFuel = document.getElementById('need-fuel').checked;
             const locked = document.getElementById('locked').checked;
             const endProductTpl = document.getElementById('end-product-search').getAttribute('data-tpl') || document.getElementById('end-product-search').value;
             const continuous = document.getElementById('continuous').checked;
-            const count = document.getElementById('count').value;
+            const count = parseInt(document.getElementById('count').value, 10);
             const isEncoded = document.getElementById('is-encoded').checked;
             const isCodeProduction = document.getElementById('is-code-production').checked;
 
             const requirements = Array.from(document.getElementById("requirements-list").children).map(requirementDiv => {
                 const type = requirementDiv.querySelector("select").value;
-                const areaType = requirementDiv.querySelector(".area-type")?.value;
-                const level = requirementDiv.querySelector(".area-level")?.value;
+                const areaType = parseInt(requirementDiv.querySelector(".area-type")?.value, 10);
+                const requiredLevel = parseInt(requirementDiv.querySelector(".area-level")?.value, 10);
                 const itemInput = requirementDiv.querySelector(".item-search");
                 const itemId = itemInput ? (itemInput.getAttribute('data-tpl') || itemInput.value) : null;
                 const toolInput = requirementDiv.querySelector(".tool-search");
                 const toolId = toolInput ? (toolInput.getAttribute('data-tpl') || toolInput.value) : null;
                 const questId = requirementDiv.querySelector(".quest-id")?.value;
-                const quantity = requirementDiv.querySelector(".item-quantity")?.value;
+                const quantity = parseInt(requirementDiv.querySelector(".item-quantity")?.value, 10);
                 const isFunctional = requirementDiv.querySelector(".is-functional")?.checked || false;
                 const isEncoded = requirementDiv.querySelector(".is-encoded")?.checked || false;
 
-                if (type === "tool") {
-                    return { type: "Tool", templateId: toolId };
-                } else if (type === "questComplete") {
-                    return { type: "QuestComplete", questId };
-                } else if (type === "items") {
-                    return { type, templateId: itemId, count: quantity, isFunctional, isEncoded };
-                } else if (type === "area") {
-                    return { type, areaType, level };
+                if (type === "Tool") {
+                    return { 
+                        templateId: toolId,
+                        type: "Tool"
+                    };
+                } else if (type === "QuestComplete") {
+                    return { 
+                        questId,
+                        type: "QuestComplete"
+                    };
+                } else if (type === "Item") {
+                    return { 
+                        templateId: itemId, 
+                        count: quantity, 
+                        isFunctional, 
+                        isEncoded,
+                        type
+                    };
+                } else if (type === "Area") {
+                    return { 
+                        areaType, 
+                        requiredLevel,
+                        type, 
+                    };
                 }
             });
 
-            const jsonData = {
+            const jsonData = [{
                 _id: generateUniqueId(),
                 areaType,
                 productionTime,
@@ -364,7 +409,7 @@
                 isEncoded,
                 isCodeProduction,
                 requirements
-            };
+            }];
 
             document.getElementById('json-output').textContent = JSON.stringify(jsonData, null, 4);
             document.getElementById('json-output-section').style.display = 'block';
