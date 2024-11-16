@@ -984,6 +984,13 @@
                             <option value="Left">Left</option>
                             <option value="MissingInAction">Missing In Action</option>
                         </select>
+                        <label style="display: block; margin-top: 10px;">
+                            <input type="checkbox" id="doNotResetIfCounterCompleted">
+                            Do Not Reset If Counter Completed
+                        </label>
+                        <label style="display: block; margin-top: 10px;">
+                            Value: <input type="number" id="counter-value" value="1" min="0" style="width: 50px;">
+                        </label>
                         <div id="subcondition-list-container" style="margin-top: 20px;">
                             <h4 style="color: #06b600;">Subconditions:</h4>
                         </div>
@@ -993,7 +1000,6 @@
                     const subconditionListContainer = conditionDetails.querySelector('#subcondition-list-container');
                     const addSubconditionBtn = conditionDetails.querySelector('#add-subcondition-btn');
 
-                    // Add functionality to add subconditions
                     addSubconditionBtn.addEventListener('click', function () {
                         const subconditionId = generateUniqueId();
                         const subconditionElement = document.createElement('div');
@@ -1016,7 +1022,6 @@
                         const subconditionTypeSelect = subconditionElement.querySelector('.subcondition-type');
                         const subconditionDetails = subconditionElement.querySelector('.subcondition-details');
 
-                        // Dynamically update subcondition details
                         subconditionTypeSelect.addEventListener('change', function () {
                             if (this.value === 'Location') {
                                 subconditionDetails.innerHTML = `
@@ -1039,7 +1044,6 @@
                             }
                         });
 
-                        // Add functionality to remove subcondition
                         const removeSubconditionBtn = subconditionElement.querySelector('.remove-subcondition-btn');
                         removeSubconditionBtn.addEventListener('click', function () {
                             subconditionElement.remove();
@@ -2482,6 +2486,8 @@
                     // ExitStatus Condition
                     else if (conditionType === 'ExitStatus') {
                         const selectedStatuses = Array.from(div.querySelector('.exit-status-dropdown').selectedOptions).map(option => option.value);
+                        const doNotResetIfCounterCompleted = div.querySelector('#doNotResetIfCounterCompleted').checked;
+                        const counterValue = parseInt(div.querySelector('#counter-value').value, 10);
                         const subconditionElements = div.querySelectorAll('.subcondition');
                         const subconditions = [];
 
@@ -2501,6 +2507,7 @@
                         });
 
                         return {
+                            completeInSeconds: 0,
                             conditionType: 'CounterCreator',
                             counter: {
                                 conditions: [
@@ -2514,14 +2521,18 @@
                                 ],
                                 id: generateUniqueId()
                             },
+                            doNotResetIfCounterCompleted,
                             dynamicLocale: false,
+                            globalQuestCounterId: "",
                             id: conditionId,
                             index,
+                            oneSessionOnly: false,
                             parentId: "",
+                            type: "Completion",
+                            value: counterValue,
                             visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
-
                     // InZone Condition
                     else if (conditionType === 'InZone') {
                         const zoneIds = div.querySelector('input[type="text"]').value.split(',').map(id => id.trim());
