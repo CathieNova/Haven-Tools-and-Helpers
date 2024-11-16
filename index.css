@@ -121,6 +121,10 @@ h1, h2, h3, h4, h5 {
     content: " (Optional)";
     color: #c2c2c2;
 }
+.weapon-mods-exclusive,
+.weapon-mods-inclusive,
+.exclusive-equipment-items-container,
+.inclusive-equipment-items-container,
 .target-items-container,
 section {
     margin-bottom: 20px;
