@@ -712,10 +712,10 @@
                             <input class="small-number" type="number" placeholder="Distance in meters" required value="0">
                         </label>
                         <label style="color: #06b600;">Time of Day From (0-24):
-                            <input class="small-number" type="number" min="0" max="24" value="0" required>
+                            <input id="time-from-input" class="small-number" type="number" min="0" max="24" value="0" required>
                         </label>
                         <label style="color: #06b600;">Time of Day To (0-24):
-                            <input class="small-number" type="number" min="0" max="24" value="0" required>
+                            <input id="time-to-input" class="small-number" type="number" min="0" max="24" value="0" required>
                         </label>
                         <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
                         <div class="weapon-caliber-container">
@@ -1947,10 +1947,10 @@
                             </label>
 
                             <label style="color: #06b600;">Time of Day From (0-24):
-                                <input class="small-number" type="number" min="0" max="24" value="0" required>
+                                <input id="time-from-input" class="small-number" type="number" min="0" max="24" value="0" required>
                             </label>
                             <label style="color: #06b600;">Time of Day To (0-24):
-                                <input class="small-number" type="number" min="0" max="24" value="0" required>
+                                <input id="time-to-input" class="small-number" type="number" min="0" max="24" value="0" required>
                             </label>
 
                             <label style="color: #06b600;">Select Weapon Caliber (select multiple with ctrl + click):</label>
@@ -2343,8 +2343,8 @@
                     else if (conditionType === 'Kills') {
                         const targetSelect = div.querySelector('#target-select');
                         const killsRequiredInput = div.querySelector('input[type=number]');
-                        const timeFromInput = div.querySelector('input.small-number:nth-of-type(1)');
-                        const timeToInput = div.querySelector('input.small-number:nth-of-type(2)');
+                        const timeFromInput = div.querySelector('#time-from-input');
+                        const timeToInput = div.querySelector('#time-to-input');
                         const bodyPartSelect = div.querySelector('#body-part-select');
                         const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
                         const distanceComparisonSelect = div.querySelector('.equalto');
@@ -2394,8 +2394,8 @@
                             compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
                             conditionType: "Kills",
                             daytime: {
-                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
-                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
+                                from: timeFromInput && timeFromInput.value ? parseInt(timeFromInput.value, 10) : 0,
+                                to: timeToInput && timeToInput.value ? parseInt(timeToInput.value, 10) : 0
                             },
                             distance: {
                                 compareMethod: distanceComparisonSelect ? distanceComparisonSelect.value : '>=',
@@ -2667,8 +2667,8 @@
                         const targetSelect = div.querySelector('#target-select');
                         const compareSelect = div.querySelector('.compare-method-select');
                         const killsRequiredInput = div.querySelector('input[type="number"]');
-                        const timeFromInput = div.querySelector('input[type="number"]:nth-of-type(1)');
-                        const timeToInput = div.querySelector('input[type="number"]:nth-of-type(2)');
+                        const timeFromInput = div.querySelector('#time-from-input');
+                        const timeToInput = div.querySelector('#time-to-input');
                         const bodyPartSelect = div.querySelector('#body-part-select');
                         const selectedBodyParts = Array.from(bodyPartSelect.selectedOptions).map(option => option.value);
                         const distanceComparisonSelect = div.querySelector('.distance-compare-select');
@@ -2695,9 +2695,9 @@
                             target: targetSelect ? targetSelect.value : 'Any',
                             compareMethod: compareSelect ? compareSelect.value : '',
                             value: killsRequiredInput ? parseInt(killsRequiredInput.value, 10) : 1,
-                            timeOfDay: {
-                                from: timeFromInput ? parseInt(timeFromInput.value, 10) : 0,
-                                to: timeToInput ? parseInt(timeToInput.value, 10) : 0
+                            daytime: {
+                                from: timeFromInput && timeFromInput.value ? parseInt(timeFromInput.value, 10) : 0,
+                                to: timeToInput && timeToInput.value ? parseInt(timeToInput.value, 10) : 0
                             },
                             bodyPart: selectedBodyParts,
                             distance: {
