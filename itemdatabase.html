@@ -98,8 +98,8 @@
                         searchKey = 'QuestName';
                         break;
                     case 'handbook':
-                        data = fileData.Categories || [];
-                        searchKey = 'Id';
+                        data = fileData.Items || [];
+                        searchKey = 'displayName';
                         break;
                     case 'items':
                         data = Object.values(fileData).map(item => ({
@@ -115,6 +115,10 @@
                         );
                         displayResults(data);
                         searchKey = '';
+                        break;
+                    case 'prices':
+                        data = fileData || [];
+                        searchKey = 'displayName';
                         break;
                     default:
                         data = [];
@@ -163,11 +167,12 @@
                 filteredData = data.filter(item => {
                     const matchesDisplayName = item.displayName?.toLowerCase().includes(searchTerm);
                     const matchesId = item._id?.toLowerCase().includes(searchTerm);
+                    const matchesIdHandbook = getItemDisplayName(item.Id)?.toLowerCase().includes(searchTerm);
                     const matchesExactName = item._name?.toLowerCase().includes(searchTerm);
 
                     const modifiedItem = matchesExactName ? { ...item, displayName: item._name } : item;
 
-                    return matchesDisplayName || matchesId || matchesExactName ? modifiedItem : null;
+                    return matchesDisplayName || matchesId || matchesIdHandbook || matchesExactName ? modifiedItem : null;
                 });
             } else {
                 filteredData = Object.fromEntries(
@@ -193,7 +198,7 @@
             
             dropdownMenu.innerHTML = (Array.isArray(results) ? results : Object.values(results)).map(item => {
                 const id = item._id || item.id || item.Id;
-                const displayText = item.displayName || item.QuestName || item.Name || id;
+                const displayText = getItemDisplayName(id);
                 return `
                     <div class="dropdown-item" data-value="${id}" onclick="selectDropdownItem(this)">
                         ${displayText}
@@ -202,6 +207,19 @@
             }).join('');
 
             dropdownMenu.style.display = results.length ? 'block' : 'none';
+        }
+
+        function getItemDisplayName(_tpl) {
+            const nameKey = `${_tpl} Name`;
+            const shortNameKey = `${_tpl} ShortName`;
+
+            if (languageData[nameKey]) {
+                return languageData[nameKey];
+            } else if (languageData[shortNameKey]) {
+                return languageData[shortNameKey];
+            } else {
+                return _tpl;
+            }
         }
 
         function displaySelectedItem(item) {
