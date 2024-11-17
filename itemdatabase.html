@@ -21,7 +21,8 @@
             <h1 id="main-text">Haven Tarkov Database</h1>
             <select id="json-file-select" onchange="loadSelectedFile()">
                 <option value="">Select a file...</option>
-                <option value="handbook">Handbook</option>
+                <option value="handbook">Item Prices for Traders</option>
+                <option value="prices">Flea Base Prices</option>
                 <option value="items">Items</option>
                 <option value="quests">Quests</option>
                 <option value="itemGroups">Item Groups</option>
@@ -46,6 +47,8 @@
         let languageData = {};
         selectedFile = '';
         let itemGroups = {};
+        let prices = {};
+        let quests = {};
 
         function openURL(url) {
             if (url === 'vcqlhelper')
@@ -68,6 +71,28 @@
                 searchKey = '';
             } catch (error) {
                 console.error('Failed to load itemGroups.json:', error);
+            }
+        }
+
+        async function loadPrices() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/database/templates/prices.json');
+                if (!response.ok) throw new Error(`Error loading prices.json: ${response.status}`);
+                prices = await response.json();
+                searchKey = '';
+            } catch (error) {
+                console.error('Failed to load prices.json:', error);
+            }
+        }
+
+        async function loadQuests() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/database/templates/quests.json');
+                if (!response.ok) throw new Error(`Error loading quests.json: ${response.status}`);
+                quests = await response.json();
+                searchKey = '';
+            } catch (error) {
+                console.error('Failed to load quests.json:', error);
             }
         }
 
@@ -117,8 +142,9 @@
                         searchKey = '';
                         break;
                     case 'prices':
-                        data = fileData || [];
-                        searchKey = 'displayName';
+                        data = fileData;
+                        displayResults(data);
+                        searchKey = '';
                         break;
                     default:
                         data = [];
@@ -167,7 +193,7 @@
                 filteredData = data.filter(item => {
                     const matchesDisplayName = item.displayName?.toLowerCase().includes(searchTerm);
                     const matchesId = item._id?.toLowerCase().includes(searchTerm);
-                    const matchesIdHandbook = getItemDisplayName(item.Id)?.toLowerCase().includes(searchTerm);
+                    const matchesIdHandbook = getItemDisplayName(item.Id, true)?.toLowerCase().includes(searchTerm);
                     const matchesExactName = item._name?.toLowerCase().includes(searchTerm);
 
                     const modifiedItem = matchesExactName ? { ...item, displayName: item._name } : item;
@@ -184,6 +210,9 @@
 
             if (selectedFile === 'itemGroups') {
                 displayResults(filteredData);
+            } else if (selectedFile === 'prices')
+            {
+                displayResults(filteredData);
             } else {
                 populateDropdown(filteredData);
             }
@@ -198,7 +227,8 @@
             
             dropdownMenu.innerHTML = (Array.isArray(results) ? results : Object.values(results)).map(item => {
                 const id = item._id || item.id || item.Id;
-                const displayText = getItemDisplayName(id);
+                const displayText = getItemDisplayName(id, false) || item.displayName || item._name || item.QuestName || item.Name;
+
                 return `
                     <div class="dropdown-item" data-value="${id}" onclick="selectDropdownItem(this)">
                         ${displayText}
@@ -209,7 +239,7 @@
             dropdownMenu.style.display = results.length ? 'block' : 'none';
         }
 
-        function getItemDisplayName(_tpl) {
+        function getItemDisplayName(_tpl, showTPL) {
             const nameKey = `${_tpl} Name`;
             const shortNameKey = `${_tpl} ShortName`;
 
@@ -218,7 +248,9 @@
             } else if (languageData[shortNameKey]) {
                 return languageData[shortNameKey];
             } else {
-                return _tpl;
+                if (showTPL)
+                    return _tpl;
+                else return '';
             }
         }
 
@@ -255,7 +287,7 @@
             
             mongoIdElements.forEach(element => {
                 const id = element.textContent.replace(/"/g, '');
-                const itemName = languageData[id] || '';
+                const itemName = getItemDisplayName(id, false) || '';
 
                 if (itemName) {
                     element.setAttribute('title', itemName);
@@ -377,6 +409,8 @@
             await loadLanguage('en.json');
             await loadSelectedFile();
             loadItemGroups();
+            loadPrices();
+            loadQuests();
             handleHashChange();
         };
 
