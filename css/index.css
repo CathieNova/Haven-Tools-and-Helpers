@@ -1,0 +1,158 @@
+body {
+    background-color: #121212;
+    background-image: url('https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.content-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(18, 18, 18, 0.9);
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.main-content {
+    border: 1px solid #333;
+}
+
+#main-content h1 {
+    color: #ff7920;
+    border: 1px solid #ff7920;
+    border-width: 1px 0;
+    width:fit-content;
+}
+
+#main-content h4 {
+    margin-bottom: 10px;
+}
+
+#main-content h4 a {
+    color: #4db8ff;
+    text-decoration: underline;
+}
+
+#main-content h4 a:hover {
+    color: #bbf;
+}
+
+#main-content h4:nth-of-type(4) {
+    color: rgb(0, 161, 73);
+}
+
+#main-content,
+#useful-info,
+#roadmap,
+#changelog-list,
+#changelog {
+    position: relative;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+#useful-info strong:first-of-type {
+    color: #ffdd57;
+    font-size: 1.4em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#useful-info strong,
+#roadmap h2,
+#changelog h2 {
+    color: #ff7920;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+#useful-info ul,
+#roadmap ul,
+#changelog ul {
+    list-style: none;
+    padding-left: 0;
+    color: #e0e0e0;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+#roadmap h3,
+#changelog h3 {
+    color: #cfcfcf;
+    font-size: 1em;
+    margin-top: 15px;
+}
+
+ul ul {
+    padding-left: 20px;
+}
+
+li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #7c0072;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+a {
+    color: #9ab;
+    text-decoration: underline;
+}
+
+.changelog-date,
+.label-title {
+    color: #ff7920;
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #bbf;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #c2c2c2;
+    margin-top: 0px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
+
+#roadmap h2 strong,
+#changelog h2 strong {
+    color: #ffdd57;
+}
+
+a.icon {
+    text-decoration: none;
+}
+
+a.icon:hover {
+    text-decoration: none;
+}

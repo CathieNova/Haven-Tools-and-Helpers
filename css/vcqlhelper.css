@@ -1,0 +1,747 @@
+body {
+    background-color: #121212;
+    background-image: url('https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #333333;
+    color: #e0e0e0;
+    padding: 0 10px;
+    z-index: 1000;
+}
+
+#header-button {
+    background-color: #700067;
+    color: #fcfcfc;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 0px;
+    width: 40%;
+}
+
+#header-button:hover {
+    background-color: #555;
+}
+
+.content-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(18, 18, 18, 0.9);
+    border-radius: 8px;
+    margin-top: 0px;
+}
+
+#top-right-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1a1a1a;
+    border-color: #333;
+    border-radius: 10px;
+    border: #333;
+    color: #e0e0e0;
+    padding: 10px;
+    z-index: 999;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+    padding-bottom: 0px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+#top-right-box h3 {
+    color: #c2c2c2;
+}
+
+#top-right-box select
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+#top-right-box button {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    background-color: #700067;
+    color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+#top-right-box button:hover {
+    background-color: #555;
+    width: 90%;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #c2c2c2;
+    margin-top: 0px;
+}
+
+.h3-title {
+    color: #c2c2c2;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.h3-title::after {
+    content: " (Optional)";
+    color: #c2c2c2;
+}
+.weapon-mods-exclusive,
+.weapon-mods-inclusive,
+.exclusive-equipment-items-container,
+.inclusive-equipment-items-container,
+.target-items-container,
+section {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    align-items: center;
+}
+
+section h2, section h3, section h4 {
+    color: #c2c2c2;
+    margin-bottom: 10px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+label input[type="checkbox"] {
+    margin-right: 8px;
+    width: auto;
+}
+
+select, input
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0;
+    margin-left: 10px;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0;
+    margin-left: 10px;
+    width: 40%;
+    box-sizing: border-box;
+}
+
+.dynamic-fields > div {
+    padding: 0px 0;
+}
+
+.condition-details, .reward-details {
+    margin-top: 10px;
+}
+
+.condition, .reward {
+    border: 1px solid #444;
+    background: #1e1e1e;
+    padding: 10px;
+    min-height: 100px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+#quest-output-section pre,
+#language-output-section pre,
+#assortments-output-section pre,
+.dynamic-lang-section,
+.dynamic-lang-section * {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#output,
+#language-output,
+#assortments-output,
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    max-width: 100%;
+}
+
+.dynamic-fields,
+.condition-details,
+.reward-details,
+.condition,
+.reward {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.top-right-button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 10%;
+}
+
+.language-container {
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.language-select-label {
+    color: #e0e0e0;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.language-select {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    width: 10%;
+}
+
+.language-select:hover {
+    border-color: #b300a4;
+}
+
+.tooltip .tooltiptext,
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+section h2, section h3, section h4,
+label, .available-for-start-condition label {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: #b300a4;
+}
+
+.custom-dropdown {
+    color: #e0e0e0;
+    transition: all 0.5s ease;
+    width: 50%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.dropdown-menu {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+    width: fit-content;
+    min-width: 200px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 100;
+    transition: all 0.5s ease;
+}
+
+.dropdown-item {
+    color: #e0e0e0;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.dropdown-item:hover {
+    background: #444;
+}
+
+a {
+    color: #9ab;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #bbf;
+}
+
+#language-output, #assortments-output {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: pre-wrap;
+}
+
+.assortment-id,
+.loyalty-level,
+.dropdown-search {
+    color: #e0e0e0;
+    padding: 8px;
+    margin-top: 10px;
+    width: 60%;
+    box-sizing: border-box;
+}
+
+.visibility-target {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 60%;
+    box-sizing: border-box;
+}
+
+.zoneid-inzone {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 40%;
+    box-sizing: border-box;
+}
+
+.compare-method-select,
+.equalto
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.small-number
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 10%;
+    box-sizing: border-box;
+}
+
+.skill-value
+{
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    width: 30%;
+    box-sizing: border-box;
+}
+
+.dark-section {
+    margin-top: 40px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #2b2b2b;
+    transition: all 0.5s ease;
+}
+
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #b300a4;
+}
+
+.dynamic-lang-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dynamic-lang-entry {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.dynamic-lang-entry label {
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+}
+
+.dynamic-lang-entry input[type="text"] {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.dynamic-lang-entry input[type="text"]:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.dynamic-lang-section h3 {
+    color: #c2c2c2;
+    margin-bottom: 15px;
+}
+
+.remove-btn,
+button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.remove-btn:hover,
+button:hover {
+    background-color: #555;
+}
+
+#language-entries-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dynamic-lang-entry textarea {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 30px;
+    max-height: 300px;
+    overflow-y: auto;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.dynamic-lang-entry textarea:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.dynamic-lang-entry textarea::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.available-for-start-condition {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #555;
+    background: #2a2a2a;
+    border-radius: 5px;
+}
+
+.available-for-start-condition label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+    display: block;
+}
+
+.available-for-start-condition select,
+.available-for-start-condition input {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.available-for-start-condition button {
+    background-color: #700067;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.available-for-start-condition button:hover {
+    background-color: #555;
+}
+
+#available-for-start-container {
+    display: none;
+}
+
+.dark-section pre {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: pre-wrap;
+}
+
+pre {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: pre-wrap;
+    margin-top: 20px;
+}
+
+.button-group button {
+    margin: 5px;
+}
+
+.dropdown-item.selected {
+    background-color: #555;
+}
+
+select:hover, input:hover, .custom-dropdown:hover {
+    border-color: #b300a4;
+}
+
+select:focus, input:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #2b2b2b;
+    transition: all 0.5s ease;
+}
+
+#body-part-select, #savage-role-select, .weapon-mods-container select {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#body-part-select:hover, #savage-role-select:hover, .weapon-mods-container select:hover {
+    border-color: #b300a4;
+}
+
+#body-part-select:focus, #savage-role-select:focus, .weapon-mods-container select:focus {
+    border-color: #700067;
+    outline: none;
+}
+
+.weapon-mods-container {
+    background: #2a2a2a;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.weapon-mods-container label {
+    display: block;
+    color: #e0e0e0;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.weapon-mods-container {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.weapon-mods-container .dropdown-menu {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    width: fit-content;
+    transition: opacity 0.5s ease;
+}
+
+.weapon-mods-container .dropdown-item {
+    color: #e0e0e0;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.weapon-mods-container .dropdown-item:hover {
+    background-color: #3c3c3c;
+}
+
+#location-exit-status label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#location-exit-status select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+#location-exit-status select[multiple] {
+    height: auto;
+    min-height: 100px;
+}
+
+#location-exit-status button {
+    background-color: #700067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#support-me {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+#support-me img {
+    max-width: 250px;
+    height: auto;
+}

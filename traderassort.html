@@ -3,19 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/favicon.ico">
     <title>Trader Assort Generator</title>
-    <link rel="stylesheet" type="text/css" href="traderassort.css">
+    <link rel="stylesheet" type="text/css" href="css/traderassort.css">
 </head>
 <body>
-    <div class="header">
-        <button id="header-button" onclick="openURL('vcqlhelper')">Haven VCQL Helper</button>
-        <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
-        <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
-        <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
-        <button id="header-button" onclick="openURL('hideoutcraft')">Haven Hideout Crafting Generator</button>
+    <button id="toggleTopRightBoxBtn" onclick="toggleTopRightBox()" style="position: absolute; right: 10px; top: 0px; padding: 5px 10px; width: auto;">
+        Hide Navigation & Page Settings
+    </button>
+    <div id="support-me">
+        <a href="https://ko-fi.com/cathienova" target="_blank">
+            <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
+        </a>
     </div>
-        
+    <div id="top-right-box">
+        <section id="header" style="display: block; position: relative; background-color: #1a1a1a; padding-top: 15px; padding-bottom: 0px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
+            <h3 style="color: #ff7920;"><strong>Website Navigation</strong>
+                <button id="header-button" onclick="openURL('home')">Home</button>
+                <button id="header-button" onclick="openURL('vcqlhelper')">Haven VCQL Helper</button>
+                <button id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</button>
+                <button id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</button>
+                <button id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</button>
+                <button id="header-button" onclick="openURL('hideoutcraft')">Haven Hideout Crafting Generator</button>
+        </section>
+        <!-- Language Selector 
+        <section id="header" style="display: block; position: relative; background-color: #1a1a1a; padding-top: 15px; padding-bottom: 0px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
+        <h3 style="color: #ff7920;"><strong>Trader Assort Page Settings</strong></h3>
+        <div class="language-container" id="language-container" style="text-align: left;">
+            <label class="language-select-label" for="language-select">Item Names Language: </label>
+            <select class="language-select" id="language-select" onchange="loadLanguage(this.value)">
+                <option value="en.json" selected>English</option>
+                <option value="cz.json">Czech</option>
+                <option value="fr.json">French</option>
+                <option value="ge.json">German</option>
+                <option value="hu.json">Hungarian</option>
+                <option value="it.json">Italian</option>
+                <option value="jp.json">Japanese</option>
+                <option value="kr.json">Korean</option>
+                <option value="pl.json">Polish</option>
+                <option value="po.json">Portuguese</option>
+                <option value="ro.json">Romanian</option>
+                <option value="ru.json">Russian</option>
+                <option value="sk.json">Slovak</option>
+                <option value="ch.json">Chinese</option>
+                <option value="es.json">Spanish</option>
+                <option value="es-mx.json">Mexican Spanish</option>
+                <option value="tu.json">Turkish</option>
+            </select>
+        </div>
+        </section>-->
+    </div>        
     <div class="generator-container">
         <h1>Trader Assort Generator</h1>
 
@@ -72,23 +109,26 @@
         let allItems = [];
         let languageData = {};
         let increment = 0;
+        let navigationBoxVisible = true;
 
         function openURL(url) {
+            if (url === 'home')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/');
             if (url === 'vcqlhelper')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/');
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/vcqlhelper');
             else if (url === 'itemdatabase')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/itemdatabase');
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/itemdatabase');
             else if (url === 'traderassort')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/traderassort');
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/traderassort');
             else if (url === 'modslots')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/modslots');
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/modslots');
             else if (url === 'hideoutcraft')
-                window.open('https://cathienova.github.io/Haven-VCQL-Helper/hideoutcrafts');
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/hideoutcrafts');
         }
         
         async function loadItems() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/items.json');
+                const response = await fetch('https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/database/templates/items.json');
                 const itemData = await response.json();
                 allItems = Object.values(itemData).filter(item => item._id && item._props);
                 mapLanguageToItems();
@@ -99,7 +139,7 @@
 
         async function loadLanguage(languageFile) {
             try {
-                const response = await fetch(`https://raw.githubusercontent.com/CathieNova/Haven-VCQL-Helper/refs/heads/main/lang/en.json`);
+                const response = await fetch(`https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/lang/en.json`);
                 if (!response.ok) throw new Error(`Error loading language file: ${response.status}`);
                 
                 languageData = await response.json();
@@ -389,6 +429,18 @@
             downloadAnchor.remove();
         }
 
+        function toggleTopRightBox() {
+                const usefulInfoSection = document.getElementById('top-right-box');
+                navigationBoxVisible = !navigationBoxVisible;
+
+                if (navigationBoxVisible) {
+                    usefulInfoSection.style.display = 'block';
+                    document.getElementById('toggleTopRightBoxBtn').innerText = 'Hide Navigation & Page Settings';
+                } else {
+                    usefulInfoSection.style.display = 'none';
+                    document.getElementById('toggleTopRightBoxBtn').innerText = 'Show Navigation & Page Settings';
+                }
+            }
 
         window.onload = async function() {
             await loadLanguage('en.json');
