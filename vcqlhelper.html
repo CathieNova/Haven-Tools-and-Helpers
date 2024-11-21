@@ -28,6 +28,11 @@
         </section>
         <section id="header" style="display: block; position: relative; background-color: #1a1a1a; padding-top: 15px; padding-bottom: 0px; border-radius: 10px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);">
         <h3 style="color: #ff7920;"><strong>VCQL Page Settings</strong></h3>
+        <label for="spt-version">SPT Version:</label>
+        <select id="spt-version" onchange="handleSPTVersionChange()">
+            <option value="3.9.8">SPT 3.9.8</option>
+            <option value="3.10">SPT 3.10</option>
+        </select>
         <div class="language-container" id="language-container" style="text-align: left;">
             <label class="language-select-label" for="language-select">Item Names Language: </label>
             <select class="language-select" id="language-select" onchange="loadLanguage(this.value)">
@@ -1337,6 +1342,15 @@
                 return inputElement.dataset.selectedValue || inputElement.value;
             }
 
+            function handleSPTVersionChange() {
+                const version = document.getElementById('spt-version').value;
+                const rewardEditionSections = document.querySelectorAll('.reward-editions');
+
+                rewardEditionSections.forEach(section => {
+                    section.style.display = version === '3.10' ? 'block' : 'none';
+                });
+            }
+
             function addStartedReward() {
                 const container = document.getElementById('started-rewards-container');
                 const rewardDiv = document.createElement('div');
@@ -1358,12 +1372,28 @@
                         <label style="color: #06b600;">Quantity:
                             <input type="number" class="stack-count" value="1" min="1">
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                         <button onclick="removeStartedReward(this)" style="margin-top: 10px; width: auto;">Remove Reward</button>
                     </section>
                 `;
 
 
                 container.appendChild(rewardDiv);
+                handleSPTVersionChange();
             }
 
             function removeStartedReward(button) {
@@ -1372,6 +1402,7 @@
 
             function generateStartedRewards() {
                 const rewards = Array.from(document.querySelectorAll('#started-rewards-container .started-reward')).map((rewardDiv, index) => {
+                    const version = document.getElementById('spt-version').value;
                     const inputElement = rewardDiv.querySelector('.dropdown-search');
                     const tplId = getTplId(inputElement);
                     const stackCount = parseInt(rewardDiv.querySelector('.stack-count').value, 10);
@@ -1380,7 +1411,9 @@
                     const traderId = document.getElementById('trader-name').value || 'trader';
                     const rewardId = generateUniqueId();
 
-                    return {
+                    let availableInGameEditions = [];
+
+                    const reward = {
                         findInRaid: true,
                         id: rewardId,
                         index: index,
@@ -1397,6 +1430,18 @@
                         type: "Item",
                         value: "1"
                     };
+
+                    if (version === '3.10') {
+                        const selectedOptions = Array.from(rewardDiv.querySelector('.available-editions')?.selectedOptions || [])
+                            .map(option => option.value);
+                        const customEdition = rewardDiv.querySelector('.custom-edition')?.value.trim();
+                        if (customEdition) {
+                            selectedOptions.push(customEdition);
+                        }
+                        reward.availableInGameEditions = selectedOptions.length > 0 ? selectedOptions : [];
+                    }
+
+                    return reward;
                 });
 
                 return rewards;
@@ -1423,6 +1468,7 @@
                 
                 container.appendChild(rewardDiv);
                 updateRewardFields(rewardDiv.querySelector('select'));
+                handleSPTVersionChange();
             }
 
             function updateRewardFields(selectElement) {
@@ -1466,6 +1512,21 @@
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                     `;
                 } else if (selectElement.value === 'Item') {
                     rewardDetails.innerHTML = `
@@ -1488,6 +1549,21 @@
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                     `;
                 } else if (selectElement.value === 'TraderStanding') {
                     rewardDetails.innerHTML = `
@@ -1500,6 +1576,21 @@
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                     `;
                 }
                 
@@ -1511,6 +1602,21 @@
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                     `;
                 } else if (selectElement.value === 'Skill') {
                     rewardDetails.innerHTML = `
@@ -1525,6 +1631,21 @@
                         <label style="color: #06b600;">
                             <input type="checkbox" class="unknown-checkbox"> Hidden Reward
                         </label>
+                        <div class="reward-editions" style="display: none;">
+                            <label for="available-editions">Available for Profile Editions:</label>
+                            <select class="available-editions" multiple>
+                                <option value="standard">Standard</option>
+                                <option value="left_behind">Left Behind</option>
+                                <option value="edge_of_darkness">Edge of Darkness</option>
+                                <option value="prepare_for_escape">Prepare for Escape</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="press_edition">Press Edition</option>
+                                <option value="tournament_live">Tournament Live</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="develop">Develop</option>
+                            </select>
+                            <input type="text" class="custom-edition" placeholder="Enter custom edition">
+                        </div>
                     `;
                 }
             }
@@ -2800,17 +2921,29 @@
                 });
 
                 const startedRewards = generateStartedRewards();
+                const version = document.getElementById('spt-version').value;
 
                 // Rewards
                 const rewards = Array.from(document.querySelectorAll('#rewards-container > .reward')).map((div, index) => {
                     const rewardType = div.querySelector('select').value;
                     const rewardId = generateUniqueId();
+                    let availableInGameEditions = [];
+                    if (version === '3.10') {
+                        const selectedOptions = Array.from(div.querySelector('.available-editions')?.selectedOptions || [])
+                            .map(option => option.value);
+                        const customEdition = div.querySelector('.custom-edition')?.value.trim();
+                        if (customEdition) {
+                            selectedOptions.push(customEdition);
+                        }
+                        availableInGameEditions = selectedOptions.length > 0 ? selectedOptions : [];
+                    }
 
                     // Experience Reward
                     if (rewardType === 'Experience') {
                         const valueInput = div.querySelector('.reward-value'); 
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         return {
+                            availableInGameEditions,
                             id: rewardId,
                             index: index,
                             type: rewardType,
@@ -2824,6 +2957,7 @@
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         const traderIdReward = div.querySelector('.trader-id-reward').value;
                         return {
+                            availableInGameEditions,
                             id: rewardId,
                             index: index,
                             target: traderIdReward,
@@ -2841,6 +2975,7 @@
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
 
                         return {
+                            availableInGameEditions,
                             findInRaid: true,
                             id: rewardId,
                             index,
@@ -2866,6 +3001,7 @@
                         const itemId = getTplId(inputElement);
 
                         return {
+                            availableInGameEditions,
                             id: rewardId,
                             index: index,
                             items: [{ _id: div.querySelector('.assortment-id').value, _tpl: itemId }],
@@ -2882,6 +3018,7 @@
                         const skillValue = div.querySelector('.skill-value').value || "0";
                         const unknownCheckbox = div.querySelector('.unknown-checkbox');
                         return {
+                            availableInGameEditions,
                             id: rewardId,
                             index: index,
                             target: targetSkill,
