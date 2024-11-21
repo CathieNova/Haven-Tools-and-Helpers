@@ -297,25 +297,25 @@
 
         function selectItem(itemId, index, fieldType = 'template', barterIndex = null) {
             const selectedItem = allItems.find(i => i._id === itemId);
-            let inputId, dropdownId;
 
             if (fieldType === 'template') {
-                items[index]._tpl = selectedItem._id;
-                items[index].displayName = selectedItem.displayName;
-                inputId = `item-search-${index}`;
-                dropdownId = `dropdown-content-template-${index}`;
-                document.getElementById(`item-header-${index}`).textContent = selectedItem.displayName || `Item ${index + 1}`;
+                items[index]._tpl = selectedItem ? selectedItem._id : itemId;
+                document.getElementById(`item-search-${index}`).value = items[index]._tpl;
             } else if (fieldType === 'barter') {
-                items[index].barterScheme[barterIndex]._tpl = selectedItem._id;
-                inputId = `barter-tpl-${index}-${barterIndex}`;
-                dropdownId = `dropdown-content-barter-${index}-${barterIndex}`;
+                if (!items[index].barterScheme[barterIndex]) {
+                    items[index].barterScheme[barterIndex] = {};
+                }
+                items[index].barterScheme[barterIndex]._tpl = selectedItem ? selectedItem._id : itemId;
+                document.getElementById(`barter-tpl-${index}-${barterIndex}`).value = items[index].barterScheme[barterIndex]._tpl;
             }
 
-            // Display name only in the input field
-            document.getElementById(inputId).value = selectedItem.displayName;
+            const dropdownId = fieldType === 'template'
+                ? `dropdown-content-template-${index}`
+                : `dropdown-content-barter-${index}-${barterIndex}`;
             const dropdown = document.getElementById(dropdownId);
             if (dropdown) dropdown.style.display = 'none';
         }
+
         function updateField(index, field, value) {
             let item = items[index];
             let keys = field.split('.');
