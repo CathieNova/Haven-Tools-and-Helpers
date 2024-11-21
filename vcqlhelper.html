@@ -973,6 +973,7 @@
                                     <select class="subcondition-type">
                                         <option value="" selected>Select</option>
                                         <option value="Location">Location</option>
+                                        <option value="Exfil">Exit Name</option>
                                     </select>
                                 </label>
                                 <div class="subcondition-details" style="margin-top: 10px;"></div>
@@ -1000,7 +1001,197 @@
                                         <option value="TarkovStreets">Streets</option>
                                     </select>
                                 `;
-                            } else {
+                            } else if (this.value === 'Exfil') {
+                                subconditionDetails.innerHTML = `
+                                    <label style="color: #06b600;">Select Role:</label>
+                                    <select class="role-select" onchange="populateExfilDropdown(this)">
+                                        <option value="PMC">PMC</option>
+                                        <option value="Scav">Scav</option>
+                                    </select>
+                                    <label style="color: #06b600;">Select Map:</label>
+                                    <select class="map-select" onchange="populateExfilDropdown(this)">
+                                        <option value="Streets">Streets</option>
+                                        <option value="Customs">Customs</option>
+                                        <option value="Woods">Woods</option>
+                                        <option value="Reserve">Reserve</option>
+                                        <option value="Interchange">Interchange</option>
+                                        <option value="Lighthouse">Lighthouse</option>
+                                        <option value="Shoreline">Shoreline</option>
+                                        <option value="Factory">Factory</option>
+                                    </select>
+                                    <label style="color: #06b600;">Exfil Points:</label>
+                                    <select class="exfil-dropdown"></select>
+                                    <label style="color: #06b600;">Custom Exfil:</label>
+                                    <input type="text" class="custom-exfil" placeholder="Enter custom exfil point">
+                                `;
+
+                                const roleSelect = subconditionDetails.querySelector('.role-select');
+                                const mapSelect = subconditionDetails.querySelector('.map-select');
+                                const exfilDropdown = subconditionDetails.querySelector('.exfil-dropdown');
+
+                                const locations = {
+                                    PMC: {
+                                        Streets: {
+                                            E1: "Stylobate Building Elevator",
+                                            E2: "Sewer River",
+                                            E3: "Damaged House",
+                                            E4: "Crash Site",
+                                            E5: "Collapsed Crane",
+                                            E6: "Scav Checkpoint",
+                                            E7: "Expo Checkpoint",
+                                            E7_car: "Primorsky Ave Taxi V-Ex",
+                                            E8: "Cardinal Apartment Complex",
+                                            E8_yard: "Courtyard",
+                                            E9_sniper: "Klimov Street",
+                                            Exit_E10_coop: "Pinewood Basement (Co-Op)",
+                                        },
+                                        Customs: {
+                                            Crossroads: "Crossroads",
+                                            "RUAF Roadblock": "RUAF Roadblock",
+                                            "Dorms V-Ex": "Dorms V-Ex",
+                                            "Old Gas Station": "Old Gas Station",
+                                            "Smuggler's Boat": "Smuggler's Boat",
+                                            "Trailer Park": "Trailer Park",
+                                            EXFIL_ZB013: "ZB-013",
+                                            "ZB-1011": "ZB-1011",
+                                            "ZB-1012": "ZB-1012",
+                                        },
+                                        Woods: {
+                                            Outskirts: "Outskirts",
+                                            "UN Roadblock": "UN Roadblock",
+                                            "South V-Ex": "Bridge V-Ex",
+                                            "un-sec": "Northern UN Roadblock",
+                                            "RUAF Gate": "RUAF Gate",
+                                            "ZB-014": "ZB-014",
+                                            "ZB-016": "ZB-016",
+                                        },
+                                        Reserve: {
+                                            EXFIL_Train: "Armored Train",
+                                            EXFIL_Bunker: "Bunker Hermetic Door",
+                                            Alpinist: "Cliff Descent",
+                                            EXFIL_BUNKER_D2: "D-2",
+                                            EXFIL_vent: "Sewer Manhole",
+                                            EXFIL_ScavCooperation: "Scav Lands (Co-Op)",
+                                        },
+                                        Interchange: {
+                                            "SE Exfil": "Emercom Checkpoint",
+                                            "NW Exfil": "Railway Exfil",
+                                            "Hole Exfill": "Hole in the Fence",
+                                            "PP Exfil": "Power Station V-Ex",
+                                            "Saferoom Exfil": "Saferoom Exfil",
+                                            "Interchange Cooperation": "Scav Camp (Co-Op)",
+                                        },
+                                        Lighthouse: {
+                                            EXFIL_Train: "Armored Train",
+                                            SCAV_FREE4ALL: "Path to Shoreline",
+                                            Alpinist_light: "Mountain Pass",
+                                            Nothern_Checkpoint: "Northern Checkpoint",
+                                            "V-ex_light": "Road to Military Base V-Ex",
+                                            Coastal_South_road: "Southern Road",
+                                            Tunnel_Shared: "Side Tunnel (Co-Op)",
+                                        },
+                                        Shoreline: {
+                                            "Road to Customs": "Road to Customs",
+                                            RedRebel_alp: "Climber's Trail",
+                                            Lighthouse_pass: "Path to Lighthouse",
+                                            "Pier Boat": "Pier Boat",
+                                            ROAD_AT_RAILBRIDGE: "Railway Bridge",
+                                            Shorl_V_Ex: "Road to North V-Ex",
+                                            Tunnel: "Tunnel",
+                                            Smugglers_Trail_coop: "Smuggler's Path (Co-op)",
+                                        },
+                                        Factory: {
+                                            "Gate 3": "Gate 3",
+                                            Cellars: "Cellars",
+                                            "Gate 0": "Gate 0",
+                                            Gate_m: "Med Tent Gate",
+                                        },
+                                    },
+                                    Scav: {
+                                        Streets: {
+                                            scav_e1: "Basement Descent",
+                                            scav_e2: "Entrance to Catacombs",
+                                            scav_e3: "Ventilation Shaft",
+                                            scav_e4: "Sewer Manhole",
+                                            scav_e5: "Near Kamchatskaya Arch",
+                                            scav_e6: "Basement Entrance",
+                                            scav_e7: "Cardinal Apartment Complex Parking",
+                                            scav_e8: "Klimov Shopping Mall Exfil",
+                                        },
+                                        Customs: {
+                                            "Administration Gate": "Administration Gate",
+                                            "Factory Far Corner": "Factory Far Corner",
+                                            "Factory Shacks": "Factory Shacks",
+                                            Shack: "Military Base CP",
+                                            "Old Azs Gate": "Old Gas Station Gate",
+                                            "Old Road Gate": "Old Road Gate",
+                                            "Beyond Fuel Tank": "Passage Between Rocks",
+                                            "Railroad To Military Base": "Railroad to Military Base",
+                                            "Railroad To Port": "Railroad to Port",
+                                            "Railroad To Tarkov": "Railroad to Tarkov",
+                                            "Sniper Roadblock": "Sniper Roadblock",
+                                            "Trailer Park Workers Shack": "Trailer Park Workers' Shack",
+                                            "Warehouse 17": "Warehouse 17",
+                                            "Warehouse 4": "Warehouse 4",
+                                        },
+                                        Woods: {
+                                            "Dead Man's Place": "Dead Man's Place",
+                                            "West Border": "Eastern Rocks",
+                                            "Mountain Stash": "Mountain Stash",
+                                            "Old Station": "Old Railway Depot",
+                                            RUAF_Roadblock_scav: "RUAF Roadblock",
+                                            "Outskirts Water": "Scav Bridge",
+                                            "East Gate": "Scav Bunker",
+                                            "Scav House": "Scav House",
+                                        },
+                                        Reserve: {
+                                            Exit1: "Hole in the Wall by the Mountains",
+                                            Exit2: "Heating Pipe",
+                                            Exit3: "Depot Hermetic Door",
+                                            Exit4: "Checkpoint Fence",
+                                        },
+                                        Lighthouse: {
+                                            SCAV_Underboat_Hideout: "Hideout Under the Landing Stage",
+                                            SCAV_Industrial_Zone: "Industrial Zone Gates",
+                                            Scav_Hideout_at_the_grotto: "Scav Hideout at the Grotto",
+                                            Scav_Coastal_South: "Southern Road Landslide",
+                                        },
+                                        Shoreline: {
+                                            "Adm Basement": "Admin Basement",
+                                            "RWing Gym Entrance": "East Wing Gym Entrance",
+                                            Lighthouse: "Lighthouse",
+                                            "South Fence Passage": "Old Bunker",
+                                            "Wrecked Road": "Ruined Road",
+                                        },
+                                        Factory: {
+                                            "Camera Bunker Door": "Camera Bunker Door",
+                                            "Office Window": "Office Window",
+                                        },
+                                    }
+                                };
+
+                                function populateExfilDropdown() {
+                                    const role = roleSelect.value;
+                                    const map = mapSelect.value;
+
+                                    exfilDropdown.innerHTML = '';
+                                    if (locations[role] && locations[role][map]) {
+                                        Object.entries(locations[role][map]).forEach(([key, value]) => {
+                                            const option = document.createElement('option');
+                                            option.value = key;
+                                            option.textContent = value;
+                                            exfilDropdown.appendChild(option);
+                                        });
+                                    }
+                                }
+
+                                roleSelect.addEventListener('change', populateExfilDropdown);
+                                mapSelect.addEventListener('change', populateExfilDropdown);
+
+                                // Initial population
+                                populateExfilDropdown();
+                            }
+                            else {
                                 subconditionDetails.innerHTML = '';
                             }
                         });
@@ -2653,6 +2844,18 @@
                                     dynamicLocale: false,
                                     id: subconditionId,
                                     target: selectedLocations
+                                });
+                            } else if (subconditionType === 'Exfil') {
+                                const role = subcondition.querySelector('.role-select').value;
+                                const map = subcondition.querySelector('.map-select').value;
+                                const exfilPoint = subcondition.querySelector('.exfil-dropdown').value;
+                                const customExfil = subcondition.querySelector('.custom-exfil').value.trim();
+
+                                subconditions.push({
+                                    conditionType: 'ExitName',
+                                    dynamicLocale: false,
+                                    exitName: customExfil || exfilPoint,
+                                    id: subconditionId
                                 });
                             }
                         });
