@@ -282,6 +282,16 @@
                 <label for="quest-image" style="color: #06b600;">Quest Image Location:</label>
                 <input type="text" id="quest-image" placeholder="/files/quest/icon/Chloe_0.png" required>
 
+                <!-- 
+                <label for="faction-dropdown" style="color: #06b600;">Faction:</label>
+                <select id="faction-dropdown" required>
+                    <option value="Pmc">Pmc</option>
+                    <option value="Bear">Bear</option>
+                    <option value="Usec">Usec</option>
+                    <option value="Scav" disabled>Scav</option>
+                </select>
+                -->
+
                 <label for="quest-location-dropdown" style="color: #06b600;">Quest Location:</label>
                     <select id="quest-location-dropdown" class="quest-location-dropdown" required>
                         <option value="any" selected>Any</option>
@@ -2541,6 +2551,7 @@
                 const questImage = document.getElementById('quest-image').value || 'quest_image.png';
                 const questType = document.getElementById('quest-type').value;
                 const questlocation = document.getElementById('quest-location-dropdown').value;
+                //const faction = document.getElementById('faction-dropdown').value;
 
                 // Start Conditions
                 const availableForStartConditions = Array.from(document.querySelectorAll('#available-for-start-container > .condition')).map((div, index) => {
