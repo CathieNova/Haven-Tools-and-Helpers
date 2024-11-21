@@ -589,6 +589,7 @@
                             <option value="Kills">Kills</option>
                             <option value="LeaveItemAtLocation">Leave Item At Location</option>
                             <option value="PlaceBeacon">Place Beacon</option>
+                            <option value="TraderLoyalty">Trader Loyalty</option>
                         </select>
                     </label>
                     <div class="condition-details"></div>
@@ -1273,6 +1274,26 @@
                         <label style="color: #06b600;">Value:
                             <input type="number" class="place-beacon-value" placeholder="Number to place" required value="1">
                         </label>
+                    `;
+                } else if (selectElement.value === 'TraderLoyalty') {
+                    conditionDetails.innerHTML = `
+                        <label style="color: #06b600;">Trader ID:
+                            <input type="text" placeholder="Enter trader ID" required>
+                        </label>
+                        <label style="color: #06b600;">Loyalty Level:</label>
+                        <label style="color: #06b600;">Loyalty Level:
+                            <select class="loyalty-level-condition">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </label>
+                        <label style="color: #06b600;">Compare Method:</label>
+                        <select class="compare-method-select">
+                            <option value=">=" selected>&ge;</option>
+                            <option value="<=">&le;</option>
+                        </select>
                     `;
                 }
             }
@@ -2948,6 +2969,23 @@
                             value: value,
                             visibilityConditions: [],
                             zoneId: zoneId
+                        };
+                    } else if (conditionType === 'TraderLoyalty') {
+                        const targetInput = div.querySelector('input[type=text]');
+                        const valueInput = div.querySelector('.loyalty-level-condition');
+                        const compareMethod = div.querySelector('.compare-method-select').value;
+
+                        return {
+                            compareMethod: compareMethod,
+                            conditionType: 'TraderLoyalty',
+                            dynamicLocale: false,
+                            globalQuestCounterId: "",
+                            id: generateUniqueId(),
+                            index,
+                            parentId: "",
+                            target: targetInput ? targetInput.value : '',
+                            value: valueInput ? parseInt(valueInput.value, 10) : 0,
+                            visibilityConditions: generateVisibilityConditions(div, conditionId)
                         };
                     }
 
