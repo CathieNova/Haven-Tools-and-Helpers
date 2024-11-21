@@ -804,7 +804,7 @@
                         }
 
                         addSubconditionBtn.addEventListener('click', function () {
-                            const subconditionId = generateUniqueId(); // Generate a unique ID for the subcondition
+                            const subconditionId = generateUniqueId();
                             const subconditionElement = document.createElement('div');
                             subconditionElement.classList.add('subcondition');
                             subconditionElement.dataset.subconditionId = subconditionId;
@@ -2207,7 +2207,7 @@
                     detailsDiv.innerHTML = `
                         <section id="kills-fail-condition">
                             <label style="color: #06b600;">Target:
-                                <select id="target-select" required>
+                                <select class="target-select" required>
                                     <option value="Savage">Scavs</option>
                                     <option value="AnyPmc">PMCs</option>
                                     <option value="Usec">Usec</option>
@@ -2216,8 +2216,8 @@
                                 </select>
                             </label>
                             
-                            <label id="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
-                            <select id="savage-role-select" style="display:none;" multiple>
+                            <label class="savage-role-label" style="display:none; color: #06b600;">Savage Role (select multiple with ctrl + click):</label>
+                            <select class="savage-role-select" style="display:none;" multiple>
                                 <option value="">Any</option>
                                 <option value="bossKilla">Killa</option>
                                 <option value="bossTagilla">Tagilla</option>
@@ -2326,11 +2326,11 @@
                         </section>
                     `;
 
-                    const targetSelect = document.getElementById('target-select');
+                    const targetSelect = detailsDiv.querySelector('.target-select');
                     if (targetSelect) {
-                        targetSelect.addEventListener('change', function() {
-                            const savageRoleLabel = document.getElementById('savage-role-label');
-                            const savageRoleSelect = document.getElementById('savage-role-select');
+                        targetSelect.addEventListener('change', function () {
+                            const savageRoleLabel = detailsDiv.querySelector('.savage-role-label');
+                            const savageRoleSelect = detailsDiv.querySelector('.savage-role-select');
                             if (this.value === 'Savage') {
                                 savageRoleLabel.style.display = 'block';
                                 savageRoleSelect.style.display = 'block';
