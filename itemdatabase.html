@@ -63,6 +63,7 @@
                 <option value="items">Items</option>
                 <option value="quests">Quests</option>
                 <option value="itemGroups">Item Groups</option>
+                <option value="locations">Locations</option>
             </select>
 
             <input type="text" id="dynamic-search" placeholder="Start typing to search..." oninput="performSearch()" style="display: none;">
@@ -182,6 +183,11 @@
                         searchKey = '';
                         break;
                     case 'prices':
+                        data = fileData;
+                        displayResults(data);
+                        searchKey = '';
+                        break;
+                    case 'locations':
                         data = fileData;
                         displayResults(data);
                         searchKey = '';
