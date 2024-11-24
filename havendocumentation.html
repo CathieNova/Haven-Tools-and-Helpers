@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/favicon.ico">
+    <title>SPT-Haven Documentation</title>
+    <link rel="stylesheet" type="text/css" href="css/havendocumentation.css">
+</head>
+<body>
+    <div id="sidebar">
+        <h2 id="home-title">✨ Haven ✨</h2>
+        <h2 id="home-title">📖 Documentation 📖</h2>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search content..." oninput="filterContent()">
+        </div>
+        <ul id="category-list">
+            <li onclick="showContent('home')">Home</li>
+            <li onclick="showContent('havenzonecreator')">Haven Zone Creator</li>
+            <li onclick="showContent('havenindustries-chloe')">Haven Industries - Chloe</li>
+            <li onclick="showContent('servermods')">Server Mods Guide</li>
+            <li>
+                <details>
+                    <summary>Server Modding</summary>
+                    <ul>
+                        <li onclick="showContent('servermods-setup')">Setup Server Mod Project</li>
+                        <li onclick="showContent('servermods-morefunctions')">Adding More Functions</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Website Navigation</summary>
+                    <ul>
+                        <li id="header-button" onclick="openURL('home')">Home</li>
+                        <li id="header-button" onclick="openURL('vcqlhelper')">Haven VCQL Helper</li>
+                        <li id="header-button" onclick="openURL('itemdatabase')">Haven Item Database</li>
+                        <li id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</li>
+                        <li id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</li>
+                        <li id="header-button" onclick="openURL('hideoutcraft')">Haven Hideout Crafting Generator</li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+        <footer>
+            <div id="support-me">
+                <a href="https://ko-fi.com/cathienova" target="_blank">
+                    <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
+                </a>
+            </div>
+            <p>&copy; 2024 CathieNova</p>
+            <p>Powered by Haven Industries</p>
+        </footer>
+    </div>
+
+    <div id="content">
+<!-- Haven Home -->
+<div id="home" class="content-section">
+    <h2 onclick="showContent('home')">Welcome to Haven Documentation!</h2>
+    <p>
+        The Haven Documentation is your go-to resource for guides and tutorials on Haven content and SPT modding. Whether you're just starting out or looking to dive deeper, you'll find everything you need here.
+    </p>
+    <p>
+        Use the <b>search bar</b> to quickly find specific content, or explore the categories in the sidebar to navigate through different topics.
+    </p>
+    <p>
+        The website is still a work in progress, and I'm continuously adding new content as time allows. So, please be patient as more updates and guides are added.
+    </p>
+    <p>
+        <b>Want to contribute?</b> Feel free to fork the repository and create a pull request on the <a href="https://github.com/CathieNova/Haven-Tools-and-Helpers" target="_blank">GitHub repository</a> with any improvements or additions you'd like to see.
+    </p>
+    <p>
+        <em>Thank you for visiting the Haven Documentation!</em>
+    </p>
+</div>
+
+<!-- Haven Zone Creator Content -->
+<div id="havenzonecreator" class="content-section">
+    <h2 onclick="showContent('havenzonecreator')">Haven Zone Creator</h2>
+    <p>
+        The <b>Haven Zone Creator</b> is a powerful tool for <em>SPT mod developers</em> to create custom zones for VCQL, Loose Loot, and other mods with ease.
+    </p>
+    <h2>🌟 Features</h2>
+    <ul>
+        <li><h3>Zone Information:</h3>
+            <ul>
+                <li><a class="icon">▪️ </a><b>Current Look Position:</b> Position where you were looking when pressing 'Fetch Look Position'.</li>
+                <li><a class="icon">▪️ </a><b>Current Look Rotation:</b> Rotation you were looking at when pressing 'Fetch Look Position'.</li>
+                <li><a class="icon">▪️ </a><b>Current Look Scale:</b> Scale you were looking at when pressing 'Fetch Look Position'.</li>
+                <li><a class="icon">▪️ </a><b>Look Position Cube Transparency:</b> Transparency of the look position cube.</li>
+            </ul>
+        </li>
+        <li><h3>Zone Box Settings:</h3>
+            <ul>
+                <li><a class="icon">▪️ </a><b>Transform Speed:</b> Speed at which the object is transformed.</li>
+                <li><a class="icon">▪️ </a><b>Fetch Look Position:</b> Fetches the position you are looking at.</li>
+                <li><a class="icon">▪️ </a><b>Remove Look Position:</b> Removes the look position cube.</li>
+                <li><a class="icon">▪️ </a><b>Transform Positive/Negative X, Y, Z:</b> Move the object along respective axes.</li>
+                <li><a class="icon">▪️ </a><b>Position:</b> Changes to Position mode.</li>
+                <li><a class="icon">▪️ </a><b>Scale:</b> Changes to Scale mode.</li>
+                <li><a class="icon">▪️ </a><b>Rotate:</b> Changes to Rotate mode.</li>
+                <li><a class="icon">▪️ </a><b>Lock X and Z Rotation Axes:</b> Locks the X and Z axes for rotation.</li>
+            </ul>
+        </li>
+        <li><h3>VCQL Zone Settings:</h3>
+            <ul>
+                <li><a class="icon">▪️ </a><b>Zone Id:</b> The ID of the zone.</li>
+                <li><a class="icon">▪️ </a><b>Zone Name:</b> The name of the zone.</li>
+                <li><a class="icon">▪️ </a><b>Zone Type:</b> The type of the zone.</li>
+                <li><a class="icon">▪️ </a><b>Flare Type:</b> The type of the flare.</li>
+                <li><a class="icon">▪️ </a><b>Generate VCQL Zone:</b> Generates the zone in the VCQL Zone folder.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>📥 Installation</h2>
+    <ol>
+        <li>Download and extract the mod into the main SPT folder.</li>
+        <li>Place the `.dll` file inside the `BepInEx/plugins` directory.</li>
+    </ol>
+
+    <h2>🕹️ Usage</h2>
+    <h3>Cube Creation:</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Fetch Look Position:</b> Get the position you are looking at.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 0:</b> Creates a cube at the look position (may be buggy due to EFT colliders).</li>
+        <li><a class="icon">▪️ </a><b>Numpad Enter:</b> Removes the cube.</li>
+    </ul>
+
+    <h3>Position Mode:</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Move Positive X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Move Negative X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Move Positive Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Move Negative Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Move Positive Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Move Negative Z axis.</li>
+    </ul>
+
+    <h3>Rotation Mode:</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Rotate Positive X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Rotate Negative X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Rotate Positive Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Rotate Negative Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Rotate Positive Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Rotate Negative Z axis.</li>
+    </ul>
+
+    <h3>Scale Mode:</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Scale Positive X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Scale Negative X axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Scale Positive Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Scale Negative Y axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Scale Positive Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Scale Negative Z axis.</li>
+    </ul>
+
+    <h3>Toggle Modes:</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Numpad 7:</b> Position mode.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 8:</b> Rotation mode.</li>
+        <li><a class="icon">▪️ </a><b>Numpad 9:</b> Scale mode.</li>
+    </ul>
+
+    <h2>Generating Jsons:</h2>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Generate VCQL Zone:</b> Generates the zone in the VCQL Zone folder with the specified information.</li>
+        <li><a class="icon">▪️ </a><b>Generate Loose Loot Zone:</b> Generates the zone in the Loose Loot Zone folder with the specified information. (Not implemented yet)</li>
+    </ul>
+
+    <h2>❗ Notes</h2>
+    <ul>
+        <li>The <b>Fetch Look Position</b> feature may be buggy due to EFT colliders.</li>
+    </ul>
+
+    <h2>📜 License</h2>
+    <p>This mod is distributed <b>for free use</b>. Feel free to modify, but proper credit is appreciated.</p>
+
+    <p><em>Enjoy creating custom zones! 🎉</em></p>
+</div>
+
+<!-- Haven Industries - Chloe Content -->
+<div id="havenindustries-chloe" class="content-section">
+    <h2 onclick="showContent('havenindustries-chloe')">Haven Industries - Chloe</h2>
+
+    <p>
+        Welcome to <b>Haven Industries - Chloe</b>! This mod introduces exciting new items and features to enhance your gameplay experience.
+    </p>
+
+    <h2>Description</h2>
+    <p>
+        Explore the exciting new items you can discover in-raid with this mod. From unique figurines to collectible TCG Anime Cards, there's something for everyone.
+    </p>
+    <p><em>Note:</em> Secure Containers and Storage Containers are not included in the in-raid items list. These items can be crafted or obtained through quests and other means within the game.</p>
+
+    <h2>🌟 Features</h2>
+    <h3>Profiles</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Haven Standard Edition:</b> An improved version of the original Standard Edition. It has more useful items according to my personal view.</li>
+        <li><a class="icon">▪️ </a><b>Haven Developer Edition:</b> Same stash size as Unheard Edition, and enough items and money to get your dev-on.</li>
+    </ul>
+
+    <h3>Hall of Fame</h3>
+    <p>Showcase your special items in the Hall of Fame.</p>
+
+    <h3>Crafting</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Ammo Crate:</b> Store your ammo.</li>
+        <li><a class="icon">▪️ </a><b>Haven IPAC:</b> Craftable in the Medstation.</li>
+        <li><a class="icon">▪️ </a><b>Haven Secure Container:</b> Craftable in the Lavatory.</li>
+        <li><a class="icon">▪️ </a><b>Item Crate:</b> Craftable in the Workbench.</li>
+        <li><a class="icon">▪️ </a><b>Weapon Crate:</b> Craftable in the Workbench.</li>
+    </ul>
+
+    <h3>TCG Anime Cards</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Waifu Binder:</b> Holds all 76 Waifu Cards.</li>
+    </ul>
+
+    <h3>Secure Containers</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Haven Secure Container:</b> Obtainable through quests. 
+        </li>
+        <img src="https://raw.githubusercontent.com/CathieNova/SPT-Haven-Industries-Chloe/refs/heads/SPT-3.10/Showcase%20Images/HavenSecureContainer.png" alt="Haven Secure Container" width="200px" />
+        <br>
+        <li><a class="icon">▪️ </a><b>Haven Theta Secure Container:</b> Obtainable through quests. 
+        </li>
+        <img src="https://raw.githubusercontent.com/CathieNova/SPT-Haven-Industries-Chloe/refs/heads/SPT-3.10/Showcase%20Images/HavenThetaSecureContainer.png" alt="Haven Theta Secure Container" width="200px" />
+    </ul>
+
+    <h3>New Metal Fuel Tanks</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Red Fuel Tank:</b> *100/100*</li>
+        <li><a class="icon">▪️ </a><b>Blue Fuel Tank:</b> *100/100*</li>
+        <li><a class="icon">▪️ </a><b>Green Fuel Tank:</b> *100/100*</li>
+    </ul>
+
+    <h3>Figurines</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Eagle Figurine</b></li>
+        <li><a class="icon">▪️ </a><b>Egyptian Cat Figurine</b></li>
+        <li><a class="icon">▪️ </a><b>Golden Finger Figurine</b></li>
+        <li><a class="icon">▪️ </a><b>Cultist Skull</b></li>
+    </ul>
+
+    <h3>Storage Containers</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Haven Ipac:</b> For medical storage.</li>
+        <li><a class="icon">▪️ </a><b>Haven Toolbox:</b> For tools and electronics storage.</li>
+        <li><a class="icon">▪️ </a><b>Item Crate:</b> Similar to item case.</li>
+        <li><a class="icon">▪️ </a><b>Weapon Crate:</b> Similar to weapon case.</li>
+        <li><a class="icon">▪️ </a><b>Ammo Crate:</b> Similar to ammo box.</li>
+    </ul>
+
+    <h3>Key Storage</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Keycard Holder</b></li>
+        <li><a class="icon">▪️ </a><b>5 Keychains</b></li>
+        <li><a class="icon">▪️ </a><b>Keybox:</b> Holds keychains, keycard holder, and money.
+        </li>
+        <img src="https://raw.githubusercontent.com/CathieNova/SPT-Haven-Industries-Chloe/refs/heads/SPT-3.10/Showcase%20Images/Keybox.png" alt="Keybox" width="200px" />
+    </ul>
+
+    <h3>Misc Items</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>C4 Explosive</b></li>
+    </ul>
+
+    <h2>📜 Quests</h2>
+    <h3>Start</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>The Deadweight Test</b></li>
+        <li><a class="icon">▪️ </a><b>The Mole has our loot</b>
+            <ul>
+                <li><a class="icon">▪️ </a><b>The Mole's Loot</b>
+                    <ul>
+                        <li><a class="icon">▪️ </a><b>Cleaning out Dorms</b>
+                            <ul>
+                                <li><a class="icon">▪️ </a><b>Cleaning out the Gas Station</b>
+                                    <ul>
+                                        <li><a class="icon">▪️ </a><b>The Spacious Container</b></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Level & Other Requirements</h3>
+    <ul>
+        <li><a class="icon">▪️ </a><b>Level 5+:</b> Ammo bouta loose it - Part 1</li>
+        <li><a class="icon">▪️ </a><b>Level 15+:</b> The Haven Collector</li>
+        <li><a class="icon">▪️ </a><b>Level 20+ & Ammo bouta loose it - Part 1 Completed:</b> Ammo bouta loose it - Part 2</li>
+    </ul>
+
+    <h3>📷 Showcase of all Items:</h3>
+    <p><em>PS: not showing the other 75 cards...</em></p>
+    <img src="https://raw.githubusercontent.com/CathieNova/SPT-Haven-Industries-Chloe/refs/heads/SPT-3.10/Showcase%20Images/ItemsShowcase.png" alt="All Items" width="500px" />
+
+    <h3>❗ Notes</h3>
+    <ul>
+        <li>The mod contains a variety of items that can be crafted or obtained in different ways.</li>
+    </ul>
+
+    <h3>📜 License</h3>
+    <p>This mod is distributed for free use. Feel free to modify it, but please give proper credit.</p>
+</div>
+
+
+<!-- Server Mods Guide Content -->
+        <div id="servermods" class="content-section">
+            <h2 onclick="showContent('servermods')">Server Mods Guide</h2>
+            <p>This is the content for <b>Server Mods Guide</b>. Will be added soon.</p>
+        </div>
+<!-- Server Modding - Setup Project Content -->
+        <div id="servermods-setup" class="content-section">
+            <h2 onclick="showContent('servermods-setup')">Server Modding - Setup Project</h2>
+            <p>This is just an example to have something to work with regarding code blocks</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">PreSptLoad Example</span>
+                    <button class="copy-button" onclick="copyCode(this)">Copy Code</button>
+                </div>
+                <pre class="code-block">
+<code class="language-javascript">
+    public preSptLoad(container: DependencyContainer): void 
+    {
+        this.Instance.preSptLoad(container, this.modName);
+        this.Instance.debug = this.debug;
+        const PreSptModLoader: PreSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
+        const imageRouter: ImageRouter = container.resolve<ImageRouter>("ImageRouter");
+        const configServer = container.resolve<ConfigServer>("ConfigServer");
+        const traderConfig: ITraderConfig = configServer.getConfig<ITraderConfig>(ConfigTypes.TRADER);
+        this.itemHelper = container.resolve<ItemHelper>("ItemHelper");
+        
+        this.getVersionFromJson();
+        this.displayCreditBanner();
+
+        this.registerProfileImage(PreSptModLoader, imageRouter);
+        Traders[baseJson._id] = baseJson._id
+        this.setupTraderUpdateTime(traderConfig);
+        this.customItemService.preSptLoad(this.Instance);
+
+        this.customHideoutCraftService.preSptLoad(this.Instance);
+        this.customProfileEdition.preSptLoad(this.Instance);
+    }
+</code>
+                </pre>
+            </div>
+        </div>
+
+<!-- Server Modding - Adding More Functions Content -->
+        <div id="servermods-morefunctions" class="content-section">
+            <h2 onclick="showContent('servermods-morefunctions')">Server Modding - Adding More Functions</h2>
+            <p>This is the content for <b>Adding More Functions</b>. Will be added soon.</p>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <script>
+        function showContent(sectionId) {
+            const searchInput = document.getElementById('search');
+            searchInput.value = '';
+
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active', 'fade-in', 'with-border');
+                section.style.display = 'none';
+                clearHighlights(section);
+            });
+
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+                setTimeout(() => selectedSection.classList.add('fade-in', 'active'), 50);
+
+                selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.location.hash = sectionId;
+            }
+        }
+
+        function filterContent() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const sections = document.querySelectorAll('.content-section');
+
+            if (!searchTerm.trim()) {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('with-border');
+                    clearHighlights(section);
+                });
+
+                const currentHash = window.location.hash.substring(1) || 'home';
+                const currentSection = document.getElementById(currentHash);
+                if (currentSection) {
+                    currentSection.style.display = 'block';
+                }
+                return;
+            }
+
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                clearHighlights(section);
+
+                if (text.includes(searchTerm)) {
+                    section.style.display = 'block';
+                    section.classList.add('with-border');
+                    section.classList.add('fade-in');
+                    highlightText(section, searchTerm);
+                } else {
+                    section.style.display = 'none';
+                    section.classList.remove('with-border');
+                }
+            });
+        }
+
+        function highlightText(section, term) {
+    section.normalize();
+    const regex = new RegExp(`(${term})`, 'gi');
+    const textNodes = getTextNodes(section);
+
+    textNodes.forEach(node => {
+        const parent = node.parentNode;
+        if (parent) {
+            const originalText = node.nodeValue;
+            console.log(`Node Value Before Highlight: "${originalText}"`);
+
+            const highlightedHTML = originalText.replace(regex, '<mark>$1</mark>');
+            console.log(`Highlighted HTML: "${highlightedHTML}"`);
+
+            const tempContainer = document.createElement('span');
+            tempContainer.innerHTML = highlightedHTML;
+
+            while (tempContainer.firstChild) {
+                parent.insertBefore(tempContainer.firstChild, node);
+            }
+            parent.removeChild(node);
+        }
+    });
+}
+
+        function clearHighlights(section) {
+            const marks = section.querySelectorAll('mark');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+            });
+        }
+
+        function getTextNodes(element) {
+            const walker = document.createTreeWalker(
+                element,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode: (node) => {
+                        const parentTag = node.parentNode.tagName;
+                        if (
+                            parentTag !== 'CODE' &&
+                            parentTag !== 'PRE' &&
+                            node.nodeValue.trim() !== ''
+                        ) {
+                            return NodeFilter.FILTER_ACCEPT;
+                        }
+                        return NodeFilter.FILTER_REJECT;
+                    },
+                },
+                false
+            );
+
+            const nodes = [];
+            while (walker.nextNode()) {
+                nodes.push(walker.currentNode);
+            }
+            return nodes;
+        }
+
+
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const textToCopy = codeBlock.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.innerText = 'Copied!';
+                setTimeout(() => (button.innerText = 'Copy Code'), 2000);
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+            });
+        }
+
+        window.onload = () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                showContent(hash);
+            } else {
+                showContent('home');
+            }
+        };
+    </script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-23WNPRN88E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-23WNPRN88E');
+    </script>
+</body>
+</html>

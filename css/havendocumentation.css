@@ -1,0 +1,532 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #121212;
+    color: #e0e0e0;
+    overflow: hidden;
+}
+
+h2 {
+    font-size: 24px;
+    color: #e9138c;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.75s ease;
+}
+
+h2:hover {
+    color: #006fb9;
+}
+
+#sidebar {
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    padding: 20px;
+    position: fixed;
+    overflow-y: auto;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    animation: slide-in 0.8s ease-out;
+}
+
+#sidebar h2 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+    animation: glow 1.5s infinite alternate;
+}
+
+.search-container {
+    margin-bottom: 0px;
+}
+
+#sidebar input {
+    margin-top: 20px;
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow 0.75s ease;
+}
+
+#sidebar input:focus {
+    box-shadow: 0 0 5px #e9138c;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+#sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.75s ease;
+}
+
+#sidebar ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 5px #e9138c;
+    padding-left: 15px;
+}
+
+footer {
+    margin-top: 0px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+}
+
+#content {
+    margin-left: 340px;
+    padding: 20px;
+    width: calc(100% - 340px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 40px);
+    background: linear-gradient(135deg, #282a36, #121212);
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+.content-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.75s ease;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+.content-section.with-border {
+    border: 1px solid #e9138c;
+    box-shadow: 0 0 10px rgba(233, 19, 140, 0.5);
+    background-color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.content-section.active {
+    display: block;
+}
+
+#content::-webkit-scrollbar {
+    width: 12px;
+    max-height: 90%;
+}
+
+#content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 6px;
+    max-height: 90%;
+}
+
+#content::-webkit-scrollbar-thumb {
+    background: #e9138c;
+    border-radius: 6px;
+    max-height: 90%;
+}
+
+#content::-webkit-scrollbar-thumb:hover {
+    background: #006fb9;
+    max-height: 90%;
+}
+
+#content {
+    scrollbar-color: #e9138c #1a1a1a;
+    scrollbar-width: thin;
+}
+
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.code-container {
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(233, 19, 140, 0.5);
+    background-color: #1e1e1e;
+    overflow: hidden;
+    margin: 0;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #2e2e2e;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+    margin: 0;
+}
+
+.code-title {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+.copy-button {
+    background-color: #e9138c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: #006fb9;
+}
+
+.code-block {
+    padding: 10px 15px;
+    color: #dcdcdc;
+    max-height: auto;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    background-color: #1e1e1e !important;
+    margin: 0;
+}
+
+pre[class*="language-"],
+code[class*="language-"] {
+    background-color: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    font-family: 'Fira Code', Consolas, 'Courier New', Courier, monospace !important;
+    font-size: 14px !important;
+    line-height: 1.4;
+}
+
+code {
+    background-color: #2b2b2b;
+    color: #d63384;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'Fira Code', Consolas, 'Courier New', Courier, monospace !important;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+code:hover {
+    background-color: #4b4b4b;
+    cursor: text;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+    padding: 0;
+    border-radius: 3px;
+}
+
+a.icon {
+    text-decoration: none;
+}
+
+a.icon:hover {
+    text-decoration: none;
+}
+
+#support-me {
+    z-index: 1000;
+}
+
+#support-me img {
+    max-width: 250px;
+    height: auto;
+}
+
+/* Home */
+#home-title {
+    font-size: 24px !important;
+    color: #e9138c;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.75s ease;
+}
+
+#home {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#home p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c2c2c2;
+    margin-bottom: 20px;
+}
+
+#home strong {
+    color: #1e90ff;
+}
+
+#home em {
+    color: #ff6347;
+}
+
+#home p:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+#home,
+#havenindustries-chloe,
+#servermods,
+#servermods-setup,
+#havenzonecreator {
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: #111;
+    color: #ddd;
+}
+
+#home h2,
+#havenindustries-chloe h2,
+#servermods h2,
+#servermods-setup h2,
+#havenzonecreator h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: chocolate;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+    border-bottom: 2px solid #1e90ff;
+}
+
+#home h2:hover,
+#havenindustries-chloe h2:hover,
+#servermods h2:hover,
+#servermods-setup h2:hover,
+#havenzonecreator h2:hover {
+    color: #1e90ff;
+}
+
+#home h3,
+#havenindustries-chloe h3,
+#servermods h3,
+#servermods-setup h3,
+#havenzonecreator h3 {
+    font-size: 24px;
+    color: #05ac05;
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+#home h4,
+#havenindustries-chloe h4,
+#servermods h4,
+#servermods-setup h4,
+#havenzonecreator h4 {
+    font-size: 20px;
+    color: #ff6347;
+    margin-bottom: 10px;
+}
+
+#home .feature-list,
+#havenindustries-chloe .feature-list,
+#servermods .feature-list,
+#servermods-setup .feature-list,
+#havenzonecreator .feature-list {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+#home .feature-item,
+#havenindustries-chloe .feature-item,
+#servermods .feature-item,
+#servermods-setup .feature-item,
+#havenzonecreator .feature-item {
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    width: 30%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#home ul,
+#havenindustries-chloe ul,
+#servermods ul,
+#servermods-setup ul,
+#havenzonecreator ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#home li,
+#havenindustries-chloe li,
+#servermods li,
+#servermods-setup li,
+#havenzonecreator li {
+    margin-bottom: 10px;
+}
+
+#home li b,
+#havenindustries-chloe li b,
+#servermods li b,
+#servermods-setup li b,
+#havenzonecreator li b {
+    color: #1e90ff;
+}
+
+#home em,
+#havenindustries-chloe em,
+#servermods em,
+#servermods-setup em,
+#havenzonecreator em {
+    color: #ff6347;
+}
+
+#home a,
+#havenindustries-chloe a,
+#servermods a,
+#servermods-setup a,
+#havenzonecreator a {
+    color: #ff6347;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#home a:hover,
+#havenindustries-chloe a:hover,
+#servermods a:hover,
+#servermods-setup a:hover,
+#havenzonecreator a:hover {
+    color: #1e90ff;
+    text-decoration: underline;
+}
+
+#home p,
+#havenindustries-chloe p,
+#servermods p,
+#servermods-setup p,
+#havenzonecreator p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c2c2c2;
+    margin-bottom: 20px;
+}
+
+#home p:last-child,
+#havenindustries-chloe p:last-child,
+#servermods p:last-child,
+#servermods-setup p:last-child,
+#havenzonecreator p:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e90ff;
+    text-align: center;
+}
+
+#home ol,
+#havenindustries-chloe ol,
+#servermods ol,
+#servermods-setup ol,
+#havenzonecreator ol {
+    margin-left: 20px;
+}
+
+#home .usage-instructions,
+#havenindustries-chloe .usage-instructions,
+#servermods .usage-instructions,
+#servermods-setup .usage-instructions,
+#havenzonecreator .usage-instructions {
+    margin-top: 20px;
+}
+
+#home,
+#havenindustries-chloe,
+#servermods,
+#servermods-setup,
+#havenzonecreator .usage-instructions h5 {
+    color: #ff6347;
+    margin-bottom: 15px;
+}
+
+#home .usage-instructions ul,
+#havenindustries-chloe .usage-instructions ul,
+#servermods .usage-instructions ul,
+#servermods-setup .usage-instructions ul,
+#havenzonecreator .usage-instructions ul {
+    margin-left: 20px;
+}
+
+#home ul ul,
+#havenindustries-chloe ul ul,
+#servermods ul ul,
+#servermods-setup ul ul,
+#havenzonecreator ul ul {
+    padding-left: 40px;
+}
+
+#home ul ul ul,
+#havenindustries-chloe ul ul ul,
+#servermods ul ul ul,
+#servermods-setup ul ul ul,
+#havenzonecreator ul ul ul {
+    padding-left: 60px;
+}
+
+#home ul li b,
+#havenindustries-chloe ul li b,
+#servermods ul li b,
+#servermods-setup ul li b,
+#havenzonecreator ul li b {
+    color: #1e90ff;
+}
+
+#home ul ul li,
+#havenindustries-chloe ul ul li,
+#servermods ul ul li,
+#servermods-setup ul ul li,
+#havenzonecreator ul ul li {
+    padding-left: 10px;
+    max-width: fit-content;
+    border: 1px solid #555;
+    border-width: 0 0 0 1px;
+}
+
+#home ul ul ul li,
+#havenindustries-chloe ul ul ul li,
+#servermods ul ul ul li,
+#servermods-setup ul ul ul li,
+#havenzonecreator ul ul ul li {
+    padding-left: 10px;
+    max-width: fit-content;
+    border: 1px solid #555;
+    border-width: 0 0 0 1px;
+}
