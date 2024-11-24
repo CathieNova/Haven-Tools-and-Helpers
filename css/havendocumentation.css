@@ -166,7 +166,7 @@ footer {
     box-shadow: 0 0 5px rgba(233, 19, 140, 0.5);
     background-color: #1e1e1e;
     overflow: hidden;
-    margin: 0;
+    margin: 10px 0; /* Added margin for separation */
 }
 
 .code-header {
@@ -179,13 +179,11 @@ footer {
     font-size: 16px;
     font-weight: bold;
     border-bottom: 1px solid #333;
-    margin: 0;
 }
 
 .code-title {
     font-size: 14px;
     color: #e0e0e0;
-    margin: 0;
 }
 
 .copy-button {
@@ -196,21 +194,21 @@ footer {
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .copy-button:hover {
     background-color: #006fb9;
+    box-shadow: 0 0 8px rgba(0, 111, 185, 0.5);
 }
 
 .code-block {
     padding: 10px 15px;
     color: #dcdcdc;
-    max-height: auto;
+    max-height: 400px;
     overflow-y: auto;
     white-space: pre-wrap;
     background-color: #1e1e1e !important;
-    margin: 0;
 }
 
 pre[class*="language-"],
@@ -222,6 +220,7 @@ code[class*="language-"] {
     font-family: 'Fira Code', Consolas, 'Courier New', Courier, monospace !important;
     font-size: 14px !important;
     line-height: 1.4;
+    word-wrap: break-word !important;
 }
 
 code {
@@ -238,6 +237,7 @@ code:hover {
     background-color: #4b4b4b;
     cursor: text;
 }
+
 
 mark {
     background-color: yellow;
@@ -303,6 +303,7 @@ a.icon:hover {
 #havenindustries-chloe,
 #servermods,
 #servermods-setup,
+#servermods-understanding,
 #havenzonecreator {
     border-radius: 8px;
     padding: 30px;
@@ -315,6 +316,7 @@ a.icon:hover {
 #havenindustries-chloe h2,
 #servermods h2,
 #servermods-setup h2,
+#servermods-understanding h2,
 #havenzonecreator h2 {
     font-size: 28px;
     font-weight: bold;
@@ -329,6 +331,7 @@ a.icon:hover {
 #havenindustries-chloe h2:hover,
 #servermods h2:hover,
 #servermods-setup h2:hover,
+#servermods-understanding h2:hover,
 #havenzonecreator h2:hover {
     color: #1e90ff;
 }
@@ -337,6 +340,7 @@ a.icon:hover {
 #havenindustries-chloe h3,
 #servermods h3,
 #servermods-setup h3,
+#servermods-understanding h3,
 #havenzonecreator h3 {
     font-size: 24px;
     color: #05ac05;
@@ -348,6 +352,7 @@ a.icon:hover {
 #havenindustries-chloe h4,
 #servermods h4,
 #servermods-setup h4,
+#servermods-understanding h4,
 #havenzonecreator h4 {
     font-size: 20px;
     color: #ff6347;
@@ -358,6 +363,7 @@ a.icon:hover {
 #havenindustries-chloe .feature-list,
 #servermods .feature-list,
 #servermods-setup .feature-list,
+#servermods-understanding .feature-list,
 #havenzonecreator .feature-list {
     display: flex;
     gap: 20px;
@@ -369,6 +375,7 @@ a.icon:hover {
 #havenindustries-chloe .feature-item,
 #servermods .feature-item,
 #servermods-setup .feature-item,
+#servermods-understanding .feature-item,
 #havenzonecreator .feature-item {
     background: #222;
     padding: 15px;
@@ -381,6 +388,7 @@ a.icon:hover {
 #havenindustries-chloe ul,
 #servermods ul,
 #servermods-setup ul,
+#servermods-understanding ul,
 #havenzonecreator ul {
     list-style-type: none;
     padding: 0;
@@ -391,6 +399,7 @@ a.icon:hover {
 #havenindustries-chloe li,
 #servermods li,
 #servermods-setup li,
+#servermods-understanding li,
 #havenzonecreator li {
     margin-bottom: 10px;
 }
@@ -399,6 +408,7 @@ a.icon:hover {
 #havenindustries-chloe li b,
 #servermods li b,
 #servermods-setup li b,
+#servermods-understanding li b,
 #havenzonecreator li b {
     color: #1e90ff;
 }
@@ -407,6 +417,7 @@ a.icon:hover {
 #havenindustries-chloe em,
 #servermods em,
 #servermods-setup em,
+#servermods-understanding em,
 #havenzonecreator em {
     color: #ff6347;
 }
@@ -415,6 +426,7 @@ a.icon:hover {
 #havenindustries-chloe a,
 #servermods a,
 #servermods-setup a,
+#servermods-understanding a,
 #havenzonecreator a {
     color: #ff6347;
     text-decoration: none;
@@ -425,6 +437,7 @@ a.icon:hover {
 #havenindustries-chloe a:hover,
 #servermods a:hover,
 #servermods-setup a:hover,
+#servermods-understanding a:hover,
 #havenzonecreator a:hover {
     color: #1e90ff;
     text-decoration: underline;
@@ -434,6 +447,7 @@ a.icon:hover {
 #havenindustries-chloe p,
 #servermods p,
 #servermods-setup p,
+#servermods-understanding p,
 #havenzonecreator p {
     font-size: 16px;
     line-height: 1.6;
@@ -445,6 +459,7 @@ a.icon:hover {
 #havenindustries-chloe p:last-child,
 #servermods p:last-child,
 #servermods-setup p:last-child,
+#servermods-understanding p:last-child,
 #havenzonecreator p:last-child {
     font-size: 18px;
     font-weight: bold;
@@ -456,6 +471,7 @@ a.icon:hover {
 #havenindustries-chloe ol,
 #servermods ol,
 #servermods-setup ol,
+#servermods-understanding ol,
 #havenzonecreator ol {
     margin-left: 20px;
 }
@@ -464,14 +480,16 @@ a.icon:hover {
 #havenindustries-chloe .usage-instructions,
 #servermods .usage-instructions,
 #servermods-setup .usage-instructions,
+#servermods-understanding .usage-instructions,
 #havenzonecreator .usage-instructions {
     margin-top: 20px;
 }
 
-#home,
-#havenindustries-chloe,
-#servermods,
-#servermods-setup,
+#home .usage-instructions h5,
+#havenindustries-chloe .usage-instructions h5,
+#servermods .usage-instructions h5,
+#servermods-setup .usage-instructions h5,
+#servermods-understanding .usage-instructions h5,
 #havenzonecreator .usage-instructions h5 {
     color: #ff6347;
     margin-bottom: 15px;
@@ -481,6 +499,7 @@ a.icon:hover {
 #havenindustries-chloe .usage-instructions ul,
 #servermods .usage-instructions ul,
 #servermods-setup .usage-instructions ul,
+#servermods-understanding .usage-instructions ul,
 #havenzonecreator .usage-instructions ul {
     margin-left: 20px;
 }
@@ -489,14 +508,17 @@ a.icon:hover {
 #havenindustries-chloe ul ul,
 #servermods ul ul,
 #servermods-setup ul ul,
+#servermods-understanding ul ul,
 #havenzonecreator ul ul {
     padding-left: 40px;
+    margin-top: 5px;
 }
 
 #home ul ul ul,
 #havenindustries-chloe ul ul ul,
 #servermods ul ul ul,
 #servermods-setup ul ul ul,
+#servermods-understanding ul ul ul,
 #havenzonecreator ul ul ul {
     padding-left: 60px;
 }
@@ -505,6 +527,7 @@ a.icon:hover {
 #havenindustries-chloe ul li b,
 #servermods ul li b,
 #servermods-setup ul li b,
+#servermods-understanding ul li b,
 #havenzonecreator ul li b {
     color: #1e90ff;
 }
@@ -513,6 +536,7 @@ a.icon:hover {
 #havenindustries-chloe ul ul li,
 #servermods ul ul li,
 #servermods-setup ul ul li,
+#servermods-understanding ul ul li,
 #havenzonecreator ul ul li {
     padding-left: 10px;
     max-width: fit-content;
@@ -524,6 +548,7 @@ a.icon:hover {
 #havenindustries-chloe ul ul ul li,
 #servermods ul ul ul li,
 #servermods-setup ul ul ul li,
+#servermods-understanding ul ul ul li,
 #havenzonecreator ul ul ul li {
     padding-left: 10px;
     max-width: fit-content;

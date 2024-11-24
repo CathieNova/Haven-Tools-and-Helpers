@@ -24,7 +24,7 @@
                     <summary>Server Modding</summary>
                     <ul>
                         <li onclick="showContent('servermods-setup')">Setup Server Mod Project</li>
-                        <li onclick="showContent('servermods-morefunctions')">Adding More Functions</li>
+                        <li onclick="showContent('servermods-understanding')">Understanding the Code</li>
                     </ul>
                 </details>
             </li>
@@ -38,6 +38,7 @@
                         <li id="header-button" onclick="openURL('traderassort')">Haven Trader Assort Generator</li>
                         <li id="header-button" onclick="openURL('modslots')">Haven Mod Slot Generator</li>
                         <li id="header-button" onclick="openURL('hideoutcraft')">Haven Hideout Crafting Generator</li>
+                        <li id="header-button" onclick="openURL('havendocumentation')">Haven Documentation</li>
                     </ul>
                 </details>
             </li>
@@ -73,6 +74,7 @@
         <em>Thank you for visiting the Haven Documentation!</em>
     </p>
 </div>
+
 
 <!-- Haven Zone Creator Content -->
 <div id="havenzonecreator" class="content-section">
@@ -180,6 +182,7 @@
 
     <p><em>Enjoy creating custom zones! 🎉</em></p>
 </div>
+
 
 <!-- Haven Industries - Chloe Content -->
 <div id="havenindustries-chloe" class="content-section">
@@ -320,44 +323,179 @@
 <!-- Server Modding - Setup Project Content -->
         <div id="servermods-setup" class="content-section">
             <h2 onclick="showContent('servermods-setup')">Server Modding - Setup Project</h2>
-            <p>This is just an example to have something to work with regarding code blocks</p>
-            <div class="code-container">
-                <div class="code-header">
-                    <span class="code-title">PreSptLoad Example</span>
-                    <button class="copy-button" onclick="copyCode(this)">Copy Code</button>
-                </div>
-                <pre class="code-block">
-<code class="language-javascript">
-    public preSptLoad(container: DependencyContainer): void 
-    {
-        this.Instance.preSptLoad(container, this.modName);
-        this.Instance.debug = this.debug;
-        const PreSptModLoader: PreSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader");
-        const imageRouter: ImageRouter = container.resolve<ImageRouter>("ImageRouter");
-        const configServer = container.resolve<ConfigServer>("ConfigServer");
-        const traderConfig: ITraderConfig = configServer.getConfig<ITraderConfig>(ConfigTypes.TRADER);
-        this.itemHelper = container.resolve<ItemHelper>("ItemHelper");
-        
-        this.getVersionFromJson();
-        this.displayCreditBanner();
 
-        this.registerProfileImage(PreSptModLoader, imageRouter);
-        Traders[baseJson._id] = baseJson._id
-        this.setupTraderUpdateTime(traderConfig);
-        this.customItemService.preSptLoad(this.Instance);
+            <p>
+                In this guide, I will walk you through how I personally set up a new server mod project. This guide will cover the following steps:
+            </p>
+            <ul>
+                <li><a class="icon">▪️ </a>Downloading the proper tools and dependencies</li>
+                <li><a class="icon">▪️ </a>Creating a new project</li>
+                <li><a class="icon">▪️ </a>Setting up the project structure</li>
+                <li><a class="icon">▪️ </a>Adding the necessary dependencies</li>
+            </ul>
+            <p>
+                Though this guide mentions version 3.10, it should work for other versions too. It was made with 3.10 in mind.
+                <br><br>
+                Other developers may use different methods, but this method works for me. It might not be perfect, but it’s a good starting point in my opinion.
+                <br><br>
+                By the end of this guide, you will have a Server Mod with the following:
+            </p>
+            <ul>
+                <li><a class="icon">▪️ </a><b>Custom Trader with items for sale</b></li>
+                <li><a class="icon">▪️ </a><b>Custom Items</b></li>
+                <li><a class="icon">▪️ </a><b>Custom Hideout Crafts</b></li>
+                <li><a class="icon">▪️ </a><b>Custom Items in the Hall of Fame</b></li>
+                <li><a class="icon">▪️ </a><b>Custom Loot in Containers on each map</b></li>
+            </ul>
 
-        this.customHideoutCraftService.preSptLoad(this.Instance);
-        this.customProfileEdition.preSptLoad(this.Instance);
-    }
-</code>
-                </pre>
-            </div>
+            <h2>Before You Begin:</h2>
+            <p>
+                New to <b>Typescript</b>? Find comprehensive documentation on the official website: 
+                <a href="https://www.typescriptlang.org/docs/" target="_blank">Typescript Documentation</a>
+            </p>
+
+            <h2>Download Tools and Dependencies:</h2>
+            <p>
+                Before you can start creating your server mod, you will need to download the following tools and dependencies:
+            </p>
+            <ul>
+                <li><a class="icon">▪️ </a><a href="https://code.visualstudio.com/" target="_blank"><b>Visual Studio Code</b> (download here)</a></li>
+                <li><a class="icon">▪️ </a><a href="https://nodejs.org/" target="_blank"><b>Node.js</b> (download here)</a></li>
+                <li><a class="icon">▪️ </a><b>SPT 3.10 Server</b></li>
+                <li><a class="icon">▪️ </a><a href="https://dev.sp-tarkov.com/chomp/ModExamples/" target="_blank"><b>SPT 3.10 Template</b> (download here)</a></li>
+            </ul>
+
+            <h2>Create a New Folder to Work In:</h2>
+            <p>
+                It's always good to have a proper folder to work in for your project. I store mine in <b>"D:\SPT-AKI\MyMods\Server Mods\SPT-3.10\"</b> as it's easy to find and work with.
+                <br>
+                Extract the content of "13.1AddTraderWithAssortJSON" from the SPT 3.10 Template into the folder you created.
+            </p>
         </div>
 
+
 <!-- Server Modding - Adding More Functions Content -->
-        <div id="servermods-morefunctions" class="content-section">
-            <h2 onclick="showContent('servermods-morefunctions')">Server Modding - Adding More Functions</h2>
-            <p>This is the content for <b>Adding More Functions</b>. Will be added soon.</p>
+        <div id="servermods-understanding" class="content-section">
+            <h2 onclick="showContent('servermods-morefunctions')">Server Modding - Understanding the Code</h2>
+            <p>
+                Usually, the Mod Example will have comments in the code to help you understand what each part does, but I will explain the basics here with said comments:
+            </p>
+            <ul>
+                <li><a class="icon">▪️ </a><b>"src"</b> folder: Contains the main code for the mod.</li>
+                <li><a class="icon">▪️ </a><b>"types"</b> folder: Contains the Typescript types for the mod to recognize the code when you work with it (not needed in uploaded mods).</li>
+                <li><a class="icon">▪️ </a><b>"db"</b> folder: Contains the JSON files for the mod, like the trader assort, items, hideout crafts, etc.</li>
+                <li><a class="icon">▪️ </a><b>"res"</b> folder: Contains the images for the mod, like the trader images, item images, etc.</li>
+                <li><a class="icon">▪️ </a><b>"package.json"</b> file: Contains the dependencies for the mod. Key properties include:
+                    <ul>
+                        <li><a class="icon">▪️ </a><b>name</b> - The name of the mod.</li>
+                        <li><a class="icon">▪️ </a><b>version</b> - The version of the mod.</li>
+                        <li><a class="icon">▪️ </a><b>sptVersion</b> - The version of SPT the mod is made for.</li>
+                        <li><a class="icon">▪️ </a><b>loadBefore</b> - The mods that should load before this mod.</li>
+                        <li><a class="icon">▪️ </a><b>loadAfter</b> - The mods that should load after this mod.</li>
+                        <li><a class="icon">▪️ </a><b>incompatibilities</b> - The mods that are incompatible with this mod.</li>
+                        <li><a class="icon">▪️ </a><b>isBundleMod</b> - Whether the mod contains bundles (like custom items).</li>
+                        <li><a class="icon">▪️ </a><b>author</b> - Your name.</li>
+                        <li><a class="icon">▪️ </a><b>contributors</b> - If you have any contributors to the mod.</li>
+                        <li><a class="icon">▪️ </a><b>license</b> - The license of the mod (usually "MIT").</li>
+                    </ul>
+                </li>
+                <li><a class="icon">▪️ </a><b>README.md</b> file: Contains information about the mod, like the description, features, installation instructions, and usage. It's always nice to have a README file in case someone wants to contribute or use the mod.</li>
+            </ul>
+
+            <h2>Now Let's Get Started with <b>"mod.ts"</b> in the "src" Folder:</h2>
+
+            <p>
+                <h4>The imports at the top are the dependencies for the mod, and you can add more if you need them.</h4>
+            </p>
+<code-block title="postDBLoad Example" language="javascript">
+import { DependencyContainer } from "tsyringe"; // <-- This is the dependency container
+
+// SPT types
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod"; // <-- This is the main interface for the mod
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";// <-- This is the interface for the mod after the database is loaded
+import { ILogger } from "@spt/models/spt/utils/ILogger"; // <-- This is the logger interface
+import { PreSptModLoader } from "@spt/loaders/PreSptModLoader"; // <-- This is the loader for the mod
+import { DatabaseServer } from "@spt/servers/DatabaseServer"; // <-- This is the server for the database
+import { ImageRouter } from "@spt/routers/ImageRouter"; // <-- This is the router for the images
+import { ConfigServer } from "@spt/servers/ConfigServer"; // <-- This is the server for the config
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes"; // <-- This is the enum for the config types
+import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig"; // <-- This is the trader config interface
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig"; // <-- This is the ragfair config interface
+import { JsonUtil } from "@spt/utils/JsonUtil"; // <-- This is the JSON utility
+import { Traders } from "@spt/models/enums/Traders"; // <-- This is the traders enum
+
+// New trader settings
+import baseJson = require("../db/base.json"); // <-- This is the base JSON file for the trader
+import assortJson = require("../db/assort.json"); // <-- This is the assort JSON file for the trader to have items for sale, barter, etc.
+
+import { TraderHelper } from "./traderHelpers"; // <-- This is the trader helper class
+</code-block>
+            <h4>The constructor is where you set up the mod, like the name, version, debug settings, etc. This will be used later in the mod.</h4>
+        
+<code-block title="postDBLoad Example" language="javascript">
+    constructor() {
+        this.mod = "acidphantasm-131AddTraderWithAssortJSON"; // Set name of mod so we can log it to console later - match this to your folder name that's built for \user\mods\
+    }
+</code-block>
+        <h4>The <b>"preSptLoad"</b> function is the first function that gets called when the mod is loaded. It’s where you set up the mod.</h4>
+
+<code-block title="postDBLoad Example" language="javascript">
+    public preSptLoad(container: DependencyContainer): void 
+    {
+        // Get a logger
+        this.logger = container.resolve<ILogger>("WinstonLogger"); // <-- This is the logger
+        this.logger.debug(`[${this.mod}] preSpt Loading... `); // <-- This is the debug message
+
+        // Get SPT code/data we need later
+        const preSptModLoader: PreSptModLoader = container.resolve<PreSptModLoader>("PreSptModLoader"); // <-- This is the preSPT mod loader
+        const imageRouter: ImageRouter = container.resolve<ImageRouter>("ImageRouter"); // <-- This is the image router
+        const configServer = container.resolve<ConfigServer>("ConfigServer"); // <-- This is the config server
+        const traderConfig: ITraderConfig = configServer.getConfig<ITraderConfig>(ConfigTypes.TRADER); // <-- This is the trader config
+        const ragfairConfig = configServer.getConfig<IRagfairConfig>(ConfigTypes.RAGFAIR); // <-- This is the ragfair config
+
+        // Create helper class and use it to register our traders image/icon + set its stock refresh time
+        this.traderHelper = new TraderHelper(); // <-- This is the trader helper class
+        this.traderHelper.registerProfileImage(baseJson, this.mod, preSptModLoader, imageRouter, "cat.jpg"); // <-- This is the profile image
+        this.traderHelper.setTraderUpdateTime(traderConfig, baseJson, 3600, 4000); // <-- This is the trader update time in seconds
+
+        // Add trader to trader enum
+        Traders[baseJson._id] = baseJson._id; // <-- Add trader to the traders enum
+
+        // Add trader to flea market
+        ragfairConfig.traders[baseJson._id] = true; // <-- Add trader to the flea market
+
+        this.logger.debug(`[${this.mod}] preSpt Loaded`); // <-- Debug message
+    }
+</code-block>
+        <h4>The <b>"postSptLoad"</b> function is the last function that gets called when the mod is loaded. It’s where you can perform any final tasks before the mod is fully loaded.</h4>
+<code-block title="postDBLoad Example" language="javascript">
+    public postDBLoad(container: DependencyContainer): void
+    {
+        this.logger.debug(`[${this.mod}] postDb Loading... `); // <-- Debug message
+
+        // Resolve SPT classes we'll use
+        const databaseServer: DatabaseServer = container.resolve<DatabaseServer>("DatabaseServer"); // <-- This is the database server
+        const jsonUtil: JsonUtil = container.resolve<JsonUtil>("JsonUtil"); // <-- This is the JSON utility
+
+        // Get a reference to the database tables
+        const tables = databaseServer.getTables(); // <-- Get the database tables
+
+        // Add new trader to the trader dictionary in DatabaseServer - this is where the assort json is loaded
+        /*
+        * The assortJSON includes the following:
+        * Milk available for roubles at LL1
+        * Milk available for item barter at LL1
+        * Helmet w/ soft armour available for roubles at LL1
+        * Helmet w/ soft armour available for item barter at LL1
+        * 
+        * It is *highly recommended* to use MongoIDs for the IDs in the assort, this example does not in order to make it easier to understand.
+        */
+        this.traderHelper.addTraderToDb(baseJson, tables, jsonUtil, assortJson); // <-- Add trader to the database
+        this.traderHelper.addTraderToLocales(baseJson, tables, baseJson.name, "Cat", baseJson.nickname, baseJson.location, "This is the cat shop"); // <-- Add trader to locales
+        
+        this.logger.debug(`[${this.mod}] postDb Loaded`); // <-- Debug message
+    }
+</code-block>
         </div>
     </div>
 
@@ -368,6 +506,47 @@
 
 
     <script>
+        class CodeBlock extends HTMLElement {
+            connectedCallback() {
+                const title = this.getAttribute('title') || 'Code Example';
+                const language = this.getAttribute('language') || 'plaintext';
+                const code = this.innerHTML.trim();
+
+                this.innerHTML = `
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-title">${title}</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy Code</button>
+                        </div>
+                        <pre class="code-block">
+<code class="language-${language}">
+    ${code}
+</code>
+                        </pre>
+                    </div>
+                `;
+            }
+        }
+
+        customElements.define('code-block', CodeBlock);
+
+        function openURL(url) {
+            if (url === 'home')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/');
+            if (url === 'vcqlhelper')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/vcqlhelper');
+            else if (url === 'itemdatabase')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/itemdatabase');
+            else if (url === 'traderassort')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/traderassort');
+            else if (url === 'modslots')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/modslots');
+            else if (url === 'hideoutcraft')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/hideoutcrafts');
+            else if (url === 'havendocumentation')
+                window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/havendocumentation');
+        }
+
         function showContent(sectionId) {
             const searchInput = document.getElementById('search');
             searchInput.value = '';
@@ -425,29 +604,29 @@
         }
 
         function highlightText(section, term) {
-    section.normalize();
-    const regex = new RegExp(`(${term})`, 'gi');
-    const textNodes = getTextNodes(section);
+            section.normalize();
+            const regex = new RegExp(`(${term})`, 'gi');
+            const textNodes = getTextNodes(section);
 
-    textNodes.forEach(node => {
-        const parent = node.parentNode;
-        if (parent) {
-            const originalText = node.nodeValue;
-            console.log(`Node Value Before Highlight: "${originalText}"`);
+            textNodes.forEach(node => {
+                const parent = node.parentNode;
+                if (parent) {
+                    const originalText = node.nodeValue;
+                    console.log(`Node Value Before Highlight: "${originalText}"`);
 
-            const highlightedHTML = originalText.replace(regex, '<mark>$1</mark>');
-            console.log(`Highlighted HTML: "${highlightedHTML}"`);
+                    const highlightedHTML = originalText.replace(regex, '<mark>$1</mark>');
+                    console.log(`Highlighted HTML: "${highlightedHTML}"`);
 
-            const tempContainer = document.createElement('span');
-            tempContainer.innerHTML = highlightedHTML;
+                    const tempContainer = document.createElement('span');
+                    tempContainer.innerHTML = highlightedHTML;
 
-            while (tempContainer.firstChild) {
-                parent.insertBefore(tempContainer.firstChild, node);
-            }
-            parent.removeChild(node);
+                    while (tempContainer.firstChild) {
+                        parent.insertBefore(tempContainer.firstChild, node);
+                    }
+                    parent.removeChild(node);
+                }
+            });
         }
-    });
-}
 
         function clearHighlights(section) {
             const marks = section.querySelectorAll('mark');
@@ -483,7 +662,6 @@
             }
             return nodes;
         }
-
 
         function copyCode(button) {
             const codeBlock = button.closest('.code-container').querySelector('code');
