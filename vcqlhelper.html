@@ -2437,7 +2437,7 @@
                 conditionDiv.classList.add("condition");
 
                 const conditionIndex = container.childElementCount;
-                const objLabel = generateUniqueId();
+                const objLabel = conditionDiv.getAttribute('data-obj-label');
                 conditionDiv.setAttribute('data-obj-label', objLabel);
 
                 conditionDiv.innerHTML = `
