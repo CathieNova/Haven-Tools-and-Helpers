@@ -321,6 +321,10 @@
                     <option value="Elimination">Elimination</option>
                     <option value="Multi">Multi</option>
                 </select>
+
+                <label style="display: flex; align-items: center;">
+                    <input id="restartable-checkbox" type="checkbox" style="margin-right: 5px;"> Restartable (only if the quest has a fail condition)
+                </label>
             </section>
 
         <section>
@@ -2574,6 +2578,7 @@
             function generateQuest() {
                 const questName = document.getElementById('quest-name').value;
                 const questNameID = generateUniqueId();
+                const restartable = document.getElementById('restartable-checkbox').checked;
                 const trader = document.getElementById('trader-name').value || 'TRADERNAME';
                 const questNumber = document.getElementById('quest-number').value || '0';
                 const questImage = document.getElementById('quest-image').value || 'quest_image.png';
@@ -3349,7 +3354,7 @@
                         changeQuestMessageText: `${questNameID} changeQuestMessageText`,
                         name: `${questNameID} name`,
                         note: `${questNameID} note`,
-                        restartable: false,
+                        restartable: restartable,
                         canShowNotificationsInGame: true,
                         conditions: {
                             AvailableForFinish: conditions,
