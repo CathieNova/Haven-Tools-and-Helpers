@@ -82,106 +82,76 @@
     <p>
         The <b>Haven Zone Creator</b> is a powerful tool for <em>SPT mod developers</em> to create custom zones for VCQL, Loose Loot, and other mods with ease.
     </p>
-    <h2>🌟 Features</h2>
+
+    <h2>Overview</h2>
+    <h1>
+        <strong>Haven <span style="color:#008000;">Zone</span> <span style="color:#FF8C00;">Creator</span></b>
+    </h1>
+    <p>This mod allows you to configure and create Zones with various settings for position, rotation, scale, transparency, and more. It includes tools for VCQL zone creation and LooseLoot generation for mods.</p>
+    <h3><span style="color:#008000;">Features:</span></h3>
     <ul>
-        <li><h3>Zone Information:</h3>
-            <ul>
-                <li><a class="icon">▪️ </a><b>Current Look Position:</b> Position where you were looking when pressing 'Fetch Look Position'.</li>
-                <li><a class="icon">▪️ </a><b>Current Look Rotation:</b> Rotation you were looking at when pressing 'Fetch Look Position'.</li>
-                <li><a class="icon">▪️ </a><b>Current Look Scale:</b> Scale you were looking at when pressing 'Fetch Look Position'.</li>
-                <li><a class="icon">▪️ </a><b>Look Position Cube Transparency:</b> Transparency of the look position cube.</li>
-            </ul>
-        </li>
-        <li><h3>Zone Box Settings:</h3>
-            <ul>
-                <li><a class="icon">▪️ </a><b>Transform Speed:</b> Speed at which the object is transformed.</li>
-                <li><a class="icon">▪️ </a><b>Fetch Look Position:</b> Fetches the position you are looking at.</li>
-                <li><a class="icon">▪️ </a><b>Remove Look Position:</b> Removes the look position cube.</li>
-                <li><a class="icon">▪️ </a><b>Transform Positive/Negative X, Y, Z:</b> Move the object along respective axes.</li>
-                <li><a class="icon">▪️ </a><b>Position:</b> Changes to Position mode.</li>
-                <li><a class="icon">▪️ </a><b>Scale:</b> Changes to Scale mode.</li>
-                <li><a class="icon">▪️ </a><b>Rotate:</b> Changes to Rotate mode.</li>
-                <li><a class="icon">▪️ </a><b>Lock X and Z Rotation Axes:</b> Locks the X and Z axes for rotation.</li>
-            </ul>
-        </li>
-        <li><h3>VCQL Zone Settings:</h3>
-            <ul>
-                <li><a class="icon">▪️ </a><b>Zone Id:</b> The ID of the zone.</li>
-                <li><a class="icon">▪️ </a><b>Zone Name:</b> The name of the zone.</li>
-                <li><a class="icon">▪️ </a><b>Zone Type:</b> The type of the zone.</li>
-                <li><a class="icon">▪️ </a><b>Flare Type:</b> The type of the flare.</li>
-                <li><a class="icon">▪️ </a><b>Generate VCQL Zone:</b> Generates the zone in the VCQL Zone folder.</li>
-            </ul>
-        </li>
+        <li><a class="icon">▪️ </a><b>Real-Time Zone Cube Adjustments:</b> Customize Zone Cube properties (position, rotation, scale, transparency).</li>
+        <li><a class="icon">▪️ </a><b>Quick VCQL Zone Creation:</b> Generates zones and saves them to the VCQL folder.</li>
+        <li><a class="icon">▪️ </a><b>LooseLoot Tools:</b> Configure probability, gravity, and randomization for loose loot generation (requires custom server mod).</li>
+        <li><a class="icon">▪️ </a><b>Custom Keyboard Shortcuts:</b> Speed up Zone Cube transformations and mode switching.</li>
     </ul>
 
-    <h2>📥 Installation</h2>
-    <ol>
-        <li>Download and extract the mod into the main SPT folder.</li>
-        <li>Place the `.dll` file inside the `BepInEx/plugins` directory.</li>
-    </ol>
-
-    <h2>🕹️ Usage</h2>
-    <h3>Cube Creation:</h3>
+    <h2>Detailed Configurations</h2>
+    <h3>Zone Information</h3>
     <ul>
-        <li><a class="icon">▪️ </a><b>Fetch Look Position:</b> Get the position you are looking at.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 0:</b> Creates a cube at the look position (may be buggy due to EFT colliders).</li>
-        <li><a class="icon">▪️ </a><b>Numpad Enter:</b> Removes the cube.</li>
+        <li><a class="icon">▪️ </a><b>Current Zone Cube Position:</b> Displays the current Zone Cube's position (read-only).</li>
+        <li><a class="icon">▪️ </a><b>Current Zone Cube Rotation:</b> Displays the current Zone Cube's rotation (read-only).</li>
+        <li><a class="icon">▪️ </a><b>Current Zone Cube Scale:</b> Displays the current Zone Cube's scale (read-only).</li>
+        <li><a class="icon">▪️ </a><b>Current Map Name:</b> Shows the ID of the current map (read-only).</li>
+        <li><a class="icon">▪️ </a><b>Zone Cube Transparency:</b> Adjust transparency of the Zone Cube (range: 0.0 to 1.0).</li>
     </ul>
 
-    <h3>Position Mode:</h3>
+    <h3>Zone Box Settings</h3>
     <ul>
-        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Move Positive X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Move Negative X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Move Positive Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Move Negative Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Move Positive Z axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Move Negative Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Transform Speed:</b> Set the speed of Zone Cube transformations (range: 0.01 to 10).</li>
+        <li><a class="icon">▪️ </a><b>Generate Haven Zone Cube:</b> Creates a Zone Cube at the look position.</li>
+        <li><a class="icon">▪️ </a><b>Remove Haven Zone Cube:</b> Removes the currently selected Zone Cube.</li>
+        <li><a class="icon">▪️ </a><b>Transform Keys:</b> Keyboard shortcuts for transforming the Zone Cube along X, Y, and Z axes (positive and negative).</li>
+        <li><a class="icon">▪️ </a><b>Mode Keys:</b> Switch between Position, Scale, and Rotation modes.</li>
+        <li><a class="icon">▪️ </a><b>Lock X and Z Rotation Axes:</b> Enables or disables locking X and Z axes during rotation.</li>
+        <li><a class="icon">▪️ </a><b>Default Scale:</b> Sets the default scale for new Zone Cubes.</li>
     </ul>
 
-    <h3>Rotation Mode:</h3>
+    <h3>VCQL Zone Settings</h3>
     <ul>
-        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Rotate Positive X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Rotate Negative X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Rotate Positive Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Rotate Negative Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Rotate Positive Z axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Rotate Negative Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Zone Id:</b> Identifier for the zone (spaces replaced with underscores).</li>
+        <li><a class="icon">▪️ </a><b>Zone Name:</b> Name of the zone (spaces replaced with underscores).</li>
+        <li><a class="icon">▪️ </a><b>Zone Type:</b> Set the zone type (e.g., placeitem).</li>
+        <li><a class="icon">▪️ </a><b>Flare Type:</b> Define flare effects for the zone.</li>
+        <li><a class="icon">▪️ </a><b>Generate VCQL Zone:</b> Save the zone settings to the VCQL Zone folder.</li>
     </ul>
 
-    <h3>Scale Mode:</h3>
+    <h3>LooseLoot Settings</h3>
     <ul>
-        <li><a class="icon">▪️ </a><b>Numpad 1:</b> Scale Positive X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 4:</b> Scale Negative X axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 2:</b> Scale Positive Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 5:</b> Scale Negative Y axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 3:</b> Scale Positive Z axis.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 6:</b> Scale Negative Z axis.</li>
+        <li><a class="icon">▪️ </a><b>Probability:</b> Adjust spawn probability for LooseLoot (range: 0.0 to 1.0).</li>
+        <li><a class="icon">▪️ </a><b>Use Gravity:</b> Enable or disable gravity for LooseLoot.</li>
+        <li><a class="icon">▪️ </a><b>Random Rotation:</b> Enable or disable random rotation for LooseLoot.</li>
+        <li><a class="icon">▪️ </a><b>Item Id (tpl):</b> Specify the template ID for LooseLoot items.</li>
+        <li><a class="icon">▪️ </a><b>Generate Loose Loot:</b> Save LooseLoot data to the "_EXPORTED_LOOT_" folder.</li>
     </ul>
 
-    <h3>Toggle Modes:</h3>
+    <h2>Showcase</h2>
+    <img src="https://i.imgur.com/fYkKNOL.gif" alt="fYkKNOL.gif">
+
+    <h2>Known Issues</h2>
     <ul>
-        <li><a class="icon">▪️ </a><b>Numpad 7:</b> Position mode.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 8:</b> Rotation mode.</li>
-        <li><a class="icon">▪️ </a><b>Numpad 9:</b> Scale mode.</li>
+        <li>Custom keyboard shortcuts may conflict with other mods.</li>
     </ul>
+    <p>If you encounter an issue, report it on <a href="https://github.com/CathieNova/SPT-HavenZoneCreator/issues">GitHub</a>.</p>
 
-    <h2>Generating Jsons:</h2>
+    <h2>Disclaimer</h2>
     <ul>
-        <li><a class="icon">▪️ </a><b>Generate VCQL Zone:</b> Generates the zone in the VCQL Zone folder with the specified information.</li>
-        <li><a class="icon">▪️ </a><b>Generate Loose Loot Zone:</b> Generates the zone in the Loose Loot Zone folder with the specified information. (Not implemented yet)</li>
+        <li>This mod is under active development; features may change or be added.</li>
+        <li>The mod is provided "as-is".</li>
     </ul>
-
-    <h2>❗ Notes</h2>
-    <ul>
-        <li>The <b>Fetch Look Position</b> feature may be buggy due to EFT colliders.</li>
-    </ul>
-
-    <h2>📜 License</h2>
-    <p>This mod is distributed <b>for free use</b>. Feel free to modify, but proper credit is appreciated.</p>
-
-    <p><em>Enjoy creating custom zones! 🎉</em></p>
+    <p>Enjoy and use responsibly!</p>
 </div>
+
 
 
 <!-- Haven Industries - Chloe Content -->
