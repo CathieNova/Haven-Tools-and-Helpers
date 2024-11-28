@@ -1,0 +1,5757 @@
+{
+  "5ac23c6186f7741247042bad": {
+    "QuestName": "Gunsmith Part 1",
+    "_id": "5ac23c6186f7741247042bad",
+    "acceptPlayerMessage": "5ac23c6186f7741247042bad acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac23c6186f7741247042bad changeQuestMessageText",
+    "completePlayerMessage": "5ac23c6186f7741247042bad completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 47
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": "<=",
+            "value": 1
+          },
+          "id": "5accd5e386f77463027e9397",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 5
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 850
+          },
+          "target": [
+            "54491c4f4bdc2db1078b4568"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": "<=",
+            "value": 4
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639afb227c898a131e1cff88",
+          "index": 0,
+          "parentId": "",
+          "value": 2,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "6584716a8540aea26decc8c0",
+          "index": 1,
+          "parentId": "",
+          "status": [
+            4,
+            5
+          ],
+          "target": "657315e4a6af4ab4b50f3459",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac23c6186f7741247042bad declinePlayerMessage",
+    "description": "5ac23c6186f7741247042bad description",
+    "failMessageText": "5ac23c6186f7741247042bad failMessageText",
+    "image": "/files/quest/icon/5ac4dc0486f77442000164e5.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac23c6186f7741247042bad name",
+    "note": "5ac23c6186f7741247042bad note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc74a92b555f16df5c41af",
+          "index": 0,
+          "type": "Experience",
+          "value": 800
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb7fb386f77417d0797dd2",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c0",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 10000
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6c0",
+          "type": "Item",
+          "value": "10000"
+        },
+        {
+          "id": "60cc74ac65e4664318606aeb",
+          "index": 4,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "639898a3eee7ff72370f7dd6",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c1",
+              "_tpl": "57347c77245977448d35f6e2",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6c1",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639898b08871e1272b10ccf8",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c2",
+              "_tpl": "57347c5b245977448d35f6e1",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6c2",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639898da05aa481907106506",
+          "index": 7,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c3",
+              "_tpl": "5d6e68c4a4b9361b93413f79",
+              "upd": {
+                "StackObjectsCount": 20
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6c3",
+          "type": "Item",
+          "unknown": true,
+          "value": "20"
+        },
+        {
+          "id": "63a19af0fcae11642e50f9b1",
+          "index": 8,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c4",
+              "_tpl": "56ea8d2fd2720b7c698b4570"
+            }
+          ],
+          "loyaltyLevel": 1,
+          "target": "6492e44af4287b13040fc6c4",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac23c6186f7741247042bad startedMessageText",
+    "successMessageText": "5ac23c6186f7741247042bad successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ac2426c86f774138762edfe": {
+    "QuestName": "Gunsmith Part 2",
+    "_id": "5ac2426c86f774138762edfe",
+    "acceptPlayerMessage": "5ac2426c86f774138762edfe acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac2426c86f774138762edfe changeQuestMessageText",
+    "completePlayerMessage": "5ac2426c86f774138762edfe completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "57ffa9f4245977728561e844"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 100
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 58
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": "<=",
+            "value": 2
+          },
+          "id": "5accd9b686f774112d7173d1",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 550
+          },
+          "target": [
+            "57dc2fa62459775949412633"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 3.5
+          },
+          "width": {
+            "compareMethod": "<=",
+            "value": 3
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf37a186f7741843346d0c",
+          "index": 0,
+          "parentId": "",
+          "value": 5,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf37ad86f77418420befe6",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac23c6186f7741247042bad",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac2426c86f774138762edfe declinePlayerMessage",
+    "description": "5ac2426c86f774138762edfe description",
+    "failMessageText": "5ac2426c86f774138762edfe failMessageText",
+    "image": "/files/quest/icon/5ae3260986f7745b3e3bf2a7.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac2426c86f774138762edfe name",
+    "note": "5ac2426c86f774138762edfe note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [
+        {
+          "findInRaid": true,
+          "id": "5ad07e8f86f7742f92462779",
+          "index": 0,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6c5",
+              "_tpl": "57dc2fa62459775949412633",
+              "upd": {
+                "FireMode": {
+                  "FireMode": "single"
+                },
+                "Foldable": {
+                  "Folded": false
+                },
+                "StackObjectsCount": 1
+              }
+            },
+            {
+              "_id": "6492e44af4287b13040fc6c6",
+              "_tpl": "57e3dba62459770f0c32322b",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6c7",
+              "_tpl": "57dc347d245977596754e7a1",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6c8",
+              "_tpl": "564ca99c4bdc2d16268b4589",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6c9",
+              "_tpl": "57dc324a24597759501edc20",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ca",
+              "_tpl": "57dc334d245977597164366f",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6cb",
+              "_tpl": "59d36a0086f7747e673f3946",
+              "parentId": "6492e44af4287b13040fc6c5",
+              "slotId": "mod_gas_block"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6cc",
+              "_tpl": "57dc32dc245977596d4ef3d3",
+              "parentId": "6492e44af4287b13040fc6cb",
+              "slotId": "mod_handguard"
+            }
+          ],
+          "target": "6492e44af4287b13040fc6c5",
+          "type": "Item",
+          "value": "1"
+        }
+      ],
+      "Success": [
+        {
+          "id": "5c950c8086f77455192fa441",
+          "index": 0,
+          "type": "Experience",
+          "value": 2000
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb80b286f7742b0b02e96a",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6cd",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 15000
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6cd",
+          "type": "Item",
+          "value": "15000"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc754798b49270603645d0",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6ce",
+              "_tpl": "5c06782b86f77426df5407d2",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6ce",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc759b6a2a1958fc523200",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6cf",
+              "_tpl": "5c06779c86f77426e00dd782",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6cf",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "63989e07cd51826f7a069b86",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d0",
+              "_tpl": "5d1b392c86f77425243e98fe",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6d0",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "60cc752f77dc197c774254c0",
+          "index": 5,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "id": "63a19b07fcae11642e50f9b2",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d1",
+              "_tpl": "5cbda392ae92155f3c17c39f"
+            }
+          ],
+          "loyaltyLevel": 1,
+          "target": "6492e44af4287b13040fc6d1",
+          "traderId": "54cb50c76803fa8b248b4571",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac2426c86f774138762edfe startedMessageText",
+    "successMessageText": "5ac2426c86f774138762edfe successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ac2428686f77412450b42bf": {
+    "QuestName": "Gunsmith Part 3",
+    "_id": "5ac2428686f77412450b42bf",
+    "acceptPlayerMessage": "5ac2428686f77412450b42bf acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac2428686f77412450b42bf changeQuestMessageText",
+    "completePlayerMessage": "5ac2428686f77412450b42bf completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 200
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 45
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c",
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5accde3686f7740cea1b7ec2",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 50
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 210
+          },
+          "target": [
+            "5926bb2186f7744b1c6c6e60"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 4
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf37d486f7741841752ffc",
+          "index": 0,
+          "parentId": "",
+          "value": 7,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf37df86f7741bb8377ffc",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac23c6186f7741247042bad",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac2428686f77412450b42bf declinePlayerMessage",
+    "description": "5ac2428686f77412450b42bf description",
+    "failMessageText": "5ac2428686f77412450b42bf failMessageText",
+    "image": "/files/quest/icon/5ae325c586f77444fa45d0de.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac2428686f77412450b42bf name",
+    "note": "5ac2428686f77412450b42bf note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc75dea7d63f18200a24e0",
+          "index": 0,
+          "type": "Experience",
+          "value": 2800
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb80e686f7744e66123c96",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d2",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 250
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6d2",
+          "type": "Item",
+          "value": "250"
+        },
+        {
+          "id": "60cc75eb7c496e588343a6d6",
+          "index": 3,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "63989ecf700117662d337be6",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d3",
+              "_tpl": "626bb8532c923541184624b4",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6d3",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "63989f07eee7ff72370f7dd7",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d4",
+              "_tpl": "5fce0cf655375d18a253eff0",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6d4",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "63a19b1dfcae11642e50f9b3",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6d5",
+              "_tpl": "5a7ae0c351dfba0017554310"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6d6",
+              "_tpl": "5a6b5f868dc32e000a311389",
+              "parentId": "6492e44af4287b13040fc6d5",
+              "slotId": "mod_barrel"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6d7",
+              "_tpl": "5a7b4960e899ef197b331a2d",
+              "parentId": "6492e44af4287b13040fc6d5",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6d8",
+              "_tpl": "5a6f5e048dc32e00094b97da",
+              "parentId": "6492e44af4287b13040fc6d5",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6d9",
+              "_tpl": "5a71e0fb8dc32e00094b97f2",
+              "parentId": "6492e44af4287b13040fc6d8",
+              "slotId": "mod_sight_rear"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6da",
+              "_tpl": "5a71e0048dc32e000c52ecc8",
+              "parentId": "6492e44af4287b13040fc6d8",
+              "slotId": "mod_sight_front"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6db",
+              "_tpl": "5a7b32a2e899ef00135e345a",
+              "parentId": "6492e44af4287b13040fc6d8",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6dc",
+              "_tpl": "5a718f958dc32e00094b97e7",
+              "parentId": "6492e44af4287b13040fc6d5",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6dd",
+              "_tpl": "5a7b483fe899ef0016170d15",
+              "parentId": "6492e44af4287b13040fc6d5",
+              "slotId": "mod_tactical"
+            }
+          ],
+          "loyaltyLevel": 1,
+          "target": "6492e44af4287b13040fc6d5",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac2428686f77412450b42bf startedMessageText",
+    "successMessageText": "5ac2428686f77412450b42bf successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ac242ab86f77412464f68b4": {
+    "QuestName": "Gunsmith Part 16",
+    "_id": "5ac242ab86f77412464f68b4",
+    "acceptPlayerMessage": "5ac242ab86f77412464f68b4 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac242ab86f77412464f68b4 changeQuestMessageText",
+    "completePlayerMessage": "5ac242ab86f77412464f68b4 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 2000
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 40
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5acce08b86f7745f8521fa64",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 450
+          },
+          "target": [
+            "588892092459774ac91d4b11"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 6.7
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf381a86f7741ce21f9aee",
+          "index": 0,
+          "parentId": "",
+          "value": 30,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf382686f7741cdb2f7ef6",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ae3280386f7742a41359364",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac242ab86f77412464f68b4 declinePlayerMessage",
+    "description": "5ac242ab86f77412464f68b4 description",
+    "failMessageText": "5ac242ab86f77412464f68b4 failMessageText",
+    "image": "/files/quest/icon/5ac4e06086f774623122ae42.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac242ab86f77412464f68b4 name",
+    "note": "5ac242ab86f77412464f68b4 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc768f65e4664318606af1",
+          "index": 0,
+          "type": "Experience",
+          "value": 20400
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb826b86f77456255bad89",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc34",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 200000
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc34",
+          "type": "Item",
+          "value": "200000"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc76cb7c496e588343a6d8",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc35",
+              "_tpl": "59e35ef086f7741777737012",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc35",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc76e4e3d0247e625dab6c",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc36",
+              "_tpl": "59e35de086f7741778269d84",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc36",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc76f93e4e974efa345d21",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc37",
+              "_tpl": "5d1b36a186f7742523398433",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc37",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "60cc7707a7d63f18200a24e3",
+          "index": 5,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        },
+        {
+          "id": "63a19cda5032c67f050dd961",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc38",
+              "_tpl": "5d43021ca4b9362eab4b5e25",
+              "upd": {
+                "FireMode": {
+                  "FireMode": "single"
+                }
+              }
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc39",
+              "_tpl": "55802f5d4bdc2dac148b458f",
+              "parentId": "6492e44bf4287b13040fcc38",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3a",
+              "_tpl": "5aaa5dfee5b5b000140293d3",
+              "parentId": "6492e44bf4287b13040fcc38",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3b",
+              "_tpl": "5d4405aaa4b9361e6a4e6bd3",
+              "parentId": "6492e44bf4287b13040fcc38",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3c",
+              "_tpl": "5d440b93a4b9364276578d4b",
+              "parentId": "6492e44bf4287b13040fcc3b",
+              "slotId": "mod_barrel"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3d",
+              "_tpl": "5d440625a4b9361eec4ae6c5",
+              "parentId": "6492e44bf4287b13040fcc3c",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3e",
+              "_tpl": "5d44064fa4b9361e4f6eb8b5",
+              "parentId": "6492e44bf4287b13040fcc3d",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc3f",
+              "_tpl": "56eabcd4d2720b66698b4574",
+              "parentId": "6492e44bf4287b13040fcc3c",
+              "slotId": "mod_gas_block"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc40",
+              "_tpl": "5d4405f0a4b9361e6a4e6bd9",
+              "parentId": "6492e44bf4287b13040fcc3b",
+              "slotId": "mod_handguard"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc41",
+              "_tpl": "5b7be47f5acfc400170e2dd2",
+              "parentId": "6492e44bf4287b13040fcc40",
+              "slotId": "mod_mount_004"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc42",
+              "_tpl": "5b7be4895acfc400170e2dd5",
+              "parentId": "6492e44bf4287b13040fcc40",
+              "slotId": "mod_foregrip"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc43",
+              "_tpl": "5649be884bdc2d79388b4577",
+              "parentId": "6492e44bf4287b13040fcc38",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc44",
+              "_tpl": "5d4406a8a4b9361e4f6eb8b7",
+              "parentId": "6492e44bf4287b13040fcc43",
+              "slotId": "mod_stock_000"
+            },
+            {
+              "_id": "6492e44bf4287b13040fcc45",
+              "_tpl": "5d44334ba4b9362b346d1948",
+              "parentId": "6492e44bf4287b13040fcc38",
+              "slotId": "mod_charge"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc38",
+          "traderId": "58330581ace78e27b8b10cee",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac242ab86f77412464f68b4 startedMessageText",
+    "successMessageText": "5ac242ab86f77412464f68b4 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ac244c486f77413e12cf945": {
+    "QuestName": "Gunsmith Part 13",
+    "_id": "5ac244c486f77413e12cf945",
+    "acceptPlayerMessage": "5ac244c486f77413e12cf945 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac244c486f77413e12cf945 changeQuestMessageText",
+    "completePlayerMessage": "5ac244c486f77413e12cf945 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 1500
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 26
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5acce11786f77411ed6fa6eb",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 300
+          },
+          "target": [
+            "5a367e5dc4a282000e49738f"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 6.7
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf383d86f7741bb8378000",
+          "index": 0,
+          "parentId": "",
+          "value": 25,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf383686f7741bb8377fff",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5b47799d86f7746c5d6a5fd8",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac244c486f77413e12cf945 declinePlayerMessage",
+    "description": "5ac244c486f77413e12cf945 description",
+    "failMessageText": "5ac244c486f77413e12cf945 failMessageText",
+    "image": "/files/quest/icon/5ac4e08086f774623122ae44.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac244c486f77413e12cf945 name",
+    "note": "5ac244c486f77413e12cf945 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc7742e3d0247e625dab6d",
+          "index": 0,
+          "type": "Experience",
+          "value": 13600
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb82ca86f77456255bb07f",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6ae",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6ae",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc77487c496e588343a6da",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6af",
+              "_tpl": "59e35cbb86f7741778269d83",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6af",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6399b319e11ec11ff550403c",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b0",
+              "_tpl": "590c31c586f774245e3141b2",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6b0",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "63a19c9d5032c67f050dd95e",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b1",
+              "_tpl": "5dfa3d2b0dee1b22f862eade"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44af4287b13040fc6b1",
+          "traderId": "5935c25fb3acc3127c3d8cd9",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60cc775d3e4e974efa345d23",
+          "index": 5,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac244c486f77413e12cf945 startedMessageText",
+    "successMessageText": "5ac244c486f77413e12cf945 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ac244eb86f7741356335af1": {
+    "QuestName": "Gunsmith Part 7",
+    "_id": "5ac244eb86f7741356335af1",
+    "acceptPlayerMessage": "5ac244eb86f7741356335af1 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ac244eb86f7741356335af1 changeQuestMessageText",
+    "completePlayerMessage": "5ac244eb86f7741356335af1 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 800
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 47
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5accdfdb86f77412265cbfc9",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 300
+          },
+          "target": [
+            "5447a9cd4bdc2dbd208b4567"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 3.8
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5acf37fa86f7741844039008",
+          "index": 0,
+          "parentId": "",
+          "value": 15,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "638dbfc336b3b72c944e2f85",
+          "index": 2,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ae3270f86f77445ba41d4dd",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ac244eb86f7741356335af1 declinePlayerMessage",
+    "description": "5ac244eb86f7741356335af1 description",
+    "failMessageText": "5ac244eb86f7741356335af1 failMessageText",
+    "image": "/files/quest/icon/5ac4e02986f774617a185ef2.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ac244eb86f7741356335af1 name",
+    "note": "5ac244eb86f7741356335af1 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc765e65e4664318606af0",
+          "index": 0,
+          "type": "Experience",
+          "value": 6300
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb81e486f77456247a352e",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc649",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc649",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "id": "60cc7663f09d61072d6d00ba",
+          "index": 2,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "5acb821486f77455360eafa7",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64a",
+              "_tpl": "5af04b6486f774195a3ebb49",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc64a",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398aaa0cd51826f7a069b88",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64b",
+              "_tpl": "59e35de086f7741778269d84",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc64b",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "63a19bb4fcae11642e50f9b7",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64c",
+              "_tpl": "56eabcd4d2720b66698b4574"
+            }
+          ],
+          "loyaltyLevel": 2,
+          "target": "6492e44af4287b13040fc64c",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ac244eb86f7741356335af1 startedMessageText",
+    "successMessageText": "5ac244eb86f7741356335af1 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ae3267986f7742a413592fe": {
+    "QuestName": "Gunsmith Part 5",
+    "_id": "5ae3267986f7742a413592fe",
+    "acceptPlayerMessage": "5ae3267986f7742a413592fe acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ae3267986f7742a413592fe changeQuestMessageText",
+    "completePlayerMessage": "5ae3267986f7742a413592fe completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5a788068c5856700137e4c8f"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c",
+            "55818af64bdc2d5b648b4570"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5ae34b8b86f7741e5b1e5d48",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 500
+          },
+          "target": [
+            "5a7828548dc32e5a9c28b516"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af4134a86f7742574673cc5",
+          "index": 0,
+          "parentId": "",
+          "value": 10,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639aee4981b99001240bbe15",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "639872f9decada40426d3447",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ae3267986f7742a413592fe declinePlayerMessage",
+    "description": "5ae3267986f7742a413592fe description",
+    "failMessageText": "5ae3267986f7742a413592fe failMessageText",
+    "image": "/files/quest/icon/5ae326a086f77444fd36f5d8.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ae3267986f7742a413592fe name",
+    "note": "5ae3267986f7742a413592fe note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "5c950d8e86f77455185027fb",
+          "index": 0,
+          "type": "Experience",
+          "value": 4100
+        },
+        {
+          "findInRaid": true,
+          "id": "5ae9948986f77445200ecb4f",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f2",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 300
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6f2",
+          "type": "Item",
+          "value": "300"
+        },
+        {
+          "id": "60cc77923e4e974efa345d24",
+          "index": 3,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a86cddab1d61bf383d16",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f3",
+              "_tpl": "5d1c819a86f774771b0acd6c",
+              "upd": {
+                "StackObjectsCount": 3
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6f3",
+          "type": "Item",
+          "value": "3"
+        },
+        {
+          "id": "63a19b5efcae11642e50f9b5",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f4",
+              "_tpl": "5aafbde786f774389d0cbc0f"
+            }
+          ],
+          "loyaltyLevel": 1,
+          "target": "6492e44af4287b13040fc6f4",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ae3267986f7742a413592fe startedMessageText",
+    "successMessageText": "5ae3267986f7742a413592fe successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ae3270f86f77445ba41d4dd": {
+    "QuestName": "Gunsmith Part 6",
+    "_id": "5ae3270f86f77445ba41d4dd",
+    "acceptPlayerMessage": "5ae3270f86f77445ba41d4dd acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ae3270f86f77445ba41d4dd changeQuestMessageText",
+    "completePlayerMessage": "5ae3270f86f77445ba41d4dd completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "59f8a37386f7747af3328f06",
+            "59d6272486f77466146386ff"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 800
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 40
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5ae3550b86f7741cf44fc799",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 400
+          },
+          "target": [
+            "59d6088586f774275f37482f"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af4139286f774522e34389b",
+          "index": 0,
+          "parentId": "",
+          "value": 14,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af4136586f774551341dc75",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ae3267986f7742a413592fe",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ae3270f86f77445ba41d4dd declinePlayerMessage",
+    "description": "5ae3270f86f77445ba41d4dd description",
+    "failMessageText": "5ae3270f86f77445ba41d4dd failMessageText",
+    "image": "/files/quest/icon/5ae3274386f7745b4246b387.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ae3270f86f77445ba41d4dd name",
+    "note": "5ae3270f86f77445ba41d4dd note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc77b92b555f16df5c41b8",
+          "index": 0,
+          "type": "Experience",
+          "value": 5800
+        },
+        {
+          "findInRaid": true,
+          "id": "5ae9964b86f77439b61d2571",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc644",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 50000
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc644",
+          "type": "Item",
+          "value": "50000"
+        },
+        {
+          "id": "60cc77c43e4e974efa345d25",
+          "index": 2,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "5ae9966686f77439bf37d95a",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc645",
+              "_tpl": "59e35ef086f7741777737012",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc645",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a94993ae507d5858c3a9",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc646",
+              "_tpl": "5d1b313086f77425227d1678",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc646",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a9bbe11ec11ff5504039",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc647",
+              "_tpl": "59e0d99486f7744a32234762",
+              "upd": {
+                "StackObjectsCount": 60
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc647",
+          "type": "Item",
+          "unknown": true,
+          "value": "60"
+        },
+        {
+          "id": "63a19b9bfcae11642e50f9b6",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc648",
+              "_tpl": "5a0c59791526d8dba737bba7"
+            }
+          ],
+          "loyaltyLevel": 2,
+          "target": "6492e44af4287b13040fc648",
+          "traderId": "54cb50c76803fa8b248b4571",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ae3270f86f77445ba41d4dd startedMessageText",
+    "successMessageText": "5ae3270f86f77445ba41d4dd successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ae3277186f7745973054106": {
+    "QuestName": "Gunsmith Part 8",
+    "_id": "5ae3277186f7745973054106",
+    "acceptPlayerMessage": "5ae3277186f7745973054106 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ae3277186f7745973054106 changeQuestMessageText",
+    "completePlayerMessage": "5ae3277186f7745973054106 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5649ab884bdc2ded0b8b457f",
+            "5649af884bdc2d1b2b8b4589",
+            "5649ae4a4bdc2d1b2b8b4588",
+            "59ecc3dd86f7746dc827481c",
+            "5bed61680db834001d2c45ab",
+            "5efaf417aeb21837e749c7f2",
+            "5c1bc4812e22164bef5cfde7",
+            "5a5f1ce64f39f90b401987bc"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 65
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 2
+          },
+          "id": "5ae3570b86f7746efa6b4494",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 30
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 275
+          },
+          "target": [
+            "5ab8e9fcd8ce870019439434"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 5
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af413b686f774522c7a6791",
+          "index": 0,
+          "parentId": "",
+          "value": 17,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af413ae86f774522e3438a5",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac244eb86f7741356335af1",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ae3277186f7745973054106 declinePlayerMessage",
+    "description": "5ae3277186f7745973054106 description",
+    "failMessageText": "5ae3277186f7745973054106 failMessageText",
+    "image": "/files/quest/icon/5ae327a086f7745c7b3f2f38.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ae3277186f7745973054106 name",
+    "note": "5ae3277186f7745973054106 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc77e2179f8541b8469268",
+          "index": 0,
+          "type": "Experience",
+          "value": 8600
+        },
+        {
+          "findInRaid": true,
+          "id": "5ae9972186f77439b61d2aef",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc63b",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 75000
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc63b",
+          "type": "Item",
+          "value": "75000"
+        },
+        {
+          "id": "60cc77ed98b49270603645d5",
+          "index": 3,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398abefddab1d61bf383d17",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc63c",
+              "_tpl": "5a957c3fa2750c00137fa5f7",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc63c",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398ac0c93ae507d5858c3aa",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc63d",
+              "_tpl": "5f633f791b231926f2329f13",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc63d",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398ac34e11ec11ff550403a",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc63e",
+              "_tpl": "56dff026d2720bb8668b4567",
+              "upd": {
+                "StackObjectsCount": 60
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc63e",
+          "type": "Item",
+          "unknown": true,
+          "value": "60"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ae3277186f7745973054106 startedMessageText",
+    "successMessageText": "5ae3277186f7745973054106 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ae327c886f7745c7b3f2f3f": {
+    "QuestName": "Gunsmith Part 10",
+    "_id": "5ae327c886f7745c7b3f2f3f",
+    "acceptPlayerMessage": "5ae327c886f7745c7b3f2f3f acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ae327c886f7745c7b3f2f3f changeQuestMessageText",
+    "completePlayerMessage": "5ae327c886f7745c7b3f2f3f completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 800
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 38
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 2
+          },
+          "id": "5ae445f386f7744e87761331",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 500
+          },
+          "target": [
+            "5ac66d9b5acfc4001633997a"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 4.8
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 4
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af413e486f774522e3438df",
+          "index": 0,
+          "parentId": "",
+          "value": 20,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af413ce86f774522e3438ae",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "639872fa9b4fb827b200d8e5",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ae327c886f7745c7b3f2f3f declinePlayerMessage",
+    "description": "5ae327c886f7745c7b3f2f3f description",
+    "failMessageText": "5ae327c886f7745c7b3f2f3f failMessageText",
+    "image": "/files/quest/icon/5ae327e086f7742a4135935e.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ae327c886f7745c7b3f2f3f name",
+    "note": "5ae327c886f7745c7b3f2f3f note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc7828f09d61072d6d00bf",
+          "index": 0,
+          "type": "Experience",
+          "value": 10400
+        },
+        {
+          "id": "60cc782a7c496e588343a6db",
+          "index": 4,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398afbac8f8cc12a47b02a9",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc617",
+              "_tpl": "5c06779c86f77426e00dd782",
+              "upd": {
+                "StackObjectsCount": 5
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc617",
+          "type": "Item",
+          "value": "5"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398afc5e11ec11ff550403b",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc618",
+              "_tpl": "61bf7b6302b3924be92fa8c3",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc618",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "63a19c1ed6d4651e53602aeb",
+          "index": 7,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc619",
+              "_tpl": "5aafbde786f774389d0cbc0f"
+            }
+          ],
+          "loyaltyLevel": 2,
+          "target": "6492e44af4287b13040fc619",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ae327c886f7745c7b3f2f3f startedMessageText",
+    "successMessageText": "5ae327c886f7745c7b3f2f3f successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5ae3280386f7742a41359364": {
+    "QuestName": "Gunsmith Part 15",
+    "_id": "5ae3280386f7742a41359364",
+    "acceptPlayerMessage": "5ae3280386f7742a41359364 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5ae3280386f7742a41359364 changeQuestMessageText",
+    "completePlayerMessage": "5ae3280386f7742a41359364 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5a9eb32da2750c00171b3f9c",
+            "544909bb4bdc2d6f028b4577",
+            "5a7c74b3e899ef0014332c29"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 33
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5ae4479686f7744f6c79b7b3",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 30
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 220
+          },
+          "target": [
+            "57c44b372459772d2b39b8ce"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af4140186f774522d460775",
+          "index": 0,
+          "parentId": "",
+          "value": 27,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5af413fa86f77407184494f3",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "639872fe8871e1272b10ccf6",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5ae3280386f7742a41359364 declinePlayerMessage",
+    "description": "5ae3280386f7742a41359364 description",
+    "failMessageText": "5ae3280386f7742a41359364 failMessageText",
+    "image": "/files/quest/icon/5ae3281c86f7745b3e3bf2d1.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5ae3280386f7742a41359364 name",
+    "note": "5ae3280386f7742a41359364 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc784ea7d63f18200a24e4",
+          "index": 0,
+          "type": "Experience",
+          "value": 19400
+        },
+        {
+          "findInRaid": true,
+          "id": "5ae99bc386f774391242a7ac",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6bb",
+              "_tpl": "5addaffe86f77470b455f900",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6bb",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc78692b555f16df5c41ba",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6bc",
+              "_tpl": "5d1b327086f7742525194449",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6bc",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "60cc7852e3d0247e625dab6e",
+          "index": 3,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "id": "63a19cc35032c67f050dd960",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6bd",
+              "_tpl": "59eb7ebe86f7740b373438ce"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44af4287b13040fc6bd",
+          "traderId": "5c0647fdd443bc2504c2d371",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5ae3280386f7742a41359364 startedMessageText",
+    "successMessageText": "5ae3280386f7742a41359364 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5b47749f86f7746c5d6a5fd4": {
+    "QuestName": "Gunsmith Part 17",
+    "_id": "5b47749f86f7746c5d6a5fd4",
+    "acceptPlayerMessage": "5b47749f86f7746c5d6a5fd4 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5b47749f86f7746c5d6a5fd4 changeQuestMessageText",
+    "completePlayerMessage": "5b47749f86f7746c5d6a5fd4 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5f6339d53ada5942720e2dc3",
+            "5c0548ae0db834001966a3c2",
+            "588226ef24597767af46e39c",
+            "5b3a337e5acfc4704b4a19a0",
+            "5beec8b20db834001961942a"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 800
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 70
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": "<=",
+            "value": 2
+          },
+          "id": "5b47796686f774374f4a8bb1",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 250
+          },
+          "target": [
+            "5ac66d015acfc400180ae6e4"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": "<=",
+            "value": 4
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f0cc186f7744def7f3389",
+          "index": 0,
+          "parentId": "",
+          "value": 31,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f082f86f7747a284dd609",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac242ab86f77412464f68b4",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5b47749f86f7746c5d6a5fd4 declinePlayerMessage",
+    "description": "5b47749f86f7746c5d6a5fd4 description",
+    "failMessageText": "5b47749f86f7746c5d6a5fd4 failMessageText",
+    "image": "/files/quest/icon/5b47859886f7744d1b23c4f5.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5b47749f86f7746c5d6a5fd4 name",
+    "note": "5b47749f86f7746c5d6a5fd4 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc7898179f8541b846926a",
+          "index": 0,
+          "type": "Experience",
+          "value": 21400
+        },
+        {
+          "findInRaid": true,
+          "id": "5b48761d86f7744abe3d1972",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc46",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 35000
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc46",
+          "type": "Item",
+          "value": "35000"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af815f5765f47cc7f0e66",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc47",
+              "_tpl": "590a3c0a86f774385a33c450",
+              "upd": {
+                "StackObjectsCount": 4
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc47",
+          "type": "Item",
+          "value": "4"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af822ad9d7e3216668f67",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc48",
+              "_tpl": "5e2aedd986f7746d404f3aa4",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc48",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "5b48e8bb86f774498467142c",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc49",
+              "_tpl": "588226ef24597767af46e39c"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc49",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60b8f61d81c51328c56d7714",
+          "index": 7,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4a",
+              "_tpl": "5a33e75ac4a2826c6e06d759"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc4a",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19cf55032c67f050dd962",
+          "index": 8,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4b",
+              "_tpl": "5e21ca18e4d47f0da15e77dd"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc4b",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19d04423c8970de419818",
+          "index": 9,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4c",
+              "_tpl": "619b69037b9de8162902673e"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc4c",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60cc789c2b555f16df5c41bb",
+          "index": 10,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5b47749f86f7746c5d6a5fd4 startedMessageText",
+    "successMessageText": "5b47749f86f7746c5d6a5fd4 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5b47799d86f7746c5d6a5fd8": {
+    "QuestName": "Gunsmith Part 12",
+    "_id": "5b47799d86f7746c5d6a5fd8",
+    "acceptPlayerMessage": "5b47799d86f7746c5d6a5fd8 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5b47799d86f7746c5d6a5fd8 changeQuestMessageText",
+    "completePlayerMessage": "5b47799d86f7746c5d6a5fd8 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5b07db875acfc40dc528a5f6",
+            "5b3a16655acfc40016387a2a",
+            "5b07dd285acfc4001754240d"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 300
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 52
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5b477b3b86f77401da02e6c4",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 225
+          },
+          "target": [
+            "58948c8e86f77409493f7266"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 4
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f0d6086f7742c1f5a3c4d",
+          "index": 0,
+          "parentId": "",
+          "value": 23,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f085586f7747a2910a9b2",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "639872fc93ae507d5858c3a6",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5b47799d86f7746c5d6a5fd8 declinePlayerMessage",
+    "description": "5b47799d86f7746c5d6a5fd8 description",
+    "failMessageText": "5b47799d86f7746c5d6a5fd8 failMessageText",
+    "image": "/files/quest/icon/5b4785f586f77470315db7ed.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5b47799d86f7746c5d6a5fd8 name",
+    "note": "5b47799d86f7746c5d6a5fd8 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc78f26a2a1958fc523205",
+          "index": 0,
+          "type": "Experience",
+          "value": 12300
+        },
+        {
+          "findInRaid": true,
+          "id": "5b48768d86f7744a14343aea",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64d",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc64d",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "findInRaid": true,
+          "id": "5b48769b86f7744d06237e54",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64e",
+              "_tpl": "5a7c147ce899ef00150bd8b8",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc64e",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc791f8f570e28f1481161",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc64f",
+              "_tpl": "5cebec00d7f00c065c53522a",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc64f",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "60cc794565e4664318606af9",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc650",
+              "_tpl": "5c6592372e221600133e47d7",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc650",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "6399b0c3cadede58636ddd56",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc651",
+              "_tpl": "5a7c147ce899ef00150bd8b8",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc651",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "60cc78f78f570e28f148115f",
+          "index": 7,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5b47799d86f7746c5d6a5fd8 startedMessageText",
+    "successMessageText": "5b47799d86f7746c5d6a5fd8 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5b477b6f86f7747290681823": {
+    "QuestName": "Gunsmith Part 18",
+    "_id": "5b477b6f86f7747290681823",
+    "acceptPlayerMessage": "5b477b6f86f7747290681823 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5b477b6f86f7747290681823 changeQuestMessageText",
+    "completePlayerMessage": "5b477b6f86f7747290681823 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "57cff947245977638e6f2a19",
+            "5b30ac585acfc433000eb79c",
+            "59d6272486f77466146386ff",
+            "57cffb66245977632f391a99",
+            "5a9fbacda2750c00141e080f",
+            "5c07dd120db834001c39092d",
+            "5b0e794b5acfc47a877359b2"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 600
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 50
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5b477f1486f7743009493232",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 350
+          },
+          "target": [
+            "5a0ec13bfcdbcb00165aa685"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 5
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f0cce86f774287331639a",
+          "index": 0,
+          "parentId": "",
+          "value": 33,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f087886f77479806f2c61",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5b47749f86f7746c5d6a5fd4",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5b477b6f86f7747290681823 declinePlayerMessage",
+    "description": "5b477b6f86f7747290681823 description",
+    "failMessageText": "5b477b6f86f7747290681823 failMessageText",
+    "image": "/files/quest/icon/5b47863b86f7744d1c353203.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5b477b6f86f7747290681823 name",
+    "note": "5b477b6f86f7747290681823 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc797465e4664318606afa",
+          "index": 0,
+          "type": "Experience",
+          "value": 23100
+        },
+        {
+          "findInRaid": true,
+          "id": "5b4876c786f7746eb62fc13a",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4d",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 50000
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc4d",
+          "type": "Item",
+          "value": "50000"
+        },
+        {
+          "findInRaid": true,
+          "id": "5b4876d886f7744a14343af4",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4e",
+              "_tpl": "5b3b99475acfc432ff4dcbee",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc4e",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af87d5573fd6cc27d9977",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc4f",
+              "_tpl": "615d8f8567085e45ef1409ca",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc4f",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af88b7c898a131e1cff85",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc50",
+              "_tpl": "615d8f5dd92c473c770212ef",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc50",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "5b48e79886f774517c2e658b",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc51",
+              "_tpl": "5b07dd285acfc4001754240d"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc51",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19d1ad6d4651e53602aec",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc52",
+              "_tpl": "615d8e9867085e45ef1409c6"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc52",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60cc79787c496e588343a6e2",
+          "index": 7,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5b477b6f86f7747290681823 startedMessageText",
+    "successMessageText": "5b477b6f86f7747290681823 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5b477f7686f7744d1b23c4d2": {
+    "QuestName": "Gunsmith Part 20",
+    "_id": "5b477f7686f7744d1b23c4d2",
+    "acceptPlayerMessage": "5b477f7686f7744d1b23c4d2 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5b477f7686f7744d1b23c4d2 changeQuestMessageText",
+    "completePlayerMessage": "5b477f7686f7744d1b23c4d2 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5addbfbb5acfc400194dbcf7",
+            "5aa66be6e5b5b0214e506e97",
+            "58d399e486f77442e0016fe7",
+            "57fd23e32459772d0805bcf1"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 20
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5b47824386f7744d190d8dd1",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 20
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 400
+          },
+          "target": [
+            "5aafa857e5b5b00018480968"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 7.3
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f0d7186f77412bc326997",
+          "index": 0,
+          "parentId": "",
+          "value": 37,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f094886f7747b127d9d7f",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "639873003693c63d86328f25",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5b477f7686f7744d1b23c4d2 declinePlayerMessage",
+    "description": "5b477f7686f7744d1b23c4d2 description",
+    "failMessageText": "5b477f7686f7744d1b23c4d2 failMessageText",
+    "image": "/files/quest/icon/5b47867286f7744d1a393de9.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5b477f7686f7744d1b23c4d2 name",
+    "note": "5b477f7686f7744d1b23c4d2 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc79a365e4664318606afb",
+          "index": 0,
+          "type": "Experience",
+          "value": 26600
+        },
+        {
+          "findInRaid": true,
+          "id": "5b48772b86f7744d06237e61",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc57",
+              "_tpl": "569668774bdc2da2298b4568",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc57",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "findInRaid": true,
+          "id": "639afa1e92e27b60a1074095",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc58",
+              "_tpl": "5a33e75ac4a2826c6e06d759",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc58",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639afa2bdae1800a3e135959",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc59",
+              "_tpl": "5a7dbfc1159bd40016548fde",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc59",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "63a19d5b5032c67f050dd963",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5a",
+              "_tpl": "6130c43c67085e45ef1405a1"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44bf4287b13040fcc5a",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19d62151bfb591645c0f4",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5b",
+              "_tpl": "58d2912286f7744e27117493"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc5b",
+          "traderId": "5935c25fb3acc3127c3d8cd9",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60cc79a6af2e5506c37822bc",
+          "index": 7,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5b477f7686f7744d1b23c4d2 startedMessageText",
+    "successMessageText": "5b477f7686f7744d1b23c4d2 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "5b47825886f77468074618d3": {
+    "QuestName": "Gunsmith Part 22",
+    "_id": "5b47825886f77468074618d3",
+    "acceptPlayerMessage": "5b47825886f77468074618d3 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "5b47825886f77468074618d3 changeQuestMessageText",
+    "completePlayerMessage": "5b47825886f77468074618d3 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "57dbb57e2459774673234890",
+            "5b2cfa535acfc432ff4db7a0",
+            "5a1eaa87fcdbcb001865f75e"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 40
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "5b4783ba86f7744d1c353185",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 270
+          },
+          "target": [
+            "5447a9cd4bdc2dbd208b4567"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 5
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f0ce686f77429c16dcb63",
+          "index": 0,
+          "parentId": "",
+          "value": 39,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "5b4f095b86f7747a2637c3f9",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "63987301e11ec11ff5504036",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "5b47825886f77468074618d3 declinePlayerMessage",
+    "description": "5b47825886f77468074618d3 description",
+    "failMessageText": "5b47825886f77468074618d3 failMessageText",
+    "image": "/files/quest/icon/5b4786c586f7744d184ecabd.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "5b47825886f77468074618d3 name",
+    "note": "5b47825886f77468074618d3 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "60cc79ca3e4e974efa345d2c",
+          "index": 0,
+          "type": "Experience",
+          "value": 28900
+        },
+        {
+          "findInRaid": true,
+          "id": "5b4f0d2786f7742abd44cd44",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc60",
+              "_tpl": "569668774bdc2da2298b4568",
+              "upd": {
+                "StackObjectsCount": 1000
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc60",
+          "type": "Item",
+          "value": "1000"
+        },
+        {
+          "findInRaid": true,
+          "id": "639afaf5ad9d7e3216668f68",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc61",
+              "_tpl": "5c127c4486f7745625356c13",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc61",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639afae38fe84d33a25a13f6",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc62",
+              "_tpl": "5d1b5e94d7ad1a2b865a96b0",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc62",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "60b8f63947780a0bac0dba1b",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc63",
+              "_tpl": "5a1eaa87fcdbcb001865f75e"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc63",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19d9a2c2d4f2e48078090",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc64",
+              "_tpl": "60926df0132d4d12c81fd9df"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc64",
+          "traderId": "5935c25fb3acc3127c3d8cd9",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "60cc79cef09d61072d6d00c3",
+          "index": 7,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "5b47825886f77468074618d3 startedMessageText",
+    "successMessageText": "5b47825886f77468074618d3 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "639872f9decada40426d3447": {
+    "QuestName": "Gunsmith Part 4",
+    "_id": "639872f9decada40426d3447",
+    "acceptPlayerMessage": "639872f9decada40426d3447 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "639872f9decada40426d3447 changeQuestMessageText",
+    "completePlayerMessage": "639872f9decada40426d3447 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 600
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 35
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "63987404e5163c24b3029356",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 20
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 350
+          },
+          "target": [
+            "587e02ff24597743df3deaeb"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 6
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639aea505b759c65a34764e5",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac2426c86f774138762edfe",
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639aea3c2a994a11600df095",
+          "index": 1,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac2428686f77412450b42bf",
+          "visibilityConditions": []
+        },
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639aea5d5573fd6cc27d9975",
+          "index": 2,
+          "parentId": "",
+          "value": 9,
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "639872f9decada40426d3447 declinePlayerMessage",
+    "description": "639872f9decada40426d3447 description",
+    "failMessageText": "639872f9decada40426d3447 failMessageText",
+    "image": "/files/quest/icon/63aae970f83fd6083938904e.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "639872f9decada40426d3447 name",
+    "note": "639872f9decada40426d3447 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "6398a324eee7ff72370f7dd8",
+          "index": 0,
+          "type": "Experience",
+          "value": 3600
+        },
+        {
+          "id": "6398a34edecada40426d344a",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.01"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a300e11ec11ff5504038",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6e0",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 25000
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6e0",
+          "type": "Item",
+          "value": "25000"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a400cd51826f7a069b87",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6e1",
+              "_tpl": "590c5a7286f7747884343aea",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6e1",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a40dddab1d61bf383d15",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6e2",
+              "_tpl": "5733279d245977289b77ec24",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6e2",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398a424c8f8cc12a47b02a7",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6e3",
+              "_tpl": "5d1b2fa286f77425227d1674",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6e3",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "63a19b36fcae11642e50f9b4",
+          "index": 6,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6e4",
+              "_tpl": "59984ab886f7743e98271174",
+              "upd": {
+                "Repairable": {
+                  "Durability": 100,
+                  "MaxDurability": 100
+                }
+              }
+            },
+            {
+              "_id": "6492e44af4287b13040fc6e5",
+              "_tpl": "5649ae4a4bdc2d1b2b8b4588",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6e6",
+              "_tpl": "5ac78eaf5acfc4001926317a",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6e7",
+              "_tpl": "59ecc3dd86f7746dc827481c",
+              "parentId": "6492e44af4287b13040fc6e6",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6e8",
+              "_tpl": "5648ac824bdc2ded0b8b457d",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_charge"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6e9",
+              "_tpl": "599860ac86f77436b225ed1a",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ea",
+              "_tpl": "59bfc5c886f7743bf6794e62",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6eb",
+              "_tpl": "59985a6c86f77414ec448d17",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ec",
+              "_tpl": "570fd6c2d2720bc6458b457f",
+              "parentId": "6492e44af4287b13040fc6eb",
+              "slotId": "mod_scope"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ed",
+              "_tpl": "599860e986f7743bb57573a6",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_sight_rear"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ee",
+              "_tpl": "59ccd11386f77428f24a488f",
+              "parentId": "6492e44af4287b13040fc6e4",
+              "slotId": "mod_gas_block"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ef",
+              "_tpl": "5648b4534bdc2d3d1c8b4580",
+              "parentId": "6492e44af4287b13040fc6ee",
+              "slotId": "mod_handguard"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6f0",
+              "_tpl": "591af28e86f77414a27a9e1d",
+              "parentId": "6492e44af4287b13040fc6ef",
+              "slotId": "mod_foregrip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6f1",
+              "_tpl": "560d657b4bdc2da74d8b4572",
+              "parentId": "6492e44af4287b13040fc6ef",
+              "slotId": "mod_tactical_002"
+            }
+          ],
+          "loyaltyLevel": 1,
+          "target": "6492e44af4287b13040fc6e4",
+          "traderId": "6617beeaa9cfa777ca915b7c",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "639872f9decada40426d3447 startedMessageText",
+    "successMessageText": "639872f9decada40426d3447 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "639872fa9b4fb827b200d8e5": {
+    "QuestName": "Gunsmith Part 9",
+    "_id": "639872fa9b4fb827b200d8e5",
+    "acceptPlayerMessage": "639872fa9b4fb827b200d8e5 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "639872fa9b4fb827b200d8e5 changeQuestMessageText",
+    "completePlayerMessage": "639872fa9b4fb827b200d8e5 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5c00076d0db834001d23ee1f",
+            "5c0009510db834001966907f"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 80
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "6398776f93ae507d5858c3a8",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 20
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 610
+          },
+          "target": [
+            "56d59856d2720bd8418b456a"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 1.5
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "6398acabcd51826f7a069b89",
+          "index": 0,
+          "parentId": "",
+          "value": 19,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "25765fa59cab4fac1442b2c9",
+          "index": 1,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ae3277186f7745973054106",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "639872fa9b4fb827b200d8e5 declinePlayerMessage",
+    "description": "639872fa9b4fb827b200d8e5 description",
+    "failMessageText": "639872fa9b4fb827b200d8e5 failMessageText",
+    "image": "/files/quest/icon/63aae950f83fd6083938904c.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "639872fa9b4fb827b200d8e5 name",
+    "note": "639872fa9b4fb827b200d8e5 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "6398af00cadede58636ddd55",
+          "index": 0,
+          "type": "Experience",
+          "value": 9800
+        },
+        {
+          "id": "6398aeeceee7ff72370f7dd9",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398aed2700117662d337be7",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f5",
+              "_tpl": "569668774bdc2da2298b4568",
+              "upd": {
+                "StackObjectsCount": 300
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6f5",
+          "type": "Item",
+          "value": "300"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398aea5c8f8cc12a47b02a8",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f6",
+              "_tpl": "5d6fc87386f77449db3db94e",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6f6",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "63a19bebfcae11642e50f9b9",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6f7",
+              "_tpl": "5447a9cd4bdc2dbd208b4567",
+              "upd": {
+                "Repairable": {
+                  "Durability": 100,
+                  "MaxDurability": 100
+                }
+              }
+            },
+            {
+              "_id": "6492e44af4287b13040fc6f8",
+              "_tpl": "55d4b9964bdc2d1d4e8b456e",
+              "parentId": "6492e44af4287b13040fc6f7",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6f9",
+              "_tpl": "55d4887d4bdc2d962f8b4570",
+              "parentId": "6492e44af4287b13040fc6f7",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6fa",
+              "_tpl": "55d355e64bdc2d962f8b4569",
+              "parentId": "6492e44af4287b13040fc6f7",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6fb",
+              "_tpl": "55d3632e4bdc2d972f8b4569",
+              "parentId": "6492e44af4287b13040fc6fa",
+              "slotId": "mod_barrel"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6fc",
+              "_tpl": "544a38634bdc2d58388b4568",
+              "parentId": "6492e44af4287b13040fc6fb",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6fd",
+              "_tpl": "5ae30e795acfc408fb139a0b",
+              "parentId": "6492e44af4287b13040fc6fb",
+              "slotId": "mod_gas_block"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6fe",
+              "_tpl": "55d459824bdc2d892f8b4573",
+              "parentId": "6492e44af4287b13040fc6fa",
+              "slotId": "mod_handguard"
+            },
+            {
+              "_id": "6492e44af4287b13040fc6ff",
+              "_tpl": "637f57b78d137b27f70c496a",
+              "parentId": "6492e44af4287b13040fc6fe",
+              "slotId": "mod_handguard"
+            },
+            {
+              "_id": "6492e44af4287b13040fc700",
+              "_tpl": "55d5f46a4bdc2d1b198b4567",
+              "parentId": "6492e44af4287b13040fc6fa",
+              "slotId": "mod_sight_rear"
+            },
+            {
+              "_id": "6492e44af4287b13040fc701",
+              "_tpl": "5649be884bdc2d79388b4577",
+              "parentId": "6492e44af4287b13040fc6f7",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc702",
+              "_tpl": "5ae30c9a5acfc408fb139a03",
+              "parentId": "6492e44af4287b13040fc701",
+              "slotId": "mod_stock_000"
+            },
+            {
+              "_id": "6492e44af4287b13040fc703",
+              "_tpl": "55d44fd14bdc2d962f8b456e",
+              "parentId": "6492e44af4287b13040fc6f7",
+              "slotId": "mod_charge"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44af4287b13040fc6f7",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19bf52c2d4f2e4807808f",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc704",
+              "_tpl": "5cc86832d7f00c000d3a6e6c"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44af4287b13040fc704",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "639872fa9b4fb827b200d8e5 startedMessageText",
+    "successMessageText": "639872fa9b4fb827b200d8e5 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "639872fc93ae507d5858c3a6": {
+    "QuestName": "Gunsmith Part 11",
+    "_id": "639872fc93ae507d5858c3a6",
+    "acceptPlayerMessage": "639872fc93ae507d5858c3a6 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "639872fc93ae507d5858c3a6 changeQuestMessageText",
+    "completePlayerMessage": "639872fc93ae507d5858c3a6 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5fbb978207e8a97d1f0902d3",
+            "5f6340d3ca442212f4047eb2"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 300
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 50
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "63987860c8f8cc12a47b02a6",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 31
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 230
+          },
+          "target": [
+            "5fc3f2d5900b1d5091531e57"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 4.5
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "6398b000cd51826f7a069b8a",
+          "index": 0,
+          "parentId": "",
+          "value": 22,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "f9787a212db3a9428e646dd8",
+          "index": 1,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ae327c886f7745c7b3f2f3f",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "639872fc93ae507d5858c3a6 declinePlayerMessage",
+    "description": "639872fc93ae507d5858c3a6 description",
+    "failMessageText": "639872fc93ae507d5858c3a6 failMessageText",
+    "image": "/files/quest/icon/63aae95961d7b024e808cc5c.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "639872fc93ae507d5858c3a6 name",
+    "note": "639872fc93ae507d5858c3a6 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "6398b02593ae507d5858c3ab",
+          "index": 0,
+          "type": "Experience",
+          "value": 11600
+        },
+        {
+          "id": "6398b033700117662d337be8",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398b03b8871e1272b10ccf9",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc625",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc625",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "findInRaid": true,
+          "id": "6398b0593693c63d86328f28",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc626",
+              "_tpl": "55d6190f4bdc2d87028b4567",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc626",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "63a19c7e5032c67f050dd95d",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc627",
+              "_tpl": "5447a9cd4bdc2dbd208b4567",
+              "upd": {
+                "FireMode": {
+                  "FireMode": "single"
+                }
+              }
+            },
+            {
+              "_id": "6492e44af4287b13040fc628",
+              "_tpl": "5cc9bcaed7f00c011c04e179",
+              "parentId": "6492e44af4287b13040fc627",
+              "slotId": "mod_pistol_grip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc629",
+              "_tpl": "59c1383d86f774290a37e0ca",
+              "parentId": "6492e44af4287b13040fc627",
+              "slotId": "mod_magazine"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62a",
+              "_tpl": "5d4405aaa4b9361e6a4e6bd3",
+              "parentId": "6492e44af4287b13040fc627",
+              "slotId": "mod_reciever"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62b",
+              "_tpl": "59f9d81586f7744c7506ee62",
+              "parentId": "6492e44af4287b13040fc62a",
+              "slotId": "mod_scope"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62c",
+              "_tpl": "55d35ee94bdc2d61338b4568",
+              "parentId": "6492e44af4287b13040fc62a",
+              "slotId": "mod_barrel"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62d",
+              "_tpl": "5cff9e5ed7ad1a09407397d4",
+              "parentId": "6492e44af4287b13040fc62c",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62e",
+              "_tpl": "5d00ec68d7ad1a04a067e5be",
+              "parentId": "6492e44af4287b13040fc62c",
+              "slotId": "mod_gas_block"
+            },
+            {
+              "_id": "6492e44af4287b13040fc62f",
+              "_tpl": "5c78f2612e221600114c9f0d",
+              "parentId": "6492e44af4287b13040fc62a",
+              "slotId": "mod_handguard"
+            },
+            {
+              "_id": "6492e44af4287b13040fc630",
+              "_tpl": "5b7be4895acfc400170e2dd5",
+              "parentId": "6492e44af4287b13040fc62f",
+              "slotId": "mod_foregrip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc631",
+              "_tpl": "588226d124597767ad33f787",
+              "parentId": "6492e44af4287b13040fc630",
+              "slotId": "mod_foregrip"
+            },
+            {
+              "_id": "6492e44af4287b13040fc632",
+              "_tpl": "5ba26b01d4351e0085325a51",
+              "parentId": "6492e44af4287b13040fc62f",
+              "slotId": "mod_sight_front"
+            },
+            {
+              "_id": "6492e44af4287b13040fc633",
+              "_tpl": "5c78f2882e22165df16b832e",
+              "parentId": "6492e44af4287b13040fc62f",
+              "slotId": "mod_muzzle"
+            },
+            {
+              "_id": "6492e44af4287b13040fc634",
+              "_tpl": "5b07dd285acfc4001754240d",
+              "parentId": "6492e44af4287b13040fc62f",
+              "slotId": "mod_tactical_002"
+            },
+            {
+              "_id": "6492e44af4287b13040fc635",
+              "_tpl": "5ba26b17d4351e00367f9bdd",
+              "parentId": "6492e44af4287b13040fc62a",
+              "slotId": "mod_sight_rear"
+            },
+            {
+              "_id": "6492e44af4287b13040fc636",
+              "_tpl": "5d120a10d7ad1a4e1026ba85",
+              "parentId": "6492e44af4287b13040fc627",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc637",
+              "_tpl": "5d120a28d7ad1a1c8962e295",
+              "parentId": "6492e44af4287b13040fc636",
+              "slotId": "mod_stock"
+            },
+            {
+              "_id": "6492e44af4287b13040fc638",
+              "_tpl": "5d44334ba4b9362b346d1948",
+              "parentId": "6492e44af4287b13040fc627",
+              "slotId": "mod_charge"
+            }
+          ],
+          "loyaltyLevel": 2,
+          "target": "6492e44af4287b13040fc627",
+          "traderId": "6617beeaa9cfa777ca915b7c",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "639872fc93ae507d5858c3a6 startedMessageText",
+    "successMessageText": "639872fc93ae507d5858c3a6 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "639872fe8871e1272b10ccf6": {
+    "QuestName": "Gunsmith Part 14",
+    "_id": "639872fe8871e1272b10ccf6",
+    "acceptPlayerMessage": "639872fe8871e1272b10ccf6 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "639872fe8871e1272b10ccf6 changeQuestMessageText",
+    "completePlayerMessage": "639872fe8871e1272b10ccf6 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5ea17bbc09aa976f2e7a51cd",
+            "5fce0cf655375d18a253eff0",
+            "558022b54bdc2dac148b458d",
+            "5d15cf3bd7ad1a67e71518b2",
+            "5947eab886f77475961d96c5",
+            "5c06595c0db834001a66af6c"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 80
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 300
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "639879addecada40426d3449",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 30
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 300
+          },
+          "target": [
+            "5bb2475ed4351e00853264e3"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 4
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "6399b45205aa481907106508",
+          "index": 0,
+          "parentId": "",
+          "value": 27,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639af496ad9d7e3216668f66",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5ac244c486f77413e12cf945",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "639872fe8871e1272b10ccf6 declinePlayerMessage",
+    "description": "639872fe8871e1272b10ccf6 description",
+    "failMessageText": "639872fe8871e1272b10ccf6 failMessageText",
+    "image": "/files/quest/icon/63aae9613606f31cf40e5a7b.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "639872fe8871e1272b10ccf6 name",
+    "note": "639872fe8871e1272b10ccf6 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "6399b46cdecada40426d344c",
+          "index": 0,
+          "type": "Experience",
+          "value": 14900
+        },
+        {
+          "id": "6399b478cd51826f7a069b8b",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.02"
+        },
+        {
+          "findInRaid": true,
+          "id": "6399b48f2b86ca1db02497f7",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b4",
+              "_tpl": "5696686a4bdc2da3298b456a",
+              "upd": {
+                "StackObjectsCount": 500
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6b4",
+          "type": "Item",
+          "value": "500"
+        },
+        {
+          "findInRaid": true,
+          "id": "6399b4cec8f8cc12a47b02aa",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b5",
+              "_tpl": "609bab8b455afd752b2e6138",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6b5",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "6399b4d7e5163c24b3029357",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b6",
+              "_tpl": "5d6fc78386f77449d825f9dc",
+              "upd": {
+                "StackObjectsCount": 3
+              }
+            }
+          ],
+          "target": "6492e44af4287b13040fc6b6",
+          "type": "Item",
+          "value": "3"
+        },
+        {
+          "id": "63a19caf5032c67f050dd95f",
+          "index": 5,
+          "items": [
+            {
+              "_id": "6492e44af4287b13040fc6b7",
+              "_tpl": "5d44069ca4b9361ebd26fc37"
+            }
+          ],
+          "loyaltyLevel": 3,
+          "target": "6492e44af4287b13040fc6b7",
+          "traderId": "5935c25fb3acc3127c3d8cd9",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "639872fe8871e1272b10ccf6 startedMessageText",
+    "successMessageText": "639872fe8871e1272b10ccf6 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "639873003693c63d86328f25": {
+    "QuestName": "Gunsmith Part 19",
+    "_id": "639873003693c63d86328f25",
+    "acceptPlayerMessage": "639873003693c63d86328f25 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "639873003693c63d86328f25 changeQuestMessageText",
+    "completePlayerMessage": "639873003693c63d86328f25 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5947e98b86f774778f1448bc",
+            "5dfcd0e547101c39625f66f9",
+            "5b30ac585acfc433000eb79c",
+            "57c5ac0824597754771e88a9"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 1000
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 15
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "550aa4cd4bdc2dd8348b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "63987a4e3693c63d86328f27",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": "<=",
+            "value": 10
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 500
+          },
+          "target": [
+            "5c46fbd72e2216398b5a8c9c"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 8
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639af9817c898a131e1cff86",
+          "index": 0,
+          "parentId": "",
+          "value": 36,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639af9755b759c65a34764e6",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5b477b6f86f7747290681823",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "639873003693c63d86328f25 declinePlayerMessage",
+    "description": "639873003693c63d86328f25 description",
+    "failMessageText": "639873003693c63d86328f25 failMessageText",
+    "image": "/files/quest/icon/63aae96a435ab5742b4e407a.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "639873003693c63d86328f25 name",
+    "note": "639873003693c63d86328f25 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "639af992dae1800a3e135957",
+          "index": 0,
+          "type": "Experience",
+          "value": 25500
+        },
+        {
+          "findInRaid": true,
+          "id": "639af9bcf5765f47cc7f0e68",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc53",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 75000
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc53",
+          "type": "Item",
+          "value": "75000"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af9c8dae1800a3e135958",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc54",
+              "_tpl": "60391afc25aff57af81f7085",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc54",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639af9d45b759c65a34764e7",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc55",
+              "_tpl": "619cbfeb6b8a1b37a54eebfa",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc55",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "63a19d374ebcff1c995dc33d",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc56",
+              "_tpl": "6087e663132d4d12c81fd96b"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc56",
+          "traderId": "58330581ace78e27b8b10cee",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "639af9a72a994a11600df097",
+          "index": 5,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "639873003693c63d86328f25 startedMessageText",
+    "successMessageText": "639873003693c63d86328f25 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "63987301e11ec11ff5504036": {
+    "QuestName": "Gunsmith Part 21",
+    "_id": "63987301e11ec11ff5504036",
+    "acceptPlayerMessage": "63987301e11ec11ff5504036 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "63987301e11ec11ff5504036 changeQuestMessageText",
+    "completePlayerMessage": "63987301e11ec11ff5504036 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5cde739cd7f00c0010373bd3",
+            "5cde7afdd7f00c000d36b89d",
+            "5cde7b43d7f00c000d36b93e"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 1500
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 35
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "63987b49cd51826f7a069b85",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": "<=",
+            "value": 5
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 500
+          },
+          "target": [
+            "5bfea6e90db834001b7347f3"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        },
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5ef366938cef260c0642acad",
+            "5ef61964ec7f42238c31e0c1"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 200
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 75
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "63987b9c05aa481907106505",
+          "index": 1,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 7
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 750
+          },
+          "target": [
+            "5e81c3cbac2bb513793cdc75"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639afa5592e27b60a1074096",
+          "index": 0,
+          "parentId": "",
+          "value": 38,
+          "visibilityConditions": []
+        },
+        {
+          "availableAfter": 0,
+          "conditionType": "Quest",
+          "dispersion": 0,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "639afa4981b99001240bbe18",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5b477f7686f7744d1b23c4d2",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "63987301e11ec11ff5504036 declinePlayerMessage",
+    "description": "63987301e11ec11ff5504036 description",
+    "failMessageText": "63987301e11ec11ff5504036 failMessageText",
+    "image": "/files/quest/icon/63aae9481287ef0b827d0bef.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "63987301e11ec11ff5504036 name",
+    "note": "63987301e11ec11ff5504036 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "639afa5d2a994a11600df098",
+          "index": 0,
+          "type": "Experience",
+          "value": 27700
+        },
+        {
+          "findInRaid": true,
+          "id": "639afa8e92e27b60a1074097",
+          "index": 1,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5c",
+              "_tpl": "567143bf4bdc2d1a0f8b4567",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc5c",
+          "type": "Item",
+          "unknown": true,
+          "value": "1"
+        },
+        {
+          "findInRaid": true,
+          "id": "639afa8381b99001240bbe19",
+          "index": 2,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5d",
+              "_tpl": "5efb0c1bd79ff02a1f5e68d9",
+              "upd": {
+                "StackObjectsCount": 50
+              }
+            }
+          ],
+          "target": "6492e44bf4287b13040fcc5d",
+          "type": "Item",
+          "unknown": true,
+          "value": "50"
+        },
+        {
+          "id": "63a19d79f194393ecf632f8d",
+          "index": 3,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5e",
+              "_tpl": "5d025cc1d7ad1a53845279ef"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc5e",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "63a19d815032c67f050dd964",
+          "index": 4,
+          "items": [
+            {
+              "_id": "6492e44bf4287b13040fcc5f",
+              "_tpl": "5c793fb92e221644f31bfb64"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "6492e44bf4287b13040fcc5f",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "639afa6a5b759c65a34764e8",
+          "index": 5,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "63987301e11ec11ff5504036 startedMessageText",
+    "successMessageText": "63987301e11ec11ff5504036 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "64f83bb69878a0569d6ecfbe": {
+    "QuestName": "Gunsmith Part 23",
+    "_id": "64f83bb69878a0569d6ecfbe",
+    "acceptPlayerMessage": "64f83bb69878a0569d6ecfbe acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "64f83bb69878a0569d6ecfbe changeQuestMessageText",
+    "completePlayerMessage": "64f83bb69878a0569d6ecfbe completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5d00ef6dd7ad1a0940739b16",
+            "59f9d81586f7744c7506ee62",
+            "5a800961159bd4315e3a1657"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 300
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 30
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "64f83d0eed30ed471f49bcde",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 73
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 350
+          },
+          "target": [
+            "606587252535c57a13424cfd"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 7200,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "64f8d063c8626c7d46040667",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "5b47825886f77468074618d3",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "64f83bb69878a0569d6ecfbe declinePlayerMessage",
+    "description": "64f83bb69878a0569d6ecfbe description",
+    "failMessageText": "64f83bb69878a0569d6ecfbe failMessageText",
+    "image": "/files/quest/icon/64f8b5fb7d39ff0e7624c6b4.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "64f83bb69878a0569d6ecfbe name",
+    "note": "64f83bb69878a0569d6ecfbe note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "64f83d5f8b634877512e5190",
+          "index": 0,
+          "type": "Experience",
+          "value": 29500
+        },
+        {
+          "id": "64f8d03ab4918f39d363e4c4",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8d03133ff7561c87644b2",
+          "index": 2,
+          "items": [
+            {
+              "_id": "64f9c4d2bf50026687012fa0",
+              "_tpl": "569668774bdc2da2298b4568",
+              "upd": {
+                "StackObjectsCount": 1300
+              }
+            }
+          ],
+          "target": "64f9c4d2bf50026687012fa0",
+          "type": "Item",
+          "value": "1300"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8d04605cb58236609a655",
+          "index": 3,
+          "items": [
+            {
+              "_id": "64f9c4d2bf50026687012fa1",
+              "_tpl": "6478641c19d732620e045e17",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "64f9c4d2bf50026687012fa1",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "64f8d04c7d39ff0e7624ceec",
+          "index": 4,
+          "items": [
+            {
+              "_id": "64f9c4d2bf50026687012fa2",
+              "_tpl": "6065878ac9cf8012264142fd"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "64f9c4d2bf50026687012fa2",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "64f83bb69878a0569d6ecfbe startedMessageText",
+    "successMessageText": "64f83bb69878a0569d6ecfbe successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "64f83bcdde58fc437700d8fa": {
+    "QuestName": "Gunsmith Part 24",
+    "_id": "64f83bcdde58fc437700d8fa",
+    "acceptPlayerMessage": "64f83bcdde58fc437700d8fa acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "64f83bcdde58fc437700d8fa changeQuestMessageText",
+    "completePlayerMessage": "64f83bcdde58fc437700d8fa completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "5b057b4f5acfc4771e1bd3e9",
+            "5d025cc1d7ad1a53845279ef",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "5d2369418abbc306c62e0c80",
+            "577d141e24597739c5255e01",
+            "5649a2464bdc2d91118b45a8",
+            "5dfa3d2b0dee1b22f862eade"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 500
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 25
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "64f83e9d52fc01298e2c857e",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 10
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 350
+          },
+          "target": [
+            "5df8ce05b11454561e39243b"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": "<=",
+            "value": 6
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 7200,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "64f8cfada9c59f365c4eaeea",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "64f83bb69878a0569d6ecfbe",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "64f83bcdde58fc437700d8fa declinePlayerMessage",
+    "description": "64f83bcdde58fc437700d8fa description",
+    "failMessageText": "64f83bcdde58fc437700d8fa failMessageText",
+    "image": "/files/quest/icon/64f8b675b997eb4f42755cf9.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "64f83bcdde58fc437700d8fa name",
+    "note": "64f83bcdde58fc437700d8fa note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "64f83f3f83cfca080a362c8b",
+          "index": 0,
+          "type": "Experience",
+          "value": 31250
+        },
+        {
+          "id": "64f8cfbc33ff7561c87644b1",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.03"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8cfc2b4918f39d363e4c3",
+          "index": 2,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061510",
+              "_tpl": "569668774bdc2da2298b4568",
+              "upd": {
+                "StackObjectsCount": 1500
+              }
+            }
+          ],
+          "target": "652376e2f6c67195e4061510",
+          "type": "Item",
+          "value": "1500"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8cfcf794e3b36cd0f8e91",
+          "index": 3,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061511",
+              "_tpl": "619cbfccbedcde2f5b3f7bdd",
+              "upd": {
+                "StackObjectsCount": 3
+              }
+            }
+          ],
+          "target": "652376e2f6c67195e4061511",
+          "type": "Item",
+          "value": "3"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8cff9794e3b36cd0f8e92",
+          "index": 4,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061512",
+              "_tpl": "5d1b2f3f86f774252167a52c",
+              "upd": {
+                "StackObjectsCount": 2
+              }
+            }
+          ],
+          "target": "652376e2f6c67195e4061512",
+          "type": "Item",
+          "value": "2"
+        },
+        {
+          "id": "64f8cffe7e981f7f0110d97f",
+          "index": 5,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061513",
+              "_tpl": "5b057b4f5acfc4771e1bd3e9"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "652376e2f6c67195e4061513",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "657edfb2aebd1b6d254bf8b5",
+          "index": 6,
+          "items": [
+            {
+              "_id": "65ba7538bf3fc35a9a0a04d1",
+              "_tpl": "655df24fdf80b12750626d0a"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "65ba7538bf3fc35a9a0a04d1",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock",
+          "unknown": false
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "64f83bcdde58fc437700d8fa startedMessageText",
+    "successMessageText": "64f83bcdde58fc437700d8fa successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  },
+  "64f83bd983cfca080a362c82": {
+    "QuestName": "Gunsmith Part 25",
+    "_id": "64f83bd983cfca080a362c82",
+    "acceptPlayerMessage": "64f83bd983cfca080a362c82 acceptPlayerMessage",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "64f83bd983cfca080a362c82 changeQuestMessageText",
+    "completePlayerMessage": "64f83bd983cfca080a362c82 completePlayerMessage",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "baseAccuracy": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "conditionType": "WeaponAssembly",
+          "containsItems": [
+            "6491c6f6ef312a876705191b",
+            "6492d7847363b8a52206bc52",
+            "6492ef63cfcf7c89e701abf1",
+            "5cf638cbd7f00c06595bc936",
+            "646372518610c40fc20204e8"
+          ],
+          "durability": {
+            "compareMethod": ">=",
+            "value": 60
+          },
+          "dynamicLocale": false,
+          "effectiveDistance": {
+            "compareMethod": ">=",
+            "value": 500
+          },
+          "emptyTacticalSlot": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "ergonomics": {
+            "compareMethod": ">=",
+            "value": 10
+          },
+          "globalQuestCounterId": "",
+          "hasItemFromCategory": [
+            "55818b164bdc2ddc698b456c"
+          ],
+          "height": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "id": "64f841199a4f905106515448",
+          "index": 0,
+          "magazineCapacity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "muzzleVelocity": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "parentId": "",
+          "recoil": {
+            "compareMethod": "<=",
+            "value": 950
+          },
+          "target": [
+            "64ca3d3954fc657e230529cc"
+          ],
+          "value": 1,
+          "visibilityConditions": [],
+          "weight": {
+            "compareMethod": ">=",
+            "value": 0
+          },
+          "width": {
+            "compareMethod": ">=",
+            "value": 0
+          }
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "availableAfter": 75600,
+          "conditionType": "Quest",
+          "dispersion": 7200,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
+          "id": "64f8cf4e57e97a762372082f",
+          "index": 0,
+          "parentId": "",
+          "status": [
+            4
+          ],
+          "target": "64f83bcdde58fc437700d8fa",
+          "visibilityConditions": []
+        }
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "64f83bd983cfca080a362c82 declinePlayerMessage",
+    "description": "64f83bd983cfca080a362c82 description",
+    "failMessageText": "64f83bd983cfca080a362c82 failMessageText",
+    "image": "/files/quest/icon/64f8b692c8626c7d460401b6.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "any",
+    "name": "64f83bd983cfca080a362c82 name",
+    "note": "64f83bd983cfca080a362c82 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "64f8cf6605cb58236609a654",
+          "index": 0,
+          "type": "Experience",
+          "value": 35000
+        },
+        {
+          "id": "64f8cf6fc8626c7d4604042c",
+          "index": 1,
+          "target": "5a7c2eca46aef81a7ca2145d",
+          "type": "TraderStanding",
+          "value": "0.04"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f8cf7757e97a7623720830",
+          "index": 2,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061524",
+              "_tpl": "59faff1d86f7746c51718c9c",
+              "upd": {
+                "StackObjectsCount": 5
+              }
+            }
+          ],
+          "target": "652376e2f6c67195e4061524",
+          "type": "Item",
+          "value": "5"
+        },
+        {
+          "findInRaid": true,
+          "id": "64f9809c33ff7561c87a32b1",
+          "index": 3,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061525",
+              "_tpl": "59fb023c86f7746d0d4b423c",
+              "upd": {
+                "StackObjectsCount": 1
+              }
+            }
+          ],
+          "target": "652376e2f6c67195e4061525",
+          "type": "Item",
+          "value": "1"
+        },
+        {
+          "id": "64f980a2d551582624581e57",
+          "index": 4,
+          "items": [
+            {
+              "_id": "652376e2f6c67195e4061526",
+              "_tpl": "5c1d0f4986f7744bb01837fa"
+            }
+          ],
+          "loyaltyLevel": 4,
+          "target": "652376e2f6c67195e4061526",
+          "traderId": "5a7c2eca46aef81a7ca2145d",
+          "type": "AssortmentUnlock"
+        },
+        {
+          "id": "664f24f152d0b8783f39de45",
+          "index": 5,
+          "target": "664f23e44702fd5db50ee732",
+          "type": "Achievement"
+        }
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "startedMessageText": "64f83bd983cfca080a362c82 startedMessageText",
+    "successMessageText": "64f83bd983cfca080a362c82 successMessageText",
+    "traderId": "5a7c2eca46aef81a7ca2145d",
+    "type": "WeaponAssembly"
+  }
+}
