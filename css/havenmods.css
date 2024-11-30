@@ -99,8 +99,8 @@ main {
 }
 
 .mod-item img {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border-radius: 5px;
     object-fit: cover;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
