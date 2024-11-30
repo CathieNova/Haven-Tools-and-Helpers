@@ -1,0 +1,224 @@
+body {
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/modsbg.jpg') center center no-repeat fixed;
+    background-size: cover;
+    color: #e0ffe0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    width: 75%;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    top: 0;
+}
+
+header .logo img {
+    height: 90px;
+    margin: -20px;
+}
+
+header nav ul {
+    display: flex;
+    gap: 1em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li .btn {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background: linear-gradient(145deg, #e91e63, #4caf50);
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    transition: background 0.3s, transform 0.3s;
+}
+
+header nav ul li .btn:hover {
+    background: #4caf50;
+    color: #000;
+    transform: scale(1.1);
+}
+
+main {
+    flex: 1;
+    margin: 3em auto;
+    text-align: center;
+    width: 75%;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    padding: 2em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.mods h1 {
+    font-size: 2em;
+    color: #4caf50;
+    margin-bottom: 1.5em;
+}
+
+.mod-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+    justify-items: center;
+}
+
+.mod-item {
+    display: flex;
+    gap: 1em;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #e91e63;
+    border-radius: 10px;
+    padding: 1em;
+    cursor: pointer;
+    align-items: center;
+    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+    width: 90%;
+}
+
+.mod-item:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #e91e63, #4caf50);
+    border-color: #4caf50;
+}
+
+.mod-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.mod-info h2 {
+    font-size: 1.2em;
+    color: #e0ffe0;
+    margin: 0;
+}
+
+.mod-info p {
+    font-size: 1em;
+    color: #ccc;
+    margin: 0.5em 0 0;
+    line-height: 1.5;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5em 2em;
+    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+    width: 75%;
+    border-radius: 10px;
+    margin-top: auto;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;;
+}
+
+.footer-left img {
+    height: 100px;
+    margin: -15px
+}
+
+.footer-left p {
+    font-size: 1em;
+    color: #e0ffe0;
+    margin: 0;
+}
+
+.footer-right img {
+    height: 40px;
+    transition: transform 0.3s;
+}
+
+.footer-right img:hover {
+    transform: scale(1.2);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    opacity: 0;
+    z-index: 99;
+    transition: opacity 0.3s;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 50%;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.popup.show {
+    display: block;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.popup-content {
+    text-align: center;
+    color: #e0ffe0;
+}
+
+.popup-content h2 {
+    font-size: 1.8em;
+    color: #4caf50;
+    margin-bottom: 1em;
+    transition: transform 0.8s ease, color 0.5s ease;
+}
+
+.popup-content p {
+    font-size: 1em;
+    color: #ccc;
+}
+
+.popup .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.popup .close:hover {
+    color: #ff6f61;
+}

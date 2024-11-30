@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haven Industries Mods</title>
+    <link rel="icon" href="res/fav.png">
+    <link rel="stylesheet" href="css/havenmods.css">
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <header>
+        <div class="logo">
+            <img src="res/logo.png" alt="Logo" style="height: 100;">
+        </div>
+        <nav>
+            <ul>
+                <li><a class="btn" onclick="openPopup('about-popup')">About Me</a></li>
+                <!--
+                <li><a class="btn" onclick="openPopup('gallery-popup')">Gallery</a></li>
+                <li><a class="btn" onclick="openPopup('contact-popup')">Contact</a></li>
+                -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="mods">
+            <h1>Haven Industries Mods for SP-Tarkov</h1>
+            <div class="mod-container">
+                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2447-haven-tools-and-helpers/', '_blank')">
+                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/code.png" alt="Mod 1">
+                    <div class="mod-info">
+                        <h2>Haven Tools and Helpers</h2>
+                        <p>A Website that has tools to make Mods, Quests, Items, crafts, and more, just for you!</p>
+                    </div>
+                </div>
+                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2500-haven-industries-chloe/', '_blank')">
+                    <img src="https://hub.sp-tarkov.com/files/images/file/87/2500.png" alt="Mod 2">
+                    <div class="mod-info">
+                        <h2>Haven Industries - Chloe</h2>
+                        <p>A trader with 9 Quests, 76 Waifu Collectibles, new Fuels, new containers, new secure containers, profiles and other things.</p>
+                    </div>
+                </div>
+                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2504-haven-zone-creator/', '_blank')">
+                    <img src="https://hub.sp-tarkov.com/files/images/file/8c/2504.png" alt="Mod 3">
+                    <div class="mod-info">
+                        <h2>Haven Zone Creator</h2>
+                        <p>An easy Zone Creator tool for those who make quests, add looseloot or new locations.</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h1>Mods i've updated or helped with</h1>
+            <div class="mod-container">
+                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/1898-player-encumbrance-bar/', '_blank')">
+                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/playerencumbrancebar.png" alt="Mod 21">
+                    <div class="mod-info">
+                        <h2>Haven Tools and Helpers</h2>
+                        <p>Adds a progress bar to the inventory that shows total player encumbrance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <img src="res/cathienova.png" alt="Footer Logo">
+            <p>© 2024 CathieNova</p>
+        </div>
+        <div class="footer-right">
+            <a href="https://ko-fi.com/cathienova" target="_blank">
+                <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Popups -->
+    <div class="popup" id="about-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('about-popup')" style="color: #ff6f61; font-size: 1.5em; cursor: pointer;">&times;</span>
+            <h2 style="color: #4caf50;">About Me</h2>
+            <p style="color: #e0ffe0; line-height: 1.6;">
+                Hey! I'm <span style="color: #ff6f61;">CathieNova</span>, but you can just call me Nova or Cat. I love making mods and tools for 
+                <span style="color: #4caf50;">SP-Tarkov</span>. Sometimes they’re quick and easy, and other times they’re a grind to figure out, but hey, 
+                that’s part of the fun!
+            </p>
+            <p style="color: #e0ffe0; line-height: 1.6;">
+                When I’m not working on mods, you’ll probably find me hanging out in the <a href="https://discord.gg/Nz6VX78xRa" target="_blank" style="color: #ff6f61; text-decoration: underline; cursor: pointer;">"Welcome to Tarkov" (WTT)</a> Discord. 
+                Whether it’s tossing around ideas, helping out, or just joking around, it’s my go-to place.
+            </p>
+            <p style="color: #e0ffe0; line-height: 1.6;">
+                Modding’s my passion, and I’m all about creating cool stuff to make the game even better. Feel free to stop by and <span style="color: #4caf50;">say hi</span> anytime!
+            </p>
+        </div>        
+    </div>
+    <div class="popup" id="gallery-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('gallery-popup')">&times;</span>
+            <h2>Gallery</h2>
+            <p></p>
+        </div>
+    </div>
+    <div class="popup" id="contact-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('contact-popup')">&times;</span>
+            <h2>Contact Me</h2>
+            <p></p>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(id) {
+            const popup = document.getElementById(id);
+            const overlay = document.getElementById("overlay");
+            if (popup) {
+                popup.style.display = "block";
+                popup.style.opacity = "1";
+                overlay.style.display = "block";
+                overlay.style.opacity = "1";
+            }
+        }
+
+        function closePopup(id) {
+            const popup = document.getElementById(id);
+            const overlay = document.getElementById("overlay");
+            if (popup) {
+                popup.style.opacity = "0";
+                overlay.style.opacity = "0";
+                setTimeout(() => {
+                    popup.style.display = "none";
+                    overlay.style.display = "none";
+                }, 300);
+            }
+        }
+
+        document.querySelectorAll(".popup").forEach((popup) => {
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) closePopup(popup.id);
+            });
+        });
+    </script>
+</body>
+</html>
