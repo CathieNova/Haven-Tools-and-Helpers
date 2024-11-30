@@ -32,7 +32,8 @@
                 <button onclick="openURL('traderassort')"><a class="icon">⚙️ </a>Haven Trader Assort Generator</button>
                 <button onclick="openURL('modslots')"><a class="icon">⚙️ </a>Haven Mod Slot Generator</button>
                 <button onclick="openURL('hideoutcraft')"><a class="icon">⚙️ </a>Haven Hideout Crafting Generator</button>
-                <button id="header-button" onclick="openURL('havendocumentation')"><a class="icon">⚙️ </a>Haven Documentation</button>
+                <button onclick="openURL('havendocumentation')"><a class="icon">⚙️ </a>Haven Documentation</button>
+                <button onclick="openURL('havenmods')"><a class="icon">⚙️ </a>Haven Industries Mods</button>
             </ul>
             <strong style="color: #ff7920;"><a class="icon">❤️</a> Friends & Partners</strong>
             <ul style="list-style: none; padding-left: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.6;">
@@ -194,19 +195,21 @@
         <script>
             function openURL(url) {
                 if (url === 'home')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/');
+                    window.open('https://spthaven.net/');
                 if (url === 'vcqlhelper')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/vcqlhelper');
+                    window.open('https://spthaven.net/vcqlhelper');
                 else if (url === 'itemdatabase')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/itemdatabase');
+                    window.open('https://spthaven.net/itemdatabase');
                 else if (url === 'traderassort')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/traderassort');
+                    window.open('https://spthaven.net/traderassort');
                 else if (url === 'modslots')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/modslots');
+                    window.open('https://spthaven.net/modslots');
                 else if (url === 'hideoutcraft')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/hideoutcrafts');
+                    window.open('https://spthaven.net/hideoutcrafts');
                 else if (url === 'havendocumentation')
-                    window.open('https://cathienova.github.io/Haven-Tools-and-Helpers/havendocumentation');
+                    window.open('https://spthaven.net/havendocumentation');
+                else if (url === 'havenmods')
+                    window.open('https://spthaven.net/havenmods');
             }
 
             function toggleContent(section, button, buttonText) {
