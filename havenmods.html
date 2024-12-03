@@ -29,38 +29,13 @@
         <section class="mods">
             <h1>Haven Industries Mods for SP-Tarkov</h1>
             <div class="mod-container">
-                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2447-haven-tools-and-helpers/', '_blank')">
-                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/code.png" alt="Mod 1">
-                    <div class="mod-info">
-                        <h2>Haven Tools and Helpers</h2>
-                        <p>A Website that has tools to make Mods, Quests, Items, crafts, and more, just for you!</p>
-                    </div>
-                </div>
-                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2500-haven-industries-chloe/', '_blank')">
-                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/Chloe.png" alt="Mod 2">
-                    <div class="mod-info">
-                        <h2>Haven Industries - Chloe</h2>
-                        <p>A trader with 9 Quests, 76 Waifu Collectibles, new Fuels, new containers, new secure containers, profiles and other things.</p>
-                    </div>
-                </div>
-                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/2504-haven-zone-creator/', '_blank')">
-                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/HavenZoneCreator_Logo.png" alt="Mod 3">
-                    <div class="mod-info">
-                        <h2>Haven Zone Creator</h2>
-                        <p>An easy Zone Creator tool for those who make quests, add looseloot or new locations.</p>
-                    </div>
-                </div>
+
             </div>
-            <br>
+        </section>
+        <section class="mods-alt">
             <h1>Mods i've updated or helped with</h1>
-            <div class="mod-container">
-                <div class="mod-item" onclick="window.open('https://hub.sp-tarkov.com/files/file/1898-player-encumbrance-bar/', '_blank')">
-                    <img src="https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/playerencumbrancebar.png" alt="Mod 21">
-                    <div class="mod-info">
-                        <h2>Player Encumbrance Bar</h2>
-                        <p>Adds a progress bar to the inventory that shows total player encumbrance.</p>
-                    </div>
-                </div>
+            <div class="other-mods">
+                
             </div>
         </section>
     </main>
@@ -135,6 +110,81 @@
                 }, 300);
             }
         }
+
+        (async () => {
+            const corsProxy = 'https://corsproxy.io/?';
+            const targetUrl = 'https://hub.sp-tarkov.com/files/user-file-list/11521-cathienova/';
+            const fallbackImage = 'https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/code.png';
+
+            const manualMods = [
+                {
+                    link: 'https://hub.sp-tarkov.com/files/file/1898-player-encumbrance-bar/',
+                    image: 'https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/playerencumbrancebar.png',
+                    title: 'Player Encumbrance Bar',
+                    description: 'Adds a progress bar to the inventory that shows total player encumbrance.',
+                }
+            ];
+
+            try {
+                const response = await fetch(corsProxy + encodeURIComponent(targetUrl));
+                const text = await response.text();
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                const fetchedMods = Array.from(doc.querySelectorAll('div.section a.box128')).map(section => {
+                    const link = section.href;
+                    const imageElement = section.querySelector('.filebaseFileIcon img');
+                    const image = imageElement && imageElement.getAttribute('src') ? imageElement.src : fallbackImage;
+                    const title = section.querySelector('.filebaseFileSubject span')?.innerText.trim() || 'No Title';
+                    const description = section.querySelector('.filebaseFileTeaser')?.innerText.trim() || 'No description available.';
+                    return { link, image, title, description };
+                });
+
+                const modContainer = document.querySelector('.mod-container');
+                if (modContainer) {
+                    fetchedMods.forEach(mod => {
+                        const modItem = document.createElement('div');
+                        modItem.classList.add('mod-item');
+                        modItem.setAttribute('onclick', `window.open('${mod.link}', '_blank')`);
+
+                        modItem.innerHTML = `
+                            <img src="${mod.image}" alt="Mod Image">
+                            <div class="mod-info">
+                                <h2>${mod.title}</h2>
+                                <p>${mod.description}</p>
+                            </div>
+                        `;
+                        modContainer.appendChild(modItem);
+                    });
+                } else {
+                    console.error('Error: .mod-container not found in the DOM.');
+                }
+
+                const otherModsContainer = document.querySelector('.other-mods');
+                if (otherModsContainer) {
+                    manualMods.forEach(mod => {
+                        const modItem = document.createElement('div');
+                        modItem.classList.add('mod-item');
+                        modItem.setAttribute('onclick', `window.open('${mod.link}', '_blank')`);
+
+                        modItem.innerHTML = `
+                            <img src="${mod.image}" alt="Mod Image">
+                            <div class="mod-info">
+                                <h2>${mod.title}</h2>
+                                <p>${mod.description}</p>
+                            </div>
+                        `;
+                        otherModsContainer.appendChild(modItem);
+                    });
+                } else {
+                    console.error('Error: .other-mods not found in the DOM.');
+                }
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        })();
 
         document.querySelectorAll(".popup").forEach((popup) => {
             popup.addEventListener("click", (e) => {
