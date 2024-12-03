@@ -123,6 +123,15 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(text, 'text/html');
 
+                const manualMods = [
+                    {
+                        link: 'https://hub.sp-tarkov.com/files/file/1898-player-encumbrance-bar/',
+                        image: 'https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/playerencumbrancebar.png',
+                        title: 'Player Encumbrance Bar',
+                        description: 'Adds a progress bar to the inventory that shows total player encumbrance.',
+                    }
+                ];
+
                 const fetchedMods = await Promise.all(
                     Array.from(doc.querySelectorAll('div.section a.box128')).map(async section => {
                         const link = section.href;
@@ -162,9 +171,31 @@
                             </div>
                         `;
                         modContainer.appendChild(modItem);
+                        const img = modItem.querySelector('img');
+                        img.src = mod.image;
                     });
                 } else {
                     console.error('Error: .mod-container not found in the DOM.');
+                }
+
+                const otherModsContainer = document.querySelector('.other-mods');
+                if (otherModsContainer) {
+                    manualMods.forEach(mod => {
+                        const modItem = document.createElement('div');
+                        modItem.classList.add('mod-item');
+                        modItem.setAttribute('onclick', `window.open('${mod.link}', '_blank')`);
+
+                        modItem.innerHTML = `
+                            <img src="${mod.image}" alt="Mod Image">
+                            <div class="mod-info">
+                                <h2>${mod.title}</h2>
+                                <p>${mod.description}</p>
+                            </div>
+                        `;
+                        otherModsContainer.appendChild(modItem);
+                    });
+                } else {
+                    console.error('Error: .other-mods not found in the DOM.');
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
