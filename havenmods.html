@@ -116,15 +116,6 @@
             const targetUrl = 'https://hub.sp-tarkov.com/files/user-file-list/11521-cathienova/';
             const fallbackImage = 'https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/code.png';
 
-            const manualMods = [
-                {
-                    link: 'https://hub.sp-tarkov.com/files/file/1898-player-encumbrance-bar/',
-                    image: 'https://raw.githubusercontent.com/CathieNova/Haven-Tools-and-Helpers/refs/heads/main/res/playerencumbrancebar.png',
-                    title: 'Player Encumbrance Bar',
-                    description: 'Adds a progress bar to the inventory that shows total player encumbrance.',
-                }
-            ];
-
             try {
                 const response = await fetch(corsProxy + encodeURIComponent(targetUrl));
                 const text = await response.text();
@@ -135,9 +126,21 @@
                 const fetchedMods = await Promise.all(
                     Array.from(doc.querySelectorAll('div.section a.box128')).map(async section => {
                         const link = section.href;
+
+                        // Extract the image URL
                         const imageElement = section.querySelector('.filebaseFileIcon img');
-                        const rawImageUrl = imageElement && imageElement.getAttribute('src') ? imageElement.src : '';
-                        const image = await preloadImage(rawImageUrl, fallbackImage); // Preload and validate
+                        let rawImageUrl = imageElement && imageElement.getAttribute('src') 
+                            ? new URL(imageElement.src, targetUrl).href 
+                            : '';
+                        console.log('Raw Image URL:', rawImageUrl);
+
+                        // Only use the proxy for valid image URLs
+                        const proxiedImageUrl = rawImageUrl ? `${corsProxy}${encodeURIComponent(rawImageUrl)}` : fallbackImage;
+
+                        // Validate the final image URL
+                        const image = await preloadImage(proxiedImageUrl, fallbackImage);
+                        console.log('Final Image URL:', image);
+
                         const title = section.querySelector('.filebaseFileSubject span')?.innerText.trim() || 'No Title';
                         const description = section.querySelector('.filebaseFileTeaser')?.innerText.trim() || 'No description available.';
                         return { link, image, title, description };
@@ -163,40 +166,19 @@
                 } else {
                     console.error('Error: .mod-container not found in the DOM.');
                 }
-
-                const otherModsContainer = document.querySelector('.other-mods');
-                if (otherModsContainer) {
-                    manualMods.forEach(mod => {
-                        const modItem = document.createElement('div');
-                        modItem.classList.add('mod-item');
-                        modItem.setAttribute('onclick', `window.open('${mod.link}', '_blank')`);
-
-                        modItem.innerHTML = `
-                            <img src="${mod.image}" alt="Mod Image">
-                            <div class="mod-info">
-                                <h2>${mod.title}</h2>
-                                <p>${mod.description}</p>
-                            </div>
-                        `;
-                        otherModsContainer.appendChild(modItem);
-                    });
-                } else {
-                    console.error('Error: .other-mods not found in the DOM.');
-                }
-
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        })();
 
-        function preloadImage(url, fallback) {
-            return new Promise(resolve => {
-                const img = new Image();
-                img.onload = () => resolve(url);
-                img.onerror = () => resolve(fallback);
-                img.src = url;
-            });
-        }
+            async function preloadImage(url, fallback) {
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = () => resolve(url);
+                    img.onerror = () => resolve(fallback);
+                    img.src = url;
+                });
+            }
+        })();
 
         document.querySelectorAll(".popup").forEach((popup) => {
             popup.addEventListener("click", (e) => {
