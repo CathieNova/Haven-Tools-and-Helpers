@@ -132,14 +132,17 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(text, 'text/html');
 
-                const fetchedMods = Array.from(doc.querySelectorAll('div.section a.box128')).map(section => {
-                    const link = section.href;
-                    const imageElement = section.querySelector('.filebaseFileIcon img');
-                    const image = imageElement && imageElement.getAttribute('src') ? imageElement.src : fallbackImage;
-                    const title = section.querySelector('.filebaseFileSubject span')?.innerText.trim() || 'No Title';
-                    const description = section.querySelector('.filebaseFileTeaser')?.innerText.trim() || 'No description available.';
-                    return { link, image, title, description };
-                });
+                const fetchedMods = await Promise.all(
+                    Array.from(doc.querySelectorAll('div.section a.box128')).map(async section => {
+                        const link = section.href;
+                        const imageElement = section.querySelector('.filebaseFileIcon img');
+                        const rawImageUrl = imageElement && imageElement.getAttribute('src') ? imageElement.src : '';
+                        const image = await preloadImage(rawImageUrl, fallbackImage); // Preload and validate
+                        const title = section.querySelector('.filebaseFileSubject span')?.innerText.trim() || 'No Title';
+                        const description = section.querySelector('.filebaseFileTeaser')?.innerText.trim() || 'No description available.';
+                        return { link, image, title, description };
+                    })
+                );
 
                 const modContainer = document.querySelector('.mod-container');
                 if (modContainer) {
@@ -185,6 +188,15 @@
                 console.error('Error fetching data:', error);
             }
         })();
+
+        function preloadImage(url, fallback) {
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve(url);
+                img.onerror = () => resolve(fallback);
+                img.src = url;
+            });
+        }
 
         document.querySelectorAll(".popup").forEach((popup) => {
             popup.addEventListener("click", (e) => {
