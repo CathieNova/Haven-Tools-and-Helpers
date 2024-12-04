@@ -427,6 +427,18 @@
     <p>
         Whether you're creating dynamic quest locations, adding hidden treasures, spawning PMCs, scavs, bosses or customizing the environment with unique objects, Haven World Builder provides the tools you need to bring your vision to life.
     </p>
+
+    <h2>Showcase Examples</h2>
+    <ul>
+        <li>The mod comes with a variety of example spawns to showcase its capabilities. These include:</li>
+        <ul>
+            <li><b>Factory Day Time:</b> Will have 35 locations with 98 Posters, it will randomize which poster will spawn in each location.</li>
+            <li><b>Woods:</b> Will have 29 locations with 98 Posters, it will only spawn if you are on the quest <code>The Survivalist Path - Tough Guy</code> and it's <code>AvailableForFinish</code> or <code>Success</code></li>
+        </ul>
+        <li>These examples demonstrate how objects can be spawned based on quest status and map locations.</li>
+        <li>If you want to make Addons for the mod, you can follow the guide below.</li>
+        <li>You can also use the <a href="https://spthaven.net/havendocumentation#havenzonecreator">Haven Zone Creator</a> to fetch the positions for the objects.</li>
+    </ul>
     
     <h2>Features</h2>
     <h3>Object Spawning</h3>
@@ -464,6 +476,12 @@
     </ol>
 
     <h2>Create Addons for Haven World Builder</h2>
+
+    <h3>Before You Begin</h3>
+    <p>Before creating addons for Haven World Builder you should have a basic understanding of Unity, asset bundles, and JSON file formats. You should also be familiar with the Haven Zone Creator mod for fetching object positions.</p>
+
+    <p>Follow the steps below to create custom addons for Haven World Builder:</p>
+
     <h3>Step 1: Add Your Bundles</h3>
     <ol>
         <li>Navigate to the folder: <code>BepInEx/plugins/HavenWorldBuilder/Bundles/</code>.</li>
@@ -543,12 +561,12 @@
         <ul>
             <li>Include the <code>Bundles</code> and <code>MapLocations</code> folders that are yours only.</li>
             <ul>
-                <li>Typically <code>BepInEx/plugins/HavenWorldBuilder/</code></li>
+                <li>Folder <code>BepInEx/plugins/HavenWorldBuilder/</code> should be path in your zipped folder.</li>
             </ul>
             <li>Include any additional documentation or instructions for users for the Hub Page.</li>
             <li>Provide information that they must use Haven World Builder for the Objects to spawn.</li>
         </ul>
-        <li>Provide documentation and instructions for users on how to install and use the mod.</li>
+        <li>Provide documentation and instructions for users on how to install and use your addon with Haven World Builder.</li>
     </ol>
     <b><span style="color:#c00000;">Do NOT include the <code>CathieNova.HavenWorldBuilder.dll</code> file in your release.</span></b>
 
