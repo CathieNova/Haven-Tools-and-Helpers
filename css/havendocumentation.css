@@ -299,12 +299,7 @@ a.icon:hover {
     color: #1e90ff;
 }
 
-#home,
-#havenindustries-chloe,
-#servermods,
-#servermods-setup,
-#servermods-understanding,
-#havenzonecreator {
+.content-section {
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -312,12 +307,7 @@ a.icon:hover {
     color: #ddd;
 }
 
-#home h2,
-#havenindustries-chloe h2,
-#servermods h2,
-#servermods-setup h2,
-#servermods-understanding h2,
-#havenzonecreator h2 {
+.content-section h2 {
     font-size: 28px;
     font-weight: bold;
     color: chocolate;
@@ -327,56 +317,31 @@ a.icon:hover {
     border-bottom: 2px solid #1e90ff;
 }
 
-#home h2:hover,
-#havenindustries-chloe h2:hover,
-#servermods h2:hover,
-#servermods-setup h2:hover,
-#servermods-understanding h2:hover,
-#havenzonecreator h2:hover {
+.content-section h2:hover {
     color: #1e90ff;
 }
 
-#home h3,
-#havenindustries-chloe h3,
-#servermods h3,
-#servermods-setup h3,
-#servermods-understanding h3,
-#havenzonecreator h3 {
+.content-section h3 {
     font-size: 24px;
     color: #05ac05;
     margin-top: 30px;
     padding-bottom: 10px;
 }
 
-#home h4,
-#havenindustries-chloe h4,
-#servermods h4,
-#servermods-setup h4,
-#servermods-understanding h4,
-#havenzonecreator h4 {
+.content-section h4 {
     font-size: 20px;
     color: #ff6347;
     margin-bottom: 10px;
 }
 
-#home .feature-list,
-#havenindustries-chloe .feature-list,
-#servermods .feature-list,
-#servermods-setup .feature-list,
-#servermods-understanding .feature-list,
-#havenzonecreator .feature-list {
+.content-section .feature-list {
     display: flex;
     gap: 20px;
     justify-content: space-between;
     margin-bottom: 30px;
 }
 
-#home .feature-item,
-#havenindustries-chloe .feature-item,
-#servermods .feature-item,
-#servermods-setup .feature-item,
-#servermods-understanding .feature-item,
-#havenzonecreator .feature-item {
+.content-section .feature-item {
     background: #222;
     padding: 15px;
     border-radius: 8px;
@@ -384,172 +349,87 @@ a.icon:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-#home ul,
-#havenindustries-chloe ul,
-#servermods ul,
-#servermods-setup ul,
-#servermods-understanding ul,
-#havenzonecreator ul {
+.content-section ul {
     list-style-type: none;
     padding: 0;
     margin-bottom: 20px;
 }
 
-#home li,
-#havenindustries-chloe li,
-#servermods li,
-#servermods-setup li,
-#servermods-understanding li,
-#havenzonecreator li {
+.content-section li {
     margin-bottom: 10px;
 }
 
-#home li b,
-#havenindustries-chloe li b,
-#servermods li b,
-#servermods-setup li b,
-#servermods-understanding li b,
-#havenzonecreator li b {
+.content-section li b {
     color: #1e90ff;
 }
 
-#home em,
-#havenindustries-chloe em,
-#servermods em,
-#servermods-setup em,
-#servermods-understanding em,
-#havenzonecreator em {
+.content-section em {
     color: #ff6347;
 }
 
-#home a,
-#havenindustries-chloe a,
-#servermods a,
-#servermods-setup a,
-#servermods-understanding a,
-#havenzonecreator a {
+.content-section a {
     color: #ff6347;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-#home a:hover,
-#havenindustries-chloe a:hover,
-#servermods a:hover,
-#servermods-setup a:hover,
-#servermods-understanding a:hover,
-#havenzonecreator a:hover {
+.content-section a:hover {
     color: #1e90ff;
     text-decoration: underline;
 }
 
-#home p,
-#havenindustries-chloe p,
-#servermods p,
-#servermods-setup p,
-#servermods-understanding p,
-#havenzonecreator p {
+.content-section p {
     font-size: 16px;
     line-height: 1.6;
     color: #c2c2c2;
     margin-bottom: 20px;
 }
 
-#home p:last-child,
-#havenindustries-chloe p:last-child,
-#servermods p:last-child,
-#servermods-setup p:last-child,
-#servermods-understanding p:last-child,
-#havenzonecreator p:last-child {
+.content-section p:last-child {
     font-size: 18px;
     font-weight: bold;
     color: #1e90ff;
     text-align: center;
 }
 
-#home ol,
-#havenindustries-chloe ol,
-#servermods ol,
-#servermods-setup ol,
-#servermods-understanding ol,
-#havenzonecreator ol {
+.content-section ol {
     margin-left: 20px;
 }
 
-#home .usage-instructions,
-#havenindustries-chloe .usage-instructions,
-#servermods .usage-instructions,
-#servermods-setup .usage-instructions,
-#servermods-understanding .usage-instructions,
-#havenzonecreator .usage-instructions {
+.content-section .usage-instructions {
     margin-top: 20px;
 }
 
-#home .usage-instructions h5,
-#havenindustries-chloe .usage-instructions h5,
-#servermods .usage-instructions h5,
-#servermods-setup .usage-instructions h5,
-#servermods-understanding .usage-instructions h5,
-#havenzonecreator .usage-instructions h5 {
+.content-section .usage-instructions h5 {
     color: #ff6347;
     margin-bottom: 15px;
 }
 
-#home .usage-instructions ul,
-#havenindustries-chloe .usage-instructions ul,
-#servermods .usage-instructions ul,
-#servermods-setup .usage-instructions ul,
-#servermods-understanding .usage-instructions ul,
-#havenzonecreator .usage-instructions ul {
+.content-section .usage-instructions ul {
     margin-left: 20px;
 }
 
-#home ul ul,
-#havenindustries-chloe ul ul,
-#servermods ul ul,
-#servermods-setup ul ul,
-#servermods-understanding ul ul,
-#havenzonecreator ul ul {
+.content-section ul ul {
     padding-left: 40px;
     margin-top: 5px;
 }
 
-#home ul ul ul,
-#havenindustries-chloe ul ul ul,
-#servermods ul ul ul,
-#servermods-setup ul ul ul,
-#servermods-understanding ul ul ul,
-#havenzonecreator ul ul ul {
+.content-section ul ul ul {
     padding-left: 60px;
 }
 
-#home ul li b,
-#havenindustries-chloe ul li b,
-#servermods ul li b,
-#servermods-setup ul li b,
-#servermods-understanding ul li b,
-#havenzonecreator ul li b {
+.content-section ul li b {
     color: #1e90ff;
 }
 
-#home ul ul li,
-#havenindustries-chloe ul ul li,
-#servermods ul ul li,
-#servermods-setup ul ul li,
-#servermods-understanding ul ul li,
-#havenzonecreator ul ul li {
+.content-section ul ul li {
     padding-left: 10px;
     max-width: fit-content;
     border: 1px solid #555;
     border-width: 0 0 0 1px;
 }
 
-#home ul ul ul li,
-#havenindustries-chloe ul ul ul li,
-#servermods ul ul ul li,
-#servermods-setup ul ul ul li,
-#servermods-understanding ul ul ul li,
-#havenzonecreator ul ul ul li {
+.content-section ul ul ul li {
     padding-left: 10px;
     max-width: fit-content;
     border: 1px solid #555;
