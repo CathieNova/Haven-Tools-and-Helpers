@@ -429,26 +429,26 @@
     </p>
     
     <h2>Features</h2>
-    <h4>Object Spawning</h4>
+    <h3>Object Spawning</h3>
     <ul>
         <li><b>Spawn Objects in the World:</b> Load and spawn custom objects dynamically based on pre-configured map locations.</li>
         <li><b>Randomized Placement:</b> Objects are positioned randomly within defined areas for variability. (when applicable)</li>
         <li><b>Remove Objects:</b> Easily remove objects from the world when quests change status.</li>
     </ul>
     
-    <h4>Quest Integration</h4>
+    <h3>Quest Integration</h3>
     <ul>
         <li><b>Quest-Based Locking:</b> Lock specific objects behind quest progression to add depth to gameplay.</li>
         <li><b>Real-Time Quest Monitoring:</b> Automatically track and respond to quest status changes.</li>
     </ul>
     
-    <h4>Data Management</h4>
+    <h3>Data Management</h3>
     <ul>
         <li><b>Map Location Files:</b> Load predefined map location configurations from JSON files.</li>
         <li><b>Custom Categories:</b> Organize objects into categories for efficient spawning and removal.</li>
     </ul>
     
-    <h4>Debugging and Customization</h4>
+    <h3>Debugging and Customization</h3>
     <ul>
         <li><b>Debug Mode:</b> Enable verbose logging for detailed insights into mod behavior.</li>
         <li><b>Flexible Update Intervals:</b> Configure how often the mod checks for quest status changes.</li>
@@ -476,7 +476,8 @@
         <li>Navigate to the folder: <code>BepInEx/plugins/HavenWorldBuilder/MapLocations/</code>.</li>
         <li>Open the folder of the map you want to add objects to.</li>
         <li>Create <code>MyNewCategory.json</code> file.</li>
-        <li>Add your category to the desired map using this structure:</li>
+        <li>Add your category to the desired map using the structure below</li>
+        <li>Then save the file and restart the client. Your objects will now spawn in the specified map and positions.</li>
     </ol>
 <code-block title="Category Json File Example" language="javascript">
 [
@@ -497,13 +498,14 @@
     ]
 ]
 </code-block>
-    <ol start="3">
-        <li>Save the file and restart the client. Your objects will now spawn in the specified map and positions.</li>
-    </ol>
+    <h3>Step 2.5: Fetching the positions</h3>
+    <p>For fetching the positions, i will refer you to the <a href="https://spthaven.net/havendocumentation#havenzonecreator">Haven Zone Creator</a> mod.</p>
+    <p>It will help you understand how to add positions and categories to the json file.</p>
+    <p>After you have the positions, you can add them to the json file, or use the file as it is generated.</p>
 
     <h3>Step 3: Optional - Lock Objects Behind Quests</h3>
     <p>You can lock objects behind quests by specifying a quest ID and status.</p>
-    <p>For example, the above configuration will only display the posters if the quest "<b>The Survivalist Path - Tough Guy</b>" is started.</p>
+    <p>For example, the below configuration will only spawn the posters if the quest <code>The Survivalist Path - Tough Guy</code> is started.</p>
 <code-block title="Locking Objects behind Quests (optional)" language="javascript">
 [ 
         {
@@ -533,6 +535,24 @@
 ]
 </code-block>
 
+    <h3>Preparing the Mod for Release</h3>
+    <ol>
+        <li>Ensure all asset bundles and map location files are correctly placed.</li>
+        <li>Test the mod in-game to verify object spawning and quest integration.</li>
+        <li>Package the mod files into a zip archive for distribution.</li>
+        <ul>
+            <li>Include the <code>Bundles</code> and <code>MapLocations</code> folders that are yours only.</li>
+            <ul>
+                <li>Typically <code>BepInEx/plugins/HavenWorldBuilder/</code></li>
+            </ul>
+            <li>Include any additional documentation or instructions for users for the Hub Page.</li>
+            <li>Provide information that they must use Haven World Builder for the Objects to spawn.</li>
+        </ul>
+        <li>Provide documentation and instructions for users on how to install and use the mod.</li>
+    </ol>
+    <b><span style="color:#c00000;">Do NOT include the <code>CathieNova.HavenWorldBuilder.dll</code> file in your release.</span></b>
+
+    <h2>Additional Information</h2>
     <h3>Quest Status Names and Numbers (use names in json for QuestStatus)</h3>
     <ul>
         <li><b>Locked:</b> 0</li>
