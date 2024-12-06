@@ -32,8 +32,8 @@
         <h3 style="color: #ff7920;"><strong>VCQL Page Settings</strong></h3>
         <label for="spt-version">SPT Version:</label>
         <select id="spt-version" onchange="handleSPTVersionChange()">
-            <option value="3.9.8">SPT 3.9.8</option>
             <option value="3.10">SPT 3.10</option>
+            <option value="3.9.8">SPT 3.9.8</option>
         </select>
         <div class="language-container" id="language-container" style="text-align: left;">
             <label class="language-select-label" for="language-select">Item Names Language: </label>
@@ -2762,7 +2762,7 @@
                             enemyEquipmentExclusive: [],
                             enemyEquipmentInclusive: [],
                             enemyHealthEffects: [],
-                            id: generateUniqueId(),
+                            id: conditionId,
                             resetOnSessionEnd: false,
                             savageRole: targetSelect.value === 'Savage' ? selectedSavageRoles : [],
                             target: targetSelect ? targetSelect.value : 'Any',
